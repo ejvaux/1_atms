@@ -11,6 +11,15 @@
 |
 */
 
-Route::get('/', function () {
+/* Route::get('/', function () {
     return view('welcome');
-});
+}); */
+
+Route::get('/', 'PagesController@index');
+
+Auth::routes();
+
+Route::get('/dashboard', 'DashboardController@index');
+
+
+
