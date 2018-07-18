@@ -24,19 +24,19 @@
 
     <ul class="nav nav-tabs" id="myTab" role="tablist">
         <li class="nav-item">
-            <a class="nav-link active" id="home-tab" data-toggle="tab" href="#create" role="tab" >Create Ticket</a>
+            <a class="nav-link active" id="create-tab" data-toggle="tab" href="#create" role="tab" >Create Ticket</a>
         </li>
         <li class="nav-item">
-            <a class="nav-link" id="profile-tab" data-toggle="tab" href="#view" role="tab" >View Ticket</a>
+            <a class="nav-link" id="view-tab" data-toggle="tab" href="#view" role="tab" >My Tickets</a>
         </li>
-        {{-- <li class="nav-item">
+        <li class="nav-item">
             <a class="nav-link" id="contact-tab" data-toggle="tab" href="#contact" role="tab" >Contact</a>
-        </li> --}}
+        </li>
     </ul>
     <div class="tab-content" id="myTabContent">
-        <div class="tab-pane fade show active" id="create" role="tabpanel">@include('inc.ct')</div>
-        <div class="tab-pane fade" id="view" role="tabpanel">@include('inc.vt')</div>
-        {{-- <div class="tab-pane fade" id="contact" role="tabpanel">tab 3</div> --}}
+        <div class="tab-pane fade show active" id="create" role="tabpanel">@include('tabs.ct')</div>
+        <div class="tab-pane fade" id="view" role="tabpanel">@include('tabs.vt')</div>
+        <div class="tab-pane fade" id="contact" role="tabpanel">Under Construction</div>
     </div>
 </div>
 @endsection
