@@ -51,6 +51,11 @@
                         <textarea type="text" class="form-control" rows="8" id="message" name="message" placeholder=""></textarea>
                     </div>
                 </div>
+                <div class="form-group row text-right">
+                    <div class="col">
+                        <button type="submit" class="btn btn-primary">Submit Ticket</button>
+                    </div>
+                </div>
             </form>
         </div>
     </div>    
