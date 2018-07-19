@@ -5,16 +5,19 @@
                 <div class="form-group row">
                     <div class="col-md-3">
                         <label class="" for="ticketnumber">Ticket #:</label>
-                        <input type="text" class="form-control" id="ticketnumber" name="ticketnumber" placeholder="" readonly>
+                        <input type="text" class="form-control" id="ticketnumber" name="ticketnumber" placeholder="" value="{{$ticket_id}}" readonly>
                     </div>
                     <div class="col-md-6">                            
                         <label for="username">Name:</label>
-                        <input type="text" class="form-control" id="username" name="username" placeholder="" readonly>
+                        <input type="text" class="form-control" id="username" name="username" placeholder="" value="{{ Auth::user()->name }}" readonly>
                     </div>
                     <div class="col-md-3">
                         <label for="division">Division:</label>
                         <select type="text" class="form-control" id="division" name="division" placeholder="">
                             <option value="">- Select Division -</option>
+                            @foreach($divisions as $division)
+                                <option value="{{$division->DIVISION_ID}}">{{$division->DIVISION_NAME}}</option>
+                            @endforeach
                         </select>
                     </div>                                                       
                 </div>
@@ -26,22 +29,19 @@
                     <div class="col-md-3">                            
                         <label for="category">Category:</label>
                         <select type="text" class="form-control" id="category" name="category" placeholder="">
-                            <option value="">- Select Category -</option>
-                            <option value="1">Hardware</option>
-                            <option value="2">Operating System</option>
-                            <option value="3">Application/Systems</option>
-                            <option value="4">Network/Internet</option>
+                            <option value="">- Select Category -</option>                            
+                            @foreach($categories as $category)
+                                <option value="{{$category->id}}">{{$category->name}}</option>
+                            @endforeach
                         </select>
                     </div>
                     <div class="col-md-3">
                         <label for="priority">Priority:</label>
                         <select type="text" class="form-control" id="priority" name="priority" placeholder="">
                             <option value="">- Select Priority -</option>
-                            <option value="1">Low</option>
-                            <option value="2">Normal</option>
-                            <option value="3">Medium</option>
-                            <option value="4">High</option>
-                            <option value="5">Very High</option>
+                            @foreach($priorities as $priority)
+                                <option value="{{$priority->id}}">{{$priority->name}}</option>
+                            @endforeach
                         </select>
                     </div>
                 </div>

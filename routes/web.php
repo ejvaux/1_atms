@@ -23,5 +23,9 @@ Route::get('/dashboard', 'DashboardController@index');
 
 Route::resource('tickets','TicketsController');
 
+Route::resource('categories','CategoriesController');
+
+Route::resource('priorities','PrioritiesController');
+
 
 
