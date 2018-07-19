@@ -21,5 +21,7 @@ Auth::routes();
 
 Route::get('/dashboard', 'DashboardController@index');
 
+Route::resource('tickets','TicketsController');
+
 
 
