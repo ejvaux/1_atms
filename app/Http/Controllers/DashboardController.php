@@ -32,7 +32,7 @@ class DashboardController extends Controller
             $ticket_id = 1;
         }
         else{
-            $ticket_id++;
+            $ticket_id->id++;
         }
         $divisions = Division::select('DIVISION_ID','DIVISION_NAME')->orderBy('DIVISION_NAME')->get();
         $categories = Category::orderBy('name')->get();

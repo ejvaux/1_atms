@@ -1,11 +1,13 @@
 <div class="container border-bottom border-left border-right">
     <div class="row pt-3">
         <div class="col-md-12">
-            <form>
+            <form id='createticketform' action='{{ action('TicketsController@store') }}' method='POST'>
+                @csrf
+                <input name="userid" type="hidden" value="{{ Auth::user()->id }}">
                 <div class="form-group row">
                     <div class="col-md-3">
                         <label class="" for="ticketnumber">Ticket #:</label>
-                        <input type="text" class="form-control" id="ticketnumber" name="ticketnumber" placeholder="" value="{{$ticket_id}}" readonly>
+                        <input type="text" class="form-control" id="ticketnumber" name="ticketnumber" placeholder="" value="{{$ticket_id->id}}" readonly>
                     </div>
                     <div class="col-md-6">                            
                         <label for="username">Name:</label>
@@ -23,8 +25,8 @@
                 </div>
                 <div class="form-group row">
                     <div class="col-md-6">
-                        <label for="title">Subject:</label>
-                        <input type="text" class="form-control" id="title" name="title" placeholder="">
+                        <label for="subject">Subject:</label>
+                        <input type="text" class="form-control" id="subject" name="subject" placeholder="">
                     </div>
                     <div class="col-md-3">                            
                         <label for="category">Category:</label>

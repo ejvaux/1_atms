@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Ticket;
 
 class TicketsController extends Controller
 {
@@ -34,7 +35,26 @@ class TicketsController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'division' => 'required|max:255',
+            'category' => 'required',
+            'priority' => 'required',
+            'subject' => 'required',
+            'message' => 'required'
+        ]);
+
+        // Create Ticket
+
+        $t = new Ticket;
+        $t->user_id = $request->input('userid');
+        $t->division_id = $request->input('division');
+        $t->category = $request->input('category');
+        $t->priority = $request->input('priority');
+        $t->subject = $request->input('subject');
+        $t->message = $request->input('message');
+        $t->save();
+
+        return redirect('/dashboard')->with('success','Ticket Submitted.');
     }
 
     /**
