@@ -36,7 +36,7 @@ class TicketsController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'division' => 'required|max:255',
+            'division' => 'required',
             'category' => 'required',
             'priority' => 'required',
             'subject' => 'required',
@@ -52,9 +52,10 @@ class TicketsController extends Controller
         $t->priority = $request->input('priority');
         $t->subject = $request->input('subject');
         $t->message = $request->input('message');
-        $t->save();
-
-        return redirect('/dashboard')->with('success','Ticket Submitted.');
+        $t->save();             
+        
+        return true;
+        /* return redirect('/dashboard')->with('success','Ticket Submitted.'); */
     }
 
     /**

@@ -24,7 +24,7 @@
 
     <ul class="nav nav-tabs" id="myTab" role="tablist">
         <li class="nav-item active">
-            <a class="nav-link" id="view-tab" data-toggle="tab" href="#view" role="tab" >My Tickets</a>
+            <a class="nav-link active" id="view-tab" data-toggle="tab" href="#view" role="tab" >My Tickets</a>
         </li>
         <li class="nav-item">
             <a class="nav-link" id="create-tab" data-toggle="tab" href="#create" role="tab" >Create Ticket</a>
