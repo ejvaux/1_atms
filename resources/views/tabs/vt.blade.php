@@ -1,4 +1,5 @@
-<div class="container border-bottom border-left border-right">
+@include('inc.messages')
+<div class="container">
     <div class="row pt-3">
         <div class="col-md-4 ml-3">
             <form>

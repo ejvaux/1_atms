@@ -25,7 +25,12 @@ class DashboardController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function vt()
+    {        
+        return view('pages.dashboard')->nest('child', 'tabs.vt');
+    }
+
+    public function ct()
     {
         $ticket_id = Ticket::select('id')->orderBy('id','desc')->first();
         if(!$ticket_id){
@@ -37,6 +42,12 @@ class DashboardController extends Controller
         $divisions = Division::select('DIVISION_ID','DIVISION_NAME')->orderBy('DIVISION_NAME')->get();
         $categories = Category::orderBy('name')->get();
         $priorities = Priority::orderBy('name')->get();
-        return view('pages.dashboard', compact('categories', 'priorities','divisions','ticket_id'));
+        /* return view('pages.dashboard', compact('categories', 'priorities','divisions','ticket_id')); */
+        return view('pages.dashboard')->nest('child', 'tabs.ct', compact('categories', 'priorities','divisions','ticket_id'));
+    }
+
+    public function cu()
+    {        
+        return view('pages.dashboard')->nest('child', 'tabs.cu');
     }
 }
