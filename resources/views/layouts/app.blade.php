@@ -10,15 +10,13 @@
 
     <title>@yield('pageTitle')</title>
 
-    @include('inc.header')
-    <script>
-        $(window).load(function() {
-            NProgress.start();
-            NProgress.inc();
-        });        
-    </script>       
+    @include('inc.header')         
 </head>
 <body>
+    <script>        
+        NProgress.start();
+        NProgress.inc();  
+    </script>
     <div id="app">
         @include('inc.navbar')  
         <main class="container py-4">

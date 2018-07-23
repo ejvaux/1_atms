@@ -16,6 +16,9 @@
 <!-- ______________________ Scripts ______________________ -->
 <script src="{{ asset('js/app.js') }}" defer></script>
 
+<!-- Jquery -->
+<script src="/1_tms/node_modules/jquery/dist/jquery.min.js" type="text/javascript"></script>
+
 <!-- Izitoast -->
 <script src="/1_tms/node_modules/izitoast/dist/js/iziToast.min.js" type="text/javascript"></script>
 
