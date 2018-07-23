@@ -25,5 +25,9 @@
 <!-- NProgress -->
 <script src='/1_tms/node_modules/nprogress/nprogress.js'></script>
 
+<!-- Pjax -->
+<script src="/1_tms/node_modules/pjax/pjax.min.js" defer></script>
+
 <!-- Custom -->
 <script src="{{ asset('js/dashboard.js') }}" defer></script>
+<script src="{{ asset('js/pjax.js') }}" defer></script>

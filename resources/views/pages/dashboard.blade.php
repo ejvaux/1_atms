@@ -46,17 +46,17 @@
                         <nav class="card-body">                        
                             <ul class="nav flex-column">                            
                                 <li class="nav-item">
-                                    <a class="nav-link" href="{{ url("/dashboard") }}" id="myticket">
+                                    <a class="nav-link js-Pjax" href="{{ url("/dashboard") }}" id="myticket">
                                       <span class="badge badge-pill badge-danger"></span> My Tickets
                                     </a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link" href="{{ url("/dashboard/ct") }}" id="createticket">
+                                    <a class="nav-link js-Pjax" href="{{ url("/dashboard/ct") }}" id="createticket">
                                       <span class="badge badge-pill badge-danger"></span> Create Ticket
                                     </a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link" href="{{ url("/dashboard/cu") }}" id="contact">
+                                    <a class="nav-link js-Pjax" href="{{ url("/dashboard/cu") }}" id="contact">
                                       <span class="badge badge-pill badge-danger"></span> Contact Us
                                     </a>
                                 </li>               

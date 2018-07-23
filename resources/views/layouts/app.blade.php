@@ -13,20 +13,11 @@
     @include('inc.header')         
 </head>
 <body>
-    <script>        
-        NProgress.start();
-        NProgress.inc();  
-    </script>
-    <div id="app">
+    <div id="app" class='app'>
         @include('inc.navbar')  
         <main class="container py-4">
             @yield('content')
         </main>
     </div>
-    <script>
-        $(document).ready(function() {
-            NProgress.done();
-        });
-    </script>
 </body>
 </html>
