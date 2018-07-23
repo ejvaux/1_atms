@@ -3,12 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Ticket;
-use App\Category;
-use App\Priority;
-use App\Division;
 
-class TicketsController extends Controller
+class PrioritiesController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -38,26 +34,7 @@ class TicketsController extends Controller
      */
     public function store(Request $request)
     {
-        $request->validate([
-            'subject' => 'required',
-            'priority' => 'required',
-            'category' => 'required', 
-            'division' => 'required',          
-            'message' => 'required',
-        ]);
-
-        // Create Ticket
-
-        $t = new Ticket;
-        $t->user_id = $request->input('userid');
-        $t->division_id = $request->input('division');
-        $t->category = $request->input('category');
-        $t->priority = $request->input('priority');
-        $t->subject = $request->input('subject');
-        $t->message = $request->input('message');
-        $t->save();
-
-        return redirect('/dashboard/ct')->with('success','Ticket Submitted.');
+        //
     }
 
     /**
@@ -68,7 +45,7 @@ class TicketsController extends Controller
      */
     public function show($id)
     {
-        return Ticket::where('id',$id)->get();
+        //
     }
 
     /**

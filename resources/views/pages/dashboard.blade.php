@@ -22,21 +22,52 @@
         </div>
     </div> --}}
 
-    <ul class="nav nav-tabs" id="myTab" role="tablist">
-        <li class="nav-item">
-            <a class="nav-link active" id="create-tab" data-toggle="tab" href="#create" role="tab" >Create Ticket</a>
+    {{-- <ul class="nav nav-tabs" id="myTab" role="tablist">
+        <li class="nav-item active">
+            <a class="nav-link active" id="view-tab" data-toggle="tab" href="#view" role="tab" >My Tickets</a>
         </li>
         <li class="nav-item">
-            <a class="nav-link" id="view-tab" data-toggle="tab" href="#view" role="tab" >My Tickets</a>
-        </li>
+            <a class="nav-link" id="create-tab" data-toggle="tab" href="#create" role="tab" >Create Ticket</a>
+        </li>        
         <li class="nav-item">
             <a class="nav-link" id="contact-tab" data-toggle="tab" href="#contact" role="tab" >Contact</a>
         </li>
     </ul>
     <div class="tab-content" id="myTabContent">
-        <div class="tab-pane fade show active" id="create" role="tabpanel">@include('tabs.ct')</div>
-        <div class="tab-pane fade" id="view" role="tabpanel">@include('tabs.vt')</div>
+        <div class="tab-pane fade" id="create" role="tabpanel">@include('tabs.ct')</div>
+        <div class="tab-pane fade show active" id="view" role="tabpanel">@include('tabs.vt')</div>
         <div class="tab-pane fade" id="contact" role="tabpanel">Under Construction</div>
+    </div> --}}
+
+    <div class="container-fluid" style='height:100vh'>
+        <div class="row" style='height:100vh'>
+            <div class="col-md-3 m-0" style='height:100vh'>
+                <div class="card" style='height:100vh'>                              
+                        <nav class="card-body">                        
+                            <ul class="nav flex-column">                            
+                                <li class="nav-item">
+                                    <a class="nav-link" href="{{ url("/dashboard") }}" id="myticket">
+                                      <span class="badge badge-pill badge-danger"></span> My Tickets
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="{{ url("/dashboard/ct") }}" id="createticket">
+                                      <span class="badge badge-pill badge-danger"></span> Create Ticket
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="{{ url("/dashboard/cu") }}" id="contact">
+                                      <span class="badge badge-pill badge-danger"></span> Contact Us
+                                    </a>
+                                </li>               
+                            </ul>                                      
+                        </nav>                       
+                </div>
+            </div>
+            <div class='col-md m-0 pt-3 border' id="main_panel" style="background:white">
+            <?php echo $child; ?>         
+            </div> 
+        </div>
     </div>
 </div>
 @endsection

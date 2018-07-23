@@ -1,54 +1,50 @@
-<div class="container border-bottom border-left border-right">
+@include('inc.messages')
+
+<div class="container">
     <div class="row pt-3">
         <div class="col-md-12">
-            <form>
+            <form id='createticketform' action='{{ action('TicketsController@store') }}' method='POST'>
+                @csrf
+                <input name="userid" type="hidden" value="{{ Auth::user()->id }}">                
+                <input type="hidden" id="username" name="username" placeholder="" value="{{ Auth::user()->name }}" readonly>
+                
                 <div class="form-group row">
-                    <div class="col-md-3">
-                        <label class="" for="ticketnumber">Ticket #:</label>
-                        <input type="text" class="form-control" id="ticketnumber" name="ticketnumber" placeholder="" readonly>
-                    </div>
-                    <div class="col-md-6">                            
-                        <label for="username">Name:</label>
-                        <input type="text" class="form-control" id="username" name="username" placeholder="" readonly>
-                    </div>
-                    <div class="col-md-3">
-                        <label for="division">Division:</label>
-                        <select type="text" class="form-control" id="division" name="division" placeholder="">
-                            <option value="">- Select Division -</option>
+                    <div class="col-md-5">
+                        <label for="subject">Subject:</label>
+                        <input type="text" class="form-control" id="subject" name="subject" placeholder="" >
+                    </div>                    
+                    <div class="col-md-2">
+                        <label for="priority">Priority:</label>
+                        <select type="text" class="form-control" id="priority" name="priority" placeholder="" >
+                            <option value="">- Select Priority -</option>
+                            @foreach($priorities as $priority)
+                                <option value="{{$priority->id}}">{{$priority->name}}</option>
+                            @endforeach
                         </select>
-                    </div>                                                       
-                </div>
-                <div class="form-group row">
-                    <div class="col-md-6">
-                        <label for="title">Subject:</label>
-                        <input type="text" class="form-control" id="title" name="title" placeholder="">
                     </div>
                     <div class="col-md-3">                            
                         <label for="category">Category:</label>
-                        <select type="text" class="form-control" id="category" name="category" placeholder="">
-                            <option value="">- Select Category -</option>
-                            <option value="1">Hardware</option>
-                            <option value="2">Operating System</option>
-                            <option value="3">Application/Systems</option>
-                            <option value="4">Network/Internet</option>
+                        <select type="text" class="form-control" id="category" name="category" placeholder="" >
+                            <option value="">- Select Category -</option>                            
+                            @foreach($categories as $category)
+                                <option value="{{$category->id}}">{{$category->name}}</option>
+                            @endforeach
                         </select>
                     </div>
-                    <div class="col-md-3">
-                        <label for="priority">Priority:</label>
-                        <select type="text" class="form-control" id="priority" name="priority" placeholder="">
-                            <option value="">- Select Priority -</option>
-                            <option value="1">Low</option>
-                            <option value="2">Normal</option>
-                            <option value="3">Medium</option>
-                            <option value="4">High</option>
-                            <option value="5">Very High</option>
+                    <div class="col-md-2">
+                        <label for="division">Division:</label>
+                        <select type="text" class="form-control" id="division" name="division" placeholder="" >
+                            <option value="">- Select Division -</option>
+                            @foreach($divisions as $division)
+                                <option value="{{$division->DIVISION_ID}}">{{$division->DIVISION_NAME}}</option>
+                            @endforeach
                         </select>
                     </div>
                 </div>
                 <div class="form-group row">
                     <div class="col">
                         <label for="message">Message:</label>
-                        <textarea type="text" class="form-control" rows="8" id="message" name="message" placeholder=""></textarea>
+                        <textarea type="text" class="form-control" rows="8" id="message" name="message" placeholder="" ></textarea>
                     </div>
                 </div>
                 <div class="form-group row text-right">

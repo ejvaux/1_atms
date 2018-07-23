@@ -16,12 +16,17 @@
 }); */
 
 Route::get('/', 'PagesController@index');
-
 Auth::routes();
 
-Route::get('/dashboard', 'DashboardController@index');
+// Dashboard
+Route::get('/dashboard', 'DashboardController@vt');
+Route::get('/dashboard/ct', 'DashboardController@ct');
+Route::get('/dashboard/cu', 'DashboardController@cu');
 
+// Tables
 Route::resource('tickets','TicketsController');
+Route::resource('categories','CategoriesController');
+Route::resource('priorities','PrioritiesController');
 
 
 
