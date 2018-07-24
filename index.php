@@ -1,3 +1,3 @@
 <?php
-header('Location: /1_tms/public/');
+header('Location: /1_atms/public/');
 ?>
