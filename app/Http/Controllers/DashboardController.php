@@ -7,6 +7,7 @@ use App\Ticket;
 use App\Category;
 use App\Priority;
 use App\Division;
+use Auth;
 
 class DashboardController extends Controller
 {
@@ -27,7 +28,7 @@ class DashboardController extends Controller
      */
     public function vt()
     {
-        $tickets = Ticket::orderBy('id','desc')->paginate(6);
+        $tickets = Ticket::where('user_id',Auth::user()->id)->orderBy('id','desc')->paginate(10);
         return view('pages.dashboard')->nest('child', 'tabs.vt', compact('tickets'));
     }
 

@@ -12,7 +12,7 @@
     </div> 
     <div class='row'>
         <div class='col-md'>
-            @if (count($tickets)>1)
+            @if (count($tickets)>0)
                 @foreach($tickets as $ticket)
                     <div class='card mb-2'>
                         <div class="card-body row pl-3 pr-0 pb-2 ">                                                     
@@ -55,15 +55,14 @@
                                     </div>
                                 </div>
                                 <div class='row'>
-                                    <div class='col'></div>
                                     <div class='col-md-8'>
-                                        <span class='text-muted'>Requested by 
+                                        <span class='text-muted'>Submitted by 
                                             @if($ticket->user->name == Auth::user()->name)
-                                                You
+                                                <strong>You</strong>
                                             @else
-                                                {{$ticket->user->name}}
+                                                <strong>{{$ticket->user->name}}</strong>
                                             @endif
-                                             at {{$ticket->created_at}}.</span>
+                                             at <i>{{$ticket->created_at}}</i>.</span>
                                     </div>
                                     <div class='col-md-3 ml-auto'>
                                         <span class="badge badge-light" style="font-size:13px">{{$ticket->category->name}}</span>

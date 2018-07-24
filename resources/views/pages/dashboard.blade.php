@@ -41,7 +41,7 @@
 
     <div class="container-fluid" style='height:100vh'>
         <div class="row">
-            <div class="col-md-2 m-0 p-1" style='height:100vh'>
+            <div class="col-md-2 m-0 px-1" style='height:100vh'>
                 <div class="card" style='height:100vh'>                              
                         <nav class="card-body">                        
                             <ul class="nav flex-column">                            
