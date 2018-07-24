@@ -40,8 +40,8 @@
     </div> --}}
 
     <div class="container-fluid" style='height:100vh'>
-        <div class="row" style='height:100vh'>
-            <div class="col-md-3 m-0" style='height:100vh'>
+        <div class="row">
+            <div class="col-md-2 m-0 p-1" style='height:100vh'>
                 <div class="card" style='height:100vh'>                              
                         <nav class="card-body">                        
                             <ul class="nav flex-column">                            
@@ -64,7 +64,7 @@
                         </nav>                       
                 </div>
             </div>
-            <div class='col-md m-0 pt-3 border' id="main_panel" style="background:white">
+            <div class='col-md-10 m-0 pt-3 border' id="main_panel" style="background:white" >
             <?php echo $child; ?>         
             </div> 
         </div>

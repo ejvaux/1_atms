@@ -26,8 +26,9 @@ class DashboardController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function vt()
-    {        
-        return view('pages.dashboard')->nest('child', 'tabs.vt');
+    {
+        $tickets = Ticket::orderBy('id','desc')->paginate(6);
+        return view('pages.dashboard')->nest('child', 'tabs.vt', compact('tickets'));
     }
 
     public function ct()
@@ -40,8 +41,8 @@ class DashboardController extends Controller
             $ticket_id->id++;
         }
         $divisions = Division::select('DIVISION_ID','DIVISION_NAME')->orderBy('DIVISION_NAME')->get();
-        $categories = Category::orderBy('name')->get();
-        $priorities = Priority::orderBy('name')->get();
+        $categories = Category::orderBy('id')->get();
+        $priorities = Priority::orderBy('id')->get();
         /* return view('pages.dashboard', compact('categories', 'priorities','divisions','ticket_id')); */
         return view('pages.dashboard')->nest('child', 'tabs.ct', compact('categories', 'priorities','divisions','ticket_id'));
     }

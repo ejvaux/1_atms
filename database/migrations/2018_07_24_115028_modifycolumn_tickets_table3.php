@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class RenameFeedbackTable extends Migration
+class ModifycolumnTicketsTable3 extends Migration
 {
     /**
      * Run the migrations.
@@ -13,7 +13,10 @@ class RenameFeedbackTable extends Migration
      */
     public function up()
     {
-        Schema::rename('feedback', 'feedbacks');
+        Schema::table('tickets', function (Blueprint $table) {
+            $table->string('start_at')->nullable()->change();
+            $table->string('finish_at')->nullable()->change();
+        });
     }
 
     /**
@@ -23,6 +26,6 @@ class RenameFeedbackTable extends Migration
      */
     public function down()
     {
-        Schema::rename('feedback', 'feedbacks');
+        //
     }
 }

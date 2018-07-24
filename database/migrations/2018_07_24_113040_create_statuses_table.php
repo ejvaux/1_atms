@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class RenameFeedbackTable extends Migration
+class CreateStatusesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,7 +13,11 @@ class RenameFeedbackTable extends Migration
      */
     public function up()
     {
-        Schema::rename('feedback', 'feedbacks');
+        Schema::create('statuses', function (Blueprint $table) {
+            $table->increments('id');
+            $table->string('name');
+            $table->timestamps();
+        });
     }
 
     /**
@@ -23,6 +27,6 @@ class RenameFeedbackTable extends Migration
      */
     public function down()
     {
-        Schema::rename('feedback', 'feedbacks');
+        Schema::dropIfExists('statuses');
     }
 }

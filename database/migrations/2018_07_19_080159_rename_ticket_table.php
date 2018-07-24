@@ -23,6 +23,6 @@ class RenameTicketTable extends Migration
      */
     public function down()
     {
-        //
+        Schema::rename('ticket', 'tickets');
     }
 }
