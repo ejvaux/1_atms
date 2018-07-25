@@ -10481,8 +10481,8 @@ a.text-dark:focus {
 
 @font-face {
   font-family: 'FontAwesome';
-  src: url("/1_tms/public/fonts/vendor/font-awesome/fontawesome-webfont.eot?v=4.7.0");
-  src: url("/1_tms/public/fonts/vendor/font-awesome/fontawesome-webfont.eot?#iefix&v=4.7.0") format("embedded-opentype"), url("/1_tms/public/fonts/vendor/font-awesome/fontawesome-webfont.woff2?v=4.7.0") format("woff2"), url("/1_tms/public/fonts/vendor/font-awesome/fontawesome-webfont.woff?v=4.7.0") format("woff"), url("/1_tms/public/fonts/vendor/font-awesome/fontawesome-webfont.ttf?v=4.7.0") format("truetype"), url("/1_tms/public/fonts/vendor/font-awesome/fontawesome-webfont.svg?v=4.7.0#fontawesomeregular") format("svg");
+  src: url("/1_atms/public/fonts/vendor/font-awesome/fontawesome-webfont.eot?v=4.7.0");
+  src: url("/1_atms/public/fonts/vendor/font-awesome/fontawesome-webfont.eot?#iefix&v=4.7.0") format("embedded-opentype"), url("/1_atms/public/fonts/vendor/font-awesome/fontawesome-webfont.woff2?v=4.7.0") format("woff2"), url("/1_atms/public/fonts/vendor/font-awesome/fontawesome-webfont.woff?v=4.7.0") format("woff"), url("/1_atms/public/fonts/vendor/font-awesome/fontawesome-webfont.ttf?v=4.7.0") format("truetype"), url("/1_atms/public/fonts/vendor/font-awesome/fontawesome-webfont.svg?v=4.7.0#fontawesomeregular") format("svg");
   font-weight: normal;
   font-style: normal;
 }
