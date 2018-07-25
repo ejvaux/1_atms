@@ -56,12 +56,12 @@
                                 </div>
                                 <div class='row'>
                                     <div class='col-md-8'>
-                                        <span class='text-muted'>Submitted by 
+                                        <span class='text-muted'><strong>#{{$ticket->id}}</strong> Submitted {{-- by 
                                             @if($ticket->user->name == Auth::user()->name)
                                                 <strong>You</strong>
                                             @else
                                                 <strong>{{$ticket->user->name}}</strong>
-                                            @endif
+                                            @endif --}}
                                              at <i>{{$ticket->created_at}}</i>.</span>
                                     </div>
                                     <div class='col-md-3 ml-auto'>
