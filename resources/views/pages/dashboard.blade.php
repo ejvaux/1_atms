@@ -41,8 +41,8 @@
 
     <div class="container-fluid" style='height:100vh'>
         <div class="row">
-            <div class="col-md-2 m-0 px-1" style='height:100vh'>
-                <div class="card" style='height:100vh'>                              
+            <div class="col-md-2 m-0 px-1" style='height:100vh;'>
+                <div class="card">                              
                         <nav class="card-body">                        
                             <ul class="nav flex-column">                            
                                 <li class="nav-item">
@@ -63,6 +63,41 @@
                             </ul>                                      
                         </nav>                       
                 </div>
+                {{-- <div id="accordion">
+                    <div class="card">
+                      <div class="card-header" id="headingOne">
+                        <h5 class="mb-0">
+                          <button class="btn btn-link" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                            IT
+                          </button>
+                        </h5>
+                      </div>
+                  
+                      <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordion">
+                        <div class="card-body">
+                          <nav>
+                              test
+                          </nav>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="card">
+                      <div class="card-header" id="headingTwo">
+                        <h5 class="mb-0">
+                          <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                            HR
+                          </button>
+                        </h5>
+                      </div>
+                      <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordion">
+                        <div class="card-body">
+                            <nav>
+                                test
+                            </nav>
+                        </div>
+                      </div>
+                    </div>                    
+                </div> --}}
             </div>
             <div class='col-md-10 m-0 pt-3 border' id="main_panel" style="background:white" >
             <?php echo $child; ?>         
