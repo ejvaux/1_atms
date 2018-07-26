@@ -55,8 +55,11 @@
                                     </div>
                                 </div>
                                 <div class='row'>
-                                    <div class='col-md-8'>
-                                        <span class='text-muted'><strong>#{{$ticket->id}}</strong> Submitted {{-- by 
+                                    <div class='col-md-3'>
+                                        <strong>#{{$ticket->id}}</strong>
+                                    </div>
+                                    <div class='col-md-5'>
+                                        <span class='text-muted'>Submitted {{-- by 
                                             @if($ticket->user->name == Auth::user()->name)
                                                 <strong>You</strong>
                                             @else

@@ -31,11 +31,11 @@
                         </select>
                     </div>
                     <div class="col-md-2">
-                        <label for="division">Division:</label>
+                        <label for="division">Department:</label>
                         <select type="text" class="form-control" id="division" name="division" placeholder="" >
-                            <option value="">- Select Division -</option>
-                            @foreach($divisions as $division)
-                                <option value="{{$division->DIVISION_ID}}">{{$division->DIVISION_NAME}}</option>
+                            <option value="">- Select Department -</option>
+                            @foreach($departments as $department)
+                                <option value="{{$department->name}}">{{$department->name}}</option>
                             @endforeach
                         </select>
                     </div>
