@@ -21,7 +21,9 @@ for (i = 0; i < acc.length; i++) {
 			panel.style.border = "0";
     } else {
 			panel.style.maxHeight = panel.scrollHeight + "px";
-			panel.style.border = "1px solid gray";
+			panel.style.borderLeft = "1px solid gray";
+			panel.style.borderRight = "1px solid gray";
+			panel.style.borderBottom = "1px solid gray";
     } 
   });
 };
