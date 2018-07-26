@@ -9,31 +9,33 @@ function notifalert(type,msg){
   }
 }
 
-// Create ticket form
-/* $('#createticketform').on('submit', function (e) {
-  e.preventDefault();
-  e.stopImmediatePropagation();
-
+// Menu tabs
+$('#myticket').on('click',function(){
   $.ajax({
-    type: 'POST',
-    url: "/1_tms/public/tickets",
-    data: $('#createticketform').serializeArray(),    
-    dataType: 'json',
-    success: function (data) {
-      if(data){
-        $('#main_panel').load('/1_tms/public/ct'); 
-      }       
-    }
-  }); 
-  
-}); */ // Create ticket form
-
-// Load Tabs
-
-/* $('#myticket').on('click', function(){
-  $('#main_panel').load('/1_tms/public/vt');
+		type		: "GET",
+		url		: "/1_atms/public/it/vt",
+		success		: function(html) {					
+						$("#main_panel").html(html).show('slow');
+					} //end function
+  });//close ajax 
 });
 
-$('#createticket').on('click', function(){
-  $('#main_panel').load('/1_tms/public/ct');
-}); */
+$('#createticket').on('click',function(){
+  $.ajax({
+		type		: "GET",
+		url		: "/1_atms/public/it/ct",
+		success		: function(html) {					
+						$("#main_panel").html(html).show('slow');
+					} //end function
+  });//close ajax
+});
+
+$('#contact').on('click',function(){
+  $.ajax({
+		type		: "GET",
+		url		: "/1_atms/public/it/cu",
+		success		: function(html) {					
+						$("#main_panel").html(html).show('slow');
+					} //end function
+  });//close ajax
+});

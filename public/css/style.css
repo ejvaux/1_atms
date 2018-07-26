@@ -1,0 +1,25 @@
+.sidebar-button {
+    background-color: #eee;
+    color: #444;
+    cursor: pointer;
+    padding: 18px;
+    width: 100%;
+    border: none;
+    text-align: left;
+    outline: none;
+    font-size: 15px;
+    transition: 0.4s;
+}
+
+.sidebar-button:active, .sidebar-button:hover, .sidebar-button:focus {
+    background-color: #ccc;
+    outline: none;
+}
+
+.panel {
+    padding: 0 18px;
+    background-color: white;
+    overflow: hidden;
+    transition: 0.2s ease-out;
+    display: block;
+}

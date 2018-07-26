@@ -19,9 +19,12 @@ Route::get('/', 'PagesController@index');
 Auth::routes();
 
 // Dashboard
-Route::get('/dashboard', 'DashboardController@vt');
-Route::get('/dashboard/ct', 'DashboardController@ct');
-Route::get('/dashboard/cu', 'DashboardController@cu');
+Route::get('/dashboard', 'DashboardController@index');
+
+// IT
+Route::get('/it/vt', 'ItTabsController@view');
+Route::get('/it/ct', 'ItTabsController@create');
+Route::get('/it/cu', 'ItTabsController@contact');
 
 // Tables
 Route::resource('tickets','TicketsController');

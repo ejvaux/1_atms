@@ -5,29 +5,30 @@
 
 <!-- ______________________ Styles ______________________ -->
 <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+<link href="{{ asset('css/style.css') }}" rel="stylesheet">
 
 <!-- Izitoast -->
-<link rel="stylesheet" href="../node_modules/izitoast/dist/css/iziToast.min.css">
+<link rel="stylesheet" href="/1_atms/node_modules/izitoast/dist/css/iziToast.min.css">
 
 <!-- NProgress -->
-<link rel='stylesheet' href='../node_modules/nprogress/nprogress.css'/>
+<link rel='stylesheet' href='/1_atms/node_modules/nprogress/nprogress.css'/>
 
 
 <!-- ______________________ Scripts ______________________ -->
 <script src="{{ asset('js/app.js') }}" defer></script>
 
 <!-- Jquery -->
-<script src="../node_modules/jquery/dist/jquery.min.js" type="text/javascript"></script>
+<script src="/1_atms/node_modules/jquery/dist/jquery.min.js" type="text/javascript"></script>
 
 <!-- Izitoast -->
-<script src="../node_modules/izitoast/dist/js/iziToast.min.js" type="text/javascript"></script>
+<script src="/1_atms/node_modules/izitoast/dist/js/iziToast.min.js" type="text/javascript"></script>
 
 <!-- NProgress -->
-<script src='../node_modules/nprogress/nprogress.js'></script>
+<script src='/1_atms/node_modules/nprogress/nprogress.js'></script>
 
 <!-- Pjax -->
-<script src="../node_modules/pjax/pjax.min.js" defer></script>
+<script src="/1_atms/node_modules/pjax/pjax.min.js" defer></script>
 
 <!-- Custom -->
-<script src="{{ asset('js/dashboard.js') }}" defer></script>
 <script src="{{ asset('js/pjax.js') }}" defer></script>
+<script src="{{ asset('js/dashboard.js') }}" defer></script>
