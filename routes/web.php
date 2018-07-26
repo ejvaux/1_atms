@@ -21,10 +21,13 @@ Auth::routes();
 // Dashboard
 Route::get('/dashboard', 'DashboardController@index');
 
+// HOME
+Route::get('/home/dt', 'DashboardController@viewdashtab');
+
 // IT
-Route::get('/it/vt', 'ItTabsController@view');
-Route::get('/it/ct', 'ItTabsController@create');
-Route::get('/it/cu', 'ItTabsController@contact');
+Route::get('/it/vt', 'DashboardController@viewticket');
+Route::get('/it/ct', 'DashboardController@createticket');
+Route::get('/it/cu', 'DashboardController@contact');
 
 // Tables
 Route::resource('tickets','TicketsController');

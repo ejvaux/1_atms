@@ -1,4 +1,4 @@
-.sidebar-button {
+.accordion {
     background-color: #eee;
     color: #444;
     cursor: pointer;
@@ -11,15 +11,31 @@
     transition: 0.4s;
 }
 
-.sidebar-button:active, .sidebar-button:hover, .sidebar-button:focus {
+.active, .accordion:hover {
     background-color: #ccc;
-    outline: none;
+}
+
+.accordion:after {
+    content: '\002B';
+    color: #777;
+    font-weight: bold;
+    float: right;
+    margin-left: 5px;
+}
+
+.active:after {
+    content: "\2212";
 }
 
 .panel {
     padding: 0 18px;
     background-color: white;
+    max-height: 0;
     overflow: hidden;
-    transition: 0.2s ease-out;
+    transition: max-height 0.2s ease-out;
     display: block;
+}
+
+.menutab, .menutab:active, .menutab:hover, .menutab:active {
+    color:black;
 }
