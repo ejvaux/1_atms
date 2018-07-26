@@ -25,7 +25,7 @@ Route::get('/dashboard', 'DashboardController@index');
 Route::get('/home/dt', 'DashboardController@viewdashtab');
 
 // IT
-Route::get('/it/vt', 'DashboardController@viewticket');
+Route::get('/it/vt', 'DashboardController@viewticketuser');
 Route::get('/it/ct', 'DashboardController@createticket');
 Route::get('/it/cu', 'DashboardController@contact');
 
