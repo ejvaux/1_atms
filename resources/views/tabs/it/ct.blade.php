@@ -1,8 +1,8 @@
-@include('inc.messages')
+{{-- @include('inc.messages') --}}
 <div class="container">
     <div class="row pt-3">
         <div class="col-md-12">
-            <form id='createticketform' action='{{ action('TicketsController@store') }}' method='POST'>
+            <form id='createticketform'>
                 @csrf
                 <input name="userid" type="hidden" value="{{ Auth::user()->id }}">                
                 <input type="hidden" id="username" name="username" placeholder="" value="{{ Auth::user()->name }}" readonly>
@@ -31,11 +31,11 @@
                         </select>
                     </div>
                     <div class="col-md-2">
-                        <label for="division">Department:</label>
-                        <select type="text" class="form-control" id="division" name="division" placeholder="" >
+                        <label for="department">Department:</label>
+                        <select type="text" class="form-control" id="department" name="department" placeholder="" >
                             <option value="">- Select Department -</option>
                             @foreach($departments as $department)
-                                <option value="{{$department->name}}">{{$department->name}}</option>
+                                <option value="{{$department->id}}">{{$department->name}}</option>
                             @endforeach
                         </select>
                     </div>
@@ -48,10 +48,45 @@
                 </div>
                 <div class="form-group row text-right">
                     <div class="col">
-                        <button type="submit" class="btn btn-primary">Submit Ticket</button>
+                        <button type='submit' class="btn btn-primary" id="saveTicketButton">Submit Ticket</button>
                     </div>
                 </div>
             </form>
         </div>
     </div>    
 </div>
+<script>
+// TICKETS
+$('#createticketform').on('submit',function(e){	
+    e.preventDefault();
+    e.stopImmediatePropagation();
+   
+    $.ajax({
+		type: "POST",
+        url	: "/1_atms/public/tickets",
+        data: $('#createticketform').serialize(),
+        datatype: 'JSON',       
+		success: function(success_data) {
+            iziToast.success({
+                message: success_data,
+                position: 'topCenter',
+                timeout: 2000
+            });
+            $('#createticketform').trigger('reset');
+            /* $("#main_panel").html(html).show('slow');   */                      
+        },
+        error: function(data){
+        var errors = data.responseJSON;
+            var msg = '';
+            $.each(errors['errors'], function( index, value ) {
+                msg += value +"<br>"
+            });
+            iziToast.warning({
+                message: msg,
+                position: 'topCenter',
+                timeout: 5000
+            });
+        } //end function
+    });//close ajax
+});
+</script>

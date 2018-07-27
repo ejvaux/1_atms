@@ -35,6 +35,9 @@ $('#dboard').on('click',function(){
 		url		: "/1_atms/public/home/dt",
 		success		: function(html) {					
 						$("#main_panel").html(html).show('slow');
+					},
+					error : function (jqXHR, textStatus, errorThrown) {							
+							window.location.href = '/1_atms/public/login';
 					} //end function
   });//close ajax 
 });
@@ -46,6 +49,9 @@ $('#myticket').on('click',function(){
 		url		: "/1_atms/public/it/vt",
 		success		: function(html) {					
 						$("#main_panel").html(html).show('slow');
+					},
+					error : function (jqXHR, textStatus, errorThrown) {							
+							window.location.href = '/1_atms/public/login';
 					} //end function
   });//close ajax 
 });
@@ -56,6 +62,9 @@ $('#createticket').on('click',function(){
 		url		: "/1_atms/public/it/ct",
 		success		: function(html) {					
 						$("#main_panel").html(html).show('slow');
+					},
+					error : function (jqXHR, textStatus, errorThrown) {							
+							window.location.href = '/1_atms/public/login';
 					} //end function
   });//close ajax
 });
@@ -66,6 +75,9 @@ $('#contact').on('click',function(){
 		url		: "/1_atms/public/it/cu",
 		success		: function(html) {					
 						$("#main_panel").html(html).show('slow');
+					},
+					error : function (jqXHR, textStatus, errorThrown) {							
+							window.location.href = '/1_atms/public/login';
 					} //end function
   });//close ajax
-});
+});    

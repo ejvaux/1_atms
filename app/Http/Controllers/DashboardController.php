@@ -34,34 +34,27 @@ class DashboardController extends Controller
     // HOME
     public function viewdashtab()
     {       
-        return view('tabs.h_dash');
+        return view('tabs.home.dash');
     }
     
     // IT Tabs
     public function viewticketuser()
     {
         $tickets = Ticket::where('user_id',Auth::user()->id)->orderBy('id','desc')->paginate(10);
-        return view('tabs.it_vt', compact('tickets'));
+        return view('tabs.it.vt', compact('tickets'));
     }
 
     public function createticket()
     {
-        $ticket_id = Ticket::select('id')->orderBy('id','desc')->first();
-        if(!$ticket_id){
-            $ticket_id = 1;
-        }
-        else{
-            $ticket_id->id++;
-        }
         $departments = Department::orderBy('name')->get();
         $categories = Category::orderBy('id')->get();
         $priorities = Priority::orderBy('id')->get();
-        return view('tabs.it_ct', compact('categories', 'priorities','departments','ticket_id'));
+        return view('tabs.it.ct', compact('categories', 'priorities','departments'));
     }
 
     public function contact()
     {        
-        return view('tabs.it_cu');
+        return view('tabs.it.cu');
     }
 
 }
