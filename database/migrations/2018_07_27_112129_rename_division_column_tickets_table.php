@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class AddIsAdminUsersTable extends Migration
+class RenameDivisionColumnTicketsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,8 +13,8 @@ class AddIsAdminUsersTable extends Migration
      */
     public function up()
     {
-        Schema::table('users', function (Blueprint $table) {
-            $table->boolean('admin')->default(1)->after('remember_token');
+        Schema::table('tickets', function (Blueprint $table) {
+            $table->renameColumn('division_id', 'department_id');
         });
     }
 
