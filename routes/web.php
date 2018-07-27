@@ -17,12 +17,21 @@
 
 Route::get('/', 'PagesController@index');
 Auth::routes();
+Route::get('/unauthorize', function () {
+    return '<h3>Access Denied!</h3>';
+});
 
 // Dashboard
 Route::get('/dashboard', 'DashboardController@index');
 
 // HOME
 Route::get('/home/dt', 'DashboardController@viewdashtab');
+/* Route::get('/protected', ['middleware' => ['auth', 'admin'], function() {
+     return "this page requires that you be logged in and an Admin"; 
+}]); */
+/* Route::get('/admin', ['middleware' => ['auth', 'admin'], function() {
+    return "this page requires that you be logged in and an Admin"; 
+}]); */
 
 // IT
 Route::get('/it/vt', 'DashboardController@viewticketuser');
@@ -33,6 +42,3 @@ Route::get('/it/cu', 'DashboardController@contact');
 Route::resource('tickets','TicketsController');
 Route::resource('categories','CategoriesController');
 Route::resource('priorities','PrioritiesController');
-
-
-

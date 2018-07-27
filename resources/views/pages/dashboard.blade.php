@@ -7,7 +7,7 @@
     <div class="row">
         @include('inc.sidebar')  
         <div class='col-md-9 m-0 pt-3 border' id="main_panel" style="background:white" >
-            @include('tabs.h_dash')     
+            @include('tabs.home.dash')     
         </div> 
     </div>
 </div>
