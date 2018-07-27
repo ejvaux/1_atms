@@ -66,13 +66,14 @@ $('#createticketform').on('submit',function(e){
         url	: "/1_atms/public/tickets",
         data: $('#createticketform').serialize(),
         datatype: 'JSON',       
-		success: function(html) {
+		success: function(success_data) {
             iziToast.success({
-                message: 'Ticket created successfully!',
+                message: success_data,
                 position: 'topCenter',
                 timeout: 2000
             });
-            $("#main_panel").html(html).show('slow');                        
+            $('#createticketform').trigger('reset');
+            /* $("#main_panel").html(html).show('slow');   */                      
         },
         error: function(data){
         var errors = data.responseJSON;

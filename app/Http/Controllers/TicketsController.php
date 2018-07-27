@@ -57,11 +57,12 @@ class TicketsController extends Controller
         $t->message = $request->input('message');
         $t->save();
        if($t->save()){
-            $departments = Department::orderBy('name')->get();
+            /* $departments = Department::orderBy('name')->get();
             $categories = Category::orderBy('id')->get();
             $priorities = Priority::orderBy('id')->get();
             $msg = ["success" => "Ticket Submitted."];
-            return view('tabs.it.ct', compact('categories', 'priorities','departments','msg'));
+            return view('tabs.it.ct', compact('categories', 'priorities','departments','msg')); */
+            return 'Ticket created successfully!';
        }
        /*  return redirect('/it/ct')->with('success','Ticket Submitted.'); */
     }
