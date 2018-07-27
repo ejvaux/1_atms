@@ -46,17 +46,10 @@ class DashboardController extends Controller
 
     public function createticket()
     {
-        $ticket_id = Ticket::select('id')->orderBy('id','desc')->first();
-        if(!$ticket_id){
-            $ticket_id = 1;
-        }
-        else{
-            $ticket_id->id++;
-        }
         $departments = Department::orderBy('name')->get();
         $categories = Category::orderBy('id')->get();
         $priorities = Priority::orderBy('id')->get();
-        return view('tabs.it.ct', compact('categories', 'priorities','departments','ticket_id'));
+        return view('tabs.it.ct', compact('categories', 'priorities','departments'));
     }
 
     public function contact()

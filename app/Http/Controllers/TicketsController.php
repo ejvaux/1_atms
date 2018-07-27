@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 use App\Ticket;
 use App\Category;
 use App\Priority;
-use App\Division;
+use App\Department;
 
 class TicketsController extends Controller
 {
@@ -42,7 +42,7 @@ class TicketsController extends Controller
             'subject' => 'required',
             'priority' => 'required',
             'category' => 'required', 
-            'division' => 'required',          
+            'department' => 'required',          
             'message' => 'required',
         ]);
 
@@ -50,14 +50,20 @@ class TicketsController extends Controller
 
         $t = new Ticket;
         $t->user_id = $request->input('userid');
-        $t->division_id = $request->input('division');
+        $t->department_id = $request->input('department');
         $t->category_id = $request->input('category');
         $t->priority_id = $request->input('priority');
         $t->subject = $request->input('subject');
         $t->message = $request->input('message');
         $t->save();
-
-        return redirect('/dashboard/ct')->with('success','Ticket Submitted.');
+       if($t->save()){
+            $departments = Department::orderBy('name')->get();
+            $categories = Category::orderBy('id')->get();
+            $priorities = Priority::orderBy('id')->get();
+            $msg = ["success" => "Ticket Submitted."];
+            return view('tabs.it.ct', compact('categories', 'priorities','departments','msg'));
+       }
+       /*  return redirect('/it/ct')->with('success','Ticket Submitted.'); */
     }
 
     /**

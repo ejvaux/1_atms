@@ -80,4 +80,4 @@ $('#contact').on('click',function(){
 							window.location.href = '/1_atms/public/login';
 					} //end function
   });//close ajax
-});
+});    
