@@ -20,6 +20,9 @@ Auth::routes();
 Route::get('/unauthorize', function () {
     return '<h3>Access Denied!</h3>';
 });
+Route::get('/comingsoon', function () {
+    return view('pages.comingsoon');
+});
 
 // Dashboard
 Route::get('/dashboard', 'DashboardController@index');
@@ -34,7 +37,8 @@ Route::get('/home/dt', 'DashboardController@viewdashtab');
 }]); */
 
 // IT
-Route::get('/it/vt', 'DashboardController@viewticketuser');
+Route::get('/it/lt', 'DashboardController@listticket');
+Route::get('/it/vt', 'DashboardController@viewticket');
 Route::get('/it/ct', 'DashboardController@createticket');
 Route::get('/it/cu', 'DashboardController@contact');
 

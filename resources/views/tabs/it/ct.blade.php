@@ -1,13 +1,16 @@
-{{-- @include('inc.messages') --}}
-<nav>
-    <ol class="breadcrumb">
-        <li class="breadcrumb-item"><a href="#" id="bc_viewticket">My Tickets</a></li>
-        <li class="breadcrumb-item">Create Ticket</li>
-        {{-- <li class="breadcrumb-item">Data</li> --}}
-    </ol>
-</nav>
 <div class="container">
-    <div class="row pt-3">
+    <div class='row mb-1'>
+        <div class='col-md'>
+            <nav>
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="#" id="bc_viewticket">My Tickets</a></li>
+                    <li class="breadcrumb-item">Create Ticket</li>
+                    {{-- <li class="breadcrumb-item">Data</li> --}}
+                </ol>
+            </nav>
+        </div>
+    </div>
+    <div class="row pt-1">
         <div class="col-md-12">
             <form id='createticketform'>
                 @csrf
@@ -99,6 +102,6 @@ $('#createticketform').on('submit',function(e){
 
 // Breadcrumbs menu
 $('#bc_viewticket').on('click',function(){
-  loadViewTicket();
+    loadlistTicket();
 });
 </script>
