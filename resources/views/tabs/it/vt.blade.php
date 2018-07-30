@@ -1,12 +1,22 @@
 @include('inc.messages')
+<nav>
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item">My Tickets</li>
+        {{-- <li class="breadcrumb-item"><a href="#">Library</a></li>
+        <li class="breadcrumb-item">Data</li> --}}
+    </ol>
+</nav>
 <div class="container">
-    <div class="row pt-3">
-        <div class="col-md-4">
+    <div class="row mb-3">
+        <div class='col-md'>
+            <button class='btn btn-secondary' type="button" id="ct_button">Create Ticket</button>
+        </div>
+        <div class="col-md-4 ml-auto">
             <form>
-                <div class="form-group">
-                    <label for="search">Search:</label>
+                <div class="input-group">
                     <input type="text" class="form-control" id="search" placeholder="Enter ticket number . . .">
-                </div>                    
+                    <button type="button" id="refresh"><i class="fa fa-search"></i></button>
+                </div>               
             </form>
         </div>
     </div> 
@@ -112,3 +122,17 @@
         </div>
     </div>    
 </div>
+<script>
+$('#ct_button').on('click',function(){
+  $.ajax({
+		type		: "GET",
+		url		: "/1_atms/public/it/ct",
+		success		: function(html) {					
+            $("#main_panel").html(html).show('slow');
+        },
+        error : function (jqXHR, textStatus, errorThrown) {							
+                window.location.href = '/1_atms/public/login';
+        } //end function
+  });//close ajax
+});
+</script>

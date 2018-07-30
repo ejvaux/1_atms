@@ -28,6 +28,20 @@ for (i = 0; i < acc.length; i++) {
   });
 };
 
+// Load Div
+function loadViewTicket(){
+	$.ajax({
+		type		: "GET",
+		url		: "/1_atms/public/it/vt",
+		success		: function(html) {					
+						$("#main_panel").html(html).show('slow');
+					},
+					error : function (jqXHR, textStatus, errorThrown) {							
+							window.location.href = '/1_atms/public/login';
+					} //end function
+  });//close ajax 
+}
+
 // Home Menu tabs
 $('#dboard').on('click',function(){
   $.ajax({
@@ -44,29 +58,7 @@ $('#dboard').on('click',function(){
 
 // IT Menu tabs
 $('#myticket').on('click',function(){
-  $.ajax({
-		type		: "GET",
-		url		: "/1_atms/public/it/vt",
-		success		: function(html) {					
-						$("#main_panel").html(html).show('slow');
-					},
-					error : function (jqXHR, textStatus, errorThrown) {							
-							window.location.href = '/1_atms/public/login';
-					} //end function
-  });//close ajax 
-});
-
-$('#createticket').on('click',function(){
-  $.ajax({
-		type		: "GET",
-		url		: "/1_atms/public/it/ct",
-		success		: function(html) {					
-						$("#main_panel").html(html).show('slow');
-					},
-					error : function (jqXHR, textStatus, errorThrown) {							
-							window.location.href = '/1_atms/public/login';
-					} //end function
-  });//close ajax
+  loadViewTicket();
 });
 
 $('#contact').on('click',function(){
@@ -80,4 +72,4 @@ $('#contact').on('click',function(){
 							window.location.href = '/1_atms/public/login';
 					} //end function
   });//close ajax
-});    
+});

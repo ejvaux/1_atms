@@ -41,12 +41,17 @@
                 @endif                                                          
                 <li class="nav-item ">
                     <a class="nav-link menutab" href="#" id="myticket">
-                        <span class="badge badge-pill badge-danger"></span> My Tickets
+                        <span class="badge badge-pill badge-danger"></span>Tickets
                     </a>
                 </li>
-                <li class="nav-item ">
+                {{-- <li class="nav-item ">
                     <a class="nav-link menutab" href="#" id="createticket">
                         <span class="badge badge-pill badge-danger"></span> Create Ticket
+                    </a>
+                </li> --}}
+                <li class="nav-item ">
+                    <a class="nav-link menutab" href="#" id="cctv">
+                        <span class="badge badge-pill badge-danger"></span> CCTV Review
                     </a>
                 </li>
                 <li class="nav-item ">
@@ -60,6 +65,24 @@
                 <li class="nav-item ">
                     <a class="nav-link menutab" href="#" id="myticket">
                         <span class="badge badge-pill badge-danger"></span> Vehicle Request
+                    </a>
+                </li>
+                <li class="nav-item ">
+                    <a class="nav-link menutab" href="#" id="createticket">
+                        <span class="badge badge-pill badge-danger"></span> Other Request
+                    </a>
+                </li>
+                <li class="nav-item ">
+                    <a class="nav-link menutab" href="#" id="contact">
+                        <span class="badge badge-pill badge-danger"></span> Other
+                    </a>
+                </li>               
+            </ul>
+            <button type='button' id="hrButton" class='accordion'>PURCHASING</button>
+            <ul class="nav flex-column panel" id='hrmenu'>                                                          
+                <li class="nav-item ">
+                    <a class="nav-link menutab" href="#" id="myticket">
+                        <span class="badge badge-pill badge-danger"></span> Purchase Request
                     </a>
                 </li>
                 <li class="nav-item ">
