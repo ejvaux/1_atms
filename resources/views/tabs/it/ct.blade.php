@@ -1,4 +1,11 @@
 {{-- @include('inc.messages') --}}
+<nav>
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item"><a href="#" id="bc_viewticket">My Tickets</a></li>
+        <li class="breadcrumb-item">Create Ticket</li>
+        {{-- <li class="breadcrumb-item">Data</li> --}}
+    </ol>
+</nav>
 <div class="container">
     <div class="row pt-3">
         <div class="col-md-12">
@@ -88,5 +95,10 @@ $('#createticketform').on('submit',function(e){
             });
         } //end function
     });//close ajax
+});
+
+// Breadcrumbs menu
+$('#bc_viewticket').on('click',function(){
+  loadViewTicket();
 });
 </script>
