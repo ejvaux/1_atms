@@ -38,7 +38,7 @@ Route::get('/home/dt', 'DashboardController@viewdashtab');
 
 // IT
 Route::get('/it/lt', 'DashboardController@listticket');
-Route::get('/it/vt', 'DashboardController@viewticket');
+Route::get('/it/vt/{id}', ['uses' => 'DashboardController@viewticket']);
 Route::get('/it/ct', 'DashboardController@createticket');
 Route::get('/it/cu', 'DashboardController@contact');
 

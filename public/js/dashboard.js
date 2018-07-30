@@ -35,10 +35,10 @@ function loadlistTicket(){
 		url		: "/1_atms/public/it/lt",
 		success		: function(html) {					
 						$("#main_panel").html(html).show('slow');
-					}/* ,
+					},
 					error : function (jqXHR, textStatus, errorThrown) {							
 							window.location.href = '/1_atms/public/login';
-					} */ //end function
+					} //end function
   });//close ajax 
 }
 function loadcomingsoon(){

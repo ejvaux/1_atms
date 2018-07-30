@@ -11,9 +11,9 @@ class Ticket extends Model
         return $this->belongsTo('App\User','user_id','id');
     }
 
-    public function division()
+    public function department()
     {
-        return $this->belongsTo('App\Division','division_id','id');
+        return $this->belongsTo('App\Department','department_id','id');
     }
 
     public function priority()

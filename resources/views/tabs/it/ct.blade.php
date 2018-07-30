@@ -52,7 +52,7 @@
                 </div>
                 <div class="form-group row">
                     <div class="col">
-                        <label for="message">Message:</label>
+                        <label for="message">Description:</label>
                         <textarea type="text" class="form-control" rows="8" id="message" name="message" placeholder="" ></textarea>
                     </div>
                 </div>

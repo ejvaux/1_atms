@@ -36,7 +36,7 @@
                                             <sup>
                                                 {!! CustomFunctions::status_format($ticket->status_id) !!}                                               
                                             </sup>                                    
-                                            <a class="viewticket" href='#' ><span class='pl-2'>{{$ticket->subject}}</span></a>
+                                            <a class="viewticket" href="/1_atms/public/it/vt/{{$ticket->id}}" ><span class='pl-2'>{{$ticket->subject}}</span></a>
                                         </h5>
                                     </div>
                                 </div>
@@ -88,11 +88,13 @@ $('#ct_button').on('click',function(){
         } //end function
   });//close ajax
 });
-$('.viewticket').on('click',function(){
+$('.viewticket').on('click',function(e){
+    e.preventDefault();
+    e.stopImmediatePropagation();
     $.ajax({
-		type		: "GET",
-		url		: "/1_atms/public/it/vt",
-		success		: function(html) {					
+		type	: "GET",
+		url		: $(this).attr('href'),
+		success	: function(html) {					
             $("#main_panel").html(html).show('slow');
         },
         error : function (jqXHR, textStatus, errorThrown) {							

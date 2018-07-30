@@ -44,11 +44,10 @@ class DashboardController extends Controller
         return view('tabs.it.lt', compact('tickets'));
     }
 
-    public function viewticket()
+    public function viewticket($id)
     {
-        /* $tickets = Ticket::where('user_id',Auth::user()->id)->orderBy('id','desc')->paginate(10);
-        return view('tabs.it.lt', compact('tickets')); */
-        return view('tabs.it.vt');
+        $tickets = Ticket::where('id',$id)->first();
+        return view('tabs.it.vt', compact('tickets'));
     }
 
     public function createticket()
