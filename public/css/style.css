@@ -41,3 +41,7 @@
 .menutab, .menutab:active, .menutab:hover, .menutab:active {
     color:black;
 }
+
+textarea {
+    resize: none;
+}

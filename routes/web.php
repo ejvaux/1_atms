@@ -46,3 +46,4 @@ Route::get('/it/cu', 'DashboardController@contact');
 Route::resource('tickets','TicketsController');
 Route::resource('categories','CategoriesController');
 Route::resource('priorities','PrioritiesController');
+Route::resource('ticket_updates','TicketUpdatesController');

@@ -75,31 +75,3 @@
         </div>
     </div>    
 </div>
-<script>
-$('#ct_button').on('click',function(){
-  $.ajax({
-		type		: "GET",
-		url		: "/1_atms/public/it/ct",
-		success		: function(html) {					
-            $("#main_panel").html(html).show('slow');
-        },
-        error : function (jqXHR, textStatus, errorThrown) {							
-                window.location.href = '/1_atms/public/login';
-        } //end function
-  });//close ajax
-});
-$('.viewticket').on('click',function(e){
-    e.preventDefault();
-    e.stopImmediatePropagation();
-    $.ajax({
-		type	: "GET",
-		url		: $(this).attr('href'),
-		success	: function(html) {					
-            $("#main_panel").html(html).show('slow');
-        },
-        error : function (jqXHR, textStatus, errorThrown) {							
-                window.location.href = '/1_atms/public/login';
-        } //end function
-  });//close ajax
-});
-</script>

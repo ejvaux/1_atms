@@ -62,23 +62,34 @@
         <div class="col-md">
             <label class='font-weight-bold'>Updates:</label>
         </div>
-    </div>
+    </div>    
     <div class="row">
         <div class="col-md-12">
-            <textarea rows="10" style="width:100%" readonly></textarea>
+            @foreach($updates as $update)
+            @php
+                if($update->user->name == Auth::user()->name){
+                    $updatetext .= "<p class='text-muted text-right mb-0 mt-3'>(" . $update->created_at . ")</p><div class='card mt-0 mb-2 p-0 ml-auto' style='width:fit-content; background-color:#AED6F1;'><div class='card-body p-2'>" . $update->message . '</div></div>';
+                }
+                else{
+                    $updatetext .= "<p class='text-muted mb-0 mt-3'>". $update->user->name . " (" . $update->created_at . ")</p><div class='card mt-0 mb-2 p-0' style='width:fit-content; background-color:#D4E6F1;'><div class='card-body p-2'>" . $update->message . '</div></div>';
+                }            
+            @endphp
+            @endforeach
+            {{-- <textarea rows="10" style="width:100%" readonly>{{$updatetext}}</textarea> --}}
+            <div class="border border-secondary px-3" id='update_div' style="width:100%; height:300px; overflow-y: auto;">{!!$updatetext!!}</div>
         </div>
     </div>
+    <form id='updateform' method="POST" action="/1_atms/public/ticket_updates">
+    @csrf
+    <input type="hidden" id='update_ticket_id' name="ticket_id" value="{{ $tickets->id }}">
+    <input type="hidden" name="user_id" value="{{ Auth::user()->id }}">
     <div class="row pt-0 mt-0 mb-4">
         <div class="col-md-12">
             <div class="input-group">
-                <input type="text" class="" id="" placeholder="Enter text here . . ." style="width:90%">
-                <button type="button" id="" style="width:10%">SEND</button>
+                <input type="text" name="message" class="" id="" placeholder="Enter text here . . ." style="width:90%">
+                <button type="submit" id="send_update" style="width:10%">SEND</button>
             </div>
         </div>        
     </div>
+    </form>
 </div>
-<script>
-$('#bc_viewticket').on('click',function(){
-    loadlistTicket();
-});
-</script>

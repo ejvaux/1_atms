@@ -3,12 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Ticket;
-use App\Category;
-use App\Priority;
-use App\Department;
+use App\TicketUpdates;
 
-class TicketsController extends Controller
+class TicketUpdatesController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -39,31 +36,21 @@ class TicketsController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'subject' => 'required',
-            'priority' => 'required',
-            'category' => 'required', 
-            'department' => 'required',          
+            'ticket_id' => 'required',
+            'user_id' => 'required',
             'message' => 'required',
         ]);
 
-        // Create Ticket
-        $t = new Ticket;
-        $t->user_id = $request->input('userid');
-        $t->department_id = $request->input('department');
-        $t->category_id = $request->input('category');
-        $t->priority_id = $request->input('priority');
-        $t->subject = $request->input('subject');
-        $t->message = $request->input('message');
-        $t->save();
-        if($t->save()){
-                /* $departments = Department::orderBy('name')->get();
-                $categories = Category::orderBy('id')->get();
-                $priorities = Priority::orderBy('id')->get();
-                $msg = ["success" => "Ticket Submitted."];
-                return view('tabs.it.ct', compact('categories', 'priorities','departments','msg')); */
-                return 'Ticket created successfully!';
+        // Create ticket update
+        $tu = new TicketUpdates;
+        $tu->ticket_id = $request->input('ticket_id');
+        $tu->user_id = $request->input('user_id');
+        $tu->message = $request->input('message');
+        $tu->save();
+        if($tu->save()){
+            return 'Ticket created successfully!';
         }
-       /*  return redirect('/it/ct')->with('success','Ticket Submitted.'); */
+
     }
 
     /**
@@ -74,7 +61,7 @@ class TicketsController extends Controller
      */
     public function show($id)
     {
-        return Ticket::where('id',$id)->get();
+        //
     }
 
     /**
