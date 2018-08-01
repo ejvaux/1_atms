@@ -86,7 +86,7 @@
     <div class="row pt-0 mt-0 mb-4">
         <div class="col-md-12">
             <div class="input-group">
-                <input type="text" name="message" class="" id="" placeholder="Enter text here . . ." style="width:90%">
+                <input type="text" name="message" class="" id="update_message" placeholder="Enter text here . . ." style="width:90%">
                 <button type="submit" id="send_update" style="width:10%">SEND</button>
             </div>
         </div>        

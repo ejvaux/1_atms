@@ -53,13 +53,16 @@ function loadcomingsoon(){
 					} //end function
   });//close ajax 
 }
-function loadviewticket(url){
+function loadviewticket(url,form = 0){
 	$.ajax({
 		type	: "GET",
 		url		: url,
 		success	: function(html) {					
 						$("#main_panel").html(html).show('slow');
 						$('#update_div').scrollTop($('#update_div')[0].scrollHeight);
+						if(form == 1){							
+							$('#update_message').focus();   
+						}
         },
         error : function (jqXHR, textStatus, errorThrown) {							
                 window.location.href = '/1_atms/public/login';
@@ -145,7 +148,7 @@ $('#app').on('submit','#updateform',function(e){
 							position: 'topCenter',
 							timeout: 2000
 					});
-					loadviewticket('/1_atms/public/it/vt/'+id);               
+					loadviewticket('/1_atms/public/it/vt/'+id,1);		     
 			},
 			error: function(data){
 			var errors = data.responseJSON;
@@ -160,7 +163,7 @@ $('#app').on('submit','#updateform',function(e){
 							timeout: 5000
 					});
 			} //end function
-	});//close ajax
+	});//close ajax				   
 });
 $('#app').on('click','#bc_viewticket',function(){
 	loadlistTicket();

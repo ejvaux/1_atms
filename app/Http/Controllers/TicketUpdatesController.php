@@ -48,7 +48,7 @@ class TicketUpdatesController extends Controller
         $tu->message = $request->input('message');
         $tu->save();
         if($tu->save()){
-            return 'Updated posted successfully!';
+            return 'Update posted successfully!';
         }
 
     }
