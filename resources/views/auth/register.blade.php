@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('pageTitle','Register | TMS - Primatech')
+@section('pageTitle','Register | ATMS - Primatech')
 
 @section('content')
 <div class="container">

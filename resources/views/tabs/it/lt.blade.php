@@ -28,15 +28,18 @@
             @if (count($tickets)>0)
                 @foreach($tickets as $ticket)
                     <div class='card mb-2'>
-                        <div class="card-body row pl-3 pr-0 pb-2 ">                                                     
+                        <div class="card-body row pl-3 pb-2 "> 
+                            <div class='col-md-2'>
+                                <sup style='font-size: 17px'>
+                                    {!! CustomFunctions::status_format($ticket->status_id) !!}                                               
+                                </sup><br>
+                                {!!$ticket->priority->name!!} priority                                                           
+                            </div>                                                   
                             <div class='col-md-10'>
                                 <div class='row'>
                                     <div class='col-md'>
-                                        <h5 style='overflow:hidden;text-overflow:ellipsis;white-space: nowrap ;'>
-                                            <sup>
-                                                {!! CustomFunctions::status_format($ticket->status_id) !!}                                               
-                                            </sup>                                    
-                                            <a class="viewticket" href="/1_atms/public/it/vt/{{$ticket->id}}" ><span class='pl-2'>{{$ticket->subject}}</span></a>
+                                        <h5 style='overflow:hidden;text-overflow:ellipsis;white-space: nowrap ;'>                                                                              
+                                            <a class="viewticket" href="/1_atms/public/it/vt/{{$ticket->id}}" ><span>{{$ticket->subject}}</span></a>
                                         </h5>
                                     </div>
                                 </div>
@@ -53,14 +56,11 @@
                                             @endif --}}
                                              at <i>{{$ticket->created_at}}</i>.</span>
                                     </div>
-                                    <div class='col-md-3 ml-auto'>
+                                    <div class='col-md-4 ml-auto'>
                                         <span class="badge badge-light" style="font-size:13px">{{$ticket->category->name}}</span>
                                     </div>
                                 </div>                                
-                            </div>
-                            <div class='col-md-2 ml-auto' style="font-size:17px">
-                                {!! CustomFunctions::priority_format($ticket->priority_id) !!}                                                                
-                            </div>
+                            </div>                            
                         </div>
                     </div>
                 @endforeach                

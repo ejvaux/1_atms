@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('pageTitle','Dashboard | TMS - Primatech')
+@section('pageTitle','Dashboard | ATMS - Primatech')
 
 @section('content')
 <div class="container-fluid" style='height:100vh'>

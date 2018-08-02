@@ -1,4 +1,4 @@
-// Alerts
+/* ------------------------------------- Alerts ---------------------------------- */
 function notifalert(type,msg){
   if(type=='success'){
     iziToast.success({
@@ -9,7 +9,7 @@ function notifalert(type,msg){
   }
 }
 
-// Accordion
+/* ----------------------------- Accordion -------------------------------- */
 var acc = document.getElementsByClassName("accordion");
 var i;
 for (i = 0; i < acc.length; i++) {
@@ -28,7 +28,7 @@ for (i = 0; i < acc.length; i++) {
   });
 };
 
-// Load Div
+/* ------------------------------- Load Div ------------------------------ */
 function loadlistTicket(){
 	$.ajax({
 		type		: "GET",
@@ -70,7 +70,20 @@ function loadviewticket(url,form = 0){
   });//close ajax
 }
 
-// Home Menu tabs
+function loadadminlistticket(){
+	$.ajax({
+		type		: "GET",
+		url		: "/1_atms/public/it/al",
+		success		: function(html) {					
+						$("#main_panel").html(html).show('slow');
+					},
+					error : function (jqXHR, textStatus, errorThrown) {							
+							window.location.href = '/1_atms/public/login';
+					} //end function
+  });//close ajax
+}
+
+/* ---------------------------- Home Menu tabs ----------------------------- */
 $('#dboard').on('click',function(){
   $.ajax({
 		type		: "GET",
@@ -87,9 +100,9 @@ $('#admin_dash').on('click',function(){
   loadcomingsoon();
 });
 
-// IT Menu tabs
+/* --------------------------- IT Menu tabs ---------------------------- */
 $('#admin_it').on('click',function(){
-  loadcomingsoon();
+  loadadminlistticket();
 });
 $('#myticket').on('click',function(){
   loadlistTicket();
@@ -110,7 +123,7 @@ $('#cctv').on('click',function(){
   loadcomingsoon();
 });
 
-// HR Menu tabs
+/* --------------------- HR Menu tabs -------------------------- */
 $('#hr1').on('click',function(){
   loadcomingsoon();
 });
@@ -121,7 +134,7 @@ $('#hr3').on('click',function(){
   loadcomingsoon();
 });
 
-// PURCHASING Menu tabs
+/* ------------------------- PURCHASING Menu tabs --------------------------- */
 $('#p1').on('click',function(){
   loadcomingsoon();
 });
@@ -132,7 +145,13 @@ $('#p3').on('click',function(){
   loadcomingsoon();
 });
 
-// View Ticket
+/* -------------------------- Admin View Ticket ----------------------------- */
+
+$('#app').on('click','#bc_adminviewticket',function(){
+	loadadminlistticket();
+});
+
+/* -------------------------- View Ticket ----------------------------- */
 $('#app').on('submit','#updateform',function(e){
 	e.preventDefault();
 	e.stopImmediatePropagation();
@@ -169,7 +188,7 @@ $('#app').on('click','#bc_viewticket',function(){
 	loadlistTicket();
 });
 
-// List Ticket
+/* ----------------------------- List Ticket ------------------------------- */
 $('#app').on('click','#ct_button',function(){
   $.ajax({
 		type		: "GET",
@@ -188,7 +207,7 @@ $('#app').on('click','.viewticket',function(e){
     loadviewticket($(this).attr('href'));
 });
 
-// Create Ticket
+/* ----------------------- Create Ticket ---------------------- */
 $('#app').on('submit','#createticketform',function(e){	
 	e.preventDefault();
 	e.stopImmediatePropagation();
@@ -222,7 +241,7 @@ $('#app').on('submit','#createticketform',function(e){
 	});//close ajax
 });
 
-// Pagination
+/* ----------------------- Pagination --------------------------- */
 $('#app').on('click','#prevpage',function(e){
 	e.preventDefault();
 	e.stopImmediatePropagation();

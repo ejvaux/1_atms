@@ -15,7 +15,7 @@
 <body>
     <div id="app" class='app'>
         @include('inc.navbar')  
-        <main class="container py-4">
+        <main class="container-fluid py-4">
             @yield('content')
         </main>
     </div>
