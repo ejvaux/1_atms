@@ -1,5 +1,6 @@
-/* ------------------------- Quill -------------------------------- */
 var quill;
+var lastpage;
+/* ------------------------- Quill -------------------------------- */
 function initquill(txt){
 	var txtarea =  document.getElementById(txt);
 	var toolbarOptions = [
@@ -55,10 +56,10 @@ for (i = 0; i < acc.length; i++) {
 };
 
 /* ------------------------------- Load Div ------------------------------ */
-function loadlistTicket(){
+function loadlistTicket(purl = "/1_atms/public/it/lt"){
 	$.ajax({
 		type		: "GET",
-		url		: "/1_atms/public/it/lt",
+		url		: purl,
 		success		: function(html) {					
 						$("#main_panel").html(html).show('slow');
 					},
@@ -211,7 +212,7 @@ $('#app').on('submit','#updateform',function(e){
 	});//close ajax				   
 });
 $('#app').on('click','#bc_viewticket',function(){
-	loadlistTicket();
+	loadlistTicket(lastpage);
 });
 
 /* ----------------------------- List Ticket ------------------------------- */
@@ -274,6 +275,7 @@ $('#app').on('submit','#createticketform',function(e){
 $('#app').on('click','#prevpage',function(e){
 	e.preventDefault();
 	e.stopImmediatePropagation();
+	lastpage = $(this).attr('href');
 	$.ajax({
 	type	: "GET",
 	url		: $(this).attr('href'),
@@ -288,6 +290,7 @@ $('#app').on('click','#prevpage',function(e){
 $('#app').on('click','#nextpage',function(e){
 	e.preventDefault();
 	e.stopImmediatePropagation();
+	lastpage = $(this).attr('href');
 	$.ajax({
 	type	: "GET",
 	url		: $(this).attr('href'),
@@ -302,6 +305,7 @@ $('#app').on('click','#nextpage',function(e){
 $('#app').on('click','.pagenumber',function(e){
 	e.preventDefault();
 	e.stopImmediatePropagation();
+	lastpage = $(this).attr('href');
 	$.ajax({
 	type	: "GET",
 	url		: $(this).attr('href'),

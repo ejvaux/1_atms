@@ -55,3 +55,7 @@ textarea {
 .sidetab{
     color: gray;
 }
+
+.noborder.alink{
+    border-left: 5px solid blue;
+}

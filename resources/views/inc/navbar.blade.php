@@ -25,7 +25,7 @@
                     </li> --}}
                 @else
                     <li class="nav-item dropdown"> 
-                        <a href="#" class="nav-link" data-toggle="dropdown"><span class="badge badge-pill badge-danger"></span> <i class="fa fa-bell"></i></a>                   
+                        <a href="#" class="nav-link" data-toggle="dropdown"><span class="badge badge-info"></span> <i class="fa fa-bell"></i></a>                   
                         <ul class="dropdown-menu">
                             {{-- <li class="dropdown-item">test</li> --}}
                         </ul>                   
