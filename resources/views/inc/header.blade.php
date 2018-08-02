@@ -1,7 +1,4 @@
 <link rel="shortcut icon" href="{{ asset('favicon.ico') }}">
-{{-- <!-- Fonts -->
-<link rel="dns-prefetch" href="https://fonts.gstatic.com">
-<link href="https://fonts.googleapis.com/css?family=Raleway:300,400,600" rel="stylesheet" type="text/css"> --}}
 
 <!-- ______________________ Styles ______________________ -->
 <link href="{{ asset('css/app.css') }}" rel="stylesheet">
@@ -12,6 +9,10 @@
 
 <!-- NProgress -->
 <link rel='stylesheet' href='/1_atms/node_modules/nprogress/nprogress.css'/>
+
+<!-- Quill -->
+<link href="/1_atms/node_modules/quill/dist/quill.core.css" rel="stylesheet">
+<link href="/1_atms/node_modules/quill/dist/quill.snow.css" rel="stylesheet">
 
 
 <!-- ______________________ Scripts ______________________ -->
@@ -28,6 +29,9 @@
 
 <!-- Pjax -->
 <script src="/1_atms/node_modules/pjax/pjax.min.js" defer></script>
+
+<!-- Main Quill library -->
+<script src="/1_atms/node_modules/quill/dist/quill.min.js"></script>
 
 <!-- Custom -->
 <script src="{{ asset('js/pjax.js') }}" defer></script>

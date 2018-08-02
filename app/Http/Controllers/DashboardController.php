@@ -61,7 +61,7 @@ class DashboardController extends Controller
     public function createticket()
     {
         $departments = Department::orderBy('name')->get();
-        $categories = Category::orderBy('id')->get();
+        $categories = Category::orderBy('name')->get();
         $priorities = Priority::orderBy('id')->get();
         return view('tabs.it.ct', compact('categories', 'priorities','departments'));
     }

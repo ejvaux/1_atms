@@ -82,7 +82,7 @@
                     </div>
                     <div class="row mb-2">
                         <div class="col-md-12">
-                            <span>{{ $tickets->message }}</span>
+                            {!! $tickets->message !!}
                             {{-- <textarea rows="5" style="width:100%" readonly>{{ $tickets->message }}</textarea> --}}
                         </div>
                     </div>

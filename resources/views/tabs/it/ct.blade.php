@@ -15,8 +15,9 @@
             <form id='createticketform'>
                 @csrf
                 <input name="userid" type="hidden" value="{{ Auth::user()->id }}">                
-                <input type="hidden" id="username" name="username" placeholder="" value="{{ Auth::user()->name }}" readonly>
-                
+                <input type="hidden" id="username" name="username" placeholder="" value="{{ Auth::user()->name }}">
+                <input type='hidden' id="message" name="message">
+
                 <div class="form-group row">
                     <div class="col-md-5">
                         <label for="subject">Subject:</label>
@@ -51,9 +52,10 @@
                     </div>
                 </div>
                 <div class="form-group row">
-                    <div class="col">
+                    <div class="col" id='messagecol'>
                         <label for="message">Description:</label>
-                        <textarea type="text" class="form-control" rows="8" id="message" name="message" placeholder="" ></textarea>
+                        {{-- <textarea type="text" class="form-control quill" rows="8" id="message" name="message" placeholder=""></textarea> --}}
+                        <div id='test' style="height:250px; overflow-y:auto" ></div>
                     </div>
                 </div>
                 <div class="form-group row text-right">

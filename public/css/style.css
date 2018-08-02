@@ -45,3 +45,13 @@
 textarea {
     resize: none;
 }
+
+.noborder, .noborder:hover{
+    border: 0;
+    color: gray;
+    font-weight: bold;
+}
+
+.sidetab{
+    color: gray;
+}

@@ -1,4 +1,38 @@
-<div class="card m-0 p-0" style='height:100vh;'>                              
+<div class="card m-0 p-0">                              
+    <nav class="card-body m-0 p-0">
+        <ul class="list-group list-group-flush">
+            <li class="list-group-item noborder">HOME
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item noborder d-flex justify-content-between align-items-center"><a id='dboard' class='sidetab' href='#'>Dashboard</a><span class="badge badge-pill badge-danger ml-auto"></span></li>
+                    <li class="list-group-item noborder d-flex justify-content-between align-items-center"><a id="admin_dash" class='sidetab' href='#'>Admin</a><span class="badge badge-pill badge-danger"></span></li>
+                </ul>
+            </li>
+            <li class="list-group-item noborder">IT
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item noborder d-flex justify-content-between align-items-center"><a id="admin_it" class='sidetab' href='#'>Admin</a><span class="badge badge-pill badge-danger"></span></li>
+                    <li class="list-group-item noborder d-flex justify-content-between align-items-center"><a id="myticket" class='sidetab' href='#'>Tickets</a><span class="badge badge-pill badge-danger"></span></li>
+                    <li class="list-group-item noborder d-flex justify-content-between align-items-center"><a id="cctv" class='sidetab' href='#'>CCTV Review</a><span class="badge badge-pill badge-danger"></span></li>
+                    <li class="list-group-item noborder d-flex justify-content-between align-items-center"><a id="contact" class='sidetab' href='#'>Contac Us</a><span class="badge badge-pill badge-danger"></span></li>
+                </ul>
+            </li>
+            <li class="list-group-item noborder">HR
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item noborder d-flex justify-content-between align-items-center"><a id="hr1" class='sidetab' href='#'>Vehicle Request</a><span class="badge badge-pill badge-danger"></span></li>
+                    <li class="list-group-item noborder d-flex justify-content-between align-items-center"><a id="hr2" class='sidetab' href='#'>Other Request</a><span class="badge badge-pill badge-danger"></span></li>
+                    <li class="list-group-item noborder d-flex justify-content-between align-items-center"><a id="hr3" class='sidetab' href='#'>Others</a><span class="badge badge-pill badge-danger"></span></li>
+                </ul>
+            </li>
+            <li class="list-group-item noborder">PURCHASING
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item noborder d-flex justify-content-between align-items-center"><a id="p1" class='sidetab' href='#'>Purchase Request</a><span class="badge badge-pill badge-danger"></span></li>
+                    <li class="list-group-item noborder d-flex justify-content-between align-items-center"><a id="p2" class='sidetab' href='#'>Other Request</a><span class="badge badge-pill badge-danger"></span></li>
+                    <li class="list-group-item noborder d-flex justify-content-between align-items-center"><a id="p3" class='sidetab' href='#'>Others</a><span class="badge badge-pill badge-danger"></span></li>
+                </ul>
+            </li>
+        </ul>                              
+    </nav>                       
+</div>
+{{-- <div class="card m-0 p-0" style='height:100vh;'>                              
     <nav class="card-body m-0 p-0">
         <button type='button' id="homeButton" class='accordion'>Dashboard</button>
             <ul class="nav flex-column panel" id='home'>                                                          
@@ -15,17 +49,7 @@
                             </a>
                         </li>
                     @endif
-                @endif                  
-                {{-- <li class="nav-item ">
-                    <a class="nav-link menutab" href="#" id="createticket">
-                        <span class="badge badge-pill badge-danger"></span> Other Request
-                    </a>
-                </li>
-                <li class="nav-item ">
-                    <a class="nav-link menutab" href="#" id="contact">
-                        <span class="badge badge-pill badge-danger"></span> Other
-                    </a>
-                </li>  --}}              
+                @endif                 
             </ul>
         <button type='button' id="itButton" class='accordion'>IT</button>                
         <ul class="nav flex-column panel" id='itmenu'>
@@ -43,11 +67,6 @@
                     <span class="badge badge-pill badge-danger"></span>Tickets
                 </a>
             </li>
-            {{-- <li class="nav-item ">
-                <a class="nav-link menutab" href="#" id="createticket">
-                    <span class="badge badge-pill badge-danger"></span> Create Ticket
-                </a>
-            </li> --}}
             <li class="nav-item ">
                 <a class="nav-link menutab" href="#" id="cctv">
                     <span class="badge badge-pill badge-danger"></span> CCTV Review
@@ -96,4 +115,4 @@
             </li>               
         </ul>                              
     </nav>                       
-</div>
+</div> --}}

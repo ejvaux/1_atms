@@ -1,3 +1,29 @@
+/* ------------------------- Quill -------------------------------- */
+var quill;
+function initquill(txt){
+	var txtarea =  document.getElementById(txt);
+	var toolbarOptions = [
+		[{ 'header': [1, 2, 3, 4, 5, 6, false] }],
+		['bold', 'italic', 'underline', 'strike'],        // toggled buttons
+		['blockquote', 'code-block'],
+		[{ 'list': 'ordered'}, { 'list': 'bullet' }],
+		[{ 'script': 'sub'}, { 'script': 'super' }],      // superscript/subscript
+		[{ 'indent': '-1'}, { 'indent': '+1' }],          // outdent/indent
+		[{ 'direction': 'rtl' }],                         // text direction
+		[{ 'color': [] }, { 'background': [] }],          // dropdown with defaults from theme
+		[{ 'align': [] }],
+	
+		['clean']                                         // remove formatting button
+	];
+	quill = new Quill(txtarea, {
+		bounds: '#messagecol',
+		modules: {
+			toolbar: toolbarOptions
+		},
+		theme: 'snow'
+	});
+}
+
 /* ------------------------------------- Alerts ---------------------------------- */
 function notifalert(type,msg){
   if(type=='success'){
@@ -194,7 +220,8 @@ $('#app').on('click','#ct_button',function(){
 		type		: "GET",
 		url		: "/1_atms/public/it/ct",
 		success		: function(html) {					
-            $("#main_panel").html(html).show('slow');
+						$("#main_panel").html(html).show('slow');
+						initquill('test');
         },
         error : function (jqXHR, textStatus, errorThrown) {							
                 window.location.href = '/1_atms/public/login';
@@ -211,7 +238,8 @@ $('#app').on('click','.viewticket',function(e){
 $('#app').on('submit','#createticketform',function(e){	
 	e.preventDefault();
 	e.stopImmediatePropagation();
- 
+	var desc = $('#message');
+	desc.val(quill.root.innerHTML);
 	$.ajax({
 	type: "POST",
 			url	: "/1_atms/public/tickets",
@@ -224,6 +252,7 @@ $('#app').on('submit','#createticketform',function(e){
 							timeout: 2000
 					});
 					$('#createticketform').trigger('reset');
+					quill.setContents([{ insert: '\n' }]);
 					/* $("#main_panel").html(html).show('slow');   */                      
 			},
 			error: function(data){
