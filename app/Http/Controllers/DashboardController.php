@@ -40,8 +40,16 @@ class DashboardController extends Controller
     
     // IT Tabs
     public function adminlistticket(){
-        $tickets = Ticket::paginate(10);
+        $tickets = Ticket::orderBy('id','desc')->paginate(10);
         return view('tabs.it.al', compact('tickets'));
+    }
+
+    public function adminviewticket($id)
+    {
+        $tickets = Ticket::where('id',$id)->first();
+        $updates = TicketUpdates::where('ticket_id',$id)->get();
+        $updatetext = '';
+        return view('tabs.it.av', compact('tickets','updates','updatetext'));
     }
 
     public function listticket()

@@ -1,5 +1,26 @@
+/* ------------------------- Global Variable -------------------------------- */
 var quill;
 var lastpage;
+
+/* ------------------------- CheckAll Checkbox -------------------------------- */
+function checkAll(ele) {
+	var checkboxes = document.getElementsByTagName('input');
+	if (ele.checked) {
+			for (var i = 0; i < checkboxes.length; i++) {
+					if (checkboxes[i].type == 'checkbox') {
+							checkboxes[i].checked = true;
+					}
+			}
+	} else {
+			for (var i = 0; i < checkboxes.length; i++) {
+					console.log(i)
+					if (checkboxes[i].type == 'checkbox') {
+							checkboxes[i].checked = false;
+					}
+			}
+	}
+}
+
 /* ------------------------- Quill -------------------------------- */
 function initquill(txt){
 	var txtarea =  document.getElementById(txt);
@@ -56,6 +77,22 @@ for (i = 0; i < acc.length; i++) {
 };
 
 /* ------------------------------- Load Div ------------------------------ */
+function loadadminviewticket(url,form = 0){
+	$.ajax({
+		type	: "GET",
+		url		: url,
+		success	: function(html) {					
+						$("#main_panel").html(html).show('slow');
+						$('#update_div').scrollTop($('#update_div')[0].scrollHeight);
+						if(form == 1){							
+							$('#update_message').focus();   
+						}
+        },
+        error : function (jqXHR, textStatus, errorThrown) {							
+                window.location.href = '/1_atms/public/login';
+        } //end function
+  });//close ajax
+}
 function loadlistTicket(purl = "/1_atms/public/it/lt"){
 	$.ajax({
 		type		: "GET",
@@ -97,10 +134,10 @@ function loadviewticket(url,form = 0){
   });//close ajax
 }
 
-function loadadminlistticket(){
+function loadadminlistticket(purl = "/1_atms/public/it/al"){
 	$.ajax({
 		type		: "GET",
-		url		: "/1_atms/public/it/al",
+		url		: purl,
 		success		: function(html) {					
 						$("#main_panel").html(html).show('slow');
 					},
@@ -175,7 +212,12 @@ $('#p3').on('click',function(){
 /* -------------------------- Admin View Ticket ----------------------------- */
 
 $('#app').on('click','#bc_adminviewticket',function(){
-	loadadminlistticket();
+	loadadminlistticket(lastpage);
+});
+$('#app').on('click','.adminviewticket',function(e){
+	e.preventDefault();
+	e.stopImmediatePropagation();
+	loadadminviewticket($(this).attr('href'));
 });
 
 /* -------------------------- View Ticket ----------------------------- */

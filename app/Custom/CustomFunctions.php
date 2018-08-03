@@ -71,4 +71,38 @@ class CustomFunctions
         }
         return $form;
     }
+
+    public static function status_color($stat){
+        $form = '';
+        $html = Status::where('id', $stat)->first();   
+        switch($stat){
+            case 1:
+                $form = "<span class='text-danger'>" . $html->name . "</span>";
+                break;
+        
+            case 2:
+                $form = "<span class='text-info'>" . $html->name . "</span>";
+                break;
+
+            case 3:
+                $form = "<span class='text-primary'>" . $html->name . "</span>";
+                break;
+
+            case 4:
+                $form = "<span class='text-warning'>" . $html->name . "</span>";
+                break;
+
+            case 5:
+                $form = "<span class='text-success'>" . $html->name . "</span>";
+                break;
+
+            case 6:
+                $form = "<span class='text-secondary'>" . $html->name . "</span>";
+                break;
+        
+            default:
+                $form = "<span>Something went wrong, please try again</span>";
+        }
+        return $form;
+    }
 }

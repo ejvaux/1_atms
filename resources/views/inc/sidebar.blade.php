@@ -1,28 +1,38 @@
-<div class="card m-0 p-0">                              
-    <nav class="card-body m-0">
+<div class="card m-0 p-0" style="font-size:13px">                              
+    <nav class="card-body m-0 pl-1 mr-0 pr-0">
         <ul class="list-group list-group-flush">
-            <li class="list-group-item noborder d-flex justify-content-between align-items-center"><a id='dboard' class='sidetab' href='#'>Dashboard</a><span class="badge badge-info"></span></li>
-            <li class="list-group-item noborder d-flex justify-content-between align-items-center"><a id="admin_dash" class='sidetab' href='#'>Admin</a><span class="badge badge-info"></span></li>
+            <li class="list-group-item noborder d-flex justify-content-between align-items-center"><a id='dboard' class='sidetab' href='#'>DASHBOARD</a><span class="badge badge-info"></span></li>
+            @if(Auth::check())
+                @if (Auth::user()->isAdmin())
+                    <li class="list-group-item noborder d-flex justify-content-between align-items-center"><a id="admin_dash" class='sidetab' href='#'>ADMIN</a><span class="badge badge-info"></span></li>
+                @endif
+            @endif            
             <li class="list-group-item noborder"><a class='sidetab' href='#'>IT</a>
                 <ul class="list-group list-group-flush">
-                    <li class="list-group-item noborder d-flex justify-content-between align-items-center"><a id="admin_it" class='sidetab' href='#'>Admin</a><span class="badge badge-info"></span></li>
-                    <li class="list-group-item noborder d-flex justify-content-between align-items-center"><a id="myticket" class='sidetab' href='#'>Tickets</a><span class="badge badge-info"></span></li>
-                    <li class="list-group-item noborder d-flex justify-content-between align-items-center"><a id="cctv" class='sidetab' href='#'>CCTV Review</a><span class="badge badge-info"></span></li>
-                    <li class="list-group-item noborder d-flex justify-content-between align-items-center"><a id="contact" class='sidetab' href='#'>Contac Us</a><span class="badge badge-info"></span></li>
+                    @if(Auth::check())
+                        @if (Auth::user()->isAdmin())
+                            <li class="list-group-item noborder d-flex justify-content-between align-items-center"><a id="admin_it" class='sidetab' href='#'>ADMIN</a><span class="badge badge-info"></span></li>
+                        @else
+                            <li class="list-group-item noborder d-flex justify-content-between align-items-center"><a id="myticket" class='sidetab' href='#'>TICKETS</a><span class="badge badge-info"></span></li>
+                        @endif
+                    @endif                    
+                    {{-- <li class="list-group-item noborder d-flex justify-content-between align-items-center"><a id="myticket" class='sidetab' href='#'>TICKETS</a><span class="badge badge-info"></span></li> --}}
+                    <li class="list-group-item noborder d-flex justify-content-between align-items-center"><a id="cctv" class='sidetab' href='#'>CCTV REVIEW</a><span class="badge badge-info"></span></li>
+                    <li class="list-group-item noborder d-flex justify-content-between align-items-center"><a id="contact" class='sidetab' href='#'>CONTACT US</a><span class="badge badge-info"></span></li>
                 </ul>
             </li>
             <li class="list-group-item noborder"><a class='sidetab' href='#'>HR</a>
                 <ul class="list-group list-group-flush">
-                    <li class="list-group-item noborder d-flex justify-content-between align-items-center"><a id="hr1" class='sidetab' href='#'>Vehicle Request</a><span class="badge badge-info"></span></li>
-                    <li class="list-group-item noborder d-flex justify-content-between align-items-center"><a id="hr2" class='sidetab' href='#'>Other Request</a><span class="badge badge-info"></span></li>
-                    <li class="list-group-item noborder d-flex justify-content-between align-items-center"><a id="hr3" class='sidetab' href='#'>Others</a><span class="badge badge-info"></span></li>
+                    <li class="list-group-item noborder d-flex justify-content-between align-items-center"><a id="hr1" class='sidetab' href='#'>VEHICLE REQUEST</a><span class="badge badge-info"></span></li>
+                    <li class="list-group-item noborder d-flex justify-content-between align-items-center"><a id="hr2" class='sidetab' href='#'>OTHER REQUEST</a><span class="badge badge-info"></span></li>
+                    <li class="list-group-item noborder d-flex justify-content-between align-items-center"><a id="hr3" class='sidetab' href='#'>OTHERS</a><span class="badge badge-info"></span></li>
                 </ul>
             </li>
             <li class="list-group-item noborder"><a class='sidetab' href='#'>PURCHASING</a>
                 <ul class="list-group list-group-flush">
-                    <li class="list-group-item noborder d-flex justify-content-between align-items-center"><a id="p1" class='sidetab' href='#'>Purchase Request</a><span class="badge badge-info"></span></li>
-                    <li class="list-group-item noborder d-flex justify-content-between align-items-center"><a id="p2" class='sidetab' href='#'>Other Request</a><span class="badge badge-info"></span></li>
-                    <li class="list-group-item noborder d-flex justify-content-between align-items-center"><a id="p3" class='sidetab' href='#'>Others</a><span class="badge badge-info"></span></li>
+                    <li class="list-group-item noborder d-flex justify-content-between align-items-center"><a id="p1" class='sidetab' href='#'>PURCHASE REQUEST</a><span class="badge badge-info"></span></li>
+                    <li class="list-group-item noborder d-flex justify-content-between align-items-center"><a id="p2" class='sidetab' href='#'>OTHER REQUEST</a><span class="badge badge-info"></span></li>
+                    <li class="list-group-item noborder d-flex justify-content-between align-items-center"><a id="p3" class='sidetab' href='#'>OTHERS</a><span class="badge badge-info"></span></li>
                 </ul>
             </li>
         </ul>                              

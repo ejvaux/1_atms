@@ -4,7 +4,7 @@
             <nav>
                 <ol class="breadcrumb">
                     <li class="breadcrumb-item"><a href="#" id="bc_viewticket">My Tickets</a></li>
-                    <li class="breadcrumb-item">Ticket Details</li>
+                    <li class="breadcrumb-item">Details</li>
                     {{-- <li class="breadcrumb-item">Data</li> --}}
                 </ol>
             </nav>
@@ -13,7 +13,7 @@
     <div class="row mb-2">
         <div class='col-md'>
             <div class="card" style='width:100%'>
-                <h4 class="card-header font-weight-bold">Ticket # {{ $tickets->id }}</h4>
+                <h4 class="card-header font-weight-bold">#{{ $tickets->id }}</h4>
                 <div class="card-body">
                     <div class="row mb-2">
                         <div class="col-md-6">
@@ -66,7 +66,8 @@
                                 </div>
                             </div>                            
                         </div>
-                    </div>                                
+                    </div>
+                    <hr>                          
                     <div class="row mb-2">
                         <div class="col-md-1">
                             <label class='font-weight-bold'><span class='text-muted'>SUBJECT:</span></label>      

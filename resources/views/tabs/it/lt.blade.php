@@ -37,7 +37,7 @@
                             </div>                                                   
                             <div class='col-md-10'>
                                 <div class='row'>
-                                    <div class='col-md'>
+                                    <div class='col-md' style='width:50vw'>
                                         <h5 style='overflow:hidden;text-overflow:ellipsis;white-space: nowrap ;'>                                                                              
                                             <a class="viewticket" href="/1_atms/public/it/vt/{{$ticket->id}}" ><span>{{$ticket->subject}}</span></a>
                                         </h5>
