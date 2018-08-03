@@ -219,6 +219,38 @@ $('#app').on('click','.adminviewticket',function(e){
 	e.stopImmediatePropagation();
 	loadadminviewticket($(this).attr('href'));
 });
+$('#app').on('submit','#adminupdateform',function(e){
+	e.preventDefault();
+	e.stopImmediatePropagation();
+	var id = $('#admin_update_ticket_id').val();
+	$.ajax({
+			type: $(this).attr('method'),
+			url	: $(this).attr('action'),
+			data: $('#adminupdateform').serialize(),
+			datatype: 'JSON',       
+			success: function(success_data) {
+					iziToast.success({
+							message: success_data,
+							position: 'topCenter',
+							timeout: 2000
+					});
+					loadadminviewticket('/1_atms/public/it/av/'+id,1);		     
+			},
+			error: function(data){
+			var errors = data.responseJSON;
+			alert(data.responseText);
+					var msg = '';
+					$.each(errors['errors'], function( index, value ) {
+							msg += value +"<br>"
+					});
+					iziToast.warning({
+							message: msg,
+							position: 'topCenter',
+							timeout: 5000
+					});
+			} //end function
+	});//close ajax				   
+});
 
 /* -------------------------- View Ticket ----------------------------- */
 $('#app').on('submit','#updateform',function(e){

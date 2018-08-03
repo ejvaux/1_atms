@@ -24,7 +24,13 @@
                                 </div>
                                 <div class="row mb-2">
                                     <div class="col-md">
-                                        <h4 class="font-weight-bold">Waiting for Queue</h4>
+                                        <h4 class="font-weight-bold">
+                                            @if ($tickets->start_at == null)
+                                                Waiting for Queue
+                                            @else
+    
+                                            @endif
+                                        </h4>
                                     </div>
                                 </div>
                             </div>
@@ -91,25 +97,30 @@
                 </div>
             </div>
         </div>    
-        <div class="row mb-4">
+        <div class="row mb-0">
             <div class='col-md'>
                 <div class="card">
                     <h5 class="card-header font-weight-bold">Ticket Updates</h5>
                     <div class="card-body">
                         @foreach($updates as $update)
                         @php
-                            $updatetext .= "<p class='text-muted mb-0 mt-3'>". $update->user->name . " (" . $update->created_at . ")</p><div class='card mt-0 mb-2 p-0' style='width:fit-content; background-color:#D4E6F1;'><div class='card-body p-2'>" . $update->message . '</div></div>';         
+                            if($update->user_id == Auth::user()->id){
+                                $updatetext .= "<p class='text-muted mb-0 mt-3 text-right'>You (" . $update->created_at . ")</p><div class='card mt-0 mb-2 p-0 ml-auto' style='width:fit-content; background-color:#D4E6F1;'><div class='card-body p-2'>" . $update->message . '</div></div>';
+                            }
+                            else{
+                                $updatetext .= "<p class='text-muted mb-0 mt-3'>". $update->user->name . " (" . $update->created_at . ")</p><div class='card mt-0 mb-2 p-0' style='width:fit-content; background-color:#D4E6F1;'><div class='card-body p-2'>" . $update->message . '</div></div>';
+                            }
+                            /* $updatetext .= "<p class='text-muted mb-0 mt-3'>". $update->user->name . " (" . $update->created_at . ")</p><div class='card mt-0 mb-2 p-0' style='width:fit-content; background-color:#D4E6F1;'><div class='card-body p-2'>" . $update->message . '</div></div>'; */                                     
                         @endphp
                         @endforeach
-                        {{-- <textarea rows="10" style="width:100%" readonly>{{$updatetext}}</textarea> --}}
                         <div class="px-3" id='update_div' style="width:100%; height:300px; overflow-y: auto;">{!!$updatetext!!}</div>
                     </div>
                 </div>
             </div>  
         </div>  
-        {{-- <form id='updateform' method="POST" action="/1_atms/public/ticket_updates">
+        <form id='adminupdateform' method="POST" action="/1_atms/public/ticket_updates">
         @csrf
-        <input type="hidden" id='update_ticket_id' name="ticket_id" value="{{ $tickets->id }}">
+        <input type="hidden" id='admin_update_ticket_id' name="ticket_id" value="{{ $tickets->id }}">
         <input type="hidden" name="user_id" value="{{ Auth::user()->id }}">
         <div class="row pt-0 mt-0 mb-4">
             <div class="col-md-12">
@@ -119,5 +130,5 @@
                 </div>
             </div>        
         </div>
-        </form> --}}
+        </form>
     </div>

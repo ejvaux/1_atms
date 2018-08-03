@@ -24,7 +24,14 @@
                             </div>
                             <div class="row mb-2">
                                 <div class="col-md">
-                                    <h4 class="font-weight-bold">Waiting for Queue</h4>
+                                    <h4 class="font-weight-bold">
+                                        @if ($tickets->start_at == null)
+                                            Waiting Queue
+                                        @else
+
+                                        @endif
+                                        
+                                    </h4>
                                 </div>
                             </div>
                         </div>
