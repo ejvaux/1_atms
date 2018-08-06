@@ -219,7 +219,7 @@ $('#app').on('click','#admin_checkbox',function(e){
 		e.preventDefault();
 		e.stopImmediatePropagation();
 		iziToast.warning({
-			message: 'Changing not allowed',
+			message: 'Changing your data is not allowed',
 			position: 'topCenter',
 			timeout: 2000
 	});
