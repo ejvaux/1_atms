@@ -46,6 +46,7 @@ Route::get('/it/ct', 'DashboardController@createticket');
 Route::get('/it/cu', 'DashboardController@contact');
 
 // Tables
+Route::resource('users','UsersController');
 Route::resource('tickets','TicketsController');
 Route::resource('categories','CategoriesController');
 Route::resource('priorities','PrioritiesController');

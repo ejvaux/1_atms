@@ -29,8 +29,7 @@
                                             Waiting Queue
                                         @else
 
-                                        @endif
-                                        
+                                        @endif                                        
                                     </h4>
                                 </div>
                             </div>

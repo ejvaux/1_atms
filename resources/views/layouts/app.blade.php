@@ -12,7 +12,8 @@
 
     @include('inc.header')         
 </head>
-<body>
+<body>    
+    <input type='hidden' value='{{Auth::user()->id}}' id='logged_userid'>
     <div id="app" class='app'>
         @include('inc.navbar')  
         <main class="container-fluid py-4">

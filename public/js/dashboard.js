@@ -175,6 +175,57 @@ $('#admin_roles').on('click',function(){
 					} */ //end function
   });//close ajax 
 });
+$('#app').on('click','#admin_checkbox',function(e){
+	if($(this).is(":checked")){
+		$test = 1;
+	}
+	else{
+		$test = 0;
+	}	
+	$val = $(this).val();
+	/* alert('The checkbox is ' + $test + "\nUser id is " + $val); */
+	if($val != $('#logged_userid').val()){
+		/* alert('not same'); */			
+		$.ajax({
+			type: 'PUT',
+			url	: '/1_atms/public/users/'+$val,
+			data: {
+				"_token": $('meta[name="csrf-token"]').attr('content'),
+				"admin": $test
+			}, 
+			datatype: 'JSON',       
+			success: function(success_data) {
+					iziToast.success({
+							message: success_data,
+							position: 'topCenter',
+							timeout: 2000
+					});     
+			},
+			error: function(data){
+			var errors = data.responseJSON;
+					var msg = '';
+					$.each(errors['errors'], function( index, value ) {
+							msg += value +"<br>"
+					});
+					iziToast.warning({
+							message: msg,
+							position: 'topCenter',
+							timeout: 5000
+					});
+			} //end function
+		});//close ajax
+	}
+	else{
+		e.preventDefault();
+		e.stopImmediatePropagation();
+		iziToast.warning({
+			message: 'Changing not allowed',
+			position: 'topCenter',
+			timeout: 2000
+	});
+		/* alert('same'); */
+	}
+});
 
 /* --------------------------- IT Menu tabs ---------------------------- */
 $('#admin_it').on('click',function(){
@@ -250,7 +301,6 @@ $('#app').on('submit','#adminupdateform',function(e){
 			},
 			error: function(data){
 			var errors = data.responseJSON;
-			alert(data.responseText);
 					var msg = '';
 					$.each(errors['errors'], function( index, value ) {
 							msg += value +"<br>"

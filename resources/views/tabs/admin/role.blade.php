@@ -10,7 +10,6 @@
     </div>
     <div class='row'>
         <div class='col-md'>
-            <form id='roleform' method='POST'>
             <table class="table">
                 <thead class="thead-light">
                     <tr>
@@ -35,9 +34,9 @@
                                 </th>
                                 <th>
                                     @if ($user->admin == true)
-                                        <input type='checkbox' checked>
+                                        <input id='admin_checkbox' value='{{$user->id}}' type='checkbox' checked>
                                     @else
-                                        <input type='checkbox'>
+                                        <input id='admin_checkbox' value='{{$user->id}}' type='checkbox'>
                                     @endif
                                 </th>
                             </tr>
@@ -47,7 +46,6 @@
                     @endif 
                 </tbody>
             </table>
-            </form>
         </div>
     </div>
 </div>
