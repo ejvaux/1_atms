@@ -1,4 +1,5 @@
 <div class='container'>
+    <input type='hidden' value='{{Auth::user()->id}}' id='logged_userid'>
     <div class='row mb-2'>
         <div class='col-md'>
             <nav>

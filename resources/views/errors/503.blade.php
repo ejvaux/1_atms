@@ -4,4 +4,4 @@
 
 {{-- @section('message', 'Be right back.') --}}
 
-@section('message', 'Coming Soon.')
+@section('message', 'Under Maintenance.')
