@@ -72,8 +72,13 @@
                                     </div>
                                 </div>                            
                             </div>
+                        </div>                        
+                        <div class='row mb-2'>
+                            <div class='col-md'>
+                                <button type='' class='btn btn-secondary'>Assign Ticket</button>
+                            </div>
                         </div>
-                        <hr>                          
+                        <hr>                    
                         <div class="row mb-2">
                             <div class="col-md-1">
                                 <label class='font-weight-bold'><span class='text-muted'>SUBJECT:</span></label>      

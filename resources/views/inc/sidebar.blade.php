@@ -4,7 +4,13 @@
             <li class="list-group-item noborder d-flex justify-content-between align-items-center"><a id='dboard' class='sidetab' href='#'>DASHBOARD</a><span class="badge badge-info"></span></li>
             @if(Auth::check())
                 @if (Auth::user()->isAdmin())
-                    <li class="list-group-item noborder d-flex justify-content-between align-items-center"><a id="admin_dash" class='sidetab' href='#'>ADMIN</a><span class="badge badge-info"></span></li>
+                    <li class="list-group-item noborder"><a id="admin_dash" class='sidetab' href='#'>ADMIN</a><span class="badge badge-info"></span>
+                        <ul class="list-group list-group-flush">
+                            <li class="list-group-item noborder d-flex justify-content-between align-items-center"><a id="admin_roles" class='sidetab' href='#'>ROLES</a><span class="badge badge-info"></span></li>
+                            {{-- <li class="list-group-item noborder d-flex justify-content-between align-items-center"><a id="hr2" class='sidetab' href='#'>OTHER REQUEST</a><span class="badge badge-info"></span></li>
+                            <li class="list-group-item noborder d-flex justify-content-between align-items-center"><a id="hr3" class='sidetab' href='#'>OTHERS</a><span class="badge badge-info"></span></li> --}}
+                        </ul>
+                    </li>
                 @endif
             @endif            
             <li class="list-group-item noborder"><a class='sidetab' href='#'>IT</a>

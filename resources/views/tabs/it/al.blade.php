@@ -33,12 +33,12 @@
             <table class="table">
                 <thead class="thead-light">
                     <tr>
-                        <th>Priority</th>
-                        <th>Subject</th>
-                        <th>Status</th>
-                        <th>Date</th>
-                        <th>Assigned to</th>
-                        <th>Updated</th>
+                        <th>PRIORITY</th>
+                        <th>SUBJECT</th>
+                        <th>STATUS</th>
+                        <th>DATE</th>
+                        <th>ASSIGNED TO</th>
+                        <th>UPDATED</th>
                         <th><input type='checkbox' onchange='checkAll(this)'></th>
                     </tr>
                 </thead>

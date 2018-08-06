@@ -163,6 +163,18 @@ $('#dboard').on('click',function(){
 $('#admin_dash').on('click',function(){
   loadcomingsoon();
 });
+$('#admin_roles').on('click',function(){
+  $.ajax({
+		type		: "GET",
+		url		: "/1_atms/public/admin/role",
+		success		: function(html) {					
+						$("#main_panel").html(html).show('slow');
+					}/* ,
+					error : function (jqXHR, textStatus, errorThrown) {							
+							window.location.href = '/1_atms/public/login';
+					} */ //end function
+  });//close ajax 
+});
 
 /* --------------------------- IT Menu tabs ---------------------------- */
 $('#admin_it').on('click',function(){

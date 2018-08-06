@@ -29,6 +29,7 @@ Route::get('/dashboard', 'DashboardController@index');
 
 // HOME
 Route::get('/home/dt', 'DashboardController@viewdashtab');
+Route::get('/admin/role','DashboardController@viewroles');
 /* Route::get('/protected', ['middleware' => ['auth', 'admin'], function() {
      return "this page requires that you be logged in and an Admin"; 
 }]); */

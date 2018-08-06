@@ -7,8 +7,9 @@ use App\Ticket;
 use App\Category;
 use App\Priority;
 use App\Department;
-use Auth;
 use App\TicketUpdates;
+use App\User;
+use Auth;
 
 class DashboardController extends Controller
 {
@@ -36,6 +37,12 @@ class DashboardController extends Controller
     public function viewdashtab()
     {       
         return view('tabs.home.dash');
+    }
+
+    public function viewroles()
+    {   
+        $users = User::all();
+        return view('tabs.admin.role',compact('users'));
     }
     
     // IT Tabs
