@@ -12,9 +12,17 @@
     </div>
     <div class="row mb-3">
         <div class='col-md'>
+            <div class="btn-group" role="group" aria-label="Basic example">
+                <button type="button" class="btn btn-secondary">All</button>
+                <button type="button" class="btn btn-secondary">Queued</button>
+                <button type="button" class="btn btn-secondary">Handled</button>
+                <button type="button" class="btn btn-secondary">Closed</button>
+            </div>
+        </div>
+        <div class='col-md-3 text-right'>
             <button class='btn btn-secondary' type="button" id="ct_button">Create Ticket</button>
         </div>
-        <div class="col-md-4 ml-auto">
+        <div class="col-md-4">
             <form>
                 <div class="input-group">
                     <input type="text" class="form-control" id="search" placeholder="Enter ticket number . . .">

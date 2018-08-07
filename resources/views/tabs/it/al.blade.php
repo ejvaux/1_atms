@@ -13,16 +13,18 @@
     <div class='row mb-2'>
         <div class='col-lg'>
             <div class="btn-group" role="group" aria-label="Basic example">
-                <button type="button" class="btn btn-secondary">All</button>
                 <button type="button" class="btn btn-secondary">Queued</button>
                 <button type="button" class="btn btn-secondary">Handled</button>
                 <button type="button" class="btn btn-secondary">Closed</button>
             </div>
         </div>
-        <div class="col-lg-4 ml-auto">
+        <div class='col-md-3 text-right m-0 p-1'>
+                <button class='btn btn-secondary' type="button" id="ct_adminbutton">Create Ticket</button>
+        </div>
+        <div class="col-md-3 m-0 p-1">
             <form>
                 <div class="input-group">
-                    <input type="text" class="form-control" id="adminsearch" placeholder="Enter ticket number . . .">
+                    <input type="text" class="form-control" id="search" placeholder="Enter ticket number . . .">
                     <button type="button" id="refresh"><i class="fa fa-search"></i></button>
                 </div>               
             </form>
@@ -39,7 +41,7 @@
                         <th>DATE</th>
                         <th>ASSIGNED TO</th>
                         <th>UPDATED</th>
-                        <th><input type='checkbox' onchange='checkAll(this)'></th>
+                        {{-- <th><input type='checkbox' onchange='checkAll(this)'></th> --}}
                     </tr>
                 </thead>
                 <tbody>
@@ -49,13 +51,13 @@
                                 <th>
                                     {!! CustomFunctions::priority_format($ticket->priority_id) !!}
                                 </th>
-                                <th style='width:400px'>
-                                    <div class='row' style="font-size:15px">
+                                <th style='width:35vw'>
+                                    <div class='row' style="font-size:1rem">
                                         <div class='col-lg' style='overflow:hidden;text-overflow:ellipsis; white-space: nowrap ;width:300px'>
                                             <a class="adminviewticket" href="/1_atms/public/it/av/{{$ticket->id}}" ><span>{{$ticket->subject}}</span></a>
                                         </div>                                                                                
                                     </div>
-                                    <div class='row' style='font-size:11px'>
+                                    <div class='row' style='font-size:.8rem'>
                                         <div class='col-lg'>
                                             <span class='text-muted'><i class="fa fa-user"></i> {{$ticket->user->name}}</span>                                        
                                             <span class='text-muted ml-1'><i class="fa fa-folder"></i> {{$ticket->category->name}}</span>
@@ -67,21 +69,23 @@
                                         {!! CustomFunctions::status_color($ticket->status_id) !!}
                                     </div>
                                     <div class='row'>
-                                        <span class='text-muted' style='font-size:11px'>#{{$ticket->id}}</span>
+                                        <span class='text-muted' style='font-size:.8rem'>#{{$ticket->id}}</span>
                                     </div>
                                 </th>                    
                                 <th>
-                                    {!!str_replace(' ','<br>',$ticket->created_at)!!}
+                                    <span style='font-size:.8rem'>{!!str_replace(' ','<br>',$ticket->created_at)!!}</span>
                                 </th>
                                 <th>
-                                    {{$ticket->assigned_to}}
+                                    @if($ticket->assigned_to != '')                                        
+                                        {{$ticket->assign->name}}
+                                    @endif                                    
                                 </th>
                                 <th>
-                                    {!!str_replace(' ','<br>',$ticket->updated_at)!!}
+                                    <span style='font-size:.8rem'>{!!str_replace(' ','<br>',$ticket->updated_at)!!}</span>
                                 </th>
-                                <th>
+                                {{-- <th>
                                     <input type='checkbox'>
-                                </th>
+                                </th> --}}
                             </tr>
                         @endforeach                
                     @else

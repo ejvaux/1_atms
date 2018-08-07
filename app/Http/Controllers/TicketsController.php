@@ -97,7 +97,19 @@ class TicketsController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $request->validate([
+            'assigned_to' => 'nullable|integer',
+            'start_at' => 'nullable|date',
+            'status_id' => 'nullable|integer',
+        ]);        
+        $ticket = Ticket::find($id);
+        if($request->input('assigned_to') != ""){ $ticket->assigned_to = $request->input('assigned_to');}
+        if($request->input('start_at') != ""){ $ticket->start_at = $request->input('start_at');}
+        if($request->input('status_id') != ""){ $ticket->status_id = $request->input('status_id');}
+        $ticket->save();
+        if($ticket->save()){
+            return 'Ticket updated successfully!';
+        }
     }
 
     /**

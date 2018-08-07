@@ -73,12 +73,14 @@ class UsersController extends Controller
         $request->validate([
             'name' => 'nullable|string',
             'email' => 'nullable|email',
-            'admin' => 'nullable|boolean'
+            'admin' => 'nullable|boolean',
+            'tech' => 'nullable|boolean'
         ]);        
         $user = User::find($id);
         if($request->input('name') != ""){ $user->name = $request->input('name');}
         if($request->input('email') != ""){ $user->email = $request->input('email');}
         if($request->input('admin') != ""){ $user->admin = $request->input('admin');}
+        if($request->input('tech') != ""){ $user->tech = $request->input('tech');}
         $user->save();
         if($user->save()){
             return 'User data updated successfully!';

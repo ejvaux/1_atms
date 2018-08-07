@@ -12,7 +12,7 @@
         </div>
         <div class="col-md-6">
             <div class="card-header">
-                My requests
+                My Requests
             </div>
             <div class="card">
                 <div class="card-body">

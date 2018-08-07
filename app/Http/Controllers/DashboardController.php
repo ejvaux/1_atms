@@ -41,7 +41,7 @@ class DashboardController extends Controller
 
     public function viewroles()
     {   
-        $users = User::all();
+        $users = User::paginate(20);
         return view('tabs.admin.role',compact('users'));
     }
     
@@ -53,10 +53,11 @@ class DashboardController extends Controller
 
     public function adminviewticket($id)
     {
+        $users = User::where('tech',1)->get();
         $tickets = Ticket::where('id',$id)->first();
         $updates = TicketUpdates::where('ticket_id',$id)->get();
         $updatetext = '';
-        return view('tabs.it.av', compact('tickets','updates','updatetext'));
+        return view('tabs.it.av', compact('tickets','updates','users','updatetext'));
     }
 
     public function listticket()
@@ -79,6 +80,14 @@ class DashboardController extends Controller
         $categories = Category::orderBy('name')->get();
         $priorities = Priority::orderBy('id')->get();
         return view('tabs.it.ct', compact('categories', 'priorities','departments'));
+    }
+
+    public function admincreateticket()
+    {
+        $departments = Department::orderBy('name')->get();
+        $categories = Category::orderBy('name')->get();
+        $priorities = Priority::orderBy('id')->get();
+        return view('tabs.it.ac', compact('categories', 'priorities','departments'));
     }
 
     public function contact()

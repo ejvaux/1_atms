@@ -24,11 +24,11 @@
                                 </div>
                                 <div class="row mb-2">
                                     <div class="col-md">
-                                        <h4 class="font-weight-bold">
+                                        <h4 class="font-weight-bold" id='timelapse_label'>
                                             @if ($tickets->start_at == null)
                                                 Waiting for Queue
                                             @else
-    
+                                                {!! CustomFunctions::datetimelapse($tickets->start_at) !!}
                                             @endif
                                         </h4>
                                     </div>
@@ -66,7 +66,7 @@
                                         </div>
                                         <div class='row'>
                                             <div class='col-md'>
-                                                <label class='font-weight-bold'>{{ $tickets->start_at }}</label>
+                                                <label class='font-weight-bold' id='start_label'>{{ $tickets->start_at }}</label>
                                             </div>
                                         </div>
                                     </div>
@@ -74,9 +74,26 @@
                             </div>
                         </div>                        
                         <div class='row mb-2'>
-                            <div class='col-md'>
-                                <button type='' class='btn btn-secondary'>Assign Ticket</button>
-                            </div>
+                            <div class='col-md-4'>
+                                @if($tickets->assigned_to == '')
+                                    <button type='button' id='assign_ticket' class='btn btn-secondary'>Assign Ticket </button>
+                                @else
+                                    <span class='font-weight-bold' style='font-size:1rem'>Assigned to {{ $tickets->assign->name }}</span> 
+                                @endif
+                                <span class='font-weight-bold' id='assign_label' style='font-size:1rem'></span> 
+                                <form id='assign_tech'>
+                                    <input type='hidden' id='assign_to_ticketid' value='{{ $tickets->id }}'>
+                                    <div class='input-group' id='dd_assigned_to' style='display:none'>
+                                        <select type="text" class="form-control" id="assigned_to" name="assigned_to" placeholder="" required>
+                                            <option value="">- Select Tech -</option>                            
+                                            @foreach($users as $user)
+                                                <option value="{{$user->id}}">{{$user->name}}</option>
+                                            @endforeach
+                                        </select>
+                                        <button type='submit' class='btn btn-secondary'>Save</button> 
+                                    </div>                                                                          
+                                </form>                                                                                    
+                            </div>                                                  
                         </div>
                         <hr>                    
                         <div class="row mb-2">

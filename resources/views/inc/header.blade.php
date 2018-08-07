@@ -33,6 +33,9 @@
 <!-- Main Quill library -->
 <script src="/1_atms/node_modules/quill/dist/quill.min.js"></script>
 
+<!-- Moment JS -->
+<script src="/1_atms/node_modules/moment/moment.js" defer></script>
+
 <!-- Custom -->
 <script src="{{ asset('js/pjax.js') }}" defer></script>
 <script src="{{ asset('js/dashboard.js') }}" defer></script>

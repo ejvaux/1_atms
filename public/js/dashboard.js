@@ -21,11 +21,48 @@ function checkAll(ele) {
 	}
 }
 
+/* ------------------------- Timelapse -------------------------------- */
+function timelapse(dt){
+	var date1 = moment(dt);
+	var date2 = moment(moment().format('YYYY-MM-DD HH:mm:ss'));
+	var diff = date2.diff(date1,'seconds');
+	if(diff < 60){		
+		return diff + " secs ago";		            
+	}
+	else if(diff >= 60 && diff < 3600){
+		$a = Math.floor(diff / 60);
+		if($a>1){
+			return $a + " mins ago";
+		}
+		else{
+			return $a + " min ago";
+		} 
+	}
+	else if(diff >= 3600 && diff < 86400){
+		$a = Math.floor(diff / 3600);
+		if($a>1){
+			return $a + " hours ago";
+		}
+		else{
+			return $a + " hour ago";
+		} 
+	}
+	else if(diff >= 86400){
+		$a = Math.floor(diff / 86400);
+		if($a>1){
+			return $a + " days ago";
+		}
+		else{
+			return $a + " day ago";
+		} 
+	}
+}
+
 /* ------------------------- Quill -------------------------------- */
 function initquill(txt){
 	var txtarea =  document.getElementById(txt);
 	var toolbarOptions = [
-		[{ 'header': [1, 2, 3, 4, 5, 6, false] }],
+		/* [{ 'header': [1, 2, 3, 4, 5, 6, false] }], */
 		['bold', 'italic', 'underline', 'strike'],        // toggled buttons
 		['blockquote', 'code-block'],
 		[{ 'list': 'ordered'}, { 'list': 'bullet' }],
@@ -177,10 +214,10 @@ $('#admin_roles').on('click',function(){
 });
 $('#app').on('click','#admin_checkbox',function(e){
 	if($(this).is(":checked")){
-		$test = 1;
+		$admin = 1;
 	}
 	else{
-		$test = 0;
+		$admin = 0;
 	}	
 	$val = $(this).val();
 	/* alert('The checkbox is ' + $test + "\nUser id is " + $val); */
@@ -191,7 +228,7 @@ $('#app').on('click','#admin_checkbox',function(e){
 			url	: '/1_atms/public/users/'+$val,
 			data: {
 				"_token": $('meta[name="csrf-token"]').attr('content'),
-				"admin": $test
+				"admin": $admin
 			}, 
 			datatype: 'JSON',       
 			success: function(success_data) {
@@ -224,6 +261,54 @@ $('#app').on('click','#admin_checkbox',function(e){
 			timeout: 2000
 	});
 		/* alert('same'); */
+	}
+});
+$('#app').on('click','#tech_checkbox',function(e){
+	if($(this).is(":checked")){
+		var tech = 1;
+	}
+	else{
+		var tech = 0;
+	}
+	var val = $(this).val();
+	if(val != $('#logged_userid').val()){			
+		$.ajax({
+			type: 'PUT',
+			url	: '/1_atms/public/users/'+val,
+			data: {
+				"_token": $('meta[name="csrf-token"]').attr('content'),
+				"tech": tech
+			}, 
+			datatype: 'JSON',       
+			success: function(success_data) {
+					iziToast.success({
+							message: success_data,
+							position: 'topCenter',
+							timeout: 2000
+					});     
+			},
+			error: function(data){
+			var errors = data.responseJSON;
+					var msg = '';
+					$.each(errors['errors'], function( index, value ) {
+							msg += value +"<br>"
+					});
+					iziToast.warning({
+							message: msg,
+							position: 'topCenter',
+							timeout: 5000
+					});
+			} //end function
+		});//close ajax
+	}
+	else{
+		e.preventDefault();
+		e.stopImmediatePropagation();
+		iziToast.warning({
+			message: 'Changing your data is not allowed',
+			position: 'topCenter',
+			timeout: 2000
+		});
 	}
 });
 
@@ -272,6 +357,21 @@ $('#p3').on('click',function(){
   loadcomingsoon();
 });
 
+/* -------------------------- Admin List Ticket ----------------------------- */
+$('#app').on('click','#ct_adminbutton',function(){
+	$.ajax({
+		type	: "GET",
+		url		: "/1_atms/public/it/ac",
+		success	: function(html) {					
+				$("#main_panel").html(html).show('slow');
+				initquill('test');
+		},
+		error : function (jqXHR, textStatus, errorThrown) {							
+				window.location.href = '/1_atms/public/login';
+		} //end function
+	});//close ajax
+});
+
 /* -------------------------- Admin View Ticket ----------------------------- */
 
 $('#app').on('click','#bc_adminviewticket',function(){
@@ -312,6 +412,51 @@ $('#app').on('submit','#adminupdateform',function(e){
 					});
 			} //end function
 	});//close ajax				   
+});
+$('#app').on('click','#assign_ticket',function(){
+	$('#dd_assigned_to').show();
+	$(this).hide();
+});
+$('#app').on('submit','#assign_tech',function(e){
+	e.preventDefault();
+	e.stopImmediatePropagation();
+	var username = $('#assigned_to :selected').text();
+	var user = $('#assigned_to').val();
+	var val = $('#assign_to_ticketid').val();
+	var dte = moment().format('YYYY-MM-DD HH:mm:ss');
+	/* alert(moment().format('YYYY-MM-DD HH:mm:ss')); */
+	/* alert($user +" || " + $val); */
+	$.ajax({
+		type: 'PUT',
+		url	: '/1_atms/public/tickets/'+val,
+		data: {
+			"_token": $('meta[name="csrf-token"]').attr('content'),
+			"assigned_to": user,
+			"start_at": dte,
+			"status_id": 2
+		}, 
+		datatype: 'JSON',       
+		success: function(success_data) {
+				iziToast.success({
+						message: success_data,
+						position: 'topCenter',
+						timeout: 2000
+				});
+				loadadminviewticket('/1_atms/public/it/av/'+val);
+		},
+		error: function(data){
+		var errors = data.responseJSON;
+				var msg = '';
+				$.each(errors['errors'], function( index, value ) {
+						msg += value +"<br>"
+				});
+				iziToast.warning({
+						message: msg,
+						position: 'topCenter',
+						timeout: 5000
+				});
+		} //end function
+	});//close ajax
 });
 
 /* -------------------------- View Ticket ----------------------------- */
