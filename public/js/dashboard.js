@@ -417,6 +417,10 @@ $('#app').on('click','#assign_ticket',function(){
 	$('#dd_assigned_to').show();
 	$(this).hide();
 });
+$('#app').on('click','#cancel_assign',function(){
+	$('#dd_assigned_to').hide();
+	$('#assign_ticket').show();
+});
 $('#app').on('submit','#assign_tech',function(e){
 	e.preventDefault();
 	e.stopImmediatePropagation();

@@ -90,7 +90,8 @@
                                                 <option value="{{$user->id}}">{{$user->name}}</option>
                                             @endforeach
                                         </select>
-                                        <button type='submit' class='btn btn-secondary'>Save</button> 
+                                        <button type='submit' class='btn btn-secondary'>Assign</button>
+                                        <button type='button' id='cancel_assign' class='btn btn-warning'>Cancel</button>
                                     </div>                                                                          
                                 </form>                                                                                    
                             </div>                                                  
