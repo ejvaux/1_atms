@@ -9,6 +9,7 @@ use App\Priority;
 use App\Department;
 use App\TicketUpdates;
 use App\User;
+use App\Status;
 use Auth;
 
 class DashboardController extends Controller
@@ -47,7 +48,8 @@ class DashboardController extends Controller
     
     // IT Tabs
     public function adminlistticket(){
-        $tickets = Ticket::orderBy('id','desc')->paginate(10);
+        /* $statuses = Status::orderBy('id')->get(); */
+        $tickets = Ticket::sortable()->orderBy('id','desc')->paginate(10);
         return view('tabs.it.al', compact('tickets'));
     }
 
@@ -93,6 +95,19 @@ class DashboardController extends Controller
     public function contact()
     {        
         return view('tabs.it.cu');
+    }
+
+    public function adminqueue()
+    {
+        $tickets = Ticket::where('assigned_to',Auth::user()->id)->orderBy('id','desc')->paginate(10); 
+        return view('tabs.it.aq',compact('tickets'));
+    }
+
+    public function adminsearchticket($id)
+    {
+        /* $statuses = Status::orderBy('id')->get(); */
+        $tickets = Ticket::where('id',$id)->paginate(10);                          
+        return view('tabs.it.al', compact('tickets'));
     }
 
 }

@@ -1,34 +1,24 @@
-<div class="container">
+<div class='container'>
     <div class='row'>
         <div class='col-lg'>
             <nav>
                 <ol class="breadcrumb">
-                    <li class="breadcrumb-item">Tickets</li>
-                    {{-- <li class="breadcrumb-item">Ticket Details</li> --}}
+                    <li class="breadcrumb-item"><a href='#' id='bc_adminqueue'>Tickets</a></li>
+                    <li class="breadcrumb-item">Queued</li>
                     {{-- <li class="breadcrumb-item">Data</li> --}}
                 </ol>
             </nav>
         </div>
     </div>
-    <div class='row mb-2'>
-        <div class='col-lg'>
-            <div class="btn-group" role="group" aria-label="Basic example">
-                <button type="button" id='adminqueuelist' class="btn btn-secondary">Queued</button>
-                <button type="button" class="btn btn-secondary">Handled</button>
-                <button type="button" class="btn btn-secondary">Closed</button>
-            </div>
-        </div>
-        <div class='col-md-3 text-right mr-0 pr-1'>
-                <button class='btn btn-secondary' type="button" id="ct_adminbutton">Create Ticket</button>
-        </div>
-        <div class="col-md-3 ml-0 pl-1">
+    <div class='row mb-2'>        
+        <div class="col-lg-3">
             <form>
-                <div class="input-group">                    
-                    <input type="text" class="form-control" id="searchtextbox" placeholder="Search ticket number . . .">
-                    <button type="button" id="search"><i class="fa fa-search"></i></button>
+                <div class="input-group">
+                    <input type="text" class="form-control" id="search" placeholder="Enter ticket number . . .">
+                    <button type="button" id="refresh"><i class="fa fa-search"></i></button>
                 </div>               
             </form>
-        </div>
+        </div>        
     </div>
     <div class='row mb-1'>
         <div class='col-lg table-responsive-lg'>

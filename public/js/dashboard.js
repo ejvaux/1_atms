@@ -183,6 +183,18 @@ function loadadminlistticket(purl = "/1_atms/public/it/al"){
 					} //end function
   });//close ajax
 }
+function loadadminqueueticket(){
+	$.ajax({
+		type	: "GET",
+		url		: "/1_atms/public/it/aq",
+		success		: function(html) {					
+						$("#main_panel").html(html).show('slow');
+					},
+					error : function (jqXHR, textStatus, errorThrown) {							
+							window.location.href = '/1_atms/public/login';
+					} //end function
+  });//close ajax
+}
 
 /* ---------------------------- Home Menu tabs ----------------------------- */
 $('#dboard').on('click',function(){
@@ -206,10 +218,10 @@ $('#admin_roles').on('click',function(){
 		url		: "/1_atms/public/admin/role",
 		success		: function(html) {					
 						$("#main_panel").html(html).show('slow');
-					}/* ,
+					},
 					error : function (jqXHR, textStatus, errorThrown) {							
 							window.location.href = '/1_atms/public/login';
-					} */ //end function
+					} //end function
   });//close ajax 
 });
 $('#app').on('click','#admin_checkbox',function(e){
@@ -356,7 +368,10 @@ $('#p2').on('click',function(){
 $('#p3').on('click',function(){
   loadcomingsoon();
 });
-
+/* -------------------------- Admin Queue----------------------------- */
+$('#app').on('click','#bc_adminqueue',function(){
+	loadadminlistticket();
+});
 /* -------------------------- Admin List Ticket ----------------------------- */
 $('#app').on('click','#ct_adminbutton',function(){
 	$.ajax({
@@ -372,6 +387,9 @@ $('#app').on('click','#ct_adminbutton',function(){
 	});//close ajax
 });
 
+$('#app').on('click','#adminqueuelist',function(){
+	loadadminqueueticket();
+});
 /* -------------------------- Admin View Ticket ----------------------------- */
 
 $('#app').on('click','#bc_adminviewticket',function(){
@@ -602,3 +620,30 @@ $('#app').on('click','.pagenumber',function(e){
 							} //end function
 	});//close ajax
 });
+
+/* ------------------- Search ------------------- */
+$('#app').on('click','#search',function(){	
+	/* alert($('#searchtextbox').val()); */
+	var tid = $('#searchtextbox').val();
+	if(tid == ""){
+		/* alert('no value'); */
+		loadadminlistticket("/1_atms/public/it/al");
+	}
+	else{
+		/* alert('with value'); */
+		loadadminlistticket("/1_atms/public/it/al/" + tid);
+	}									
+});
+$('#app').on("keypress keyup blur",'#searchtextbox',function (event) {    
+	$(this).val($(this).val().replace(/[^\d].+/, ""));
+	 if ((event.which < 48 || event.which > 57)) {
+		 event.preventDefault();
+	 }
+ });
+ /* --------------------- Sort by Column --------------------------- */
+ $('#app').on("click",'.sorthead',function (e) {    
+	e.preventDefault();
+	e.stopImmediatePropagation();
+	var nurl = $(this).attr('href');
+	loadadminlistticket(nurl);
+ });

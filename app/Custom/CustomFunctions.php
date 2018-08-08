@@ -114,13 +114,13 @@ class CustomFunctions
             return $secs . " secs ago";
         }
         elseif($secs >= 60 && $secs < 3600){
-            $a = floor($secs / 60);
+            $a = floor($secs / 60);            
             if($a>1){
                 return $a . " mins ago";
             }
             else{
                 return $a . " min ago";
-            } 
+            }              
         }
         elseif($secs >= 3600 && $secs < 86400){
             $a = floor($secs / 3600);
