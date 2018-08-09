@@ -54,8 +54,13 @@ class TicketsController extends Controller
         $t->priority_id = $request->input('priority');
         $t->subject = $request->input('subject');
         $t->message = $request->input('message');
-        $t->save();        
-        return redirect('/it/ac')->with('success','Ticket Submitted.');
+        $t->save();
+        if($request->input('mod') == 'default'){
+            return redirect('/it/ct')->with('success','Ticket Submitted Successfully.');           
+        }
+        elseif($request->input('mod') == 'escalate'){            
+            return redirect('/it/ct')->with('success','Ticket Escalated Successfully.');
+        }
     }
 
     /**
@@ -93,14 +98,27 @@ class TicketsController extends Controller
             'assigned_to' => 'nullable|integer',
             'start_at' => 'nullable|date',
             'status_id' => 'nullable|integer',
+            'priority_id' => 'nullable|integer',
         ]);        
         $ticket = Ticket::find($id);
         if($request->input('assigned_to') != ""){ $ticket->assigned_to = $request->input('assigned_to');}
         if($request->input('start_at') != ""){ $ticket->start_at = $request->input('start_at');}
         if($request->input('status_id') != ""){ $ticket->status_id = $request->input('status_id');}
-        $ticket->save();        
-        return redirect('/it/av/'.$id)->with('success','Ticket Assigned Successfully.');
-    }
+        if($request->input('priority_id') != ""){ $ticket->priority_id = $request->input('priority_id');}
+        $ticket->save();
+        if($request->input('mod') == 'assign'){
+            return redirect('/it/av/'.$id)->with('success','Ticket Assigned Successfully.');            
+        }
+        elseif($request->input('mod') == 'accept'){            
+            return redirect('/it/htv/'.$id)->with('success','Ticket Accepted Successfully.');
+        }
+        elseif($request->input('mod') == 'priority'){            
+            return redirect('/it/htv/'.$id)->with('success','Priority Changed Successfully.');
+        }
+        elseif($request->input('mod') == 'status'){            
+            return redirect('/it/htv/'.$id)->with('success','Status Changed Successfully.');
+        } 
+    }     
 
     /**
      * Remove the specified resource from storage.
@@ -111,5 +129,26 @@ class TicketsController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    public function customUpdate(Request $request, $id, $mod)
+    {
+        $request->validate([
+            'assigned_to' => 'nullable|integer',
+            'start_at' => 'nullable|date',
+            'status_id' => 'nullable|integer',
+        ]);        
+        $ticket = Ticket::find($id);
+        if($request->input('assigned_to') != ""){ $ticket->assigned_to = $request->input('assigned_to');}
+        if($request->input('start_at') != ""){ $ticket->start_at = $request->input('start_at');}
+        if($request->input('status_id') != ""){ $ticket->status_id = $request->input('status_id');}
+        $ticket->save();
+        return $mod;
+        if($mod == 'assign'){
+            /* return redirect('/it/av/'.$id)->with('success','Ticket Assigned Successfully.'); */            
+        }
+        elseif($mod == 'accept'){            
+            /* return redirect('/it/av/'.$id)->with('success','Ticket Accepted Successfully.'); */
+        }          
     }
 }

@@ -20,19 +20,7 @@
         <div class='col-md'>
             <div class="card" style='width:100%'>
                 <h4 class="card-header font-weight-bold">#{{ $tickets->id }}</h4>
-                <div class="card-body">
-                    {{-- <div class='row mb-2'>
-                        <div class='col-md'>
-                            <ol class="breadcrumb bread">
-                                <li class="breadcrumb-item">NEW</li>
-                                <li class="breadcrumb-item">QUEUED</li>
-                                <li class="breadcrumb-item">IN PROGRESS</li>
-                                <li class="breadcrumb-item">PENDING</li>
-                                <li class="breadcrumb-item">RESOLVED</li>
-                                <li class="breadcrumb-item">CLOSED</li>
-                            </ol>
-                        </div>
-                    </div> --}}
+                <div class="card-body">                    
                     <div class="row mb-2">
                         <div class="col-md-6">
                             <div class="row mb-2">
@@ -106,6 +94,8 @@
                             <form method='POST' action='/1_atms/public/tickets/{{ $tickets->id }}'>
                                 @method('PUT')
                                 @csrf
+                                <input type='hidden' name='status_id' value='2'>
+                                <input type='hidden' name='mod' value='assign'>
                                 <div class='input-group' id='dd_assigned_to' style='display:none'>
                                     <select type="text" class="form-control" id="assigned_to" name="assigned_to" placeholder="" required>
                                         <option value="">- Select Tech -</option>                            
@@ -148,15 +138,15 @@
                 <h5 class="card-header font-weight-bold">Ticket Updates</h5>
                 <div class="card-body">
                     @foreach($updates as $update)
-                    @php
-                        if($update->user_id == Auth::user()->id){
-                            $updatetext .= "<p class='text-muted mb-0 mt-3 text-right'>You (" . $update->created_at . ")</p><div class='card mt-0 mb-2 p-0 ml-auto' style='width:fit-content; background-color:#D4E6F1;'><div class='card-body p-2'>" . $update->message . '</div></div>';
-                        }
-                        else{
-                            $updatetext .= "<p class='text-muted mb-0 mt-3'>". $update->user->name . " (" . $update->created_at . ")</p><div class='card mt-0 mb-2 p-0' style='width:fit-content; background-color:#D4E6F1;'><div class='card-body p-2'>" . $update->message . '</div></div>';
-                        }
-                        /* $updatetext .= "<p class='text-muted mb-0 mt-3'>". $update->user->name . " (" . $update->created_at . ")</p><div class='card mt-0 mb-2 p-0' style='width:fit-content; background-color:#D4E6F1;'><div class='card-body p-2'>" . $update->message . '</div></div>'; */                                     
-                    @endphp
+                        @php
+                            if($update->user_id == Auth::user()->id){
+                                $updatetext .= "<p class='text-muted mb-0 mt-3 text-right'>You (" . $update->created_at . ")</p><div class='card mt-0 mb-2 p-0 ml-auto' style='width:fit-content; background-color:#D4E6F1;'><div class='card-body p-2'>" . $update->message . '</div></div>';
+                            }
+                            else{
+                                $updatetext .= "<p class='text-muted mb-0 mt-3'>". $update->user->name . " (" . $update->created_at . ")</p><div class='card mt-0 mb-2 p-0' style='width:fit-content; background-color:#D4E6F1;'><div class='card-body p-2'>" . $update->message . '</div></div>';
+                            }
+                            /* $updatetext .= "<p class='text-muted mb-0 mt-3'>". $update->user->name . " (" . $update->created_at . ")</p><div class='card mt-0 mb-2 p-0' style='width:fit-content; background-color:#D4E6F1;'><div class='card-body p-2'>" . $update->message . '</div></div>'; */                                     
+                        @endphp
                     @endforeach
                     <div class="px-3" id='update_div' style="width:100%; height:300px; overflow-y: auto;">{!!$updatetext!!}</div>
                 </div>

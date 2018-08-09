@@ -3,6 +3,7 @@
 @section('pageTitle','Ticket | ATMS - Primatech')
 
 @section('content')
+@include('inc.messages')
 <div class="container">
     <div class='row'>
         <div class='col-lg'>
@@ -18,7 +19,7 @@
     <div class='row mb-2'>
         <div class='col-lg'>
             <div class="btn-group" role="group" aria-label="Basic example">
-                <a class="btn btn-secondary" href='#'>Handled</a>
+                <a class="btn btn-secondary" href='/1_atms/public/it/aq'>Handled</a>
                 <a class="btn btn-secondary" href='#'>Closed</a>
             </div>
         </div>
@@ -53,7 +54,18 @@
                         @foreach($tickets as $ticket)
                             <tr>
                                 <th>
-                                    {!! CustomFunctions::priority_format($ticket->priority_id) !!}
+                                    {!! CustomFunctions::priority_format($ticket->priority_id) !!}<br>
+                                    <span style="font-size:.8rem">
+                                        @if ($ticket->start_at == null)
+                                            @if ($ticket->status_id == 2)
+                                                On Queue
+                                            @else
+                                                For Queuing
+                                            @endif                                                
+                                        @else
+                                            {!! CustomFunctions::datetimelapse($ticket->start_at) !!}
+                                        @endif
+                                    </span>
                                 </th>
                                 <th style='width:35vw'>
                                     <div class='row' style="font-size:1rem">

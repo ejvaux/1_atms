@@ -47,8 +47,11 @@ class TicketUpdatesController extends Controller
         $tu->user_id = $request->input('user_id');
         $tu->message = $request->input('message');
         $tu->save();
-        if($tu->save()){
-            return 'Update posted successfully!';
+        if($request->input('mod') == 'default'){
+            return redirect('/it/vt/'.$request->input('ticket_id'))->with('success','Comment Submitted Successfully.');           
+        }
+        elseif($request->input('mod') == 'admin'){            
+            /* return redirect('/it/ac')->with('success','Ticket Submitted Successfully.'); */
         }
 
     }

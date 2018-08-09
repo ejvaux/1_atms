@@ -1,10 +1,16 @@
+@extends('layouts.app2')
+
+@section('pageTitle','Ticket | ATMS - Primatech')
+
+@section('content')
+@include('inc.messages')
 <div class='container'>
     <div class='row'>
         <div class='col-lg'>
             <nav>
                 <ol class="breadcrumb">
-                    <li class="breadcrumb-item"><a href='#' id='bc_adminqueue'>Tickets</a></li>
-                    <li class="breadcrumb-item">Queued</li>
+                    <li class="breadcrumb-item"><a href='/1_atms/public/it/al'>Tickets</a></li>
+                    <li class="breadcrumb-item">Handled Tickets</li>
                     {{-- <li class="breadcrumb-item">Data</li> --}}
                 </ol>
             </nav>
@@ -91,3 +97,4 @@
         </div>
     </div>
 </div>
+@endsection

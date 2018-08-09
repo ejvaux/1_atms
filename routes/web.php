@@ -46,12 +46,18 @@ Route::get('/it/av/{id}', ['uses' => 'DashboardController@adminviewticket']);
 Route::get('/it/ac', 'DashboardController@admincreateticket');
 Route::get('/it/lt', 'DashboardController@listticket');
 Route::get('/it/vt/{id}', ['uses' => 'DashboardController@viewticket']);
+Route::get('/it/htv/{id}', ['uses' => 'DashboardController@viewhandledticket']);
 Route::get('/it/ct', 'DashboardController@createticket');
 Route::get('/it/cu', 'DashboardController@contact');
 
+// Custom Tables
+/* Route::get('tickets/{id}/{mod}','TicketsController@customUpdate'); */
+
 // Tables
-Route::resource('users','UsersController');
-Route::resource('tickets','TicketsController');
-Route::resource('categories','CategoriesController');
-Route::resource('priorities','PrioritiesController');
-Route::resource('ticket_updates','TicketUpdatesController');
+Route::resources([
+    'users' => 'UsersController',
+    'tickets' => 'TicketsController',
+    'categories' => 'CategoriesController',
+    'priorities' => 'PrioritiesController',
+    'ticket_updates' => 'TicketUpdatesController',
+]);
