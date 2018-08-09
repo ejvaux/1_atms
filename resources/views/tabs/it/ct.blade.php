@@ -1,9 +1,15 @@
-<div class="container">
+@extends('layouts.app2')
+
+@section('pageTitle','Ticket | ATMS - Primatech')
+
+@section('content')
+@include('inc.messages')
+<div class="container admincreateticket_container" >
     <div class='row mb-1'>
         <div class='col-md'>
             <nav>
                 <ol class="breadcrumb">
-                    <li class="breadcrumb-item"><a href="#" id="bc_viewticket">My Tickets</a></li>
+                    <li class="breadcrumb-item"><a href="/1_atms/public/it/lt">My Tickets</a></li>
                     <li class="breadcrumb-item">Create Ticket</li>
                     {{-- <li class="breadcrumb-item">Data</li> --}}
                 </ol>
@@ -12,12 +18,12 @@
     </div>
     <div class="row pt-1">
         <div class="col-md-12">
-            <form id='createticketform'>
+            <form id='createticketform' method='POST' action='/1_atms/public/tickets'>                
                 @csrf
                 <input name="userid" type="hidden" value="{{ Auth::user()->id }}">                
                 <input type="hidden" id="username" name="username" placeholder="" value="{{ Auth::user()->name }}">
-                <input type='hidden' id="message" name="message">
-
+                <input type='hidden' id="createticket_message" name="message">
+                <input type='hidden' name="mod" value='default'>
                 <div class="form-group row">
                     <div class="col-md-5">
                         <label for="subject">Subject:</label>
@@ -53,8 +59,7 @@
                 </div>
                 <div class="form-group row">
                     <div class="col" id='messagecol'>
-                        <label for="message">Description:</label>
-                        {{-- <textarea type="text" class="form-control quill" rows="8" id="message" name="message" placeholder=""></textarea> --}}
+                        <label for="message">Description:</label>                        
                         <div id='test' style="height:250px; overflow-y:auto" ></div>
                     </div>
                 </div>
@@ -67,3 +72,4 @@
         </div>
     </div>    
 </div>
+@endsection

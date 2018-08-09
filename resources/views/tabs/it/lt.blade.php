@@ -3,6 +3,7 @@
 @section('pageTitle','Ticket | ATMS - Primatech')
 
 @section('content')
+@include('inc.messages')
 <div class="container-fluid">
     <div class='row mb-1'>
         <div class='col-md'>
@@ -16,16 +17,23 @@
         </div>
     </div>
     <div class="row mb-3">
-        <div class='col-md'>
-            <div class="btn-group" role="group" aria-label="Basic example">
-                <button type="button" id='handledticket' class="btn btn-secondary">Handled</button>
-                <button type="button" class="btn btn-secondary">Closed</button>
+        @if(Auth::user()->tech == true)
+            <div class='col-md'>
+                <div class="btn-group" role="group" aria-label="Basic example">
+                    <a class="btn btn-secondary" href='/1_atms/public/it/ht'>Handled</a>
+                    <button type="button" class="btn btn-secondary">Closed</button>
+                </div>
             </div>
-        </div>
-        <div class='col-md-3 text-right'>
-            <button class='btn btn-secondary' type="button" id="ct_button">Create Ticket</button>
-        </div>
-        <div class="col-md-4">
+            <div class='col-md-3 text-right'>
+                <a class='btn btn-secondary' href='/1_atms/public/it/ct'>Create Ticket</a>
+            </div>
+        @else
+            <div class='col-md-3'>
+                <a class='btn btn-secondary' href='/1_atms/public/it/ct'>Create Ticket</a>
+            </div>
+        @endif
+        
+        <div class="col-md-4 ml-auto">
             <form>
                 <div class="input-group">
                     <input type="text" class="form-control" id="search" placeholder="Enter ticket number . . .">
@@ -33,57 +41,87 @@
                 </div>               
             </form>
         </div>
-    </div> 
-    <div class='row'>
-        <div class='col-md'>
-            @if (count($tickets)>0)
-                @foreach($tickets as $ticket)
-                    <div class='card mb-2'>
-                        <div class="card-body row pl-3 pb-2 "> 
-                            <div class='col-md-2'>
-                                <sup style='font-size: 17px'>
-                                    {!! CustomFunctions::status_format($ticket->status_id) !!}                                               
-                                </sup><br>
-                                {!!$ticket->priority->name!!} priority                                                           
-                            </div>                                                   
-                            <div class='col-md-10'>
-                                <div class='row'>
-                                    <div class='col-md' style='width:50vw'>
-                                        <h5 style='overflow:hidden;text-overflow:ellipsis;white-space: nowrap ;'>                                                                              
-                                            <a class="viewticket" href="/1_atms/public/it/vt/{{$ticket->id}}" ><span>{{$ticket->subject}}</span></a>
-                                        </h5>
-                                    </div>
-                                </div>
-                                <div class='row'>
-                                    <div class='col-md-3'>
-                                        <strong>#{{$ticket->id}}</strong>
-                                    </div>
-                                    <div class='col-md-5'>
-                                        <span class='text-muted'>Submitted {{-- by 
-                                            @if($ticket->user->name == Auth::user()->name)
-                                                <strong>You</strong>
-                                            @else
-                                                <strong>{{$ticket->user->name}}</strong>
-                                            @endif --}}
-                                             at <i>{{$ticket->created_at}}</i>.</span>
-                                    </div>
-                                    <div class='col-md-4 ml-auto'>
-                                        <span class="badge badge-light" style="font-size:13px">{{$ticket->category->name}}</span>
-                                    </div>
-                                </div>                                
-                            </div>                            
-                        </div>
-                    </div>
-                @endforeach                
-            @else
-                <p>No Tickets Found.</p>
-            @endif
-        </div> 
     </div>
-    <div class='row mt-4'>
-        <div class='col-md'>
-            {{$tickets->links()}}
+    <div class='row mb-1'>
+        <div class='col-lg table-responsive-lg'>
+            <table class="table">
+                <thead class="thead-light">
+                    <tr>
+                        <th>@sortablelink('priority_id','Priority')</th>
+                        <th>@sortablelink('subject','Subject')</th>
+                        <th>@sortablelink('status_id','Status')</th>
+                        <th>@sortablelink('created_at','Date')</th>
+                        <th>@sortablelink('assigned_to','Assigned')</th>
+                        <th>@sortablelink('updated_at','Updated')</th>
+                        {{-- <th><input type='checkbox' onchange='checkAll(this)'></th> --}}
+                    </tr>
+                </thead>
+                <tbody>
+                    @if (count($tickets)>0)
+                        @foreach($tickets as $ticket)
+                            <tr>
+                                <th>
+                                    {!! CustomFunctions::priority_format($ticket->priority_id) !!}<br>
+                                    <span style="font-size:.8rem">
+                                        @if ($ticket->start_at == null)
+                                            @if ($ticket->status_id == 2)
+                                                On Queue
+                                            @else
+                                                For Queuing
+                                            @endif                                                
+                                        @else
+                                            {!! CustomFunctions::datetimelapse($ticket->start_at) !!}
+                                        @endif
+                                    </span>
+                                </th>
+                                <th style='width:35vw'>
+                                    <div class='row' style="font-size:1rem">
+                                        <div class='col-lg' style='overflow:hidden;text-overflow:ellipsis; white-space: nowrap ;width:300px'>
+                                            <a class="adminviewticket" href="/1_atms/public/it/vt/{{$ticket->id}}" ><span>{{$ticket->subject}}</span></a>
+                                        </div>                                                                                
+                                    </div>
+                                    <div class='row' style='font-size:.8rem'>
+                                        <div class='col-lg'>
+                                            <span class='text-muted'><i class="fa fa-user"></i> {{$ticket->user->name}}</span>                                        
+                                            <span class='text-muted ml-1'><i class="fa fa-folder"></i> {{$ticket->category->name}}</span>
+                                        </div>
+                                    </div>                                   
+                                </th>
+                                <th>
+                                    <div class='row'>
+                                        {!! CustomFunctions::status_color($ticket->status_id) !!}
+                                    </div>
+                                    <div class='row'>
+                                        <span class='text-muted' style='font-size:.8rem'>#{{$ticket->id}}</span>
+                                    </div>
+                                </th>                    
+                                <th>
+                                    <span style='font-size:.8rem'>{!!str_replace(' ','<br>',$ticket->created_at)!!}</span>
+                                </th>
+                                <th>
+                                    @if($ticket->assigned_to != '')                                        
+                                        {{$ticket->assign->name}}
+                                    @endif                                    
+                                </th>
+                                <th>
+                                    <span style='font-size:.8rem'>{!!str_replace(' ','<br>',$ticket->updated_at)!!}</span>
+                                </th>
+                                {{-- <th>
+                                    <input type='checkbox'>
+                                </th> --}}
+                            </tr>
+                        @endforeach                
+                    @else
+                        <p>No Tickets Found.</p>
+                    @endif 
+                </tbody>
+            </table>
         </div>
-    </div>    
+    </div>
+    <div class='row'>
+        <div class='col-lg'>
+            {!! $tickets->appends(\Request::except('page'))->render() !!}
+        </div>
+    </div>        
 </div>
 @endsection
