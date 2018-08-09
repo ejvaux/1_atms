@@ -1,3 +1,8 @@
+@extends('layouts.app2')
+
+@section('pageTitle','Dashboard | ATMS - Primatech')
+
+@section('content')
 <div class="container">
     <div class="row mb-5">
         <div class="col-md-6">
@@ -36,3 +41,4 @@
         </div>
     </div>
 </div>
+@endsection
