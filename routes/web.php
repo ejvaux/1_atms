@@ -40,6 +40,7 @@ Route::get('/admin/role','DashboardController@viewroles');
 // IT
 Route::get('/it/al', 'DashboardController@adminlistticket');
 Route::get('/it/aq','DashboardController@adminqueue');
+Route::get('/it/ht','DashboardController@handledticket');
 Route::get('/it/al/{id}', ['uses' => 'DashboardController@adminsearchticket']);
 Route::get('/it/av/{id}', ['uses' => 'DashboardController@adminviewticket']);
 Route::get('/it/ac', 'DashboardController@admincreateticket');

@@ -54,16 +54,8 @@ class TicketsController extends Controller
         $t->priority_id = $request->input('priority');
         $t->subject = $request->input('subject');
         $t->message = $request->input('message');
-        $t->save();
-        if($t->save()){
-                /* $departments = Department::orderBy('name')->get();
-                $categories = Category::orderBy('id')->get();
-                $priorities = Priority::orderBy('id')->get();
-                $msg = ["success" => "Ticket Submitted."];
-                return view('tabs.it.ct', compact('categories', 'priorities','departments','msg')); */
-                return 'Ticket created successfully!';
-        }
-       /*  return redirect('/it/ct')->with('success','Ticket Submitted.'); */
+        $t->save();        
+        return redirect('/it/ac')->with('success','Ticket Submitted.');
     }
 
     /**
@@ -106,10 +98,8 @@ class TicketsController extends Controller
         if($request->input('assigned_to') != ""){ $ticket->assigned_to = $request->input('assigned_to');}
         if($request->input('start_at') != ""){ $ticket->start_at = $request->input('start_at');}
         if($request->input('status_id') != ""){ $ticket->status_id = $request->input('status_id');}
-        $ticket->save();
-        if($ticket->save()){
-            return 'Ticket updated successfully!';
-        }
+        $ticket->save();        
+        return redirect('/it/av/'.$id)->with('success','Ticket Assigned Successfully.');
     }
 
     /**

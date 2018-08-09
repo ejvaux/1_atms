@@ -26,10 +26,14 @@
                                 <div class="col-md">
                                     <h4 class="font-weight-bold">
                                         @if ($tickets->start_at == null)
-                                            Waiting Queue
+                                            @if ($tickets->status_id == 2)
+                                                On Queue
+                                            @else
+                                                Waiting for Queue
+                                            @endif                                                
                                         @else
-
-                                        @endif                                        
+                                            {!! CustomFunctions::datetimelapse($tickets->start_at) !!}
+                                        @endif                                       
                                     </h4>
                                 </div>
                             </div>

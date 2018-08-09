@@ -1,3 +1,8 @@
+@extends('layouts.app2')
+
+@section('pageTitle','Admin | ATMS - Primatech')
+
+@section('content')
 <div class='container'>
     <input type='hidden' value='{{Auth::user()->id}}' id='logged_userid'>
     <div class='row'>
@@ -76,3 +81,4 @@
         </div>
     </div>
 </div>
+@endsection

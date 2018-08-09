@@ -1,3 +1,8 @@
+@extends('layouts.app2')
+
+@section('pageTitle','Ticket | ATMS - Primatech')
+
+@section('content')
 <div class="container">
     <div class='row'>
         <div class='col-lg'>
@@ -13,13 +18,12 @@
     <div class='row mb-2'>
         <div class='col-lg'>
             <div class="btn-group" role="group" aria-label="Basic example">
-                <button type="button" id='adminqueuelist' class="btn btn-secondary">Queued</button>
-                <button type="button" class="btn btn-secondary">Handled</button>
-                <button type="button" class="btn btn-secondary">Closed</button>
+                <a class="btn btn-secondary" href='#'>Handled</a>
+                <a class="btn btn-secondary" href='#'>Closed</a>
             </div>
         </div>
         <div class='col-md-3 text-right mr-0 pr-1'>
-                <button class='btn btn-secondary' type="button" id="ct_adminbutton">Create Ticket</button>
+                <a class='btn btn-secondary' href='/1_atms/public/it/ac'>Create Ticket</a>
         </div>
         <div class="col-md-3 ml-0 pl-1">
             <form>
@@ -35,12 +39,12 @@
             <table class="table">
                 <thead class="thead-light">
                     <tr>
-                        <th>@sortablelink('priority_id')</th>
-                        <th>@sortablelink('subject')</th>
-                        <th>@sortablelink('status_id')</th>
-                        <th>@sortablelink('created_at')</th>
-                        <th>@sortablelink('assigned_to')</th>
-                        <th>@sortablelink('updated_at')</th>
+                        <th>@sortablelink('priority_id','Priority')</th>
+                        <th>@sortablelink('subject','Subject')</th>
+                        <th>@sortablelink('status_id','Status')</th>
+                        <th>@sortablelink('created_at','Date')</th>
+                        <th>@sortablelink('assigned_to','Assigned')</th>
+                        <th>@sortablelink('updated_at','Updated')</th>
                         {{-- <th><input type='checkbox' onchange='checkAll(this)'></th> --}}
                     </tr>
                 </thead>
@@ -101,3 +105,4 @@
         </div>
     </div>
 </div>
+@endsection

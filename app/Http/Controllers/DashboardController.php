@@ -31,7 +31,7 @@ class DashboardController extends Controller
      */
     public function index()
     {       
-        return view('pages.dashboard');
+        return view('tabs.home.dash');
     }
     
     // HOME
@@ -109,5 +109,9 @@ class DashboardController extends Controller
         $tickets = Ticket::where('id',$id)->paginate(10);                          
         return view('tabs.it.al', compact('tickets'));
     }
-
+    public function handledticket()
+    {
+        $tickets = Ticket::where('assigned_to',Auth::user()->id)->orderBy('id','desc')->paginate(10); 
+        return view('tabs.it.ht',compact('tickets'));
+    }
 }

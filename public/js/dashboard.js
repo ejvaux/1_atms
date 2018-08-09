@@ -2,6 +2,15 @@
 var quill;
 var lastpage;
 
+/* -------------------- Loaded Last ------------------- */
+$( document ).ready(function() {
+	$(function(){
+		if($('.container').is('.admincreateticket_container')){
+			initquill('test');
+		}
+	  });
+});
+
 /* ------------------------- CheckAll Checkbox -------------------------------- */
 function checkAll(ele) {
 	var checkboxes = document.getElementsByTagName('input');
@@ -112,89 +121,6 @@ for (i = 0; i < acc.length; i++) {
     } 
   });
 };
-
-/* ------------------------------- Load Div ------------------------------ */
-function loadadminviewticket(url,form = 0){
-	$.ajax({
-		type	: "GET",
-		url		: url,
-		success	: function(html) {					
-						$("#main_panel").html(html).show('slow');
-						$('#update_div').scrollTop($('#update_div')[0].scrollHeight);
-						if(form == 1){							
-							$('#update_message').focus();   
-						}
-        },
-        error : function (jqXHR, textStatus, errorThrown) {							
-                window.location.href = '/1_atms/public/login';
-        } //end function
-  });//close ajax
-}
-function loadlistTicket(purl = "/1_atms/public/it/lt"){
-	$.ajax({
-		type		: "GET",
-		url		: purl,
-		success		: function(html) {					
-						$("#main_panel").html(html).show('slow');
-					},
-					error : function (jqXHR, textStatus, errorThrown) {							
-							window.location.href = '/1_atms/public/login';
-					} //end function
-  });//close ajax 
-}
-function loadcomingsoon(){
-	$.ajax({
-		type		: "GET",
-		url		: "/1_atms/public/comingsoon",
-		success		: function(html) {					
-						$("#main_panel").html(html).show('slow');
-					},
-					error : function (jqXHR, textStatus, errorThrown) {							
-							window.location.href = '/1_atms/public/login';
-					} //end function
-  });//close ajax 
-}
-function loadviewticket(url,form = 0){
-	$.ajax({
-		type	: "GET",
-		url		: url,
-		success	: function(html) {					
-						$("#main_panel").html(html).show('slow');
-						$('#update_div').scrollTop($('#update_div')[0].scrollHeight);
-						if(form == 1){							
-							$('#update_message').focus();   
-						}
-        },
-        error : function (jqXHR, textStatus, errorThrown) {							
-                window.location.href = '/1_atms/public/login';
-        } //end function
-  });//close ajax
-}
-
-function loadadminlistticket(purl = "/1_atms/public/it/al"){
-	$.ajax({
-		type		: "GET",
-		url		: purl,
-		success		: function(html) {					
-						$("#main_panel").html(html).show('slow');
-					},
-					error : function (jqXHR, textStatus, errorThrown) {							
-							window.location.href = '/1_atms/public/login';
-					} //end function
-  });//close ajax
-}
-function loadadminqueueticket(){
-	$.ajax({
-		type	: "GET",
-		url		: "/1_atms/public/it/aq",
-		success		: function(html) {					
-						$("#main_panel").html(html).show('slow');
-					},
-					error : function (jqXHR, textStatus, errorThrown) {							
-							window.location.href = '/1_atms/public/login';
-					} //end function
-  });//close ajax
-}
 
 /* ---------------------------- Home Menu tabs ----------------------------- */
 $('#dboard').on('click',function(){
@@ -343,63 +269,8 @@ $('#contact').on('click',function(){
 					} //end function
   });//close ajax
 });
-$('#cctv').on('click',function(){
-  loadcomingsoon();
-});
 
-/* --------------------- HR Menu tabs -------------------------- */
-$('#hr1').on('click',function(){
-  loadcomingsoon();
-});
-$('#hr2').on('click',function(){
-  loadcomingsoon();
-});
-$('#hr3').on('click',function(){
-  loadcomingsoon();
-});
-
-/* ------------------------- PURCHASING Menu tabs --------------------------- */
-$('#p1').on('click',function(){
-  loadcomingsoon();
-});
-$('#p2').on('click',function(){
-  loadcomingsoon();
-});
-$('#p3').on('click',function(){
-  loadcomingsoon();
-});
-/* -------------------------- Admin Queue----------------------------- */
-$('#app').on('click','#bc_adminqueue',function(){
-	loadadminlistticket();
-});
-/* -------------------------- Admin List Ticket ----------------------------- */
-$('#app').on('click','#ct_adminbutton',function(){
-	$.ajax({
-		type	: "GET",
-		url		: "/1_atms/public/it/ac",
-		success	: function(html) {					
-				$("#main_panel").html(html).show('slow');
-				initquill('test');
-		},
-		error : function (jqXHR, textStatus, errorThrown) {							
-				window.location.href = '/1_atms/public/login';
-		} //end function
-	});//close ajax
-});
-
-$('#app').on('click','#adminqueuelist',function(){
-	loadadminqueueticket();
-});
 /* -------------------------- Admin View Ticket ----------------------------- */
-
-$('#app').on('click','#bc_adminviewticket',function(){
-	loadadminlistticket(lastpage);
-});
-$('#app').on('click','.adminviewticket',function(e){
-	e.preventDefault();
-	e.stopImmediatePropagation();
-	loadadminviewticket($(this).attr('href'));
-});
 $('#app').on('submit','#adminupdateform',function(e){
 	e.preventDefault();
 	e.stopImmediatePropagation();
@@ -454,7 +325,7 @@ $('#app').on('submit','#assign_tech',function(e){
 		data: {
 			"_token": $('meta[name="csrf-token"]').attr('content'),
 			"assigned_to": user,
-			"start_at": dte,
+			/* "start_at": dte, */
 			"status_id": 2
 		}, 
 		datatype: 'JSON',       
@@ -514,9 +385,6 @@ $('#app').on('submit','#updateform',function(e){
 			} //end function
 	});//close ajax				   
 });
-$('#app').on('click','#bc_viewticket',function(){
-	loadlistTicket(lastpage);
-});
 
 /* ----------------------------- List Ticket ------------------------------- */
 $('#app').on('click','#ct_button',function(){
@@ -574,64 +442,15 @@ $('#app').on('submit','#createticketform',function(e){
 	});//close ajax
 });
 
-/* ----------------------- Pagination --------------------------- */
-$('#app').on('click','#prevpage',function(e){
-	e.preventDefault();
-	e.stopImmediatePropagation();
-	lastpage = $(this).attr('href');
-	$.ajax({
-	type	: "GET",
-	url		: $(this).attr('href'),
-			success	: function(html) {					
-									$("#main_panel").html(html).show('slow');
-							},
-							error : function (jqXHR, textStatus, errorThrown) {							
-											window.location.href = '/1_atms/public/login';
-							} //end function
-	});//close ajax
-});
-$('#app').on('click','#nextpage',function(e){
-	e.preventDefault();
-	e.stopImmediatePropagation();
-	lastpage = $(this).attr('href');
-	$.ajax({
-	type	: "GET",
-	url		: $(this).attr('href'),
-			success	: function(html) {					
-									$("#main_panel").html(html).show('slow');
-							},
-							error : function (jqXHR, textStatus, errorThrown) {							
-											window.location.href = '/1_atms/public/login';
-							} //end function
-	});//close ajax
-});
-$('#app').on('click','.pagenumber',function(e){
-	e.preventDefault();
-	e.stopImmediatePropagation();
-	lastpage = $(this).attr('href');
-	$.ajax({
-	type	: "GET",
-	url		: $(this).attr('href'),
-			success	: function(html) {					
-									$("#main_panel").html(html).show('slow');
-							},
-							error : function (jqXHR, textStatus, errorThrown) {							
-											window.location.href = '/1_atms/public/login';
-							} //end function
-	});//close ajax
-});
-
 /* ------------------- Search ------------------- */
 $('#app').on('click','#search',function(){	
 	/* alert($('#searchtextbox').val()); */
 	var tid = $('#searchtextbox').val();
 	if(tid == ""){
-		/* alert('no value'); */
-		loadadminlistticket("/1_atms/public/it/al");
+		window.location = "/1_atms/public/it/al";
 	}
 	else{
-		/* alert('with value'); */
-		loadadminlistticket("/1_atms/public/it/al/" + tid);
+		window.location = "/1_atms/public/it/al/" + tid;
 	}									
 });
 $('#app').on("keypress keyup blur",'#searchtextbox',function (event) {    
@@ -647,3 +466,14 @@ $('#app').on("keypress keyup blur",'#searchtextbox',function (event) {
 	var nurl = $(this).attr('href');
 	loadadminlistticket(nurl);
  });
+
+/* -------------------- Handled ticket - User -------------------- */
+$('#app').on('click','#handledticket',function (e) { 
+	loadhandledticket();
+});
+
+/* -------------------- Admin create ticket -------------------- */
+$('#app').on('submit','#admincreateticket',function(){
+	$('#admincreateticket_message').val(quill.root.innerHTML);
+	return true;
+});

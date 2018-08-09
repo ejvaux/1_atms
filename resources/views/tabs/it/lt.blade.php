@@ -1,3 +1,8 @@
+@extends('layouts.app2')
+
+@section('pageTitle','Ticket | ATMS - Primatech')
+
+@section('content')
 <div class="container-fluid">
     <div class='row mb-1'>
         <div class='col-md'>
@@ -13,9 +18,7 @@
     <div class="row mb-3">
         <div class='col-md'>
             <div class="btn-group" role="group" aria-label="Basic example">
-                <button type="button" class="btn btn-secondary">All</button>
-                <button type="button" class="btn btn-secondary">Queued</button>
-                <button type="button" class="btn btn-secondary">Handled</button>
+                <button type="button" id='handledticket' class="btn btn-secondary">Handled</button>
                 <button type="button" class="btn btn-secondary">Closed</button>
             </div>
         </div>
@@ -83,3 +86,4 @@
         </div>
     </div>    
 </div>
+@endsection

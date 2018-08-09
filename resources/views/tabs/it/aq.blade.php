@@ -14,8 +14,8 @@
         <div class="col-lg-3">
             <form>
                 <div class="input-group">
-                    <input type="text" class="form-control" id="search" placeholder="Enter ticket number . . .">
-                    <button type="button" id="refresh"><i class="fa fa-search"></i></button>
+                    <input type="text" class="form-control" id="searchtextqueue" placeholder="Enter ticket number . . .">
+                    <button type="button" id="searchqueue"><i class="fa fa-search"></i></button>
                 </div>               
             </form>
         </div>        
@@ -25,12 +25,12 @@
             <table class="table">
                 <thead class="thead-light">
                     <tr>
-                        <th>@sortablelink('priority_id')</th>
-                        <th>@sortablelink('subject')</th>
-                        <th>@sortablelink('status_id')</th>
-                        <th>@sortablelink('created_at')</th>
-                        <th>@sortablelink('assigned_to')</th>
-                        <th>@sortablelink('updated_at')</th>
+                        <th>@sortablelink('priority_id','Priority')</th>
+                        <th>@sortablelink('subject','Subject')</th>
+                        <th>@sortablelink('status_id','Status')</th>
+                        <th>@sortablelink('created_at','Date')</th>
+                        <th>@sortablelink('assigned_to','Assigned')</th>
+                        <th>@sortablelink('updated_at','Updated')</th>
                         {{-- <th><input type='checkbox' onchange='checkAll(this)'></th> --}}
                     </tr>
                 </thead>
