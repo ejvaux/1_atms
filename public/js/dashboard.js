@@ -445,5 +445,51 @@ function loadscript(){
 		$('.details_edit').hide();
 		$('.details_display').show();
 	});
+
+	/* -------------------- Close Ticket -------------------- */
+	$('#app').on('click','#close_ticket',function(){
+		swal({
+				title: 'Are you sure?',
+				text: "You won't be able to revert this!",
+				type: 'warning',
+				showCancelButton: true,
+				confirmButtonColor: '#3085d6',
+				cancelButtonColor: '#d33',
+				confirmButtonText: 'Yes, close it!'
+		  	}).then((result) => {
+			if (result.value) {
+				return true;
+				swal(
+					'Closed!',
+					'Ticket has been closed.',
+					'success'
+				)
+			}
+		})
+	});
+
+	/* --------------------Change Status Form Submit -------------------- */
+/* 	$('#app').on('submit','#change_status_form',function(e){
+		e.preventDefault();
+		e.stopImmediatePropagation();
+		var close = '';
+		var id = $('#update_ticket_id').val();
+		alert($('#change_status_id').val());
+		if($('#change_status_id').val() == 6){
+			
+		}
+		else{
+			$.ajax({
+				type: "PUT",
+				url	: $(this).attr('action'),
+				data: $('#change_status_form').serialize(),
+				datatype: 'JSON',       
+				success: function(success_data) {
+					alert(JSON.stringify(success_data));
+					window.location.href = success_data;					
+				}
+			});//close ajax	
+		}
+	}); */
 }
 loadscript();

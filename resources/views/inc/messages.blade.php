@@ -18,7 +18,7 @@
 @endif
 
 @if(session('error'))
-    <div class='alert alert-dange mt-2'>
+    <div class='alert alert-dange alert-dismissible mt-2'>
         {{session('error')}}
         <button type="button" class="close" data-dismiss="alert" aria-label="Close">
             <span aria-hidden="true">&times;</span>

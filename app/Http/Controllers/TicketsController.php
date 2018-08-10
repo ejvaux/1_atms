@@ -58,8 +58,8 @@ class TicketsController extends Controller
         if($request->input('mod') == 'default'){
             return redirect('/it/ct')->with('success','Ticket Submitted Successfully.');           
         }
-        elseif($request->input('mod') == 'escalate'){            
-            return redirect('/it/ct')->with('success','Ticket Escalated Successfully.');
+        elseif($request->input('mod') == 'admin'){            
+            return redirect('/it/ac')->with('success','Ticket Submitted Successfully.');
         }
     }
 
@@ -99,12 +99,20 @@ class TicketsController extends Controller
             'start_at' => 'nullable|date',
             'status_id' => 'nullable|integer',
             'priority_id' => 'nullable|integer',
+            'root' => 'nullable',
+            'action' => 'nullable',
+            'result' => 'nullable',
+            'recommend' => 'nullable',
         ]);        
         $ticket = Ticket::find($id);
         if($request->input('assigned_to') != ""){ $ticket->assigned_to = $request->input('assigned_to');}
         if($request->input('start_at') != ""){ $ticket->start_at = $request->input('start_at');}
         if($request->input('status_id') != ""){ $ticket->status_id = $request->input('status_id');}
         if($request->input('priority_id') != ""){ $ticket->priority_id = $request->input('priority_id');}
+        if($request->input('root') != ""){ $ticket->root = $request->input('root');}
+        if($request->input('action') != ""){ $ticket->action = $request->input('action');}
+        if($request->input('result') != ""){ $ticket->result = $request->input('result');}
+        if($request->input('recommend') != ""){ $ticket->recommend = $request->input('recommend');}
         $ticket->save();
         if($request->input('mod') == 'assign'){
             return redirect('/it/av/'.$id)->with('success','Ticket Assigned Successfully.');            
@@ -116,8 +124,20 @@ class TicketsController extends Controller
             return redirect('/it/htv/'.$id)->with('success','Priority Changed Successfully.');
         }
         elseif($request->input('mod') == 'status'){            
+            session()->flash('success', 'Status Changed Successfully.');
+            return '/1_atms/public/it/htv/'.$id;
+        }
+        elseif($request->input('mod') == 'escalate'){
+            $ticket = Ticket::find($id);
+            if($ticket->finish_at == null){
+                $ticket->finish_at = Date('Y-m-d H:i:s');
+            }            
+            $ticket->save();
             return redirect('/it/htv/'.$id)->with('success','Status Changed Successfully.');
-        } 
+        }
+        elseif($request->input('mod') == 'detail'){            
+            return redirect('/it/htv/'.$id)->with('success','Details Saved Successfully.');
+        }
     }     
 
     /**

@@ -20,7 +20,7 @@
         <div class='col-lg'>
             <div class="btn-group" role="group" aria-label="Basic example">
                 <a class="btn btn-secondary" href='/1_atms/public/it/aq'>Handled</a>
-                <a class="btn btn-secondary" href='#'>Closed</a>
+                <a class="btn btn-secondary" href='/1_atms/public/it/actl'>Closed</a>
             </div>
         </div>
         <div class='col-md-3 text-right mr-0 pr-1'>

@@ -100,19 +100,19 @@
                                             <button type='button' id='cancel_change_priority' class='btn btn-warning'>Cancel</button>
                                         </div>
                                     </form>
-                                    <form method='POST' action='/1_atms/public/tickets/{{ $tickets->id }}'>
+                                    <form id='change_status_form' method='POST' action='/1_atms/public/tickets/{{ $tickets->id }}'>
                                             @method('PUT')
                                             @csrf
                                         <div class='input-group' id='change_status' style='display:none'>
-                                            <select type="text" class="form-control" name="status_id" placeholder="" required>
+                                            <select type="text" class="form-control" id='change_status_id' name="status_id" placeholder="" required>
                                                 <option value="">- Select Status -</option>
                                                 @foreach($statuses as $status)
-                                                    @if(!($status->id == $tickets->status_id || $status->id == 1 || $status->id == 2))                                                        
+                                                    @if(!($status->id == $tickets->status_id || $status->id == 1 || $status->id == 2 || $status->id == 6))                                                        
                                                         <option value="{{$status->id}}">{{$status->name}}</option>
                                                     @endif                                                    
                                                 @endforeach
                                             </select>
-                                            <input type='hidden' name='mod' value='status'>
+                                            <input type='hidden' name='mod' value='escalate'>
                                             <button type='submit' class='btn btn-secondary'>Change</button>
                                             <button type='button' id='cancel_change_status' class='btn btn-warning'>Cancel</button>
                                         </div>
@@ -120,7 +120,11 @@
                                     <div id='change_buttons'>
                                         <button type='button' id='change_priority_button' class='btn btn-secondary'>Change Priority</button>
                                         <button type='button' id='change_status_button' class='btn btn-secondary'>Change Status</button>
-                                        <button type='button' id='add_ticket_details' class='btn btn-secondary'>Add Details</button>
+                                        <button type='button' id='add_ticket_details' class='btn btn-secondary'>Ticket Details</button>
+                                        <form method='POST' action='/1_atms/public/closed_ticket/{{ $tickets->id }}'>
+                                            @csrf                                        
+                                            <button type='submit' id='close_ticket' class='btn btn-danger mt-2' style='display:inline;'>Close Ticket</button>
+                                        </form>
                                     </div>
                                 @else
                                     <span class='font-weight-bold' style='font-size:1rem'>Assigned to {{ $tickets->assign->name }}</span>
@@ -146,12 +150,16 @@
                         <p>{!! $tickets->message !!}</p>
                     </div>
                 </div>
+            <form method='POST' action='/1_atms/public/tickets/{{ $tickets->id }}'>
+                @method('PUT')
+                @csrf
+                <input type='hidden' name='mod' value='detail'>
                 <div class="row mb-2">
                     <div class="col-md-2">
                         <label class='font-weight-bold'><span class='text-muted'>ROOT CAUSE:</span></label>      
                     </div>                    
                     <div class="col-md " style='max-height: 15vh; overflow:hidden; overflow-y: scroll'>
-                        <textarea class='details_edit' style='display:none; width:100%'></textarea>
+                        <textarea name='root' class='details_edit' style='display:none; width:100%'>{{ $tickets->root }}</textarea>
                         <p class='details_display'>{{ $tickets->root }}</p>       
                     </div>  
                 </div>
@@ -160,7 +168,7 @@
                         <label class='font-weight-bold'><span class='text-muted'>ACTION:</span></label>      
                     </div>                    
                     <div class="col-md" style='max-height: 15vh; overflow:hidden; overflow-y: scroll'>
-                        <textarea class='details_edit' style='display:none; width:100%'></textarea>
+                        <textarea name='action' class='details_edit' style='display:none; width:100%'>{{ $tickets->action }}</textarea>
                         <p class='details_display'>{{ $tickets->action }}</p>       
                     </div>  
                 </div>
@@ -169,7 +177,7 @@
                         <label class='font-weight-bold'><span class='text-muted'>RESULT:</span></label>      
                     </div>                    
                     <div class="col-md" style='max-height: 15vh; overflow:hidden; overflow-y: scroll'>
-                        <textarea class='details_edit' style='display:none; width:100%'></textarea>
+                        <textarea name='result' class='details_edit' style='display:none; width:100%'>{{ $tickets->result }}</textarea>
                         <p class='details_display'>{{ $tickets->result }}</p>       
                     </div>  
                 </div>
@@ -177,12 +185,16 @@
                     <div class="col-md-2">
                         <label class='font-weight-bold'><span class='text-muted'>RECOMMENDATION:</span></label>      
                     </div>                    
-                    <div class="col-md" style='max-height: 15vh; overflow:hidden; overflow-y: scroll'>
-                        <textarea class='mb-2 details_edit' style='display:none; width:100%'></textarea>
-                        <button type='button' id='cancel_add_details' class='btn btn-warning details_edit' style='display:none;'>Cancel</button>
+                    <div class="col-md" style='max-height: 20vh; overflow:hidden; overflow-y: scroll'>
+                        <textarea name='recommend' class='mb-2 details_edit' style='display:none; width:100%'>{{ $tickets->recommend }}</textarea>                        
                         <p class='details_display'>{{ $tickets->recommend }}</p>       
-                    </div>  
+                    </div>                    
                 </div>
+                <div class='col-md details_edit text-right' style='display:none;'>
+                    <button type='submit' id='' class='btn btn-secondary' >Save</button>
+                    <button type='button' id='cancel_add_details' class='btn btn-warning'>Cancel</button>
+                </div>
+            </form>
             </div>
         </div>
     </div>

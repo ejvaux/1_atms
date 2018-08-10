@@ -4,44 +4,27 @@
 
 @section('content')
 @include('inc.messages')
-<div class="container-fluid">
-    <div class='row mb-1'>
-        <div class='col-md'>
+<div class='container'>
+    <div class='row'>
+        <div class='col-lg'>
             <nav>
                 <ol class="breadcrumb">
-                    <li class="breadcrumb-item">My Tickets</li>
-                    {{-- <li class="breadcrumb-item"><a href="#">Library</a></li>
-                    <li class="breadcrumb-item">Data</li> --}}
+                    <li class="breadcrumb-item"><a href='/1_atms/public/it/lt'>My Tickets</a></li>
+                    <li class="breadcrumb-item">Closed Tickets</li>
+                    {{-- <li class="breadcrumb-item">Data</li> --}}
                 </ol>
             </nav>
         </div>
     </div>
-    <div class="row mb-3">
-        @if(Auth::user()->tech == true)
-            <div class='col-md'>
-                <div class="btn-group" role="group" aria-label="Basic example">
-                    <a class="btn btn-secondary" href='/1_atms/public/it/ht'>Handled</a>
-                    <a class="btn btn-secondary" href='/1_atms/public/it/ctl'>Closed</a>
-                </div>
-            </div>
-            <div class='col-md-3 text-right'>
-                <a class='btn btn-secondary' href='/1_atms/public/it/ct'>Create Ticket</a>
-            </div>
-        @else
-            <div class='col-md-3'>
-                <a class="btn btn-secondary" href='/1_atms/public/it/ctl'>Closed</a>
-                <a class='btn btn-secondary' href='/1_atms/public/it/ct'>Create Ticket</a>
-            </div>
-        @endif
-        
-        <div class="col-md-4 ml-auto">
+    <div class='row mb-2'>              
+        <div class="col-lg-3">
             <form>
                 <div class="input-group">
-                    <input type="text" class="form-control" id="search" placeholder="Enter ticket number . . .">
-                    <button type="button" id="refresh"><i class="fa fa-search"></i></button>
+                    <input type="text" class="form-control" id="searchtextqueue" placeholder="Enter ticket number . . .">
+                    <button type="button" id="searchqueue"><i class="fa fa-search"></i></button>
                 </div>               
             </form>
-        </div>
+        </div>        
     </div>
     <div class='row mb-1'>
         <div class='col-lg table-responsive-lg'>
@@ -78,7 +61,7 @@
                                 <th style='width:35vw'>
                                     <div class='row' style="font-size:1rem">
                                         <div class='col-lg' style='overflow:hidden;text-overflow:ellipsis; white-space: nowrap ;width:300px'>
-                                            <a class="adminviewticket" href="/1_atms/public/it/vt/{{$ticket->id}}" ><span>{{$ticket->subject}}</span></a>
+                                            <a class="adminviewticket" href="/1_atms/public/it/htv/{{$ticket->id}}" ><span>{{$ticket->subject}}</span></a>
                                         </div>                                                                                
                                     </div>
                                     <div class='row' style='font-size:.8rem'>
@@ -121,8 +104,8 @@
     </div>
     <div class='row'>
         <div class='col-lg'>
-            {!! $tickets->appends(\Request::except('page'))->render() !!}
+            {{-- {{$tickets->links()}} --}}{!! $tickets->appends(\Request::except('page'))->render() !!}
         </div>
-    </div>        
+    </div>
 </div>
 @endsection

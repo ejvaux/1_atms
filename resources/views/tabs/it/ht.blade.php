@@ -16,12 +16,7 @@
             </nav>
         </div>
     </div>
-    <div class='row mb-2'>
-        <div class='col-lg'>
-            <div class="btn-group" role="group" aria-label="Basic example">
-                <button type="button" class="btn btn-secondary">Closed</button>
-            </div>
-        </div>      
+    <div class='row mb-2'>            
         <div class="col-lg-3">
             <form>
                 <div class="input-group">

@@ -10,6 +10,7 @@ use App\Department;
 use App\TicketUpdates;
 use App\User;
 use App\Status;
+use App\ClosedTicket;
 use Auth;
 
 class DashboardController extends Controller
@@ -122,5 +123,14 @@ class DashboardController extends Controller
         $updates = TicketUpdates::where('ticket_id',$id)->get();
         $updatetext = '';
         return view('tabs.it.htv', compact('tickets','updates','updatetext','priorities','statuses'));
+    }
+
+    public function closedticket(){
+        $tickets = ClosedTicket::where('user_id',Auth::user()->id)->orderBy('id','desc')->paginate(10);
+        return view('tabs.it.ctl',compact('tickets'));
+    }
+    public function adminclosedticket(){
+        $tickets = ClosedTicket::orderBy('id','desc')->paginate(10);
+        return view('tabs.it.actl',compact('tickets'));
     }
 }

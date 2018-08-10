@@ -22,7 +22,8 @@
                 @csrf
                 <input name="userid" type="hidden" value="{{ Auth::user()->id }}">                
                 <input type="hidden" id="username" name="username" placeholder="" value="{{ Auth::user()->name }}">
-                <input type='hidden' id="admincreateticket_message" name="message" value=''>               
+                <input type='hidden' id="admincreateticket_message" name="message" value=''>
+                <input type='hidden' name="mod" value='admin'>              
                 <div class="form-group row">
                     <div class="col-md-5">
                         <label for="subject">Subject:</label>
