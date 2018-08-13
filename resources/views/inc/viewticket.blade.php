@@ -20,7 +20,11 @@
                                             Waiting for Queue
                                         @endif                                                
                                     @else
-                                        {!! CustomFunctions::datetimelapse($tickets->start_at) !!}
+                                        @if($tickets->finish_at == null)
+                                            {!! CustomFunctions::datetimelapse($tickets->start_at) !!}
+                                        @else
+                                            {!! CustomFunctions::datetimefinished($tickets->start_at,$tickets->finish_at) !!}
+                                        @endif
                                     @endif                                       
                                 </h4>
                             </div>
@@ -121,9 +125,11 @@
                                         <button type='button' id='change_priority_button' class='btn btn-secondary'>Change Priority</button>
                                         <button type='button' id='change_status_button' class='btn btn-secondary'>Change Status</button>
                                         <button type='button' id='add_ticket_details' class='btn btn-secondary'>Ticket Details</button>
-                                        <form method='POST' action='/1_atms/public/closed_ticket/{{ $tickets->id }}'>
-                                            @csrf                                        
-                                            <button type='submit' id='close_ticket' class='btn btn-danger mt-2' style='display:inline;'>Close Ticket</button>
+                                        <form id='close_ticket_form' method='POST' action='/1_atms/public/closed_ticket/transfer/{{ $tickets->id }}'>
+                                            @csrf
+                                            <input type='hidden' name='status_id' value='{{ $tickets->status_id }}'>
+                                            <input type='hidden' name='mod' value='default'>                     
+                                            <button type='button' id='close_ticket' class='btn btn-danger mt-2' style='display:inline;'>Close Ticket</button>
                                         </form>
                                     </div>
                                 @else

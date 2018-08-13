@@ -33,8 +33,7 @@ class DashboardController extends Controller
     public function index()
     {       
         return view('tabs.home.dash');
-    }
-    
+    }    
     // HOME
     public function viewdashtab()
     {       
@@ -71,10 +70,12 @@ class DashboardController extends Controller
 
     public function viewticket($id)
     {
+        $statuses = Status::orderBy('id')->get();
+        $priorities = Priority::orderBy('id')->get();
         $tickets = Ticket::where('id',$id)->first();
         $updates = TicketUpdates::where('ticket_id',$id)->get();
         $updatetext = '';
-        return view('tabs.it.vt', compact('tickets','updates','updatetext'));
+        return view('tabs.it.vt', compact('tickets','updates','updatetext','priorities','statuses'));
     }
 
     public function createticket()
@@ -129,8 +130,14 @@ class DashboardController extends Controller
         $tickets = ClosedTicket::where('user_id',Auth::user()->id)->orderBy('id','desc')->paginate(10);
         return view('tabs.it.ctl',compact('tickets'));
     }
+
     public function adminclosedticket(){
         $tickets = ClosedTicket::orderBy('id','desc')->paginate(10);
         return view('tabs.it.actl',compact('tickets'));
+    }
+
+    public function handledclosedticket(){
+        $tickets = ClosedTicket::where('assigned_to',Auth::user()->id)->orderBy('id','desc')->paginate(10);
+        return view('tabs.it.hct',compact('tickets'));
     }
 }

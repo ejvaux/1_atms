@@ -43,6 +43,7 @@ Route::get('/it/aq','DashboardController@adminqueue');
 Route::get('/it/ht','DashboardController@handledticket');
 Route::get('/it/actl','DashboardController@adminclosedticket');
 Route::get('/it/ctl','DashboardController@closedticket');
+Route::get('/it/hct','DashboardController@handledclosedticket');
 Route::get('/it/al/{id}', ['uses' => 'DashboardController@adminsearchticket']);
 Route::get('/it/av/{id}', ['uses' => 'DashboardController@adminviewticket']);
 Route::get('/it/ac', 'DashboardController@admincreateticket');
@@ -53,7 +54,7 @@ Route::get('/it/ct', 'DashboardController@createticket');
 Route::get('/it/cu', 'DashboardController@contact');
 
 // Custom Tables
-Route::get('closed_ticket/transfer/{id}','ClosedTicketController@transferticket');
+Route::post('closed_ticket/transfer/{id}','ClosedTicketController@transferticket');
 
 // Tables
 Route::resources([

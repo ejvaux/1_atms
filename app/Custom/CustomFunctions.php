@@ -141,39 +141,27 @@ class CustomFunctions
             } 
         }
     }
-    public static function datetimefinished($dt){
-        $datetime1 = strtotime($dt);
-        $datetime2 = strtotime(date('Y-m-d H:i:s'));
-        $secs = $datetime2 - $datetime1;
-        if($secs < 60){
-            return $secs . " secs ago";
+    public static function datetimefinished($dt1,$dt2){
+        $datetime1 = strtotime($dt1);
+        $datetime2 = strtotime($dt2);
+        $secs = $datetime2 - $datetime1;              
+        $days = floor($secs / (3600*24));
+        $secs  -= $days*3600*24;
+        $hrs   = floor($secs / 3600);
+        $secs  -= $hrs*3600;
+        $mnts = floor($secs / 60);
+        $secs  -= $mnts*60;
+        /* $time = $days . " day, " . $hrs . " hr, " . $mnts . " min"; */
+        $time = '';
+        if($days > 0){
+            $time = $days . " day, ";
         }
-        elseif($secs >= 60 && $secs < 3600){
-            $a = floor($secs / 60);            
-            if($a>1){
-                return $a . " mins ago";
-            }
-            else{
-                return $a . " min ago";
-            }              
+        if($hrs > 0){
+            $time .= $hrs . " hr, ";
         }
-        elseif($secs >= 3600 && $secs < 86400){
-            $a = floor($secs / 3600);
-            if($a>1){
-                return $a . " hours ago";
-            }
-            else{
-                return $a . " hour ago";
-            } 
+        if($mnts > 0){
+            $time .= $mnts . " min";
         }
-        elseif($secs >= 86400){
-            $a = floor($secs / 86400);
-            if($a>1){
-                return $a . " days ago";
-            }
-            else{
-                return $a . " day ago";
-            } 
-        }
+        return $time;
     }
 }

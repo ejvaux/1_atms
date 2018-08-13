@@ -100,7 +100,9 @@
                                     <select type="text" class="form-control" id="assigned_to" name="assigned_to" placeholder="" required>
                                         <option value="">- Select Tech -</option>                            
                                         @foreach($users as $user)
-                                            <option value="{{$user->id}}">{{$user->name}}</option>
+                                            @if($user->id != $tickets->user_id)
+                                                <option value="{{$user->id}}">{{$user->name}}</option>
+                                            @endif
                                         @endforeach
                                     </select>
                                     <button type='submit' class='btn btn-secondary'>Assign</button>

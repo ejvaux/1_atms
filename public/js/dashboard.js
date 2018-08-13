@@ -267,70 +267,7 @@ function loadscript(){
 				timeout: 2000
 			});
 		}
-	});
-
-	/* --------------------------- IT Menu tabs ---------------------------- */
-	$('#admin_it').on('click',function(){
-	loadadminlistticket();
-	});
-	$('#myticket').on('click',function(){
-	loadlistTicket();
-	});
-	$('#contact').on('click',function(){
-	$.ajax({
-			type		: "GET",
-			url		: "/1_atms/public/it/cu",
-			success		: function(html) {					
-							$("#main_panel").html(html).show('slow');
-						},
-						error : function (jqXHR, textStatus, errorThrown) {							
-								window.location.href = '/1_atms/public/login';
-						} //end function
-	});//close ajax
-	});
-
-	/* -------------------------- Admin View Ticket ----------------------------- */	
-	$('#app').on('submit','#assign_tech',function(e){
-		e.preventDefault();
-		e.stopImmediatePropagation();
-		var username = $('#assigned_to :selected').text();
-		var user = $('#assigned_to').val();
-		var val = $('#assign_to_ticketid').val();
-		var dte = moment().format('YYYY-MM-DD HH:mm:ss');
-		/* alert(moment().format('YYYY-MM-DD HH:mm:ss')); */
-		/* alert($user +" || " + $val); */
-		$.ajax({
-			type: 'PUT',
-			url	: '/1_atms/public/tickets/'+val,
-			data: {
-				"_token": $('meta[name="csrf-token"]').attr('content'),
-				"assigned_to": user,
-				/* "start_at": dte, */
-				"status_id": 2
-			}, 
-			datatype: 'JSON',       
-			success: function(success_data) {
-					iziToast.success({
-							message: success_data,
-							position: 'topCenter',
-							timeout: 2000
-					});
-					loadadminviewticket('/1_atms/public/it/av/'+val);
-			},
-			error: function(data){
-			var errors = data.responseJSON;
-					var msg = '';
-					$.each(errors['errors'], function( index, value ) {
-							msg += value +"<br>"
-					});
-					iziToast.warning({
-							message: msg,
-							position: 'topCenter',
-							timeout: 5000
-					});
-			} //end function
-		});//close ajax
-	});
+	});	
 
 	/* -------------------------- View Ticket ----------------------------- */
 	$('#app').on('submit','#updateform',function(e){
@@ -367,11 +304,11 @@ function loadscript(){
 	});
 
 	/* ----------------------------- List Ticket ------------------------------- */
-	$('#app').on('click','.viewticket',function(e){
+	/* $('#app').on('click','.viewticket',function(e){
 		e.preventDefault();
 		e.stopImmediatePropagation();
 		loadviewticket($(this).attr('href'));
-	});
+	}); */
 
 	/* ------------------- Search ------------------- */
 	$('#app').on('click','#search',function(){	
@@ -389,13 +326,6 @@ function loadscript(){
 		if ((event.which < 48 || event.which > 57)) {
 			event.preventDefault();
 		}
-	});
-	/* --------------------- Sort by Column --------------------------- */
-	$('#app').on("click",'.sorthead',function (e) {    
-		e.preventDefault();
-		e.stopImmediatePropagation();
-		var nurl = $(this).attr('href');
-		loadadminlistticket(nurl);
 	});
 
 	/* -------------------- Admin create ticket -------------------- */
@@ -447,7 +377,9 @@ function loadscript(){
 	});
 
 	/* -------------------- Close Ticket -------------------- */
-	$('#app').on('click','#close_ticket',function(){
+	$('#app').on('click','#close_ticket',function(e){
+		/* e.preventDefault();
+		e.stopImmediatePropagation(); */
 		swal({
 				title: 'Are you sure?',
 				text: "You won't be able to revert this!",
@@ -458,12 +390,7 @@ function loadscript(){
 				confirmButtonText: 'Yes, close it!'
 		  	}).then((result) => {
 			if (result.value) {
-				return true;
-				swal(
-					'Closed!',
-					'Ticket has been closed.',
-					'success'
-				)
+				$('#close_ticket_form').trigger('submit');				
 			}
 		})
 	});

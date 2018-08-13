@@ -16,8 +16,11 @@
             </nav>
         </div>
     </div>
-    <div class='row mb-2'>            
-        <div class="col-lg-3">
+    <div class='row mb-2'>
+        <div class='col-lg-3'>
+            <a class="btn btn-secondary" href='/1_atms/public/it/hct'>Closed</a>
+        </div>         
+        <div class="col-lg-3 ml-auto">
             <form>
                 <div class="input-group">
                     <input type="text" class="form-control" id="searchtextqueue" placeholder="Enter ticket number . . .">
@@ -54,7 +57,11 @@
                                                 For Queuing
                                             @endif                                                
                                         @else
+                                            @if($ticket->finish_at == null)
                                             {!! CustomFunctions::datetimelapse($ticket->start_at) !!}
+                                            @else
+                                            {!! CustomFunctions::datetimefinished($ticket->start_at,$ticket->finish_at) !!}
+                                            @endif
                                         @endif
                                     </span>
                                 </th>

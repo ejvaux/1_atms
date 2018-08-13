@@ -151,7 +151,7 @@ class TicketsController extends Controller
         //
     }
 
-    public function customUpdate(Request $request, $id, $mod)
+    /* public function customUpdate(Request $request, $id, $mod)
     {
         $request->validate([
             'assigned_to' => 'nullable|integer',
@@ -165,10 +165,10 @@ class TicketsController extends Controller
         $ticket->save();
         return $mod;
         if($mod == 'assign'){
-            /* return redirect('/it/av/'.$id)->with('success','Ticket Assigned Successfully.'); */            
+            return redirect('/it/av/'.$id)->with('success','Ticket Assigned Successfully.');            
         }
         elseif($mod == 'accept'){            
-            /* return redirect('/it/av/'.$id)->with('success','Ticket Accepted Successfully.'); */
+            return redirect('/it/av/'.$id)->with('success','Ticket Accepted Successfully.');
         }          
-    }
+    } */
 }

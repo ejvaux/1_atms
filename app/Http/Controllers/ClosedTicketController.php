@@ -109,31 +109,36 @@ class ClosedTicketController extends Controller
 
     public function transferticket(Request $request,$id)
     {
-        $ticket = Ticket::find($id);
-        $newticket = $ticket->replicate();
-        unset($newticket['created_at'],$newticket['updated_at']);
-        
-        $t = new ClosedTicket;
-        $t->id = $ticket->id;
-        $t->user_id = $ticket->user_id;
-        $t->department_id = $ticket->department_id;
-        $t->category_id = $ticket->category_id;
-        $t->priority_id = $ticket->priority_id;
-        $t->status_id = 6;
-        $t->subject = $ticket->subject;
-        $t->message = $ticket->message;
-        $t->assigned_to = $ticket->assigned_to;
-        $t->root = $ticket->root;
-        $t->action = $ticket->action;
-        $t->result = $ticket->result;
-        $t->recommend = $ticket->recommend;
-        $t->start_at = $ticket->start_at;
-        $t->finish_at = $ticket->finish_at;
-        $t->save();
-        if($t->save()){
-            Ticket::where('id',$id)->delete();
-            return 'success';
+        if($request->input('status_id') == 5){
+            $ticket = Ticket::find($id);
+            $newticket = $ticket->replicate();
+            unset($newticket['created_at'],$newticket['updated_at']);            
+            $t = new ClosedTicket;
+            $t->id = $ticket->id;
+            $t->user_id = $ticket->user_id;
+            $t->department_id = $ticket->department_id;
+            $t->category_id = $ticket->category_id;
+            $t->priority_id = $ticket->priority_id;
+            $t->status_id = 6;
+            $t->subject = $ticket->subject;
+            $t->message = $ticket->message;
+            $t->assigned_to = $ticket->assigned_to;
+            $t->root = $ticket->root;
+            $t->action = $ticket->action;
+            $t->result = $ticket->result;
+            $t->recommend = $ticket->recommend;
+            $t->start_at = $ticket->start_at;
+            $t->finish_at = $ticket->finish_at;
+            $t->save();
+            if($t->save()){
+                Ticket::where('id',$id)->delete();
+                if($request->input('mod') == 'default'){
+                    return redirect('/it/ht')->with('success','Ticket Closed Successfully.');
+                }                
+            }
         }
-        
+        else{
+            return back()->with('error','Ticket must be resolved first.');
+        }     
     }
 }
