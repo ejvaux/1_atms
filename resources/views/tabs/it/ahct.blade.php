@@ -11,7 +11,7 @@
                 <ol class="breadcrumb">
                     <li class="breadcrumb-item"><a href='/1_atms/public/it/al'>Tickets</a></li>
                     <li class="breadcrumb-item"><a href='/1_atms/public/it/aq'>Handled Tickets</a></li>
-                    <li class="breadcrumb-item">Closed Tickets</li>
+                    <li class="breadcrumb-item">Closed Handled Tickets</li>
                     {{-- <li class="breadcrumb-item">Data</li> --}}
                 </ol>
             </nav>

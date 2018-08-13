@@ -111,6 +111,12 @@ class DashboardController extends Controller
         $tickets = Ticket::where('id',$id)->paginate(10);                          
         return view('tabs.it.al', compact('tickets'));
     }
+    public function searchticket($id)
+    {
+        /* $statuses = Status::orderBy('id')->get(); */
+        $tickets = Ticket::where('id',$id)->paginate(10);                          
+        return view('tabs.it.lt', compact('tickets'));
+    }
     public function handledticket()
     {
         $tickets = Ticket::where('assigned_to',Auth::user()->id)->orderBy('id','desc')->paginate(10); 
@@ -160,4 +166,19 @@ class DashboardController extends Controller
         $updatetext = '';
         return view('tabs.it.ctlv',compact('tickets','updates','updatetext','priorities','statuses'));
     }
+
+    public function searchhandledticket($id){
+        $tickets = Ticket::where([['id','=',$id],['assigned_to','=', Auth::user()->id]])->orderBy('id','desc')->paginate(10);   
+        return view('tabs.it.ht',compact('tickets','updates','updatetext','priorities','statuses'));
+    }
+
+    public function searchhandledclosedticket($id){
+        $tickets = ClosedTicket::where([['id','=',$id],['assigned_to','=', Auth::user()->id]])->orderBy('id','desc')->paginate(10);
+        return view('tabs.it.hct',compact('tickets'));
+    }
+    public function searchclosedticket($id){
+        $tickets = ClosedTicket::where([['id','=',$id],['user_id','=', Auth::user()->id]])->orderBy('id','desc')->paginate(10);
+        return view('tabs.it.ctl',compact('tickets'));
+    }
+
 }

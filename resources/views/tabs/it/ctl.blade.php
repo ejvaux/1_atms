@@ -11,7 +11,6 @@
                 <ol class="breadcrumb">
                     <li class="breadcrumb-item"><a href='/1_atms/public/it/lt'>My Tickets</a></li>
                     <li class="breadcrumb-item">My Closed Tickets</li>
-                    {{-- <li class="breadcrumb-item">Data</li> --}}
                 </ol>
             </nav>
         </div>
@@ -20,8 +19,8 @@
         <div class="col-lg-3">
             <form>
                 <div class="input-group">
-                    <input type="text" class="form-control" id="searchtextqueue" placeholder="Enter ticket number . . .">
-                    <button type="button" id="searchqueue"><i class="fa fa-search"></i></button>
+                    <input type="text" class="form-control" id="searchtextbox" placeholder="Enter ticket number . . .">
+                    <button type="button" id="search" value="/1_atms/public/it/ctl/"><i class="fa fa-search"></i></button>
                 </div>               
             </form>
         </div>        
@@ -94,9 +93,6 @@
                                 <th>
                                     <span style='font-size:.8rem'>{!!str_replace(' ','<br>',$ticket->updated_at)!!}</span>
                                 </th>
-                                {{-- <th>
-                                    <input type='checkbox'>
-                                </th> --}}
                             </tr>
                         @endforeach                
                     @else

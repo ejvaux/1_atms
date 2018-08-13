@@ -10,8 +10,6 @@
             <nav>
                 <ol class="breadcrumb">
                     <li class="breadcrumb-item">My Tickets</li>
-                    {{-- <li class="breadcrumb-item"><a href="#">Library</a></li>
-                    <li class="breadcrumb-item">Data</li> --}}
                 </ol>
             </nav>
         </div>
@@ -37,8 +35,8 @@
         <div class="col-md-4 ml-auto">
             <form>
                 <div class="input-group">
-                    <input type="text" class="form-control" id="search" placeholder="Enter ticket number . . .">
-                    <button type="button" id="refresh"><i class="fa fa-search"></i></button>
+                    <input type="text" class="form-control" id="searchtextbox" placeholder="Enter ticket number . . .">
+                    <button type="button" id="search" value="/1_atms/public/it/lt/"><i class="fa fa-search"></i></button>
                 </div>               
             </form>
         </div>
@@ -54,7 +52,6 @@
                         <th>@sortablelink('created_at','Date')</th>
                         <th>@sortablelink('assigned_to','Assigned')</th>
                         <th>@sortablelink('updated_at','Updated')</th>
-                        {{-- <th><input type='checkbox' onchange='checkAll(this)'></th> --}}
                     </tr>
                 </thead>
                 <tbody>
@@ -111,9 +108,6 @@
                                 <th>
                                     <span style='font-size:.8rem'>{!!str_replace(' ','<br>',$ticket->updated_at)!!}</span>
                                 </th>
-                                {{-- <th>
-                                    <input type='checkbox'>
-                                </th> --}}
                             </tr>
                         @endforeach                
                     @else

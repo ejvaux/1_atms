@@ -21,8 +21,8 @@
         <div class="col-lg-3">
             <form>
                 <div class="input-group">
-                    <input type="text" class="form-control" id="searchtextqueue" placeholder="Enter ticket number . . .">
-                    <button type="button" id="searchqueue"><i class="fa fa-search"></i></button>
+                    <input type="text" class="form-control" id="searchtextbox" placeholder="Enter ticket number . . .">
+                    <button type="button" id="search" value='/1_atms/public/it/hct/'><i class="fa fa-search"></i></button>
                 </div>               
             </form>
         </div>        

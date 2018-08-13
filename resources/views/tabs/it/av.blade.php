@@ -11,7 +11,6 @@
                 <ol class="breadcrumb">
                     <li class="breadcrumb-item"><a href="/1_atms/public/it/al">Tickets</a></li>
                     <li class="breadcrumb-item">Details</li>
-                    {{-- <li class="breadcrumb-item">Data</li> --}}
                 </ol>
             </nav>
         </div>
@@ -130,6 +129,38 @@
                             <p>{!! $tickets->message !!}</p>                            
                         </div>
                     </div>
+                    <div class="row mb-2">
+                        <div class="col-md-2">
+                            <label class='font-weight-bold'><span class='text-muted'>ROOT CAUSE:</span></label>      
+                        </div>                    
+                        <div class="col-md " style='max-height: 15vh; overflow:hidden; overflow-y: scroll'>                            
+                            <p class='details_display'>{{ $tickets->root }}</p>       
+                        </div>  
+                    </div>
+                    <div class="row mb-2">
+                        <div class="col-md-2">
+                            <label class='font-weight-bold'><span class='text-muted'>ACTION:</span></label>      
+                        </div>                    
+                        <div class="col-md" style='max-height: 15vh; overflow:hidden; overflow-y: scroll'>                           
+                            <p class='details_display'>{{ $tickets->action }}</p>       
+                        </div>  
+                    </div>
+                    <div class="row mb-2">
+                        <div class="col-md-2">
+                            <label class='font-weight-bold'><span class='text-muted'>RESULT:</span></label>      
+                        </div>                    
+                        <div class="col-md" style='max-height: 15vh; overflow:hidden; overflow-y: scroll'>                            
+                            <p class='details_display'>{{ $tickets->result }}</p>       
+                        </div>  
+                    </div>
+                    <div class="row mb-2">
+                        <div class="col-md-2">
+                            <label class='font-weight-bold'><span class='text-muted'>RECOMMENDATION:</span></label>      
+                        </div>                    
+                        <div class="col-md" style='max-height: 20vh; overflow:hidden; overflow-y: scroll'>                            
+                            <p class='details_display'>{{ $tickets->recommend }}</p>       
+                        </div>                    
+                    </div>
                 </div>
             </div>
         </div>
@@ -159,14 +190,14 @@
     @csrf
     <input type="hidden" id='admin_update_ticket_id' name="ticket_id" value="{{ $tickets->id }}">
     <input type="hidden" name="user_id" value="{{ Auth::user()->id }}">
-    <div class="row pt-0 mt-0 mb-4">
+    {{-- <div class="row pt-0 mt-0 mb-4">
         <div class="col-md-12">
             <div class="input-group">
                 <input type="text" name="message" class="" id="update_message" placeholder="Enter text here . . ." style="width:90%">
                 <button type="submit" id="send_update" style="width:10%">SEND</button>
             </div>
         </div>        
-    </div>
+    </div> --}}
     </form>
 </div>
 @endsection

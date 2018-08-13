@@ -314,11 +314,12 @@ function loadscript(){
 	$('#app').on('click','#search',function(){	
 		/* alert($('#searchtextbox').val()); */
 		var tid = $('#searchtextbox').val();
+		var url = $(this).val();
 		if(tid == ""){
-			window.location = "/1_atms/public/it/al";
+			window.location = url;
 		}
 		else{
-			window.location = "/1_atms/public/it/al/" + tid;
+			window.location = url + tid;
 		}									
 	});
 	$('#app').on("keypress keyup blur",'#searchtextbox',function (event) {    
@@ -394,29 +395,5 @@ function loadscript(){
 			}
 		})
 	});
-
-	/* --------------------Change Status Form Submit -------------------- */
-/* 	$('#app').on('submit','#change_status_form',function(e){
-		e.preventDefault();
-		e.stopImmediatePropagation();
-		var close = '';
-		var id = $('#update_ticket_id').val();
-		alert($('#change_status_id').val());
-		if($('#change_status_id').val() == 6){
-			
-		}
-		else{
-			$.ajax({
-				type: "PUT",
-				url	: $(this).attr('action'),
-				data: $('#change_status_form').serialize(),
-				datatype: 'JSON',       
-				success: function(success_data) {
-					alert(JSON.stringify(success_data));
-					window.location.href = success_data;					
-				}
-			});//close ajax	
-		}
-	}); */
 }
 loadscript();
