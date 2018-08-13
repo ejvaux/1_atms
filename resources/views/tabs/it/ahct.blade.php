@@ -9,18 +9,16 @@
         <div class='col-lg'>
             <nav>
                 <ol class="breadcrumb">
-                    <li class="breadcrumb-item"><a href='/1_atms/public/it/al'>Tickets</a></li>
-                    <li class="breadcrumb-item">Handled Tickets</li>
+                    <li class="breadcrumb-item"><a href='/1_atms/public/it/al'>My Tickets</a></li>
+                    <li class="breadcrumb-item"><a href='/1_atms/public/it/aq'>Handled Tickets</a></li>
+                    <li class="breadcrumb-item">Closed Tickets</li>
                     {{-- <li class="breadcrumb-item">Data</li> --}}
                 </ol>
             </nav>
         </div>
     </div>
-    <div class='row mb-2'>
-        <div class='col-lg-3'>
-            <a class="btn btn-secondary" href='/1_atms/public/it/ahct'>Closed</a>
-        </div>      
-        <div class="col-lg-3 ml-auto">
+    <div class='row mb-2'>              
+        <div class="col-lg-3">
             <form>
                 <div class="input-group">
                     <input type="text" class="form-control" id="searchtextqueue" placeholder="Enter ticket number . . .">
@@ -48,12 +46,27 @@
                         @foreach($tickets as $ticket)
                             <tr>
                                 <th>
-                                    {!! CustomFunctions::priority_format($ticket->priority_id) !!}
+                                    {!! CustomFunctions::priority_format($ticket->priority_id) !!}<br>
+                                    <span style="font-size:.8rem">
+                                        @if ($ticket->start_at == null)
+                                            @if ($ticket->status_id == 2)
+                                                On Queue
+                                            @else
+                                                For Queuing
+                                            @endif                                                
+                                        @else
+                                            @if($ticket->finish_at == null)
+                                                {!! CustomFunctions::datetimelapse($ticket->start_at) !!}
+                                            @else
+                                                {!! CustomFunctions::datetimefinished($ticket->start_at,$ticket->finish_at) !!}
+                                            @endif
+                                        @endif
+                                    </span>
                                 </th>
                                 <th style='width:35vw'>
                                     <div class='row' style="font-size:1rem">
                                         <div class='col-lg' style='overflow:hidden;text-overflow:ellipsis; white-space: nowrap ;width:300px'>
-                                            <a class="adminviewticket" href="/1_atms/public/it/av/{{$ticket->id}}" ><span>{{$ticket->subject}}</span></a>
+                                            <a class="adminviewticket" href="/1_atms/public/it/htv/{{$ticket->id}}" ><span>{{$ticket->subject}}</span></a>
                                         </div>                                                                                
                                     </div>
                                     <div class='row' style='font-size:.8rem'>

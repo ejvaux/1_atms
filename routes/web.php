@@ -44,6 +44,7 @@ Route::get('/it/ht','DashboardController@handledticket');
 Route::get('/it/actl','DashboardController@adminclosedticket');
 Route::get('/it/ctl','DashboardController@closedticket');
 Route::get('/it/hct','DashboardController@handledclosedticket');
+Route::get('/it/ahct','DashboardController@adminhandledclosedticket');
 Route::get('/it/al/{id}', ['uses' => 'DashboardController@adminsearchticket']);
 Route::get('/it/av/{id}', ['uses' => 'DashboardController@adminviewticket']);
 Route::get('/it/ac', 'DashboardController@admincreateticket');

@@ -140,4 +140,8 @@ class DashboardController extends Controller
         $tickets = ClosedTicket::where('assigned_to',Auth::user()->id)->orderBy('id','desc')->paginate(10);
         return view('tabs.it.hct',compact('tickets'));
     }
+    public function adminhandledclosedticket(){
+        $tickets = ClosedTicket::where('assigned_to',Auth::user()->id)->orderBy('id','desc')->paginate(10);
+        return view('tabs.it.ahct',compact('tickets'));
+    }
 }
