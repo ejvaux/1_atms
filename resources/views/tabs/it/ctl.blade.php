@@ -65,7 +65,7 @@
                                 <th style='width:35vw'>
                                     <div class='row' style="font-size:1rem">
                                         <div class='col-lg' style='overflow:hidden;text-overflow:ellipsis; white-space: nowrap ;width:300px'>
-                                            <a class="adminviewticket" href="/1_atms/public/it/htv/{{$ticket->id}}" ><span>{{$ticket->subject}}</span></a>
+                                            <a class="adminviewticket" href="/1_atms/public/it/ctlv/{{$ticket->id}}" ><span>{{$ticket->subject}}</span></a>
                                         </div>                                                                                
                                     </div>
                                     <div class='row' style='font-size:.8rem'>

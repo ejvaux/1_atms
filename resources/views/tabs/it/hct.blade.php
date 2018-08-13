@@ -11,7 +11,7 @@
                 <ol class="breadcrumb">
                     <li class="breadcrumb-item"><a href='/1_atms/public/it/lt'>My Tickets</a></li>
                     <li class="breadcrumb-item"><a href='/1_atms/public/it/ht'>Handled Tickets</a></li>
-                    <li class="breadcrumb-item">Closed Tickets</li>
+                    <li class="breadcrumb-item">Closed Handled Tickets</li>
                     {{-- <li class="breadcrumb-item">Data</li> --}}
                 </ol>
             </nav>
@@ -66,7 +66,7 @@
                                 <th style='width:35vw'>
                                     <div class='row' style="font-size:1rem">
                                         <div class='col-lg' style='overflow:hidden;text-overflow:ellipsis; white-space: nowrap ;width:300px'>
-                                            <a class="adminviewticket" href="/1_atms/public/it/htv/{{$ticket->id}}" ><span>{{$ticket->subject}}</span></a>
+                                            <a class="adminviewticket" href="/1_atms/public/it/hctv/{{$ticket->id}}" ><span>{{$ticket->subject}}</span></a>
                                         </div>                                                                                
                                     </div>
                                     <div class='row' style='font-size:.8rem'>

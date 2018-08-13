@@ -144,4 +144,20 @@ class DashboardController extends Controller
         $tickets = ClosedTicket::where('assigned_to',Auth::user()->id)->orderBy('id','desc')->paginate(10);
         return view('tabs.it.ahct',compact('tickets'));
     }
+    public function handledclosedticketview($id){
+        $tickets = ClosedTicket::where('id',$id)->first();   
+        $priorities = Priority::orderBy('id')->get();
+        $statuses = Status::orderBy('id')->get();
+        $updates = TicketUpdates::where('ticket_id',$id)->get();
+        $updatetext = '';
+        return view('tabs.it.hctv',compact('tickets','updates','updatetext','priorities','statuses'));
+    }
+    public function closedticketview($id){
+        $tickets = ClosedTicket::where('id',$id)->first();   
+        $priorities = Priority::orderBy('id')->get();
+        $statuses = Status::orderBy('id')->get();
+        $updates = TicketUpdates::where('ticket_id',$id)->get();
+        $updatetext = '';
+        return view('tabs.it.ctlv',compact('tickets','updates','updatetext','priorities','statuses'));
+    }
 }
