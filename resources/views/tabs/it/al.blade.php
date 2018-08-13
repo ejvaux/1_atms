@@ -10,8 +10,6 @@
             <nav>
                 <ol class="breadcrumb">
                     <li class="breadcrumb-item">Tickets</li>
-                    {{-- <li class="breadcrumb-item">Ticket Details</li> --}}
-                    {{-- <li class="breadcrumb-item">Data</li> --}}
                 </ol>
             </nav>
         </div>
@@ -46,7 +44,6 @@
                         <th>@sortablelink('created_at','Date')</th>
                         <th>@sortablelink('assigned_to','Assigned')</th>
                         <th>@sortablelink('updated_at','Updated')</th>
-                        {{-- <th><input type='checkbox' onchange='checkAll(this)'></th> --}}
                     </tr>
                 </thead>
                 <tbody>
@@ -103,9 +100,6 @@
                                 <th>
                                     <span style='font-size:.8rem'>{!!str_replace(' ','<br>',$ticket->updated_at)!!}</span>
                                 </th>
-                                {{-- <th>
-                                    <input type='checkbox'>
-                                </th> --}}
                             </tr>
                         @endforeach                
                     @else
