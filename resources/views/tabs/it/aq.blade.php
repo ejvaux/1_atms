@@ -29,6 +29,7 @@
             </form>
         </div>        
     </div>
+    {{-- @include('inc.viewticket'); --}}
     <div class='row mb-1'>
         <div class='col-lg table-responsive-lg'>
             <table class="table">
@@ -40,7 +41,6 @@
                         <th>@sortablelink('created_at','Date')</th>
                         <th>@sortablelink('assigned_to','Assigned')</th>
                         <th>@sortablelink('updated_at','Updated')</th>
-                        {{-- <th><input type='checkbox' onchange='checkAll(this)'></th> --}}
                     </tr>
                 </thead>
                 <tbody>
@@ -53,7 +53,7 @@
                                 <th style='width:35vw'>
                                     <div class='row' style="font-size:1rem">
                                         <div class='col-lg' style='overflow:hidden;text-overflow:ellipsis; white-space: nowrap ;width:300px'>
-                                            <a class="adminviewticket" href="/1_atms/public/it/av/{{$ticket->id}}" ><span>{{$ticket->subject}}</span></a>
+                                            <a class="adminviewticket" href="/1_atms/public/it/ahtv/{{$ticket->id}}" ><span>{{$ticket->subject}}</span></a>
                                         </div>                                                                                
                                     </div>
                                     <div class='row' style='font-size:.8rem'>
@@ -82,9 +82,6 @@
                                 <th>
                                     <span style='font-size:.8rem'>{!!str_replace(' ','<br>',$ticket->updated_at)!!}</span>
                                 </th>
-                                {{-- <th>
-                                    <input type='checkbox'>
-                                </th> --}}
                             </tr>
                         @endforeach                
                     @else
@@ -96,7 +93,7 @@
     </div>
     <div class='row'>
         <div class='col-lg'>
-            {{-- {{$tickets->links()}} --}}{!! $tickets->appends(\Request::except('page'))->render() !!}
+            {!! $tickets->appends(\Request::except('page'))->render() !!}
         </div>
     </div>
 </div>
