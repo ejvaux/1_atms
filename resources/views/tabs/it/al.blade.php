@@ -63,7 +63,11 @@
                                                 For Queuing
                                             @endif                                                
                                         @else
+                                            @if($ticket->finish_at == null)
                                             {!! CustomFunctions::datetimelapse($ticket->start_at) !!}
+                                            @else
+                                            {!! CustomFunctions::datetimefinished($ticket->start_at,$ticket->finish_at) !!}
+                                            @endif
                                         @endif
                                     </span>
                                 </th>
