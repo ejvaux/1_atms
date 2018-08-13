@@ -129,9 +129,11 @@ class TicketsController extends Controller
         }
         elseif($request->input('mod') == 'escalate'){
             $ticket = Ticket::find($id);
-            if($ticket->finish_at == null){
-                $ticket->finish_at = Date('Y-m-d H:i:s');
-            }            
+            if($ticket->status_id == 5){
+                if($ticket->finish_at == null){
+                    $ticket->finish_at = Date('Y-m-d H:i:s');
+                } 
+            }                       
             $ticket->save();
             return redirect('/it/htv/'.$id)->with('success','Status Changed Successfully.');
         }
