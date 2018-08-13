@@ -50,6 +50,7 @@ Route::get('/it/hct','DashboardController@handledclosedticket');
 Route::get('/it/hct/{id}','DashboardController@searchhandledclosedticket');
 Route::get('/it/hctv/{id}','DashboardController@handledclosedticketview');
 Route::get('/it/ahct','DashboardController@adminhandledclosedticket');
+Route::get('/it/ahctv/{id}','DashboardController@adminhandledclosedticketview');
 Route::get('/it/al/{id}', ['uses' => 'DashboardController@adminsearchticket']);
 Route::get('/it/lt/{id}','DashboardController@searchticket');
 Route::get('/it/av/{id}', ['uses' => 'DashboardController@adminviewticket']);

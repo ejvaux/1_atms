@@ -166,6 +166,14 @@ class DashboardController extends Controller
         $updatetext = '';
         return view('tabs.it.hctv',compact('tickets','updates','updatetext','priorities','statuses'));
     }
+    public function adminhandledclosedticketview($id){
+        $tickets = ClosedTicket::where('id',$id)->first();   
+        $priorities = Priority::orderBy('id')->get();
+        $statuses = Status::orderBy('id')->get();
+        $updates = TicketUpdates::where('ticket_id',$id)->get();
+        $updatetext = '';
+        return view('tabs.it.ahctv',compact('tickets','updates','updatetext','priorities','statuses'));
+    }
     public function closedticketview($id){
         $tickets = ClosedTicket::where('id',$id)->first();   
         $priorities = Priority::orderBy('id')->get();
