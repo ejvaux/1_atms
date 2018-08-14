@@ -96,7 +96,7 @@
                                 <input type='hidden' name='status_id' value='2'>
                                 <input type='hidden' name='mod' value='assign'>
                                 <input type='hidden' name='assigner' value='{{ Auth::user()->name }}'>
-                                <input type='hidden' name='url' value='/it/av/{{ $tickets->id }}'>
+                                <input type='hidden' name='url' value='/it/htv/{{ $tickets->id }}'>
                                 <div class='input-group' id='dd_assigned_to' style='display:none'>
                                     <select type="text" class="form-control" id="assigned_to" name="assigned_to" placeholder="" required>
                                         <option value="">- Select Tech -</option>                            
