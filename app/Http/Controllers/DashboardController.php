@@ -130,7 +130,7 @@ class DashboardController extends Controller
         $updates = TicketUpdates::where('ticket_id',$id)->get();
         $updatetext = '';
         if ($tickets === null) {
-            return view('tabs.it.ht')->with('error','Ticket not found.');
+            return $this->handledticket()->with('error','Ticket not found.');
         }
         else{
             return view('tabs.it.htv', compact('tickets','updates','updatetext','priorities','statuses'));
