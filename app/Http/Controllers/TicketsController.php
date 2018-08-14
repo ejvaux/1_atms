@@ -5,6 +5,9 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\TicketAssigned;
+use App\Mail\TicketAccepted;
+use App\Mail\PriorityChanged;
+use App\Mail\StatusChanged;
 use App\Ticket;
 use App\Category;
 use App\Priority;
@@ -135,28 +138,37 @@ class TicketsController extends Controller
         if($request->input('result') != ""){ $ticket->result = $request->input('result');}
         if($request->input('recommend') != ""){ $ticket->recommend = $request->input('recommend');}
 
-        $mail = new \stdClass();              
+        $mail = new \stdClass();
+        $mail->user = $ticket->user->name;            
         $mail->tech =  $ticket->assign->name;
         $mail->ticketnum = $ticket->id;
         $mail->assigner = $request->input('assigner');
         $mail->url = $request->input('url');
+        $mail->priority = $ticket->priority->name;
+        $mail->status = $ticket->status->name;
         $email = $ticket->assign->email;
+        $emailuser = $ticket->user->email;
 
         $ticket->save();
         if($request->input('mod') == 'assign'){
             Mail::to($email)->send(new TicketAssigned($mail));
             return redirect('/it/av/'.$id)->with('success','Ticket Assigned Successfully. Email sent to the assigned technician.');            
         }
-        elseif($request->input('mod') == 'accept'){            
+        elseif($request->input('mod') == 'accept'){
+            Mail::to($emailuser)->send(new TicketAccepted($mail));         
             return redirect('/it/htv/'.$id)->with('success','Ticket Accepted Successfully.');
         }
-        elseif($request->input('mod') == 'priority'){            
+        elseif($request->input('mod') == 'priority'){
+            Mail::to($emailuser)->send(new PriorityChanged($mail));          
             return redirect('/it/htv/'.$id)->with('success','Priority Changed Successfully.');
         }
-        elseif($request->input('mod') == 'status'){
+        /* elseif($request->input('mod') == 'status'){
+            Mail::to($emailuser)->send(new StatusChanged($mail));
             session()->flash('success', 'Status Changed Successfully.');
             return '/1_atms/public/it/htv/'.$id;
-        }
+            Mail::to($emailuser)->send(new StatusChanged($mail));
+            return redirect('/it/htv/'.$id)->with('success','Status Changed Successfully.');
+        } */
         elseif($request->input('mod') == 'escalate'){
             $ticket = Ticket::find($id);
             if($ticket->status_id == 5){
@@ -165,6 +177,7 @@ class TicketsController extends Controller
                 } 
             }                       
             $ticket->save();
+            Mail::to($emailuser)->send(new StatusChanged($mail));
             return redirect('/it/htv/'.$id)->with('success','Status Changed Successfully.');
         }
         elseif($request->input('mod') == 'detail'){            

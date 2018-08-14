@@ -1,7 +1,7 @@
 <div class="row mb-2">
     <div class='col-md'>
         <div class="card" style='width:100%'>
-            <h4 class="card-header font-weight-bold">#{{ $tickets->id }}</h4>
+            <h4 class="card-header font-weight-bold">#{{ $tickets->id }} - {{ $tickets->user->name }}</h4>
             <div class="card-body">
                 <div class="row mb-2">
                     <div class="col-md-6">
@@ -82,6 +82,7 @@
                                     <input type='hidden' name='status_id' value='3'>
                                     <input type='hidden' name='mod' value='accept'>
                                     <input id='datenow' type='hidden' name='start_at' value="{{ Date('Y-m-d H:i:s') }}">
+                                    <input type='hidden' name='url' value='/it/vt/{{ $tickets->id }}'>
                                     <button type='submit' id='accept_ticket' class='btn btn-secondary'>Accept Ticket</button>
                                 </form>
                             @else
@@ -103,6 +104,7 @@
                                                 @endforeach
                                             </select>
                                             <input type='hidden' name='mod' value='priority'>
+                                            <input type='hidden' name='url' value='/it/vt/{{ $tickets->id }}'>
                                             <button type='submit' class='btn btn-secondary'>Change</button>
                                             <button type='button' id='cancel_change_priority' class='btn btn-warning'>Cancel</button>
                                         </div>
@@ -120,6 +122,7 @@
                                                 @endforeach
                                             </select>
                                             <input type='hidden' name='mod' value='escalate'>
+                                            <input type='hidden' name='url' value='/it/vt/{{ $tickets->id }}'>
                                             <button type='submit' class='btn btn-secondary'>Change</button>
                                             <button type='button' id='cancel_change_status' class='btn btn-warning'>Cancel</button>
                                         </div>
@@ -131,7 +134,8 @@
                                         <form id='close_ticket_form' method='POST' action='/1_atms/public/closed_ticket/transfer/{{ $tickets->id }}'>
                                             @csrf
                                             <input type='hidden' name='status_id' value='{{ $tickets->status_id }}'>
-                                            <input type='hidden' name='mod' value='default'>                     
+                                            <input type='hidden' name='mod' value='default'>
+                                            <input type='hidden' name='url' value='/it/ctlv/{{ $tickets->id }}'>            
                                             <button type='button' id='close_ticket' class='btn btn-danger mt-2' style='display:inline;'>Close Ticket</button>
                                         </form>
                                     </div>

@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Mail;
 use App\Ticket;
+use App\Mail\TicketClosed;
 use App\ClosedTicket;
 
 class ClosedTicketController extends Controller
@@ -52,9 +54,10 @@ class ClosedTicketController extends Controller
         $t->result = $request->input('result');
         $t->recommend = $request->input('recommend');
         $t->start_at = $request->input('start_at');
-        $t->finish_at = $request->input('finish_at');
+        $t->finish_at = $request->input('finish_at');        
+
         $t->save();
-        if($request->input('mod') == 'default'){
+        if($request->input('mod') == 'default'){            
             return redirect('/it/ct')->with('success','Ticket Submitted Successfully.');           
         }
         elseif($request->input('mod') == 'escalate'){            
@@ -129,10 +132,19 @@ class ClosedTicketController extends Controller
             $t->recommend = $ticket->recommend;
             $t->start_at = $ticket->start_at;
             $t->finish_at = $ticket->finish_at;
+
+            $mail = new \stdClass();
+            $mail->user = $ticket->user->name;            
+            $mail->tech =  $ticket->assign->name;
+            $mail->ticketnum = $ticket->id;
+            $mail->url = $request->input('url');
+            $emailuser = $ticket->user->email;
+
             $t->save();
             if($t->save()){
                 Ticket::where('id',$id)->delete();
                 if($request->input('mod') == 'default'){
+                    Mail::to($emailuser)->send(new TicketClosed($mail));
                     return redirect('/it/ht')->with('success','Ticket Closed Successfully.');
                 }                
             }
