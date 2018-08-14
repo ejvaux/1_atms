@@ -66,11 +66,14 @@
                                     </div>
                                 </div>
                             </div>
-                        </div>                            
+                        </div>                        
+                        {{-- <div class='row'>
+                            
+                        </div>   --}}                                                                        
                     </div>
                 </div>
                 <div class='row mb-2'>
-                    <div class='col-md-5'>
+                    <div class='col-md-6'>
                         @if($tickets->status_id == 2)                        
                             @if($tickets->assigned_to == Auth::user()->id)
                                 <form method='POST' action='/1_atms/public/tickets/{{ $tickets->id }}'>
@@ -137,7 +140,14 @@
                                 @endif
                             @endif
                         @endif                                                                                                         
-                    </div>                                                  
+                    </div>
+                    <div class='col-md'>
+                        @if($tickets->attach != null)
+                            <a class='btn btn-secondary' href="/1_atms/public/storage/attachedfile/{{$tickets->attach}}" onclick="window.open(this.href,'_blank');return false;">See Attachments</a>
+                        @else
+                            No attachment.
+                        @endif 
+                    </div>                                                 
                 </div>
                 <hr>                          
                 <div class="row mb-2">

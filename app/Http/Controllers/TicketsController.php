@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Mail;
+use App\Mail\TicketAssigned;
 use App\Ticket;
 use App\Category;
 use App\Priority;
@@ -44,7 +46,25 @@ class TicketsController extends Controller
             'category' => 'required', 
             'department' => 'required',          
             'message' => 'required',
+            'attachedfile' => 'image|nullable|max:1999',
         ]);
+
+        // Handle File Upload
+        if($request->hasFile('attachedfile')) {
+            // Get filename with extension            
+            $filenameWithExt = $request->file('attachedfile')->getClientOriginalName();
+            // Get just filename
+            $filename = pathinfo($filenameWithExt, PATHINFO_FILENAME);            
+            // Get just ext
+            $extension = $request->file('attachedfile')->getClientOriginalExtension();
+            //Filename to store
+            $fileNameToStore = $filename.'_'.time().'.'.$extension;                       
+            // Upload Image
+            $path = $request->file('attachedfile')->storeAs('public/attachedfile', $fileNameToStore);
+        }
+        else {
+            $fileNameToStore = null;
+        }
 
         // Create Ticket
         $t = new Ticket;
@@ -54,6 +74,7 @@ class TicketsController extends Controller
         $t->priority_id = $request->input('priority');
         $t->subject = $request->input('subject');
         $t->message = $request->input('message');
+        $t->attach = $fileNameToStore;
         $t->save();
         if($request->input('mod') == 'default'){
             return redirect('/it/ct')->with('success','Ticket Submitted Successfully.');           
@@ -113,8 +134,17 @@ class TicketsController extends Controller
         if($request->input('action') != ""){ $ticket->action = $request->input('action');}
         if($request->input('result') != ""){ $ticket->result = $request->input('result');}
         if($request->input('recommend') != ""){ $ticket->recommend = $request->input('recommend');}
+
+        $mail = new \stdClass();              
+        $mail->tech =  $ticket->assign->name;
+        $mail->ticketnum = $ticket->id;
+        $mail->assigner = $request->input('assigner');
+        $mail->url = $request->input('url');
+        $email = $ticket->assign->email;
+
         $ticket->save();
         if($request->input('mod') == 'assign'){
+            Mail::to($email)->send(new TicketAssigned($mail));
             return redirect('/it/av/'.$id)->with('success','Ticket Assigned Successfully.');            
         }
         elseif($request->input('mod') == 'accept'){            
@@ -123,7 +153,7 @@ class TicketsController extends Controller
         elseif($request->input('mod') == 'priority'){            
             return redirect('/it/htv/'.$id)->with('success','Priority Changed Successfully.');
         }
-        elseif($request->input('mod') == 'status'){            
+        elseif($request->input('mod') == 'status'){
             session()->flash('success', 'Status Changed Successfully.');
             return '/1_atms/public/it/htv/'.$id;
         }

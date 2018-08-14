@@ -24,6 +24,9 @@ Route::get('/comingsoon', function () {
     return view('pages.comingsoon');
 });
 
+// Email
+Route::get('/mail/send/assigned', 'EmailController@send');
+
 // Dashboard
 Route::get('/dashboard', 'DashboardController@index');
 

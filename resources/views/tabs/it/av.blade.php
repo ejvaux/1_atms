@@ -83,7 +83,7 @@
                         </div>
                     </div>                        
                     <div class='row mb-2'>
-                        <div class='col-md-4'>
+                        <div class='col-md-6'>
                             @if($tickets->assigned_to == '')
                                 <button type='button' id='assign_ticket' class='btn btn-secondary'>Assign Ticket </button>
                             @else
@@ -95,6 +95,8 @@
                                 @csrf
                                 <input type='hidden' name='status_id' value='2'>
                                 <input type='hidden' name='mod' value='assign'>
+                                <input type='hidden' name='assigner' value='{{ Auth::user()->name }}'>
+                                <input type='hidden' name='url' value='/it/av/{{ $tickets->id }}'>
                                 <div class='input-group' id='dd_assigned_to' style='display:none'>
                                     <select type="text" class="form-control" id="assigned_to" name="assigned_to" placeholder="" required>
                                         <option value="">- Select Tech -</option>                            
@@ -108,6 +110,13 @@
                                     <button type='button' id='cancel_assign' class='btn btn-warning'>Cancel</button>
                                 </div>                                                                          
                             </form>                                                                                    
+                        </div>
+                        <div class='col-md'>
+                            @if($tickets->attach != null)
+                                <a class='btn btn-secondary' href="/1_atms/public/storage/attachedfile/{{$tickets->attach}}" onclick="window.open(this.href,'_blank');return false;">See Attachments</a>
+                            @else
+                                No attachment.
+                            @endif 
                         </div>                                                  
                     </div>
                     <hr>                    
