@@ -18,7 +18,7 @@
     </div>
     <div class="row pt-1">
         <div class="col-md-12">
-            <form id='admincreateticket' method='POST' action='/1_atms/public/tickets'>
+            <form id='admincreateticket' method='POST' action='/1_atms/public/tickets' enctype="multipart/form-data">
                 @csrf
                 <input name="userid" type="hidden" value="{{ Auth::user()->id }}">                
                 <input type="hidden" id="username" name="username" placeholder="" value="{{ Auth::user()->name }}">
@@ -65,6 +65,10 @@
                     </div>
                 </div>
                 <div class="form-group row text-right">
+                    <div class="col-md-5 text-left">
+                        <span>Attach File: </span>
+                        <input class='border' type='file' name='attachedfile'>
+                    </div>
                     <div class="col">
                         <button type='submit' class="btn btn-primary" id="saveTicketButton">Submit Ticket</button>
                     </div>

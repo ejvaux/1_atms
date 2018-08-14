@@ -129,7 +129,12 @@ class DashboardController extends Controller
         $statuses = Status::orderBy('id')->get();
         $updates = TicketUpdates::where('ticket_id',$id)->get();
         $updatetext = '';
-        return view('tabs.it.htv', compact('tickets','updates','updatetext','priorities','statuses'));
+        if ($tickets === null) {
+            return view('tabs.it.ht')->with('error','Ticket not found.');
+        }
+        else{
+            return view('tabs.it.htv', compact('tickets','updates','updatetext','priorities','statuses'));
+        }        
     }
     public function adminviewhandledticket($id){
         $tickets = Ticket::where('id',$id)->first();        
