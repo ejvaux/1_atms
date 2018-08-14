@@ -145,7 +145,7 @@ class TicketsController extends Controller
         $ticket->save();
         if($request->input('mod') == 'assign'){
             Mail::to($email)->send(new TicketAssigned($mail));
-            return redirect('/it/av/'.$id)->with('success','Ticket Assigned Successfully.');            
+            return redirect('/it/av/'.$id)->with('success','Ticket Assigned Successfully. Email sent to the assigned technician.');            
         }
         elseif($request->input('mod') == 'accept'){            
             return redirect('/it/htv/'.$id)->with('success','Ticket Accepted Successfully.');
