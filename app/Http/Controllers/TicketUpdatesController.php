@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\TicketUpdates;
+use App\Ticket;
 
 class TicketUpdatesController extends Controller
 {
@@ -46,14 +47,8 @@ class TicketUpdatesController extends Controller
         $tu->ticket_id = $request->input('ticket_id');
         $tu->user_id = $request->input('user_id');
         $tu->message = $request->input('message');
-        $tu->save();
-        if($request->input('mod') == 'default'){
-            return redirect('/it/vt/'.$request->input('ticket_id'))->with('success','Comment Submitted Successfully.');           
-        }
-        elseif($request->input('mod') == 'admin'){            
-            /* return redirect('/it/ac')->with('success','Ticket Submitted Successfully.'); */
-        }
-
+        $tu->save();            
+        return redirect('/it/vt/'.$request->input('ticket_id'))->with('success','Comment Submitted Successfully.');      
     }
 
     /**

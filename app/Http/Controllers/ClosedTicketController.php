@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Mail;
 use App\Ticket;
 use App\Mail\TicketClosed;
 use App\ClosedTicket;
+use App\TicketUpdates;
 
 class ClosedTicketController extends Controller
 {
@@ -139,11 +140,17 @@ class ClosedTicketController extends Controller
             $mail->ticketnum = $ticket->id;
             $mail->url = $request->input('url');
             $emailuser = $ticket->user->email;
+            $techid = $ticket->assigned_to;
 
             $t->save();
             if($t->save()){
                 Ticket::where('id',$id)->delete();
                 if($request->input('mod') == 'default'){
+                    $tu = new TicketUpdates;
+                    $tu->ticket_id = $id;
+                    $tu->user_id = $techid;
+                    $tu->message = "Ticket Closed.";
+                    $tu->save(); 
                     Mail::to($emailuser)->send(new TicketClosed($mail));
                     return redirect('/it/ht')->with('success','Ticket Closed Successfully.');
                 }                

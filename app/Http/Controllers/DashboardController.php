@@ -69,10 +69,10 @@ class DashboardController extends Controller
     }
 
     public function viewticket($id)
-    {
+    {        
+        $tickets = Ticket::where('id',$id)->first();
         $statuses = Status::orderBy('id')->get();
         $priorities = Priority::orderBy('id')->get();
-        $tickets = Ticket::where('id',$id)->first();
         $updates = TicketUpdates::where('ticket_id',$id)->get();
         $updatetext = '';
         return view('tabs.it.vt', compact('tickets','updates','updatetext','priorities','statuses'));
@@ -128,13 +128,8 @@ class DashboardController extends Controller
         $priorities = Priority::orderBy('id')->get();
         $statuses = Status::orderBy('id')->get();
         $updates = TicketUpdates::where('ticket_id',$id)->get();
-        $updatetext = '';
-        if ($tickets === null) {
-            return $this->handledticket()->with('error','Ticket not found.');
-        }
-        else{
-            return view('tabs.it.htv', compact('tickets','updates','updatetext','priorities','statuses'));
-        }        
+        $updatetext = '';        
+        return view('tabs.it.htv', compact('tickets','updates','updatetext','priorities','statuses'));       
     }
     public function adminviewhandledticket($id){
         $tickets = Ticket::where('id',$id)->first();        

@@ -1,3 +1,4 @@
+@if(count($tickets)>0)
 <div class="row mb-2">
     <div class='col-md'>
         <div class="card" style='width:100%'>
@@ -66,10 +67,7 @@
                                     </div>
                                 </div>
                             </div>
-                        </div>                        
-                        {{-- <div class='row'>
-                            
-                        </div>   --}}                                                                        
+                        </div>                                                                                
                     </div>
                 </div>
                 <div class='row mb-2'>
@@ -253,3 +251,6 @@
     </div>        
 </div>
 </form>
+@else
+    <div class='alert alert-danger'><h3>Ticket not found or it doesn't exists.</h3></div>
+@endif
