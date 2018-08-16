@@ -152,6 +152,7 @@ class TicketsController extends Controller
         $email = $ticket->assign->email;
         $emailuser = $ticket->user->email;
         $techid = $ticket->assigned_to;
+        $userid = $ticket->user_id;
 
         $ticket->save();
         if($request->input('mod') == 'assign'){
@@ -159,18 +160,20 @@ class TicketsController extends Controller
             $tu->ticket_id = $id;
             $tu->user_id = User::where('name',$request->input('assigner'))->first()->id;
             $tu->message = "Assigned ticket to " . $mail->tech . ".";
-            $tu->save(); 
-            Mail::to($email)->send(new TicketAssigned($mail));            
-            return redirect('/it/av/'.$id)->with('success','Ticket Assigned Successfully.');            
+            $tu->save();
+            return redirect('/notification/ticketassign/'.$userid.'/'.$request->input('ticket_id').'/'.$techid);
+            /* Mail::to($email)->send(new TicketAssigned($mail));            
+            return redirect('/it/av/'.$id)->with('success','Ticket Assigned Successfully.');  */           
         }
         elseif($request->input('mod') == 'accept'){
             $tu = new TicketUpdates;
             $tu->ticket_id = $id;
             $tu->user_id = $techid;
             $tu->message = "Ticket Accepted.";
-            $tu->save(); 
-            Mail::to($emailuser)->send(new TicketAccepted($mail));         
-            return redirect('/it/htv/'.$id)->with('success','Ticket Accepted Successfully.');
+            $tu->save();
+            return redirect('/notification/ticketaccept/'.$userid.'/'.$mail->ticketnum.'/'.$mail->tech);
+            /* Mail::to($emailuser)->send(new TicketAccepted($mail));         
+            return redirect('/it/htv/'.$id)->with('success','Ticket Accepted Successfully.'); */
         }
         elseif($request->input('mod') == 'priority'){
             $tu = new TicketUpdates;
@@ -178,16 +181,10 @@ class TicketsController extends Controller
             $tu->user_id = $techid;
             $tu->message = "Changed priority to " . $mail->priority . ".";
             $tu->save();
-            Mail::to($emailuser)->send(new PriorityChanged($mail));          
-            return redirect('/it/htv/'.$id)->with('success','Priority Changed Successfully.');
-        }
-        /* elseif($request->input('mod') == 'status'){
-            Mail::to($emailuser)->send(new StatusChanged($mail));
-            session()->flash('success', 'Status Changed Successfully.');
-            return '/1_atms/public/it/htv/'.$id;
-            Mail::to($emailuser)->send(new StatusChanged($mail));
-            return redirect('/it/htv/'.$id)->with('success','Status Changed Successfully.');
-        } */
+            return redirect('/notification/ticketpriority/'.$userid.'/'.$mail->ticketnum.'/'.$mail->priority);
+            /* Mail::to($emailuser)->send(new PriorityChanged($mail));          
+            return redirect('/it/htv/'.$id)->with('success','Priority Changed Successfully.'); */
+        }        
         elseif($request->input('mod') == 'escalate'){
             $tu = new TicketUpdates;
             $tu->ticket_id = $id;
@@ -201,8 +198,9 @@ class TicketsController extends Controller
                 } 
             }                       
             $ticket->save();
-            Mail::to($emailuser)->send(new StatusChanged($mail));
-            return redirect('/it/htv/'.$id)->with('success','Status Changed Successfully.');
+            return redirect('/notification/ticketstatus/'.$userid.'/'.$mail->ticketnum.'/'.$mail->status);
+            /* Mail::to($emailuser)->send(new StatusChanged($mail));
+            return redirect('/it/htv/'.$id)->with('success','Status Changed Successfully.'); */
         }
         elseif($request->input('mod') == 'detail'){
             $tu = new TicketUpdates;
@@ -224,25 +222,4 @@ class TicketsController extends Controller
     {
         //
     }
-
-    /* public function customUpdate(Request $request, $id, $mod)
-    {
-        $request->validate([
-            'assigned_to' => 'nullable|integer',
-            'start_at' => 'nullable|date',
-            'status_id' => 'nullable|integer',
-        ]);        
-        $ticket = Ticket::find($id);
-        if($request->input('assigned_to') != ""){ $ticket->assigned_to = $request->input('assigned_to');}
-        if($request->input('start_at') != ""){ $ticket->start_at = $request->input('start_at');}
-        if($request->input('status_id') != ""){ $ticket->status_id = $request->input('status_id');}
-        $ticket->save();
-        return $mod;
-        if($mod == 'assign'){
-            return redirect('/it/av/'.$id)->with('success','Ticket Assigned Successfully.');            
-        }
-        elseif($mod == 'accept'){            
-            return redirect('/it/av/'.$id)->with('success','Ticket Accepted Successfully.');
-        }          
-    } */
 }

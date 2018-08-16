@@ -18,7 +18,7 @@
     <div class="row mb-2">
         <div class='col-md'>
             <div class="card" style='width:100%'>
-                <h4 class="card-header font-weight-bold">#{{ $tickets->id }}</h4>
+                <h4 class="card-header font-weight-bold">#{{ $tickets->id }} - {{ $tickets->user->name }}</h4>
                 <div class="card-body">                    
                     <div class="row mb-2">
                         <div class="col-md-6">
@@ -97,6 +97,7 @@
                                 <input type='hidden' name='mod' value='assign'>
                                 <input type='hidden' name='assigner' value='{{ Auth::user()->name }}'>
                                 <input type='hidden' name='url' value='/it/htv/{{ $tickets->id }}'>
+                                <input type='hidden' name='ticket_id' value='{{ $tickets->id }}'>
                                 <div class='input-group' id='dd_assigned_to' style='display:none'>
                                     <select type="text" class="form-control" id="assigned_to" name="assigned_to" placeholder="" required>
                                         <option value="">- Select Tech -</option>                            

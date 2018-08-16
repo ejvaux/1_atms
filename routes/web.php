@@ -1,5 +1,12 @@
 <?php
 
+use App\Notifications\Newvisit;
+use App\Notifications\TicketAssigned;
+use App\Notifications\TicketAccepted;
+use App\Notifications\PriorityChanged;
+use App\Notifications\StatusChanged;
+use App\Notifications\TicketClosed;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -14,6 +21,41 @@
 /* Route::get('/', function () {
     return view('welcome');
 }); */
+
+// Notification
+Route::get('/notification', function () {
+    $user = App\User::first();
+    $user->notify(new Newvisit("A new user has visited on your application."));
+    return view('welcome'); 
+});
+Route::get('/notification/ticketassign/{id}/{tid}/{tech}', function ($id,$tid,$tech) {
+    /* $user = App\User::first(); */
+    $user = App\User::where('id',$id)->first();
+    $tech = App\User::where('id',$tech)->first();
+    $user->notify(new TicketAssigned($tid,$user->name,'user'));
+    $tech->notify(new TicketAssigned($tid,$tech->name,'tech'));
+    return redirect('/it/av/'.$tid)->with('success','Ticket Assigned Successfully.'); 
+});
+Route::get('/notification/ticketaccept/{id}/{tid}/{tech}', function ($id,$tid,$tech) {
+    $user = App\User::where('id',$id)->first();
+    $user->notify(new TicketAccepted($tid,$user->name,$tech));
+    return redirect('/it/htv/'.$tid)->with('success','Ticket Accepted Successfully.'); 
+});
+Route::get('/notification/ticketpriority/{id}/{tid}/{prio}', function ($id,$tid,$prio) {
+    $user = App\User::where('id',$id)->first();
+    $user->notify(new PriorityChanged($tid,$user->name,$prio));
+    return redirect('/it/htv/'.$tid)->with('success','Priority Changed Successfully.');
+});
+Route::get('/notification/ticketstatus/{id}/{tid}/{stat}', function ($id,$tid,$stat) {
+    $user = App\User::where('id',$id)->first();
+    $user->notify(new StatusChanged($tid,$user->name,$stat));
+    return redirect('/it/htv/'.$tid)->with('success','Status Changed Successfully.');
+});
+Route::get('/notification/ticketclose/{id}/{tid}', function ($id,$tid) {
+    $user = App\User::where('id',$id)->first();
+    $user->notify(new TicketClosed($tid,$user->name));
+    return redirect('/it/ht')->with('success','Ticket Closed Successfully.');
+});
 
 Route::get('/', 'PagesController@index');
 Auth::routes();

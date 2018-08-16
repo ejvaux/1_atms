@@ -115,6 +115,7 @@ class ClosedTicketController extends Controller
     {
         if($request->input('status_id') == 5){
             $ticket = Ticket::find($id);
+            $userid = $ticket->user_id;
             $newticket = $ticket->replicate();
             unset($newticket['created_at'],$newticket['updated_at']);            
             $t = new ClosedTicket;
@@ -151,8 +152,9 @@ class ClosedTicketController extends Controller
                     $tu->user_id = $techid;
                     $tu->message = "Ticket Closed.";
                     $tu->save(); 
-                    Mail::to($emailuser)->send(new TicketClosed($mail));
-                    return redirect('/it/ht')->with('success','Ticket Closed Successfully.');
+                    return redirect('/notification/ticketclose/'.$userid.'/'.$mail->ticketnum);
+                    /* Mail::to($emailuser)->send(new TicketClosed($mail));
+                    return redirect('/it/ht')->with('success','Ticket Closed Successfully.'); */
                 }                
             }
         }

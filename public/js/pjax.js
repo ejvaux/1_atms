@@ -1,5 +1,5 @@
 var pjax = new Pjax({
-    elements: ["a","form"],
+    elements: "a",
     selectors: ["title", "#app"],
     cacheBust: true,
   });
