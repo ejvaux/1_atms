@@ -81,12 +81,17 @@ class TicketsController extends Controller
         $t->subject = $request->input('subject');
         $t->message = $request->input('message');
         $t->attach = $fileNameToStore;
+
+        $ticket = Ticket::orderBy('created_at', 'desc')->first();
+
         $t->save();
         if($request->input('mod') == 'default'){
-            return redirect('/it/ct')->with('success','Ticket Submitted Successfully.');           
+            return redirect('/notification/ticketcreate/'.$ticket->id.'/default');
+            /* return redirect('/it/ct')->with('success','Ticket Submitted Successfully.'); */           
         }
-        elseif($request->input('mod') == 'admin'){            
-            return redirect('/it/ac')->with('success','Ticket Submitted Successfully.');
+        elseif($request->input('mod') == 'admin'){
+            return redirect('/notification/ticketcreate/'.$ticket->id.'/admin');      
+            /* return redirect('/it/ac')->with('success','Ticket Submitted Successfully.'); */
         }
     }
 

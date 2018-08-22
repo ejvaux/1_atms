@@ -6,6 +6,7 @@ use App\Notifications\TicketAccepted;
 use App\Notifications\PriorityChanged;
 use App\Notifications\StatusChanged;
 use App\Notifications\TicketClosed;
+use App\Notifications\TicketCreated;
 
 /*
 |--------------------------------------------------------------------------
@@ -55,6 +56,17 @@ Route::get('/notification/ticketclose/{id}/{tid}', function ($id,$tid) {
     $user = App\User::where('id',$id)->first();
     $user->notify(new TicketClosed($tid,$user->name));
     return redirect('/it/ht')->with('success','Ticket Closed Successfully.');
+});
+Route::get('/notification/ticketcreate/{tid}/{mod}', function ($tid,$mod) {
+    $users = App\User::where('admin',1)->get();
+    foreach ($users as $user) {
+        $user->notify(new TicketCreated($tid,$user->name));
+    }
+    if($mod == 'default'){
+        return redirect('/it/ct')->with('success','Ticket Submitted Successfully.');
+    }else if($mod == 'admin'){
+        return redirect('/it/ac')->with('success','Ticket Submitted Successfully.');
+    }
 });
 
 Route::get('/', 'PagesController@index');
