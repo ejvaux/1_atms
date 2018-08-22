@@ -20,8 +20,8 @@
         <div class="col-lg-3">
             <form>
                 <div class="input-group">
-                    <input type="text" class="form-control" id="searchtextqueue" placeholder="Enter ticket number . . .">
-                    <button type="button" id="searchqueue"><i class="fa fa-search"></i></button>
+                    <input type="text" class="form-control" id="searchtextbox" placeholder="Enter ticket number . . .">
+                    <button type="button" value="/1_atms/public/it/actl/" id="search"><i class="fa fa-search"></i></button>
                 </div>               
             </form>
         </div>        
@@ -54,20 +54,36 @@
                                                 For Queuing
                                             @endif                                                
                                         @else
+                                            @if($ticket->finish_at == null)
                                             {!! CustomFunctions::datetimelapse($ticket->start_at) !!}
+                                            @else
+                                            {!! CustomFunctions::datetimefinished($ticket->start_at,$ticket->finish_at) !!}
+                                            @endif
                                         @endif
                                     </span>
                                 </th>
                                 <th style='width:35vw'>
                                     <div class='row' style="font-size:1rem">
                                         <div class='col-lg' style='overflow:hidden;text-overflow:ellipsis; white-space: nowrap ;width:300px'>
-                                            <a class="adminviewticket" href="/1_atms/public/it/htv/{{$ticket->id}}" ><span>{{$ticket->subject}}</span></a>
+                                            <a class="adminviewticket" href="/1_atms/public/it/actlv/{{$ticket->id}}" ><span>{{$ticket->subject}}</span></a>
                                         </div>                                                                                
                                     </div>
                                     <div class='row' style='font-size:.8rem'>
                                         <div class='col-lg'>
-                                            <span class='text-muted'><i class="fa fa-user"></i> {{$ticket->user->name}}</span>                                        
-                                            <span class='text-muted ml-1'><i class="fa fa-folder"></i> {{$ticket->category->name}}</span>
+                                            <span class='text-muted'><i class="fa fa-user"></i> 
+                                                @if($ticket->user->name == null)
+                                                    {{$ticket->username}}
+                                                @else
+                                                    {{$ticket->user->name}}
+                                                @endif
+                                            </span>                                        
+                                            <span class='text-muted ml-1'><i class="fa fa-folder"></i> 
+                                                @if(empty ( $ticket->category->name ))
+                                                    {{$ticket->category}}
+                                                @else
+                                                    {{$ticket->category->name}}
+                                                @endif
+                                            </span>
                                         </div>
                                     </div>                                   
                                 </th>

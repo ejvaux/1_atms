@@ -65,12 +65,26 @@
                                 <div class='col-md-9'>                                    
                                     <div class='row'>
                                         <div class='col-md'>
-                                            <label class='font-weight-bold'>{{ $tickets->department->name }}</label>
+                                            <label class='font-weight-bold editticketlabel '>{{ $tickets->department->name }}</label>
+                                            <input type='hidden' id='departmentNewSelected' value='{{ $tickets->department_id }}'>
+                                            <select type="text" class="form-control-sm editticketinput border" id="departmentNew" name="department_id" style='display:none' required>
+                                                <option value="">- Select Department -</option>
+                                                @foreach($departments as $department)
+                                                    <option value="{{$department->id}}">{{$department->name}}</option>
+                                                @endforeach
+                                            </select>
                                         </div>
                                     </div>
                                     <div class='row'>
                                         <div class='col-md'>
-                                            <label class='font-weight-bold'>{{ $tickets->category->name }}</label>
+                                            <label class='font-weight-bold editticketlabel '>{{ $tickets->category->name }}</label>
+                                            <input type='hidden' id='categoryNewSelected' value='{{ $tickets->category_id }}'>
+                                            <select type="text" class="form-control-sm editticketinput border" id="categoryNew" name="category_id" style='display:none'  required>
+                                                <option value="">- Select Category -</option>                            
+                                                @foreach($categories as $category)
+                                                    <option value="{{$category->id}}">{{$category->name}}</option>
+                                                @endforeach
+                                            </select>
                                         </div>
                                     </div>
                                     <div class='row'>
@@ -121,25 +135,47 @@
                             @endif 
                         </div>                                                  
                     </div>
+                    <div class='row mb-2'>
+                        <div class='col-md'>
+                            @if($tickets->user_id == Auth::user()->id)
+                                <button type='button' id='edit_ticket' class='btn btn-secondary'>Edit Ticket</button>
+                                <div id='edit_ticket_buttons' style='display:none'>
+                                    <form id='saveEditTicket' method='POST' action='/1_atms/public/tickets/{{ $tickets->id }}'>
+                                        @method('PUT')
+                                        @csrf
+                                        <input type='hidden' id='editDepartment' name='department_id' value=''>
+                                        <input type='hidden' id='editCategory' name='category_id' value=''>
+                                        <input type='hidden' id='editSubject' name='subject' value=''>
+                                        <input type='hidden' id='editMessage' name='message' value=''>
+                                        <input type='hidden' id='' name='mod' value='editTicket'>
+                                        <div class='input-group'>
+                                            <button type='submit' class='btn btn-secondary'>Save</button>
+                                            <button type='button' id='cancel_edit_ticket' class='btn btn-warning'>Cancel</button>
+                                        </div>
+                                    </form>
+                                </div>
+                            @endif
+                        </div>
+                    </div>
                     <hr>                    
                     <div class="row mb-2">
-                        <div class="col-md-1">
+                        <div class="col-md-2">
                             <label class='font-weight-bold'><span class='text-muted'>SUBJECT:</span></label>      
                         </div>
                         <div class="col-md" style='max-height: 15vh; overflow:hidden; overflow-y: scroll'>
-                            <p>{{ $tickets->subject }}</p>       
+                            <span class='editticketlabel'>{{ $tickets->subject }}</span>                        
+                            <textarea id='subjectNew' name='subject' class='form-control editticketinput' style='display:none; width:100%'>{{ $tickets->subject }}</textarea>    
                         </div>  
                     </div>
                     <div class="row mb-1">
-                        <div class="col-md">
+                        <div class="col-md-2">
                             <label class='font-weight-bold'><span class='text-muted'>DESCRIPTION:</span></label>
                         </div>
-                    </div>
-                    <div class="row mb-2">
-                        <div class="col-md-12" style='max-height: 40vh; overflow:hidden; overflow-y: scroll'>
-                            <p>{!! $tickets->message !!}</p>                            
+                        <div class="col-md-10" style='max-height: 40vh; overflow:hidden; overflow-y: scroll'>
+                            <span class='editticketlabel'>{!! $tickets->message !!}</span>
+                            <textarea type="text" class="form-control editticketinput" rows="8" id="messageNew" name="message" placeholder="" style='display:none; width:100%'>{!! $tickets->message !!}</textarea>
                         </div>
-                    </div>
+                    </div>                    
                     <div class="row mb-2">
                         <div class="col-md-2">
                             <label class='font-weight-bold'><span class='text-muted'>ROOT CAUSE:</span></label>      

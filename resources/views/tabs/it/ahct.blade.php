@@ -12,7 +12,6 @@
                     <li class="breadcrumb-item"><a href='/1_atms/public/it/al'>Tickets</a></li>
                     <li class="breadcrumb-item"><a href='/1_atms/public/it/aq'>Handled Tickets</a></li>
                     <li class="breadcrumb-item">Closed Handled Tickets</li>
-                    {{-- <li class="breadcrumb-item">Data</li> --}}
                 </ol>
             </nav>
         </div>
@@ -21,8 +20,8 @@
         <div class="col-lg-3">
             <form>
                 <div class="input-group">
-                    <input type="text" class="form-control" id="searchtextqueue" placeholder="Enter ticket number . . .">
-                    <button type="button" id="searchqueue"><i class="fa fa-search"></i></button>
+                    <input type="text" class="form-control" id="searchtextbox" placeholder="Enter ticket number . . .">
+                    <button type="button" value='/1_atms/public/it/ahct/' id="search"><i class="fa fa-search"></i></button>
                 </div>               
             </form>
         </div>        
@@ -38,7 +37,6 @@
                         <th>@sortablelink('created_at','Date')</th>
                         <th>@sortablelink('assigned_to','Assigned')</th>
                         <th>@sortablelink('updated_at','Updated')</th>
-                        {{-- <th><input type='checkbox' onchange='checkAll(this)'></th> --}}
                     </tr>
                 </thead>
                 <tbody>
@@ -71,8 +69,20 @@
                                     </div>
                                     <div class='row' style='font-size:.8rem'>
                                         <div class='col-lg'>
-                                            <span class='text-muted'><i class="fa fa-user"></i> {{$ticket->user->name}}</span>                                        
-                                            <span class='text-muted ml-1'><i class="fa fa-folder"></i> {{$ticket->category->name}}</span>
+                                            <span class='text-muted'><i class="fa fa-user"></i> 
+                                                @if($ticket->user->name == null)
+                                                    {{$ticket->username}}
+                                                @else
+                                                    {{$ticket->user->name}}
+                                                @endif
+                                            </span>                                        
+                                            <span class='text-muted ml-1'><i class="fa fa-folder"></i> 
+                                                @if(empty ( $ticket->category->name ))
+                                                    {{$ticket->category}}
+                                                @else
+                                                    {{$ticket->category->name}}
+                                                @endif
+                                            </span>
                                         </div>
                                     </div>                                   
                                 </th>

@@ -1,5 +1,18 @@
 /* ------------------------- Global Variable -------------------------------- */
 var quill;
+var toolbarOptions = [
+	/* [{ 'header': [1, 2, 3, 4, 5, 6, false] }], */
+	['bold', 'italic', 'underline', 'strike'],        // toggled buttons
+	['blockquote', 'code-block'],
+	[{ 'list': 'ordered'}, { 'list': 'bullet' }],
+	[{ 'script': 'sub'}, { 'script': 'super' }],      // superscript/subscript
+	[{ 'indent': '-1'}, { 'indent': '+1' }],          // outdent/indent
+	[{ 'direction': 'rtl' }],                         // text direction
+	[{ 'color': [] }, { 'background': [] }],          // dropdown with defaults from theme
+	[{ 'align': [] }],
+
+	['clean']                                         // remove formatting button
+];
 
 /* -------------------- Loaded on Pjax Success ------------------- */
 
@@ -24,11 +37,11 @@ function loadscript(){
 	});
 
 	// Assigning Ticket
-	$(function(){
+	/* $(function(){
 		if($('.container').is('.admincreateticket_container')){
 			initquill('test');
 		}
-	});	
+	});	 */
 
 	/* ------------------------- CheckAll Checkbox -------------------------------- */
 	function checkAll(ele) {
@@ -88,20 +101,7 @@ function loadscript(){
 
 	/* ------------------------- Quill -------------------------------- */
 	function initquill(txt){
-		var txtarea =  document.getElementById(txt);
-		var toolbarOptions = [
-			/* [{ 'header': [1, 2, 3, 4, 5, 6, false] }], */
-			['bold', 'italic', 'underline', 'strike'],        // toggled buttons
-			['blockquote', 'code-block'],
-			[{ 'list': 'ordered'}, { 'list': 'bullet' }],
-			[{ 'script': 'sub'}, { 'script': 'super' }],      // superscript/subscript
-			[{ 'indent': '-1'}, { 'indent': '+1' }],          // outdent/indent
-			[{ 'direction': 'rtl' }],                         // text direction
-			[{ 'color': [] }, { 'background': [] }],          // dropdown with defaults from theme
-			[{ 'align': [] }],
-		
-			['clean']                                         // remove formatting button
-		];
+		var txtarea =  document.getElementById(txt);		
 		quill = new Quill(txtarea, {
 			bounds: '#messagecol',
 			modules: {
@@ -312,7 +312,6 @@ function loadscript(){
 
 	/* ------------------- Search ------------------- */
 	$('#app').on('click','#search',function(){	
-		/* alert($('#searchtextbox').val()); */
 		var tid = $('#searchtextbox').val();
 		var url = $(this).val();
 		if(tid == ""){
@@ -322,22 +321,42 @@ function loadscript(){
 			window.location = url + tid;
 		}									
 	});
-	$('#app').on("keypress keyup blur",'#searchtextbox',function (event) {    
+	/* $('#app').on("keypress keyup blur",'#searchtextbox',function (event) {    
 		$(this).val($(this).val().replace(/[^\d].+/, ""));
 		if ((event.which < 48 || event.which > 57)) {
 			event.preventDefault();
 		}
+	}); */
+	$('#app').on("keyup",'#searchtextbox',function(e) {
+		if (e.keyCode == 13) {
+			$('#search').trigger('click');
+		}
 	});
 
 	/* -------------------- Admin create ticket -------------------- */
-	$('#app').on('submit','#admincreateticket',function(){
+	/* $('#app').on('submit','#admincreateticket',function(){
 		$('#admincreateticket_message').val(quill.root.innerHTML);
 		return true;
-	});
+	}); */
 
 	/* -------------------- Default create ticket -------------------- */
-	$('#app').on('submit','#createticketform',function(){
+	/* $('#app').on('submit','#createticketform',function(){
 		$('#createticket_message').val(quill.root.innerHTML);
+		return true;
+	}); */
+
+	/* -------------------- Default create ticket -------------------- */
+	$('#app').on('submit','#saveEditTicket',function(){		
+		var a = $('#departmentNew').val();
+		var b = $('#categoryNew').val();
+		var c = $('#subjectNew').val();
+		var d = $('#messageNew').val();
+
+		$('#editDepartment').val(a);
+		$('#editCategory').val(b);
+		$('#editSubject').val(c);
+		$('#editMessage').val(d);/* 
+		alert(a+"-"+b+"-"+c+"-"+"-"+d); */
 		return true;
 	});
 
@@ -394,6 +413,22 @@ function loadscript(){
 				$('#close_ticket_form').trigger('submit');				
 			}
 		})
+	});
+
+	/* -------------------- Edit Ticket -------------------- */
+	$('#app').on('click','#edit_ticket',function(){
+		$('.editticketlabel').hide();
+		$(this).hide();
+		$('#edit_ticket_buttons').show();
+		$('.editticketinput').show();
+		$('#departmentNew').val($('#departmentNewSelected').val());
+		$('#categoryNew').val($('#categoryNewSelected').val());
+	});
+	$('#app').on('click','#cancel_edit_ticket',function(){
+		$('.editticketinput').hide();
+		$('#edit_ticket_buttons').hide();
+		$('#edit_ticket').show();
+		$('.editticketlabel').show();	
 	});
 }
 loadscript();

@@ -8,6 +8,7 @@ use App\Mail\TicketAssigned;
 use App\Mail\TicketAccepted;
 use App\Mail\PriorityChanged;
 use App\Mail\StatusChanged;
+use Auth;
 use App\User;
 use App\Ticket;
 use App\Category;
@@ -132,6 +133,12 @@ class TicketsController extends Controller
         ]);        
         $ticket = Ticket::find($id);
         $user = $ticket->user_id;
+
+        if($request->input('department_id') != ""){ $ticket->department_id = $request->input('department_id');}
+        if($request->input('category_id') != ""){ $ticket->category_id = $request->input('category_id');}
+        if($request->input('subject') != ""){ $ticket->subject = $request->input('subject');}
+        if($request->input('message') != ""){ $ticket->message = $request->input('message');}
+
         if($request->input('assigned_to') != ""){ $ticket->assigned_to = $request->input('assigned_to');}
         if($request->input('start_at') != ""){ $ticket->start_at = $request->input('start_at');}
         if($request->input('status_id') != ""){ $ticket->status_id = $request->input('status_id');}
@@ -144,12 +151,12 @@ class TicketsController extends Controller
         $mail = new \stdClass();        
         $mail->priority = $ticket->priority->name;
         $mail->user = $ticket->user->name;            
-        $mail->tech =  $ticket->assign->name;
+        $mail->tech = ((is_null($ticket->assigned_to)) ? '' : $ticket->assign->name);
         $mail->ticketnum = $ticket->id;
         $mail->assigner = $request->input('assigner');
         $mail->url = $request->input('url');
         $mail->status = $ticket->status->name;
-        $email = $ticket->assign->email;
+        $email = ((is_null($ticket->assigned_to)) ? '' :  $ticket->assign->email);
         $emailuser = $ticket->user->email;
         $techid = $ticket->assigned_to;
         $userid = $ticket->user_id;
@@ -210,6 +217,14 @@ class TicketsController extends Controller
             $tu->save();          
             return redirect('/it/htv/'.$id)->with('success','Details Saved Successfully.');
         }
+        elseif($request->input('mod') == 'editTicket'){
+            if(Auth::user()->admin == 1){
+                return redirect('/it/av/'.$id)->with('success','Ticket Information Saved Successfully.');
+            }
+            else{
+                return redirect('/it/vt/'.$id)->with('success','Ticket Information Saved Successfully.');
+            }                           
+        }        
     }     
 
     /**

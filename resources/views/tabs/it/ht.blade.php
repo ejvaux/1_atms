@@ -73,8 +73,20 @@
                                     </div>
                                     <div class='row' style='font-size:.8rem'>
                                         <div class='col-lg'>
-                                            <span class='text-muted'><i class="fa fa-user"></i> {{$ticket->user->name}}</span>                                        
-                                            <span class='text-muted ml-1'><i class="fa fa-folder"></i> {{$ticket->category->name}}</span>
+                                            <span class='text-muted'><i class="fa fa-user"></i> 
+                                                @if($ticket->user->name == null)
+                                                    {{$ticket->username}}
+                                                @else
+                                                    {{$ticket->user->name}}
+                                                @endif
+                                            </span>                                        
+                                            <span class='text-muted ml-1'><i class="fa fa-folder"></i> 
+                                                @if(empty ( $ticket->category->name ))
+                                                    {{$ticket->category}}
+                                                @else
+                                                    {{$ticket->category->name}}
+                                                @endif
+                                            </span>
                                         </div>
                                     </div>                                   
                                 </th>

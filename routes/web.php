@@ -18,9 +18,9 @@ use App\Notifications\TicketClosed;
 |
 */
 
-/* Route::get('/', function () {
+Route::get('/testingin', function () {
     return view('welcome');
-}); */
+});
 
 // Notification
 Route::get('/notification', function () {
@@ -85,30 +85,36 @@ Route::get('/admin/role','DashboardController@viewroles');
 // IT
 Route::get('/it/al', 'DashboardController@adminlistticket');
 Route::get('/it/aq','DashboardController@adminqueue');
+Route::get('/it/actlv/{id}','DashboardController@adminclosedticketview');
 Route::get('/it/ht','DashboardController@handledticket');
-Route::get('/it/ht/{id}','DashboardController@searchhandledticket');
 Route::get('/it/actl','DashboardController@adminclosedticket');
 Route::get('/it/ctl','DashboardController@closedticket');
-Route::get('/it/ctl/{id}','DashboardController@searchclosedticket');
 Route::get('/it/ctlv/{id}','DashboardController@closedticketview');
 Route::get('/it/hct','DashboardController@handledclosedticket');
-Route::get('/it/hct/{id}','DashboardController@searchhandledclosedticket');
 Route::get('/it/hctv/{id}','DashboardController@handledclosedticketview');
 Route::get('/it/ahct','DashboardController@adminhandledclosedticket');
 Route::get('/it/ahctv/{id}','DashboardController@adminhandledclosedticketview');
-Route::get('/it/al/{id}', ['uses' => 'DashboardController@adminsearchticket']);
-Route::get('/it/lt/{id}','DashboardController@searchticket');
 Route::get('/it/av/{id}', ['uses' => 'DashboardController@adminviewticket']);
 Route::get('/it/ac', 'DashboardController@admincreateticket');
 Route::get('/it/lt', 'DashboardController@listticket');
-Route::get('/it/lt/{id}','DashboardController@searchticket');
 Route::get('/it/vt/{id}', ['uses' => 'DashboardController@viewticket']);
 Route::get('/it/htv/{id}', ['uses' => 'DashboardController@viewhandledticket']);
 Route::get('/it/ahtv/{id}', ['uses' => 'DashboardController@adminviewhandledticket']);
 Route::get('/it/ct', 'DashboardController@createticket');
 Route::get('/it/cu', 'DashboardController@contact');
 
-// Custom Tables
+// IT Search
+Route::get('/it/al/{id}', ['uses' => 'DashboardController@adminsearchticket']);
+Route::get('/it/aq/{id}','DashboardController@searchadminqueue');
+Route::get('/it/ahct/{id}','DashboardController@searchadminhandledclosedticket');
+Route::get('/it/actl/{id}','DashboardController@searchadminclosedticket');
+
+Route::get('/it/lt/{id}','DashboardController@searchticket');
+Route::get('/it/ht/{id}','DashboardController@searchhandledticket');
+Route::get('/it/hct/{id}','DashboardController@searchhandledclosedticket');
+Route::get('/it/ctl/{id}','DashboardController@searchclosedticket');
+
+// Custom Table Resource
 Route::post('closed_ticket/transfer/{id}','ClosedTicketController@transferticket');
 
 // Tables
@@ -120,3 +126,8 @@ Route::resources([
     'ticket_updates' => 'TicketUpdatesController',
     'closed_ticket' => 'ClosedTicketController',
 ]);
+
+Route::get('testing', function () {
+    event(new App\Events\TicketCreated('Someone'));
+    return "Event has been sent!";
+});
