@@ -27,7 +27,7 @@
                     <li class="list-group-item noborder d-flex justify-content-between align-items-center"><a class='sidetab' href='/1_atms/public/it/cu'>CONTACT US</a><span class="badge badge-info"></span></li>
                 </ul>
             </li>
-            <li class="list-group-item noborder"><a class='sidetab' href='#'>HR</a>
+            {{-- <li class="list-group-item noborder"><a class='sidetab' href='#'>HR</a>
                 <ul class="list-group list-group-flush">
                     <li class="list-group-item noborder d-flex justify-content-between align-items-center"><a class='sidetab' href='/1_atms/public/comingsoon'>VEHICLE REQUEST</a><span class="badge badge-info"></span></li>
                     <li class="list-group-item noborder d-flex justify-content-between align-items-center"><a class='sidetab' href='/1_atms/public/comingsoon'>OTHER REQUEST</a><span class="badge badge-info"></span></li>
@@ -40,7 +40,7 @@
                     <li class="list-group-item noborder d-flex justify-content-between align-items-center"><a class='sidetab' href='/1_atms/public/comingsoon'>OTHER REQUEST</a><span class="badge badge-info"></span></li>
                     <li class="list-group-item noborder d-flex justify-content-between align-items-center"><a class='sidetab' href='/1_atms/public/comingsoon'>OTHERS</a><span class="badge badge-info"></span></li>
                 </ul>
-            </li>
+            </li> --}}
         </ul>                              
     </nav>                       
 </div>
