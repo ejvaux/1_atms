@@ -27,11 +27,11 @@
                 <div class="form-group row">
                     <div class="col-md-5">
                         <label for="subject">Subject:</label>
-                        <input type="text" class="form-control" id="subject" name="subject" placeholder="" >
+                        <input type="text" class="form-control" id="subject" name="subject" placeholder="" required>
                     </div>                    
                     <div class="col-md-2">
                         <label for="priority">Priority:</label>
-                        <select type="text" class="form-control" id="priority" name="priority" placeholder="" >
+                        <select type="text" class="form-control" id="priority" name="priority" placeholder="" required>
                             <option value="">- Select Priority -</option>
                             @foreach($priorities as $priority)
                                 <option value="{{$priority->id}}">{{$priority->name}}</option>
@@ -40,7 +40,7 @@
                     </div>
                     <div class="col-md-3">                            
                         <label for="category">Category:</label>
-                        <select type="text" class="form-control" id="category" name="category" placeholder="" >
+                        <select type="text" class="form-control" id="category" name="category" placeholder=""  required>
                             <option value="">- Select Category -</option>                            
                             @foreach($categories as $category)
                                 <option value="{{$category->id}}">{{$category->name}}</option>
@@ -49,7 +49,7 @@
                     </div>
                     <div class="col-md-2">
                         <label for="department">Department:</label>
-                        <select type="text" class="form-control" id="department" name="department" placeholder="" >
+                        <select type="text" class="form-control" id="department" name="department" placeholder="" required>
                             <option value="">- Select Department -</option>
                             @foreach($departments as $department)
                                 <option value="{{$department->id}}">{{$department->name}}</option>
@@ -59,8 +59,9 @@
                 </div>
                 <div class="form-group row">
                     <div class="col-md" id='messagecol'>
-                        <label for="message">Description:</label>                        
-                        <div id='test' style="height:250px; overflow-y:auto" ></div>
+                        <label for="message">Description:</label>
+                        <textarea type="text" class="form-control quill" rows="8" id="message" name="message" placeholder="" required></textarea>                       
+                        {{-- <div id='test' style="height:250px; overflow-y:auto" ></div> --}}
                     </div>
                 </div>
                 <div class="form-group row text-right">
