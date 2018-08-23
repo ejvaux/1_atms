@@ -52,7 +52,7 @@ class TicketsController extends Controller
             'category' => 'required', 
             'department' => 'required',          
             'message' => 'required',
-            'attachedfile' => 'image|nullable|max:1999',
+            'attachedfile' => 'image|nullable|max:5000',
         ]);
 
         // Handle File Upload
@@ -80,11 +80,9 @@ class TicketsController extends Controller
         $t->priority_id = $request->input('priority');
         $t->subject = $request->input('subject');
         $t->message = $request->input('message');
-        $t->attach = $fileNameToStore;
-
-        $ticket = Ticket::orderBy('created_at', 'desc')->first();
-
+        $t->attach = $fileNameToStore;     
         $t->save();
+        $ticket = Ticket::orderBy('created_at', 'desc')->first();
         if($request->input('mod') == 'default'){
             return redirect('/notification/ticketcreate/'.$ticket->id.'/default');
             /* return redirect('/it/ct')->with('success','Ticket Submitted Successfully.'); */           

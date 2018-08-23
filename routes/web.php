@@ -24,6 +24,9 @@ Route::get('/testingin', function () {
 });
 
 // Notification
+Route::get('/markallread', 'NotificationController@markallread')->name('markallread');
+Route::get('/markread/{id}/{mod}/{tid}','NotificationController@markread');
+Route::get('/clearnotif', 'NotificationController@clearnotification')->name('clearnotif');
 Route::get('/notification', function () {
     $user = App\User::first();
     $user->notify(new Newvisit("A new user has visited on your application."));

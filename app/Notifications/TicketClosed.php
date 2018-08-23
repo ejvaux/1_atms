@@ -60,8 +60,11 @@ class TicketClosed extends Notification
      */
     public function toArray($notifiable)
     {
+        $url = url('/it/ctlv/'.$this->ticket_id);
         return [
-            //
+            'message' => 'Ticket closed.',
+            'mod' => 'close',
+            'tid' => $this->ticket_id
         ];
     }
 }

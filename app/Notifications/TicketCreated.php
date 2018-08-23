@@ -60,8 +60,11 @@ class TicketCreated extends Notification implements ShouldQueue
      */
     public function toArray($notifiable)
     {
+        $url = url('/it/av/'.$this->ticket_id);
         return [
-            //
+            'message' => 'New Ticket Created.',
+            'mod' => 'create',
+            'tid' => $this->ticket_id
         ];
     }
 }

@@ -62,8 +62,11 @@ class PriorityChanged extends Notification
      */
     public function toArray($notifiable)
     {
+        $url = url('/it/vt/'.$this->ticket_id);
         return [
-            //
+            'message' => 'Ticket priority changed.',
+            'mod' => 'user',
+            'tid' => $this->ticket_id
         ];
     }
 }

@@ -50,6 +50,7 @@ class TicketAssigned extends Notification
     {       
         if($this->type == 'user'){
             $url = url('/it/vt/'.$this->ticket_id);
+            $turl = '/1_atms/public/it/vt/'.$this->ticket_id;
             return (new MailMessage)
                     ->greeting('Hello! ' .$this->name)
                     ->line('Your ticket #'.$this->ticket_id.' is now on queue.')
@@ -58,12 +59,13 @@ class TicketAssigned extends Notification
         }
         else{
             $url = url('/it/htv/'.$this->ticket_id);
+            $turl = '/1_atms/public/it/htv/'.$this->ticket_id;
             return (new MailMessage)
                     ->greeting('Hello! ' . $this->name)
                     ->line('Ticket #' . $this->ticket_id . ' is assigned to you.')
                     ->action('View Ticket', $url)
                     ->line('Your immediate response is highly appreciated.');
-        }        
+        }
     }
 
     /**
@@ -73,9 +75,22 @@ class TicketAssigned extends Notification
      * @return array
      */
     public function toArray($notifiable)
-    {
-        return [
-            //
-        ];
+    {        
+        if($this->type == 'user'){
+            $url = url('/it/vt/'.$this->ticket_id);
+            return [
+                'message' => 'New ticket assigned.',
+                'mod' => 'user',
+                'tid' => $this->ticket_id
+            ];
+        }
+        else{
+            $url = url('/it/htv/'.$this->ticket_id);
+            return [
+                'message' => 'New ticket assigned.',
+                'mod' => 'assign_admin',
+                'tid' => $this->ticket_id
+            ];            
+        }
     }
 }

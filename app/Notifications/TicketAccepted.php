@@ -61,8 +61,11 @@ class TicketAccepted extends Notification
      */
     public function toArray($notifiable)
     {
+        $url = url('/it/vt/'.$this->ticket_id);
         return [
-            //
+            'message' => 'New ticket accepted.',
+            'mod' => 'user',
+            'tid' => $this->ticket_id
         ];
     }
 }

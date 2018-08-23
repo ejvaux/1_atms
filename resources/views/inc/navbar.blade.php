@@ -24,12 +24,26 @@
                         <a class="nav-link" href="{{ route('register') }}">{{ __('Register') }}</a>
                     </li> --}}
                 @else
-                    <li class="nav-item dropdown"> 
-                        <a href="#" class="nav-link" data-toggle="dropdown"><span class="badge badge-info"></span> <i class="fa fa-bell"></i></a>                   
-                        <ul class="dropdown-menu">
-                            {{-- <li class="dropdown-item">test</li> --}}
-                        </ul>                   
-                    </li>
+                    <div class="nav-item dropdown"> 
+                        <a href="#" class="nav-link" data-toggle="dropdown">
+                            <span class="badge badge-danger">@if(Auth::user()->unReadNotifications->count()){{Auth::user()->unReadnotifications->count()}}@endif</span> <i class="fa fa-bell"></i></a>
+                        <div class="dropdown-menu scrollable-menu">                            
+                            @if(Auth::user()->Notifications->count())
+                                <a class="dropdown-item" href='{{ route("markallread")}}'><span class='font-weight-bold'>- Mark all as Read -</span></a>
+                                @foreach (Auth::user()->unReadNotifications as $notification)  
+                                    <a class="dropdown-item notiflink" href='/1_atms/public/markread/{{$notification->id}}/{{$notification->data["mod"]}}/{{$notification->data["tid"]}}'><span><i class="fa fa-circle" style='font-size:.45rem'></i> {!!$notification->data['message']!!}</span></a>
+                                @endforeach
+                                @foreach (Auth::user()->ReadNotifications as $notification)  
+                                    <a class="dropdown-item notiflink" href='/1_atms/public/markread/{{$notification->id}}/{{$notification->data["mod"]}}/{{$notification->data["tid"]}}'><span class='text-muted'>{!!$notification->data['message']!!}</span></a>
+                                @endforeach
+                                <a class="dropdown-item" href='{{ route("clearnotif")}}'><span class='font-weight-bold'>- Clear notifications -</span></a>
+                            @else
+                                <div class="dropdown-footer text-center text-muted">
+                                    No new notification
+                                </div> 
+                            @endif                                                                               
+                        </div>                   
+                    </div>
                     
                     <li class="nav-item dropdown">
                         <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>

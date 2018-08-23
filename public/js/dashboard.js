@@ -113,13 +113,13 @@ function loadscript(){
 
 	/* ------------------------------------- Alerts ---------------------------------- */
 	function notifalert(type,msg){
-	if(type=='success'){
-		iziToast.success({
-		title: 'System',
-		message: msg,
-		position: 'topCenter'
-		});
-	}
+		if(type=='success'){
+			iziToast.success({
+			title: 'System',
+			message: msg,
+			position: 'topCenter'
+			});
+		}
 	}
 
 	/* ----------------------------- Accordion -------------------------------- */
@@ -355,8 +355,8 @@ function loadscript(){
 		$('#editDepartment').val(a);
 		$('#editCategory').val(b);
 		$('#editSubject').val(c);
-		$('#editMessage').val(d);/* 
-		alert(a+"-"+b+"-"+c+"-"+"-"+d); */
+		$('#editMessage').val(d);
+		/* alert(a+"-"+b+"-"+c+"-"+"-"+d); */
 		return true;
 	});
 
@@ -430,5 +430,20 @@ function loadscript(){
 		$('#edit_ticket').show();
 		$('.editticketlabel').show();	
 	});
+	function marknotif($id){
+		alert($id);
+		/* $.ajax({
+			type		: "GET",
+			url		: "/1_atms/public/markread/"+,
+			success		: function(html) {					
+							$("#main_panel").html(html).show('slow');
+						},
+						error : function (jqXHR, textStatus, errorThrown) {							
+								window.location.href = '/1_atms/public/login';
+						} //end function
+	});//close ajax  */
+	}
+	/* $('#app').on('click','.notiflink',function(){
+	}); */
 }
 loadscript();
