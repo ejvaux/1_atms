@@ -25,53 +25,20 @@ Route::get('/testingin', function () {
 });
 
 // Notification
-Route::get('/markallread', 'NotificationController@markallread')->name('markallread');
-Route::get('/markread/{id}/{mod}/{tid}','NotificationController@markread');
-Route::get('/clearnotif', 'NotificationController@clearnotification')->name('clearnotif');
 Route::get('/notification', function () {
     $user = App\User::first();
     $user->notify(new Newvisit("A new user has visited on your application."));
     return view('welcome'); 
 });
-Route::get('/notification/ticketassign/{id}/{tid}/{tech}', function ($id,$tid,$tech) {
-    /* $user = App\User::first(); */
-    $user = App\User::where('id',$id)->first();
-    $tech = App\User::where('id',$tech)->first();
-    $user->notify(new TicketAssigned($tid,$user->name,'user'));
-    $tech->notify(new TicketAssigned($tid,$tech->name,'tech'));
-    return redirect('/it/av/'.$tid)->with('success','Ticket Assigned Successfully.'); 
-});
-Route::get('/notification/ticketaccept/{id}/{tid}/{tech}', function ($id,$tid,$tech) {
-    $user = App\User::where('id',$id)->first();
-    $user->notify(new TicketAccepted($tid,$user->name,$tech));
-    return redirect('/it/htv/'.$tid)->with('success','Ticket Accepted Successfully.'); 
-});
-Route::get('/notification/ticketpriority/{id}/{tid}/{prio}', function ($id,$tid,$prio) {
-    $user = App\User::where('id',$id)->first();
-    $user->notify(new PriorityChanged($tid,$user->name,$prio));
-    return redirect('/it/htv/'.$tid)->with('success','Priority Changed Successfully.');
-});
-Route::get('/notification/ticketstatus/{id}/{tid}/{stat}', function ($id,$tid,$stat) {
-    $user = App\User::where('id',$id)->first();
-    $user->notify(new StatusChanged($tid,$user->name,$stat));
-    return redirect('/it/htv/'.$tid)->with('success','Status Changed Successfully.');
-});
-Route::get('/notification/ticketclose/{id}/{tid}', function ($id,$tid) {
-    $user = App\User::where('id',$id)->first();
-    $user->notify(new TicketClosed($tid,$user->name));
-    return redirect('/it/ht')->with('success','Ticket Closed Successfully.');
-});
-Route::get('/notification/ticketcreate/{tid}/{mod}', function ($tid,$mod) {
-    $users = App\User::where('admin',1)->get();
-    foreach ($users as $user) {
-        $user->notify(new TicketCreated($tid,$user->name));
-    }
-    if($mod == 'default'){
-        return redirect('/it/ct')->with('success','Ticket Submitted Successfully.');
-    }else if($mod == 'admin'){
-        return redirect('/it/ac')->with('success','Ticket Submitted Successfully.');
-    }
-});
+Route::get('/markallread', 'NotificationController@markallread')->name('markallread');
+Route::get('/markread/{id}/{mod}/{tid}','NotificationController@markread');
+Route::get('/clearnotif', 'NotificationController@clearnotification')->name('clearnotif');
+Route::get('/notification/ticketcreate/{tid}/{mod}', 'NotificationController@ticketcreate');
+Route::get('/notification/ticketassign/{id}/{tid}/{tech}', 'NotificationController@ticketassign');
+Route::get('/notification/ticketaccept/{id}/{tid}/{tech}', 'NotificationController@ticketaccept');
+Route::get('/notification/ticketpriority/{id}/{tid}/{prio}', 'NotificationController@ticketpriority');
+Route::get('/notification/ticketstatus/{id}/{tid}/{stat}', 'NotificationController@ticketstatus');
+Route::get('/notification/ticketclose/{id}/{tid}', 'NotificationController@ticketclose');
 
 Route::get('/', 'PagesController@index');
 Auth::routes();

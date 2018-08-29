@@ -11,7 +11,7 @@ $(document).on('pjax:complete',   function() {
   });   
 });
 
-$(document).on({
+/* $(document).on({
   ajaxStart: function() { NProgress.configure({ showSpinner: false }); NProgress.start(); },   
   ajaxStop: function() { NProgress.done() }    
-});
+}); */
