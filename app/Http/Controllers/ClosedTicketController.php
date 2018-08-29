@@ -121,6 +121,7 @@ class ClosedTicketController extends Controller
             $t = new ClosedTicket;
             $t->id = $ticket->id;
             $t->user_id = $ticket->user_id;
+            $t->ticket_id = $ticket->ticket_id;
             $t->department_id = $ticket->department_id;
             $t->category_id = $ticket->category_id;
             $t->priority_id = $ticket->priority_id;

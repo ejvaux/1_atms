@@ -6,6 +6,8 @@ use Illuminate\Bus\Queueable;
 use Illuminate\Notifications\Notification;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
+use App\Events\triggerEvent;
+use App\Ticket;
 
 class TicketAccepted extends Notification
 {
@@ -46,9 +48,10 @@ class TicketAccepted extends Notification
     public function toMail($notifiable)
     {
         $url = url('/it/vt/'.$this->ticket_id);
+        $t = Ticket::where('id',$this->ticket_id)->first();
         return (new MailMessage)
                 ->greeting('Hello! ' .$this->name)
-                ->line('Your ticket #'.$this->ticket_id.' is accepted by '.$this->tech.'.')
+                ->line('Your ticket #'.$t->ticket_id.' is accepted by '.$this->tech.'.')
                 ->action('View Ticket', $url)
                 ->line('Please wait for the technician to process your ticket.');
     }
@@ -62,6 +65,7 @@ class TicketAccepted extends Notification
     public function toArray($notifiable)
     {
         $url = url('/it/vt/'.$this->ticket_id);
+        event(new triggerEvent('refresh'));
         return [
             'message' => 'New ticket accepted.',
             'mod' => 'user',

@@ -7,6 +7,7 @@ use App\Notifications\PriorityChanged;
 use App\Notifications\StatusChanged;
 use App\Notifications\TicketClosed;
 use App\Notifications\TicketCreated;
+use App\Events\triggerEvent;
 
 /*
 |--------------------------------------------------------------------------
@@ -141,8 +142,19 @@ Route::resources([
     'ticket_updates' => 'TicketUpdatesController',
     'closed_ticket' => 'ClosedTicketController',
 ]);
-
 Route::get('testing', function () {
     event(new App\Events\TicketCreated('Someone'));
     return "Event has been sent!";
+});
+/* Route::get('event', function () {
+    event(new Event('Now it is working.'));
+}); */
+Route::get('event', function () {
+    event(new triggerEvent('This is a real time broadcast.'));
+});
+Route::get('listen', function () {
+    return view('listenBroadcast');
+});
+Route::get('nvbr', function () {
+    return view('inc.navbar');
 });

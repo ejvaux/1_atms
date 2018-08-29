@@ -15,6 +15,7 @@ use App\Category;
 use App\Priority;
 use App\Department;
 use App\TicketUpdates;
+use App\Serial;
 
 class TicketsController extends Controller
 {
@@ -74,6 +75,7 @@ class TicketsController extends Controller
 
         // Create Ticket
         $t = new Ticket;
+        $t->ticket_id = $request->input('ticket_id');
         $t->user_id = $request->input('userid');
         $t->department_id = $request->input('department');
         $t->category_id = $request->input('category');
@@ -82,6 +84,9 @@ class TicketsController extends Controller
         $t->message = $request->input('message');
         $t->attach = $fileNameToStore;     
         $t->save();
+        $s = new Serial;
+        $s->number =  $request->input('ticket_id');
+        $s->save();
         $ticket = Ticket::orderBy('created_at', 'desc')->first();
         if($request->input('mod') == 'default'){
             return redirect('/notification/ticketcreate/'.$ticket->id.'/default');
@@ -238,6 +243,7 @@ class TicketsController extends Controller
      */
     public function destroy($id)
     {
-        //
+        Ticket::where('id',$id)->delete();
+        return redirect()->back()->with('success','Ticket cancelled Successfully.');    
     }
 }

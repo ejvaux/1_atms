@@ -415,6 +415,25 @@ function loadscript(){
 		})
 	});
 
+	/* -------------------- Cancel Ticket -------------------- */
+	$('#app').on('click','#cancel_ticket',function(e){
+		/* e.preventDefault();
+		e.stopImmediatePropagation(); */
+		swal({
+				title: 'Are you sure?',
+				text: "You won't be able to revert this!",
+				type: 'warning',
+				showCancelButton: true,
+				confirmButtonColor: '#3085d6',
+				cancelButtonColor: '#d33',
+				confirmButtonText: 'Yes, cancel it!'
+		  	}).then((result) => {
+			if (result.value) {
+				$('#cancel_ticket_form').trigger('submit');
+			}
+		})
+	});
+
 	/* -------------------- Edit Ticket -------------------- */
 	$('#app').on('click','#edit_ticket',function(){
 		$('.editticketlabel').hide();
@@ -429,21 +448,6 @@ function loadscript(){
 		$('#edit_ticket_buttons').hide();
 		$('#edit_ticket').show();
 		$('.editticketlabel').show();	
-	});
-	function marknotif($id){
-		alert($id);
-		/* $.ajax({
-			type		: "GET",
-			url		: "/1_atms/public/markread/"+,
-			success		: function(html) {					
-							$("#main_panel").html(html).show('slow');
-						},
-						error : function (jqXHR, textStatus, errorThrown) {							
-								window.location.href = '/1_atms/public/login';
-						} //end function
-	});//close ajax  */
-	}
-	/* $('#app').on('click','.notiflink',function(){
-	}); */
+	});	
 }
 loadscript();

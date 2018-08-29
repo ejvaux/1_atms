@@ -2,7 +2,7 @@
 <div class="row mb-2">
     <div class='col-md'>
         <div class="card" style='width:100%'>
-            <h4 class="card-header font-weight-bold">#{{ $tickets->id }} - {{ $tickets->user->name }}</h4>
+            <h4 class="card-header font-weight-bold">#{{ $tickets->ticket_id }} - {{ $tickets->user->name }}</h4>
             <div class="card-body">
                 <div class="row mb-2">
                     <div class="col-md-6">
@@ -98,9 +98,9 @@
                                     <button type='submit' id='accept_ticket' class='btn btn-secondary'>Accept Ticket</button>
                                 </form>
                             @else
-                                
+                                <span class='font-weight-bold' style='font-size:1rem'>Assigned to {{ $tickets->assign->name }}</span>
                             @endif
-                        @elseif(!($tickets->status_id == 1 && $tickets->status_id == 2))
+                        @elseif(!($tickets->status_id == 1 || $tickets->status_id == 2))
                             @if($tickets->assigned_to != null)                         
                                 @if($tickets->assigned_to == Auth::user()->id)
                                     <form method='POST' action='/1_atms/public/tickets/{{ $tickets->id }}'>
@@ -184,6 +184,14 @@
                                     </div>
                                 </form>
                             </div>
+                            <form id='cancel_ticket_form' method='POST' action='/1_atms/public/tickets/{{ $tickets->id }}'>
+                                @method('DELETE')
+                                @csrf
+                                {{-- <input type='hidden' name='status_id' value='{{ $tickets->status_id }}'>
+                                <input type='hidden' name='mod' value='default'>
+                                <input type='hidden' name='url' value='/it/ctlv/{{ $tickets->id }}'> --}}            
+                                <button type='button' id='cancel_ticket' class='btn btn-danger mt-2' style='display:inline;'>Cancel Ticket</button>
+                            </form>
                         @endif
                     </div>
                 </div>

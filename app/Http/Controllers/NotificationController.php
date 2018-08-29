@@ -36,4 +36,22 @@ class NotificationController extends Controller
             return redirect(url('/it/ctlv/'.$tid));
         }
     }
+    public function ticketcreate($tid,$mod){
+        
+    }
+    public function ticketassign($id,$tid,$tech){
+        
+    }
+    public function ticketaccept($id,$tid,$tech){
+        
+    }
+    public function ticketpriority($id,$tid,$prio){
+        
+    }
+    public function ticketstatus($id,$tid,$stat){
+        
+    }
+    public function ticketclose($id,$tid){
+        
+    }    
 }

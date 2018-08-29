@@ -9,6 +9,8 @@ require('./bootstrap');
 
 window.Vue = require('vue');
 
+var $ = require("jquery");
+
 /**
  * Next, we will create a fresh Vue application instance and attach it to
  * the page. Then, you may begin adding components to this application
@@ -18,7 +20,29 @@ window.Vue = require('vue');
 Vue.component('example-component', require('./components/ExampleComponent.vue'));
 
 const app = new Vue({
-    el: '#app'
+    el: '#app',
+    created(){
+        Echo.channel('primatech')
+        .listen('triggerEvent', (e) => {
+            console.log(e);
+            $.ajax({
+                type: 'get',
+                url: "/1_atms/public/nvbr",
+                global: false,
+                success: function (data) {
+                    $('#nvbr').html(data);
+                }
+              });            
+            /* alert(e.message.message);
+            alert(e.message.mod);
+            alert(e.message.tid); */
+            /* document.getElementById('notificon').append('<a value="option6">option6</a>'); */            
+        });
+        /* var userid = $('meta[name="userid"]').attr('content'); */
+        /* var userid = document.querySelector("meta[name='userid']").getAttribute("content");
+        Echo.channel('App.User.' + userid)
+            .notification((notification) => {
+            console.log(notification.type);
+        }); */
+    }
 });
-
-var $ = require("jquery");

@@ -4,6 +4,7 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="userid" content="{{ Auth::check() ? Auth::user()->id : ''}}">
 
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
@@ -14,7 +15,9 @@
 </head>
 <body>        
     <div id="app" class='app'>
-        @include('inc.navbar')  
+        <div id='nvbr'>
+            @include('inc.navbar')
+        </div>  
         <main class="container-fluid py-4">            
             <div class="container-fluid" style='height:100vh'>
                 <div class="row">

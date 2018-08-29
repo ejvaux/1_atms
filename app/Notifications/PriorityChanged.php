@@ -6,6 +6,8 @@ use Illuminate\Bus\Queueable;
 use Illuminate\Notifications\Notification;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
+use App\Ticket;
+use App\Events\triggerEvent;
 
 class PriorityChanged extends Notification
 {
@@ -35,7 +37,7 @@ class PriorityChanged extends Notification
      */
     public function via($notifiable)
     {
-        return ['mail','database'];
+        return ['mail','broadcast','database'];
     }
 
     /**
@@ -47,9 +49,10 @@ class PriorityChanged extends Notification
     public function toMail($notifiable)
     {
         $url = url('/it/vt/'.$this->ticket_id);
+        $t = Ticket::where('id',$this->ticket_id)->first();
         return (new MailMessage)
                 ->greeting('Hello! ' .$this->name)
-                ->line('Ticket #'.$this->ticket_id.' Priority changed to '. $this->prio .'.')
+                ->line('Ticket #'.$t->ticket_id.' Priority changed to '. $this->prio .'.')
                 ->action('View Ticket', $url)
                 ->line('Please wait for further updates.');
     }
@@ -63,10 +66,11 @@ class PriorityChanged extends Notification
     public function toArray($notifiable)
     {
         $url = url('/it/vt/'.$this->ticket_id);
+        event(new triggerEvent('refresh'));
         return [
             'message' => 'Ticket priority changed.',
             'mod' => 'user',
             'tid' => $this->ticket_id
         ];
-    }
+    }    
 }

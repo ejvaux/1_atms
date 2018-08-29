@@ -4,6 +4,8 @@ namespace App\Custom;
 
 use App\Status;
 use App\Priority;
+use App\Ticket;
+use App\Serial;
 
 class CustomFunctions
 {
@@ -163,5 +165,30 @@ class CustomFunctions
             $time .= $mnts . " min";
         }
         return $time;
+    }
+    public static function generateTicketNumber(){
+        $tnum = "MIS";
+        $month = date('m');
+        $year = date('y');
+        /* $month = '09';
+        $year = '18'; */
+        $tnum .= $year . $month;
+        $series = Serial::orderBy('id', 'desc')->first();
+        if(empty($series)){
+            return $tnum . "001";
+        }
+        else{
+            $tid = $series->number;
+            $yr = substr($tid,3,2);
+            $mnth = substr($tid,5,2);
+            $num = substr($tid,-3);
+            if($yr == $year && $mnth == $month){
+                return $tnum . str_pad($num+1, 3, '0', STR_PAD_LEFT);
+            }
+            else if($yr != $year || $mnth != $month){
+                return "MIS" . $year . $month . "001";
+            }
+        }
+        /* return $tnum; */
     }
 }

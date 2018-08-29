@@ -91,7 +91,7 @@
                                         {!! CustomFunctions::status_color($ticket->status_id) !!}
                                     </div>
                                     <div class='row'>
-                                        <span class='text-muted' style='font-size:.8rem'>#{{$ticket->id}}</span>
+                                        <span class='text-muted' style='font-size:.8rem'>#{{$ticket->ticket_id}}</span>
                                     </div>
                                 </th>                    
                                 <th>

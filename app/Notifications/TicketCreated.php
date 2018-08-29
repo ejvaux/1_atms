@@ -6,6 +6,8 @@ use Illuminate\Bus\Queueable;
 use Illuminate\Notifications\Notification;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
+use App\Ticket;
+use App\Events\triggerEvent;
 
 class TicketCreated extends Notification implements ShouldQueue
 {
@@ -45,9 +47,10 @@ class TicketCreated extends Notification implements ShouldQueue
     public function toMail($notifiable)
     {
         $url = url('/it/av/'.$this->ticket_id);
+        $t = Ticket::where('id',$this->ticket_id)->first();
         return (new MailMessage)
                 ->greeting('Hello! ' .$this->name)
-                ->line('Ticket #'.$this->ticket_id.' is created.')
+                ->line('Ticket #'.$t->ticket_id.' is created.')
                 ->action('View Ticket', $url)
                 ->line('Thank you for using our application!');
     }
@@ -60,6 +63,7 @@ class TicketCreated extends Notification implements ShouldQueue
      */
     public function toArray($notifiable)
     {
+        event(new triggerEvent('refresh'));
         $url = url('/it/av/'.$this->ticket_id);
         return [
             'message' => 'New Ticket Created.',

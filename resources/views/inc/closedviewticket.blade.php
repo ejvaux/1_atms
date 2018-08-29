@@ -2,7 +2,7 @@
 <div class="row mb-2">
         <div class='col-md'>
             <div class="card" style='width:100%'>
-                <h4 class="card-header font-weight-bold">#{{ $tickets->id }}</h4>
+                <h4 class="card-header font-weight-bold">#{{ $tickets->ticket_id }} - {{ $tickets->user->name }}</h4>
                 <div class="card-body">
                     <div class="row mb-2">
                         <div class="col-md-6">

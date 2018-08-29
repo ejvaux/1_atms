@@ -24,6 +24,7 @@
                 <input type="hidden" id="username" name="username" placeholder="" value="{{ Auth::user()->name }}">
                 <input type='hidden' id="createticket_message" name="message">
                 <input type='hidden' name="mod" value='default'>
+                <input type='hidden' name="ticket_id" value='{{ CustomFunctions::generateTicketNumber() }}'>
                 <div class="form-group row">
                     <div class="col-md-5">
                         <label for="subject">Subject:</label>

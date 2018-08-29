@@ -6,6 +6,8 @@ use Illuminate\Bus\Queueable;
 use Illuminate\Notifications\Notification;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
+use App\Events\triggerEvent;
+use App\ClosedTicket;
 
 class TicketClosed extends Notification
 {
@@ -45,9 +47,10 @@ class TicketClosed extends Notification
     public function toMail($notifiable)
     {
         $url = url('/it/ctlv/'.$this->ticket_id);
+        $t = ClosedTicket::where('id',$this->ticket_id)->first();
         return (new MailMessage)
                 ->greeting('Hello! ' .$this->name)
-                ->line('Ticket #'.$this->ticket_id.' is been closed.')
+                ->line('Ticket #'.$t->ticket_id.' is been closed.')
                 ->action('View Ticket', $url)
                 ->line('Thank you for using our application!');
     }
@@ -61,6 +64,7 @@ class TicketClosed extends Notification
     public function toArray($notifiable)
     {
         $url = url('/it/ctlv/'.$this->ticket_id);
+        event(new triggerEvent('refresh'));
         return [
             'message' => 'Ticket closed.',
             'mod' => 'close',

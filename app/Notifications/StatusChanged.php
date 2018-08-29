@@ -6,6 +6,8 @@ use Illuminate\Bus\Queueable;
 use Illuminate\Notifications\Notification;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
+use App\Events\triggerEvent;
+use App\Ticket;
 
 class StatusChanged extends Notification
 {
@@ -47,9 +49,10 @@ class StatusChanged extends Notification
     public function toMail($notifiable)
     {
         $url = url('/it/vt/'.$this->ticket_id);
+        $t = Ticket::where('id',$this->ticket_id)->first();
         return (new MailMessage)
                 ->greeting('Hello! ' .$this->name)
-                ->line('Ticket #'.$this->ticket_id.' Status changed to '. $this->stat .'.')
+                ->line('Ticket #'.$t->ticket_id.' Status changed to '. $this->stat .'.')
                 ->action('View Ticket', $url)
                 ->line('Please wait for further updates.');
     }
@@ -63,6 +66,7 @@ class StatusChanged extends Notification
     public function toArray($notifiable)
     {
         $url = url('/it/vt/'.$this->ticket_id);
+        event(new triggerEvent('refresh'));
         return [
             'message' => 'Ticket status changed.',
             'mod' => 'user',

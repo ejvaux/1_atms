@@ -107,52 +107,12 @@ class DashboardController extends Controller
     {
         $tickets = Ticket::where('assigned_to',Auth::user()->id)->orderBy('id','desc')->paginate(10); 
         return view('tabs.it.aq',compact('tickets'));
-    }
-
-    public function adminsearchticket($id)
-    {
-        $tickets = Ticket::join('users', 'users.id', '=', 'tickets.user_id')
-                        ->join('priorities', 'priorities.id', '=', 'tickets.priority_id')
-                        ->join('categories', 'categories.id', '=', 'tickets.category_id')
-                        ->join('statuses', 'statuses.id', '=', 'tickets.status_id')
-                        ->select('tickets.*','users.name as username','priorities.name as priority','categories.name as category','statuses.name as status')
-                        ->where('tickets.id','like','%'.$id.'%')
-                        ->orWhere('users.name','like','%'.$id.'%')
-                        ->orWhere('priorities.name','like','%'.$id.'%')
-                        ->orWhere('categories.name','like','%'.$id.'%')
-                        ->orWhere('statuses.name','like','%'.$id.'%')
-                        ->orWhere('tickets.subject','like','%'.$id.'%')
-                        ->orderBy('tickets.id','desc')
-                        ->paginate(10);
-        /* return $tickets; */                                
-        return view('tabs.it.al', compact('tickets'));
-    }
-    public function searchticket($id)
-    {
-        $tickets = Ticket::join('users', 'users.id', '=', 'tickets.user_id')
-                        ->join('priorities', 'priorities.id', '=', 'tickets.priority_id')
-                        ->join('categories', 'categories.id', '=', 'tickets.category_id')
-                        ->join('statuses', 'statuses.id', '=', 'tickets.status_id')
-                        ->select('tickets.*','users.name as username','priorities.name as priority','categories.name as category','statuses.name as status')
-                        ->where('user_id',Auth::user()->id)
-                        ->where(function ($query) use($id) {
-                            $query->where('tickets.id','like','%'.$id.'%')
-                                ->orWhere('users.name','like','%'.$id.'%')
-                                ->orWhere('priorities.name','like','%'.$id.'%')
-                                ->orWhere('categories.name','like','%'.$id.'%')
-                                ->orWhere('statuses.name','like','%'.$id.'%')
-                                ->orWhere('tickets.subject','like','%'.$id.'%');
-                        })
-                        ->orderBy('tickets.id','desc')
-                        ->paginate(10);                          
-        return view('tabs.it.lt', compact('tickets'));
-    }
+    }    
     public function handledticket()
     {
         $tickets = Ticket::where('assigned_to',Auth::user()->id)->orderBy('id','desc')->paginate(10); 
         return view('tabs.it.ht',compact('tickets'));
     }
-
     public function viewhandledticket($id){
         $departments = Department::orderBy('name')->get();
         $categories = Category::orderBy('name')->get();
@@ -173,12 +133,10 @@ class DashboardController extends Controller
         $updatetext = '';
         return view('tabs.it.ahtv', compact('tickets','updates','updatetext','priorities','statuses','departments','categories'));
     }
-
     public function closedticket(){
         $tickets = ClosedTicket::where('user_id',Auth::user()->id)->orderBy('id','desc')->paginate(10);
         return view('tabs.it.ctl',compact('tickets'));
     }
-
     public function adminclosedticket(){
         $tickets = ClosedTicket::orderBy('id','desc')->paginate(10);
         return view('tabs.it.actl',compact('tickets'));
@@ -224,6 +182,48 @@ class DashboardController extends Controller
         $updatetext = '';
         return view('tabs.it.actlv',compact('tickets','updates','updatetext','priorities','statuses'));
     }
+
+    // Search
+    public function adminsearchticket($id)
+    {
+        $tickets = Ticket::join('users', 'users.id', '=', 'tickets.user_id')
+                        ->join('priorities', 'priorities.id', '=', 'tickets.priority_id')
+                        ->join('categories', 'categories.id', '=', 'tickets.category_id')
+                        ->join('statuses', 'statuses.id', '=', 'tickets.status_id')
+                        ->select('tickets.*','users.name as username','priorities.name as priority','categories.name as category','statuses.name as status')
+                        ->where('tickets.id','like','%'.$id.'%')                        
+                        ->orWhere('tickets.ticket_id','like','%'.$id.'%')
+                        ->orWhere('users.name','like','%'.$id.'%')
+                        ->orWhere('priorities.name','like','%'.$id.'%')
+                        ->orWhere('categories.name','like','%'.$id.'%')
+                        ->orWhere('statuses.name','like','%'.$id.'%')
+                        ->orWhere('tickets.subject','like','%'.$id.'%')
+                        ->orderBy('tickets.id','desc')
+                        ->paginate(10);
+        /* return $tickets; */                                
+        return view('tabs.it.al', compact('tickets'));
+    }
+    public function searchticket($id)
+    {
+        $tickets = Ticket::join('users', 'users.id', '=', 'tickets.user_id')
+                        ->join('priorities', 'priorities.id', '=', 'tickets.priority_id')
+                        ->join('categories', 'categories.id', '=', 'tickets.category_id')
+                        ->join('statuses', 'statuses.id', '=', 'tickets.status_id')
+                        ->select('tickets.*','users.name as username','priorities.name as priority','categories.name as category','statuses.name as status')
+                        ->where('user_id',Auth::user()->id)
+                        ->where(function ($query) use($id) {
+                            $query->where('tickets.id','like','%'.$id.'%')
+                                ->orWhere('tickets.ticket_id','like','%'.$id.'%')
+                                ->orWhere('users.name','like','%'.$id.'%')
+                                ->orWhere('priorities.name','like','%'.$id.'%')
+                                ->orWhere('categories.name','like','%'.$id.'%')
+                                ->orWhere('statuses.name','like','%'.$id.'%')
+                                ->orWhere('tickets.subject','like','%'.$id.'%');
+                        })
+                        ->orderBy('tickets.id','desc')
+                        ->paginate(10);                          
+        return view('tabs.it.lt', compact('tickets'));
+    }
     public function searchhandledticket($id){
         $tickets = Ticket::join('users', 'users.id', '=', 'tickets.user_id')
                         ->join('priorities', 'priorities.id', '=', 'tickets.priority_id')
@@ -233,6 +233,7 @@ class DashboardController extends Controller
                         ->where('assigned_to',Auth::user()->id)
                         ->where(function ($query) use($id) {
                             $query->where('tickets.id','like','%'.$id.'%')
+                                ->orWhere('tickets.ticket_id','like','%'.$id.'%')
                                 ->orWhere('users.name','like','%'.$id.'%')
                                 ->orWhere('priorities.name','like','%'.$id.'%')
                                 ->orWhere('categories.name','like','%'.$id.'%')
@@ -254,6 +255,7 @@ class DashboardController extends Controller
                         ->where('assigned_to',Auth::user()->id)
                         ->where(function ($query) use($id) {
                             $query->where('closed_tickets.id','like','%'.$id.'%')
+                                ->orWhere('closed_tickets.ticket_id','like','%'.$id.'%')
                                 ->orWhere('users.name','like','%'.$id.'%')
                                 ->orWhere('priorities.name','like','%'.$id.'%')
                                 ->orWhere('categories.name','like','%'.$id.'%')
@@ -273,6 +275,7 @@ class DashboardController extends Controller
                         ->where('user_id',Auth::user()->id)
                         ->where(function ($query) use($id) {
                             $query->where('closed_tickets.id','like','%'.$id.'%')
+                                ->orWhere('closed_tickets.ticket_id','like','%'.$id.'%')
                                 ->orWhere('users.name','like','%'.$id.'%')
                                 ->orWhere('priorities.name','like','%'.$id.'%')
                                 ->orWhere('categories.name','like','%'.$id.'%')
@@ -290,6 +293,7 @@ class DashboardController extends Controller
                         ->join('statuses', 'statuses.id', '=', 'closed_tickets.status_id')
                         ->select('closed_tickets.*','users.name as username','priorities.name as priority','categories.name as category','statuses.name as status')
                         ->where('closed_tickets.id','like','%'.$id.'%')
+                        ->orWhere('closed_tickets.ticket_id','like','%'.$id.'%')
                         ->orWhere('users.name','like','%'.$id.'%')
                         ->orWhere('priorities.name','like','%'.$id.'%')
                         ->orWhere('categories.name','like','%'.$id.'%')
@@ -309,6 +313,7 @@ class DashboardController extends Controller
                         ->where('assigned_to',Auth::user()->id)
                         ->where(function ($query) use($id) {
                             $query->where('tickets.id','like','%'.$id.'%')
+                                ->orWhere('tickets.ticket_id','like','%'.$id.'%')
                                 ->orWhere('users.name','like','%'.$id.'%')
                                 ->orWhere('priorities.name','like','%'.$id.'%')
                                 ->orWhere('categories.name','like','%'.$id.'%')
@@ -328,6 +333,7 @@ class DashboardController extends Controller
                         ->where('assigned_to',Auth::user()->id)
                         ->where(function ($query) use($id) {
                             $query->where('closed_tickets.id','like','%'.$id.'%')
+                                ->orWhere('closed_tickets.ticket_id','like','%'.$id.'%')
                                 ->orWhere('users.name','like','%'.$id.'%')
                                 ->orWhere('priorities.name','like','%'.$id.'%')
                                 ->orWhere('categories.name','like','%'.$id.'%')
