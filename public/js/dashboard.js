@@ -302,7 +302,6 @@ function loadscript(){
 				} //end function
 		});//close ajax				   
 	});
-
 	/* ----------------------------- List Ticket ------------------------------- */
 	/* $('#app').on('click','.viewticket',function(e){
 		e.preventDefault();
@@ -353,7 +352,6 @@ function loadscript(){
 		$('#admincreateticket_message').val(quill.root.innerHTML);
 		return true;
 	}); */
-
 	/* -------------------- Default create ticket -------------------- */
 	/* $('#app').on('submit','#createticketform',function(){
 		$('#createticket_message').val(quill.root.innerHTML);

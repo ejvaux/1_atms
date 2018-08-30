@@ -95,7 +95,7 @@
                                     <input type='hidden' name='mod' value='accept'>
                                     <input id='datenow' type='hidden' name='start_at' value="{{ Date('Y-m-d H:i:s') }}">
                                     <input type='hidden' name='url' value='/it/vt/{{ $tickets->id }}'>
-                                    <button type='submit' id='accept_ticket' class='btn btn-secondary'>Accept Ticket</button>
+                                    <button type='submit' id='accept_ticket' class='btn btn-secondary form_submit_button'>Accept Ticket</button>
                                 </form>
                             @else
                                 <span class='font-weight-bold' style='font-size:1rem'>Assigned to {{ $tickets->assign->name }}</span>
@@ -117,7 +117,7 @@
                                             </select>
                                             <input type='hidden' name='mod' value='priority'>
                                             <input type='hidden' name='url' value='/it/vt/{{ $tickets->id }}'>
-                                            <button type='submit' class='btn btn-secondary'>Change</button>
+                                            <button type='submit' class='btn btn-secondary form_submit_button'>Change</button>
                                             <button type='button' id='cancel_change_priority' class='btn btn-warning'>Cancel</button>
                                         </div>
                                     </form>
@@ -135,7 +135,7 @@
                                             </select>
                                             <input type='hidden' name='mod' value='escalate'>
                                             <input type='hidden' name='url' value='/it/vt/{{ $tickets->id }}'>
-                                            <button type='submit' class='btn btn-secondary'>Change</button>
+                                            <button type='submit' class='btn btn-secondary form_submit_button'>Change</button>
                                             <button type='button' id='cancel_change_status' class='btn btn-warning'>Cancel</button>
                                         </div>
                                     </form>
@@ -179,7 +179,7 @@
                                     <input type='hidden' id='editMessage' name='message' value=''>
                                     <input type='hidden' id='' name='mod' value='editTicket'>
                                     <div class='input-group'>
-                                        <button type='submit' class='btn btn-secondary'>Save</button>
+                                        <button type='submit' class='btn btn-secondary form_submit_button'>Save</button>
                                         <button type='button' id='cancel_edit_ticket' class='btn btn-warning'>Cancel</button>
                                     </div>
                                 </form>
@@ -255,7 +255,7 @@
                     </div>                    
                 </div>
                 <div class='col-md details_edit text-right' style='display:none;'>
-                    <button type='submit' id='' class='btn btn-secondary' >Save</button>
+                    <button type='submit' id='' class='btn btn-secondary form_submit_button' >Save</button>
                     <button type='button' id='cancel_add_details' class='btn btn-warning'>Cancel</button>
                 </div>
             </form>
@@ -293,7 +293,7 @@
         <div class="input-group">
             @if($tickets->assigned_to == Auth::user()->id || $tickets->user_id == Auth::user()->id)
                 <input type="text" name="message" class="" id="update_message" placeholder="Enter comment here . . ." style="width:90%">           
-                <button type="submit" style="width:10%">SEND</button>
+                <button class='form_submit_button' type="submit" style="width:10%">SEND</button>
             @endif
         </div>
     </div>        
