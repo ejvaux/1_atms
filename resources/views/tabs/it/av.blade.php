@@ -101,10 +101,13 @@
                             @if($tickets->assigned_to == '')
                                 <button type='button' id='assign_ticket' class='btn btn-secondary'>Assign Ticket </button>
                             @else
+                                @if($tickets->status_id == 2)
+                                    <button type='button' id='assign_ticket' class='btn btn-secondary'>Reassign Ticket </button>
+                                @endif
                                 <span class='font-weight-bold' style='font-size:1rem'>Assigned to {{ $tickets->assign->name }}</span> 
                             @endif
                             <span class='font-weight-bold' id='assign_label' style='font-size:1rem'></span> 
-                            <form method='POST' action='/1_atms/public/tickets/{{ $tickets->id }}'>
+                            <form class='form_to_submit' method='POST' action='/1_atms/public/tickets/{{ $tickets->id }}'>
                                 @method('PUT')
                                 @csrf
                                 <input type='hidden' name='status_id' value='2'>
@@ -122,7 +125,7 @@
                                             <option value="{{$user->id}}">{{$user->name}}</option>
                                         @endforeach
                                     </select>
-                                    <button type='submit' class='btn btn-secondary'>Assign</button>
+                                    <button type='submit' class='btn btn-secondary form_submit_button'>Assign</button>
                                     <button type='button' id='cancel_assign' class='btn btn-warning'>Cancel</button>
                                 </div>                                                                          
                             </form>                                                                                    
@@ -140,7 +143,7 @@
                             @if($tickets->user_id == Auth::user()->id)
                                 <button type='button' id='edit_ticket' class='btn btn-secondary'>Edit Ticket</button>
                                 <div id='edit_ticket_buttons' style='display:none'>
-                                    <form id='saveEditTicket' method='POST' action='/1_atms/public/tickets/{{ $tickets->id }}'>
+                                    <form class='form_to_submit' id='saveEditTicket' method='POST' action='/1_atms/public/tickets/{{ $tickets->id }}'>
                                         @method('PUT')
                                         @csrf
                                         <input type='hidden' id='editDepartment' name='department_id' value=''>
@@ -149,7 +152,7 @@
                                         <input type='hidden' id='editMessage' name='message' value=''>
                                         <input type='hidden' id='' name='mod' value='editTicket'>
                                         <div class='input-group'>
-                                            <button type='submit' class='btn btn-secondary'>Save</button>
+                                            <button type='submit' class='btn btn-secondary form_submit_button'>Save</button>
                                             <button type='button' id='cancel_edit_ticket' class='btn btn-warning'>Cancel</button>
                                         </div>
                                     </form>
@@ -233,7 +236,7 @@
             </div>
         </div>  
     </div>  
-    <form id='adminupdateform' method="POST" action="/1_atms/public/ticket_updates">
+    <form class='form_to_submit' id='adminupdateform' method="POST" action="/1_atms/public/ticket_updates">
     @csrf
     <input type="hidden" id='admin_update_ticket_id' name="ticket_id" value="{{ $tickets->id }}">
     <input type="hidden" name="user_id" value="{{ Auth::user()->id }}">

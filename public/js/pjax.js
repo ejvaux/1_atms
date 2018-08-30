@@ -1,4 +1,4 @@
-var pjax = new Pjax({
+/* var pjax = new Pjax({
     elements: "a",
     selectors: ["title", "#app"],
     cacheBust: true,
@@ -9,7 +9,7 @@ $(document).on('pjax:complete',   function() {
   $( document ).ready(function() {
     loadscript(); 
   });   
-});
+}); */
 
 /* $(document).on({
   ajaxStart: function() { NProgress.configure({ showSpinner: false }); NProgress.start(); },   

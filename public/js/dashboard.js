@@ -332,6 +332,21 @@ function loadscript(){
 			$('#search').trigger('click');
 		}
 	});
+	$('#app').on('click','#searchuser',function(){
+		var txt = $('#usersearch').val();
+		var url = $(this).val();
+		if(txt == ""){
+			window.location = url;
+		}
+		else{
+			window.location = url + txt;
+		}									
+	});
+	$('#app').on("keyup",'#usersearch',function(e) {
+		if (e.keyCode == 13) {
+			$('#searchuser').trigger('click');
+		}
+	});
 
 	/* -------------------- Admin create ticket -------------------- */
 	/* $('#app').on('submit','#admincreateticket',function(){
@@ -434,6 +449,26 @@ function loadscript(){
 		})
 	});
 
+	/* -------------------- Delete User -------------------- */
+	$('#app').on('click','.delete_user',function(e){
+		/* e.preventDefault();
+		e.stopImmediatePropagation(); */
+		swal({
+				title: 'Are you sure?',
+				text: "You won't be able to revert this!",
+				type: 'warning',
+				showCancelButton: true,
+				confirmButtonColor: '#3085d6',
+				cancelButtonColor: '#d33',
+				confirmButtonText: 'Yes, delete it!'
+		  	}).then((result) => {
+			if (result.value) {
+				var idd = $(this).val();
+				$('#delete_user_form'+idd).trigger('submit');
+			}
+		})		
+	});
+
 	/* -------------------- Edit Ticket -------------------- */
 	$('#app').on('click','#edit_ticket',function(){
 		$('.editticketlabel').hide();
@@ -448,6 +483,9 @@ function loadscript(){
 		$('#edit_ticket_buttons').hide();
 		$('#edit_ticket').show();
 		$('.editticketlabel').show();	
-	});	
+	});
+	$('#app').on('submit','.form_to_submit',function(){
+		$('.form_submit_button').prop('disabled', true);
+	});
 }
 loadscript();

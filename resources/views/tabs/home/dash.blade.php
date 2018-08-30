@@ -3,7 +3,14 @@
 @section('pageTitle','Dashboard | ATMS - Primatech')
 
 @section('content')
-<div class="container">
+<div class='container mt-4'>
+    <div class='row'>
+        <div class='col-md text-center'>
+            <h1>IT Ticketing System</h1>
+        </div>
+    </div>
+</div>
+{{-- <div class="container">
     <div class="row mb-5">
         <div class="col-md-6">
             <div class="card-header">
@@ -40,5 +47,5 @@
         <div class='col'>
         </div>
     </div>
-</div>
+</div> --}}
 @endsection

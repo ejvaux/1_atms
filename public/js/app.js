@@ -13885,8 +13885,6 @@ __webpack_require__(13);
 
 window.Vue = __webpack_require__(38);
 
-var $ = __webpack_require__(2);
-
 /**
  * Next, we will create a fresh Vue application instance and attach it to
  * the page. Then, you may begin adding components to this application
@@ -13903,6 +13901,7 @@ var app = new Vue({
             $.ajax({
                 type: 'get',
                 url: "/1_atms/public/nvbr",
+                global: false,
                 success: function success(data) {
                     $('#nvbr').html(data);
                 }
@@ -13920,6 +13919,8 @@ var app = new Vue({
         }); */
     }
 });
+
+var $ = __webpack_require__(2);
 
 /***/ }),
 /* 13 */

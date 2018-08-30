@@ -88,7 +88,7 @@
                     <div class='col-md-6'>                        
                         @if($tickets->status_id == 2)                        
                             @if($tickets->assigned_to == Auth::user()->id)
-                                <form method='POST' action='/1_atms/public/tickets/{{ $tickets->id }}'>
+                                <form class='form_to_submit' method='POST' action='/1_atms/public/tickets/{{ $tickets->id }}'>
                                     @method('PUT')
                                     @csrf
                                     <input type='hidden' name='status_id' value='3'>
@@ -103,7 +103,7 @@
                         @elseif(!($tickets->status_id == 1 || $tickets->status_id == 2))
                             @if($tickets->assigned_to != null)                         
                                 @if($tickets->assigned_to == Auth::user()->id)
-                                    <form method='POST' action='/1_atms/public/tickets/{{ $tickets->id }}'>
+                                    <form class='form_to_submit' method='POST' action='/1_atms/public/tickets/{{ $tickets->id }}'>
                                             @method('PUT')
                                             @csrf
                                         <div class='input-group' id='change_priority' style='display:none'>
@@ -121,7 +121,7 @@
                                             <button type='button' id='cancel_change_priority' class='btn btn-warning'>Cancel</button>
                                         </div>
                                     </form>
-                                    <form id='change_status_form' method='POST' action='/1_atms/public/tickets/{{ $tickets->id }}'>
+                                    <form class='form_to_submit' id='change_status_form' method='POST' action='/1_atms/public/tickets/{{ $tickets->id }}'>
                                             @method('PUT')
                                             @csrf
                                         <div class='input-group' id='change_status' style='display:none'>
@@ -143,7 +143,7 @@
                                         <button type='button' id='change_priority_button' class='btn btn-secondary'>Change Priority</button>
                                         <button type='button' id='change_status_button' class='btn btn-secondary'>Change Status</button>
                                         <button type='button' id='add_ticket_details' class='btn btn-secondary'>Ticket Details</button>
-                                        <form id='close_ticket_form' method='POST' action='/1_atms/public/closed_ticket/transfer/{{ $tickets->id }}'>
+                                        <form class='form_to_submit' id='close_ticket_form' method='POST' action='/1_atms/public/closed_ticket/transfer/{{ $tickets->id }}'>
                                             @csrf
                                             <input type='hidden' name='status_id' value='{{ $tickets->status_id }}'>
                                             <input type='hidden' name='mod' value='default'>
@@ -170,7 +170,7 @@
                         @if($tickets->user_id == Auth::user()->id)
                             <button type='button' id='edit_ticket' class='btn btn-secondary'>Edit Ticket</button>
                             <div id='edit_ticket_buttons' style='display:none'>
-                                <form id='saveEditTicket' method='POST' action='/1_atms/public/tickets/{{ $tickets->id }}'>
+                                <form class='form_to_submit' id='saveEditTicket' method='POST' action='/1_atms/public/tickets/{{ $tickets->id }}'>
                                     @method('PUT')
                                     @csrf
                                     <input type='hidden' id='editDepartment' name='department_id' value=''>
@@ -184,7 +184,7 @@
                                     </div>
                                 </form>
                             </div>
-                            <form id='cancel_ticket_form' method='POST' action='/1_atms/public/tickets/{{ $tickets->id }}'>
+                            <form class='form_to_submit' id='cancel_ticket_form' method='POST' action='/1_atms/public/tickets/{{ $tickets->id }}'>
                                 @method('DELETE')
                                 @csrf
                                 {{-- <input type='hidden' name='status_id' value='{{ $tickets->status_id }}'>
@@ -214,7 +214,7 @@
                         <textarea type="text" class="form-control editticketinput" rows="8" id="messageNew" name="message" placeholder="" style='display:none; width:100%'>{!! $tickets->message !!}</textarea>
                     </div>
                 </div>
-            <form method='POST' action='/1_atms/public/tickets/{{ $tickets->id }}'>
+            <form class='form_to_submit' method='POST' action='/1_atms/public/tickets/{{ $tickets->id }}'>
                 @method('PUT')
                 @csrf
                 <input type='hidden' name='mod' value='detail'>
@@ -283,7 +283,7 @@
         </div>
     </div>  
 </div>  
-<form method="POST" action="/1_atms/public/ticket_updates">
+<form class='form_to_submit' method="POST" action="/1_atms/public/ticket_updates">
 @csrf
 <input type="hidden" id='update_ticket_id' name="ticket_id" value="{{ $tickets->id }}">
 <input type="hidden" name="user_id" value="{{ Auth::user()->id }}">
@@ -291,8 +291,10 @@
 <div class="row pt-0 mt-0 mb-4">
     <div class="col-md-12">
         <div class="input-group">
-            <input type="text" name="message" class="" id="update_message" placeholder="Enter comment here . . ." style="width:90%">
-            <button type="submit" style="width:10%">SEND</button>
+            @if($tickets->assigned_to == Auth::user()->id || $tickets->user_id == Auth::user()->id)
+                <input type="text" name="message" class="" id="update_message" placeholder="Enter comment here . . ." style="width:90%">           
+                <button type="submit" style="width:10%">SEND</button>
+            @endif
         </div>
     </div>        
 </div>

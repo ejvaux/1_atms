@@ -39,10 +39,15 @@ class DashboardController extends Controller
     {       
         return view('tabs.home.dash');
     }
-
     public function viewroles()
     {   
         $users = User::paginate(20);
+        return view('tabs.admin.role',compact('users'));
+    }
+    public function searchuserview($id)
+    {   
+        /* $users = User::paginate(20); */
+        $users = User::where('name','like','%'.$id.'%')->orWhere('email','like','%'.$id.'%')->paginate(20);
         return view('tabs.admin.role',compact('users'));
     }
     
@@ -52,7 +57,6 @@ class DashboardController extends Controller
         $tickets = Ticket::sortable()->orderBy('id','desc')->paginate(10);
         return view('tabs.it.al', compact('tickets'));
     }
-
     public function adminviewticket($id)
     {
         $departments = Department::orderBy('name')->get();
@@ -63,13 +67,11 @@ class DashboardController extends Controller
         $updatetext = '';
         return view('tabs.it.av', compact('tickets','updates','users','updatetext','departments','categories'));
     }
-
     public function listticket()
     {
         $tickets = Ticket::where('user_id',Auth::user()->id)->orderBy('id','desc')->paginate(10);
         return view('tabs.it.lt', compact('tickets'));
     }
-
     public function viewticket($id)
     {
         $departments = Department::orderBy('name')->get();
@@ -81,7 +83,6 @@ class DashboardController extends Controller
         $updatetext = '';
         return view('tabs.it.vt', compact('tickets','updates','updatetext','priorities','statuses','departments','categories'));
     }
-
     public function createticket()
     {
         $departments = Department::orderBy('name')->get();
@@ -89,7 +90,6 @@ class DashboardController extends Controller
         $priorities = Priority::orderBy('id')->get();
         return view('tabs.it.ct', compact('categories', 'priorities','departments'));
     }
-
     public function admincreateticket()
     {
         $departments = Department::orderBy('name')->get();
@@ -97,12 +97,10 @@ class DashboardController extends Controller
         $priorities = Priority::orderBy('id')->get();
         return view('tabs.it.ac', compact('categories', 'priorities','departments'));
     }
-
     public function contact()
     {        
         return view('tabs.it.cu');
     }
-
     public function adminqueue()
     {
         $tickets = Ticket::where('assigned_to',Auth::user()->id)->orderBy('id','desc')->paginate(10); 

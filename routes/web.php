@@ -43,7 +43,7 @@ Route::get('/notification/ticketclose/{id}/{tid}', 'NotificationController@ticke
 Route::get('/', 'PagesController@index');
 Auth::routes();
 Route::get('/unauthorize', function () {
-    return '<h3>Access Denied!</h3>';
+    return '<h3>Access Denied!</h3><br><a href="/1_atms/public/dashboard">HOME</a>';
 });
 Route::get('/comingsoon', function () {
     return view('pages.comingsoon');
@@ -58,31 +58,32 @@ Route::get('/dashboard', 'DashboardController@index');
 // HOME
 Route::get('/home/dt', 'DashboardController@viewdashtab');
 Route::get('/admin/role','DashboardController@viewroles');
-/* Route::get('/protected', ['middleware' => ['auth', 'admin'], function() {
+Route::get('/admin/role/{id}','DashboardController@searchuserview');
+Route::get('/protected', function() {
      return "this page requires that you be logged in and an Admin"; 
-}]); */
+})->middleware('auth', 'admin');
 /* Route::get('/admin', ['middleware' => ['auth', 'admin'], function() {
     return "this page requires that you be logged in and an Admin"; 
 }]); */
 
 // IT
-Route::get('/it/al', 'DashboardController@adminlistticket');
-Route::get('/it/aq','DashboardController@adminqueue');
-Route::get('/it/actlv/{id}','DashboardController@adminclosedticketview');
+Route::get('/it/al', 'DashboardController@adminlistticket')->middleware('auth', 'admin');
+Route::get('/it/aq','DashboardController@adminqueue')->middleware('auth', 'admin');
+Route::get('/it/actlv/{id}','DashboardController@adminclosedticketview')->middleware('auth', 'admin');
 Route::get('/it/ht','DashboardController@handledticket');
-Route::get('/it/actl','DashboardController@adminclosedticket');
+Route::get('/it/actl','DashboardController@adminclosedticket')->middleware('auth', 'admin');
 Route::get('/it/ctl','DashboardController@closedticket');
 Route::get('/it/ctlv/{id}','DashboardController@closedticketview');
 Route::get('/it/hct','DashboardController@handledclosedticket');
 Route::get('/it/hctv/{id}','DashboardController@handledclosedticketview');
-Route::get('/it/ahct','DashboardController@adminhandledclosedticket');
-Route::get('/it/ahctv/{id}','DashboardController@adminhandledclosedticketview');
-Route::get('/it/av/{id}', ['uses' => 'DashboardController@adminviewticket']);
-Route::get('/it/ac', 'DashboardController@admincreateticket');
+Route::get('/it/ahct','DashboardController@adminhandledclosedticket')->middleware('auth', 'admin');
+Route::get('/it/ahctv/{id}','DashboardController@adminhandledclosedticketview')->middleware('auth', 'admin');
+Route::get('/it/av/{id}', 'DashboardController@adminviewticket')->middleware('auth', 'admin');
+Route::get('/it/ac', 'DashboardController@admincreateticket')->middleware('auth', 'admin');
 Route::get('/it/lt', 'DashboardController@listticket');
 Route::get('/it/vt/{id}', ['uses' => 'DashboardController@viewticket']);
 Route::get('/it/htv/{id}', ['uses' => 'DashboardController@viewhandledticket']);
-Route::get('/it/ahtv/{id}', ['uses' => 'DashboardController@adminviewhandledticket']);
+Route::get('/it/ahtv/{id}', ['uses' => 'DashboardController@adminviewhandledticket'])->middleware('auth', 'admin');
 Route::get('/it/ct', 'DashboardController@createticket');
 Route::get('/it/cu', 'DashboardController@contact');
 

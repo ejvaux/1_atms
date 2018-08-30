@@ -55,47 +55,56 @@ class TicketsController extends Controller
             'message' => 'required',
             'attachedfile' => 'image|nullable|max:5000',
         ]);
+        try{
+            // Handle File Upload
+            if($request->hasFile('attachedfile')) {
+                // Get filename with extension            
+                $filenameWithExt = $request->file('attachedfile')->getClientOriginalName();
+                // Get just filename
+                $filename = pathinfo($filenameWithExt, PATHINFO_FILENAME);            
+                // Get just ext
+                $extension = $request->file('attachedfile')->getClientOriginalExtension();
+                //Filename to store
+                $fileNameToStore = $filename.'_'.time().'.'.$extension;                       
+                // Upload Image
+                $path = $request->file('attachedfile')->storeAs('public/attachedfile', $fileNameToStore);
+            }
+            else {
+                $fileNameToStore = null;
+            }
 
-        // Handle File Upload
-        if($request->hasFile('attachedfile')) {
-            // Get filename with extension            
-            $filenameWithExt = $request->file('attachedfile')->getClientOriginalName();
-            // Get just filename
-            $filename = pathinfo($filenameWithExt, PATHINFO_FILENAME);            
-            // Get just ext
-            $extension = $request->file('attachedfile')->getClientOriginalExtension();
-            //Filename to store
-            $fileNameToStore = $filename.'_'.time().'.'.$extension;                       
-            // Upload Image
-            $path = $request->file('attachedfile')->storeAs('public/attachedfile', $fileNameToStore);
+            // Create Ticket
+            $t = new Ticket;
+            $t->ticket_id = $request->input('ticket_id');
+            $t->user_id = $request->input('userid');
+            $t->department_id = $request->input('department');
+            $t->category_id = $request->input('category');
+            $t->priority_id = $request->input('priority');
+            $t->subject = $request->input('subject');
+            $t->message = $request->input('message');
+            $t->attach = $fileNameToStore;     
+            $t->save();
+            $s = new Serial;
+            $s->number =  $request->input('ticket_id');
+            $s->save();
+            $ticket = Ticket::orderBy('created_at', 'desc')->first();
+            if($request->input('mod') == 'default'){
+                return redirect('/notification/ticketcreate/'.$ticket->id.'/default');
+                /* return redirect('/it/ct')->with('success','Ticket Submitted Successfully.'); */           
+            }
+            elseif($request->input('mod') == 'admin'){
+                return redirect('/notification/ticketcreate/'.$ticket->id.'/admin');      
+                /* return redirect('/it/ac')->with('success','Ticket Submitted Successfully.'); */
+            }
         }
-        else {
-            $fileNameToStore = null;
-        }
-
-        // Create Ticket
-        $t = new Ticket;
-        $t->ticket_id = $request->input('ticket_id');
-        $t->user_id = $request->input('userid');
-        $t->department_id = $request->input('department');
-        $t->category_id = $request->input('category');
-        $t->priority_id = $request->input('priority');
-        $t->subject = $request->input('subject');
-        $t->message = $request->input('message');
-        $t->attach = $fileNameToStore;     
-        $t->save();
-        $s = new Serial;
-        $s->number =  $request->input('ticket_id');
-        $s->save();
-        $ticket = Ticket::orderBy('created_at', 'desc')->first();
-        if($request->input('mod') == 'default'){
-            return redirect('/notification/ticketcreate/'.$ticket->id.'/default');
-            /* return redirect('/it/ct')->with('success','Ticket Submitted Successfully.'); */           
-        }
-        elseif($request->input('mod') == 'admin'){
-            return redirect('/notification/ticketcreate/'.$ticket->id.'/admin');      
-            /* return redirect('/it/ac')->with('success','Ticket Submitted Successfully.'); */
-        }
+        catch(\Exception $exception){
+            $err = $exception->errorInfo[1];
+            if($err == 1062){
+                $er = "Duplicate Ticket!";
+            }
+            return redirect()->back()->with('error','Database Error! ' .  $er);            
+            /* return redirect()->back(); */
+        }        
     }
 
     /**
