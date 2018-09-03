@@ -37,7 +37,11 @@
                                                 Waiting for Queue
                                             @endif                                                
                                         @else
-                                            {!! CustomFunctions::datetimelapse($tickets->start_at) !!}
+                                            @if($tickets->finish_at == null)
+                                                {!! CustomFunctions::datetimelapse($tickets->start_at) !!}
+                                            @else
+                                                {!! CustomFunctions::datetimefinished($tickets->start_at,$tickets->finish_at) !!}
+                                            @endif
                                         @endif
                                     </h4>
                                 </div>
