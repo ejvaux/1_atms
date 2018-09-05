@@ -10,7 +10,7 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
     <title>@yield('pageTitle')</title>
-
+    @yield('chart')
     @include('inc.header')         
 </head>
 <body>        
@@ -30,6 +30,21 @@
                 </div>
             </div>
         </main>
-    </div>
+        {{-- <footer class="footer mb-4">
+            <div class="container">
+                <span class="text-muted text-center">Place sticky footer content here.</span>
+            </div>
+        </footer> --}}
+        <!-- Footer -->
+        <footer class="page-footer font-small blue">
+
+            <!-- Copyright -->
+            <div class="footer-copyright text-center py-3">© 2018 Prima Tech Phils., Inc.
+                <br>Designed and built by Edmund O. Mati Jr.
+            </div>
+            <!-- Copyright -->
+        </footer>
+        <!-- Footer -->
+    </div>    
 </body>
 </html>
