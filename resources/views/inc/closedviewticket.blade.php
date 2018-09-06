@@ -49,6 +49,11 @@
                                             <label class='font-weight-bold'><span class='text-muted'>Start At:</span></label>
                                         </div>
                                     </div>
+                                    <div class='row'>
+                                        <div class='col-md'>
+                                            <label class='font-weight-bold'><span class='text-muted'>Finish At:</span></label>
+                                        </div>
+                                    </div>
                                 </div>
                                 <div class='col-md-9'>                                    
                                     <div class='row'>
@@ -64,6 +69,11 @@
                                     <div class='row'>
                                         <div class='col-md'>
                                             <label class='font-weight-bold'>{{ $tickets->start_at }}</label>
+                                        </div>
+                                    </div>
+                                    <div class='row'>
+                                        <div class='col-md'>
+                                            <label class='font-weight-bold'>{{ $tickets->finish_at }}</label>
                                         </div>
                                     </div>
                                 </div>

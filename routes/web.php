@@ -86,6 +86,7 @@ Route::get('/it/htv/{id}', ['uses' => 'DashboardController@viewhandledticket']);
 Route::get('/it/ahtv/{id}', ['uses' => 'DashboardController@adminviewhandledticket'])->middleware('auth', 'admin');
 Route::get('/it/ct', 'DashboardController@createticket');
 Route::get('/it/cu', 'DashboardController@contact');
+Route::get('/it/rp','DashboardController@ticketreports');
 
 // IT Search
 Route::get('/it/al/{id}', ['uses' => 'DashboardController@adminsearchticket']);
@@ -97,6 +98,9 @@ Route::get('/it/lt/{id}','DashboardController@searchticket');
 Route::get('/it/ht/{id}','DashboardController@searchhandledticket');
 Route::get('/it/hct/{id}','DashboardController@searchhandledclosedticket');
 Route::get('/it/ctl/{id}','DashboardController@searchclosedticket');
+
+// CCTV Review
+Route::get('/cr/crl','CctvReviewsController@reviewlist');
 
 // Custom Table Resource
 Route::post('closed_ticket/transfer/{id}','ClosedTicketController@transferticket');
@@ -126,3 +130,4 @@ Route::get('listen', function () {
 Route::get('nvbr', function () {
     return view('inc.navbar');
 });
+Route::get('tdb', 'DashboardController@testdb');

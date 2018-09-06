@@ -147,7 +147,8 @@ class TicketsController extends Controller
             'action' => 'nullable',
             'result' => 'nullable',
             'recommend' => 'nullable',
-        ]);        
+        ]);
+               
         $ticket = Ticket::find($id);
         $user = $ticket->user_id;
 

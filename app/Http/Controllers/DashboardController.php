@@ -12,6 +12,10 @@ use App\User;
 use App\Status;
 use App\ClosedTicket;
 use Auth;
+use Carbon\Carbon;
+use App\Charts\TicketsReport;
+use DB;
+use App\Custom\CustomFunctions;
 
 class DashboardController extends Controller
 {
@@ -341,5 +345,84 @@ class DashboardController extends Controller
                         ->orderBy('closed_tickets.id','desc')
                         ->paginate(10);
         return view('tabs.it.ahct',compact('tickets'));
+    }
+
+    // Reports
+    public function ticketreports(){
+        // Tickets per day
+        $newticket = Ticket::where('created_at','LIKE','%'.Date('Y-m-d').'%')->count();
+
+        // Open Ticket
+        $openticket = Ticket::where('status_id',1)->count();
+
+        // Assigned Ticket
+        $assignedticket = Ticket::where('assigned_to','!=',null)->count();
+
+        // Completed Ticket
+        $resolvedticket = Ticket::where('finish_at','!=',null)->count();
+        $closedticket = ClosedTicket::count();
+
+        // Average response time
+        $assigntickets = Ticket::where('start_at','!=',null)->get();
+        $rtime = 0;
+        foreach($assigntickets as $assignticket){
+            $start = Carbon::parse($assignticket->start_at);
+            $created = Carbon::parse($assignticket->created_at);
+            $rtime += $start->diffInMinutes($created);
+        }
+        if($assigntickets->count()){
+            $trtime = $rtime / $assigntickets->count();
+        }
+        else{
+            $trtime = 0;
+        }
+
+        // Average processing time
+        $resolvedtickets = Ticket::where('finish_at','!=',null)->get();
+        $rentime = 0;
+        foreach($resolvedtickets as $resolveticket){
+            $start = Carbon::parse($resolveticket->start_at);
+            $finish = Carbon::parse($resolveticket->finish_at);
+            $rentime += $finish->diffInMinutes($start);
+            /* $rentime += $resolvedticket->finish_at - $resolvedticket->start_at; */
+        }
+        if($resolvedtickets->count()){
+            $trentime = $rentime / $resolvedtickets->count();
+        }
+        else{
+            $trentime = 0;
+        }
+        $totalresolvedticket = $resolvedticket + $closedticket;
+        
+        // Total Ticket Chart
+        $totalticketchart = new TicketsReport;
+        $data = DB::select('SELECT DATE(created_at) as date, count(created_at) as total FROM `tickets` GROUP BY DAY(`created_at`)');
+        foreach($data as $dat){
+            $label[] = $dat->date;
+            $dt[] = $dat->total;
+        }        
+        $totalticketchart->labels($label);
+        $totalticketchart->dataset('Total Tickets', 'line', $dt);
+        /* $totalticketchart->dataset('Total Tickets', 'pie', $dt)->options(['backgroundColor' => CustomFunctions::colorsets()]); */
+
+        // Tickets by Department
+        $deptdata = DB::select('SELECT count(tickets.department_id) as total, departments.name FROM `tickets` 
+        RIGHT OUTER JOIN departments ON departments.id = tickets.department_id GROUP BY departments.name');
+        foreach($deptdata as $dat){
+            $deptlabel[] = $dat->name;
+            $deptdt[] = $dat->total;
+        }
+        $ticketdepartmentchart = new TicketsReport;
+        $ticketdepartmentchart->labels($deptlabel);
+        $ticketdepartmentchart->dataset('Total Tickets', 'pie', $deptdt)->options(['backgroundColor' => CustomFunctions::colorsets()]);
+        /* $chart->dataset('Total Tickets', 'doughnut', $dt)->options(['backgroundColor' => CustomFunctions::colorsets()]); */   
+        return view('tabs.it.rp',compact('ticketdepartmentchart','data','totalticketchart','newticket','openticket','assignedticket','totalresolvedticket','trtime','trentime','rtime'));
+    }
+    public function testdb(){
+        return 
+        /* DB::select('SELECT tickets.department_id, tickets.id, departments.id, departments.name FROM `tickets` LEFT OUTER JOIN departments ON departments.id = tickets.department_id UNION
+        SELECT tickets.department_id, tickets.id, departments.id, departments.name FROM `tickets` RIGHT OUTER JOIN departments ON departments.id = tickets.department_id'); */
+        DB::select('SELECT count(tickets.department_id) as total, departments.name FROM `tickets` 
+        RIGHT OUTER JOIN departments ON departments.id = tickets.department_id GROUP BY departments.name');
     }
 }

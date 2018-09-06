@@ -8,7 +8,7 @@ use App\Ticket;
 use App\Serial;
 
 class CustomFunctions
-{
+{   
     // Status Format
     public static function status_format($stat){
         $form = '';
@@ -190,5 +190,9 @@ class CustomFunctions
             }
         }
         /* return $tnum; */
+    }
+    public static function colorsets(){
+        $col = ['red','blue','yellow','tomato','orange','violet'];
+        return $col;
     }
 }

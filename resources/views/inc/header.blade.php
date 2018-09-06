@@ -39,6 +39,9 @@
 <!-- Sweetalert2 -->
 <script src="/1_atms/node_modules/sweetalert2/dist/sweetalert2.all.min.js"></script>
 
+<!-- Chart.js -->
+<script src="/1_atms/node_modules/chart.js/dist/Chart.min.js"></script>
+
 <!-- Custom -->
 <script src="{{ asset('js/pjax.js') }}" defer></script>
 <script src="{{ asset('js/dashboard.js') }}" defer></script>
