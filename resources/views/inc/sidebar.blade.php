@@ -24,7 +24,7 @@
                         @endif
                     @endif                    
                     {{-- <li class="list-group-item noborder d-flex justify-content-between align-items-center"><a id="myticket" class='sidetab' href='#'>TICKETS</a><span class="badge badge-info"></span></li> --}}
-                    <li class="list-group-item noborder d-flex justify-content-between align-items-center"><a class='sidetab' href='/1_atms/public/cr/crl'>CCTV REVIEW</a><span class="badge badge-info"></span></li>
+                    <li class="list-group-item noborder d-flex justify-content-between align-items-center"><a class='sidetab' href='/1_atms/public/it/cu'>CCTV REVIEW</a><span class="badge badge-info"></span></li>
                     <li class="list-group-item noborder d-flex justify-content-between align-items-center"><a class='sidetab' href='/1_atms/public/it/cu'>CONTACT US</a><span class="badge badge-info"></span></li>
                 </ul>
             </li>
