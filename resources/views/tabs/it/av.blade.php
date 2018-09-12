@@ -5,6 +5,7 @@
 @section('content')
 @include('inc.messages')
 <div class="container">
+    @if(count($tickets)>0)
     <div class='row mb-2'>
         <div class='col-md'>
             <nav>
@@ -263,5 +264,8 @@
         </div>        
     </div> --}}
     </form>
+    @else
+        <div class='alert alert-danger'><h3>Ticket not found or, Already cancelled or closed.</h3></div>
+    @endif
 </div>
 @endsection
