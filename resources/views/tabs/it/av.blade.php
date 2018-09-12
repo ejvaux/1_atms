@@ -4,8 +4,7 @@
 
 @section('content')
 @include('inc.messages')
-<div class="container">
-    @if(count($tickets)>0)
+<div class="container">    
     <div class='row mb-2'>
         <div class='col-md'>
             <nav>
@@ -16,6 +15,7 @@
             </nav>
         </div>
     </div>
+    @if(count($tickets)>0)
     <div class="row mb-2">
         <div class='col-md'>
             <div class="card" style='width:100%'>
