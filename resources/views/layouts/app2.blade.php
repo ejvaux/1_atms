@@ -19,7 +19,7 @@
             @include('inc.navbar')
         </div>  
         <main class="container-fluid py-4">            
-            <div class="container-fluid" style='height:100vh'>
+            <div class="container-fluid" style=''>
                 <div class="row">
                     <div class="col-md-2 m-0 p-0" style='height:100vh;' id='sidebr'>
                         @include('inc.sidebar')
