@@ -33,12 +33,21 @@ Route::get('/notification', function () {
 Route::get('/markallread', 'NotificationController@markallread')->name('markallread');
 Route::get('/markread/{id}/{mod}/{tid}','NotificationController@markread');
 Route::get('/clearnotif', 'NotificationController@clearnotification')->name('clearnotif');
+
+// Ticket Notification
 Route::get('/notification/ticketcreate/{tid}/{mod}', 'NotificationController@ticketcreate');
 Route::get('/notification/ticketassign/{id}/{tid}/{tech}', 'NotificationController@ticketassign');
 Route::get('/notification/ticketaccept/{id}/{tid}/{tech}', 'NotificationController@ticketaccept');
 Route::get('/notification/ticketpriority/{id}/{tid}/{prio}', 'NotificationController@ticketpriority');
 Route::get('/notification/ticketstatus/{id}/{tid}/{stat}', 'NotificationController@ticketstatus');
 Route::get('/notification/ticketclose/{id}/{tid}', 'NotificationController@ticketclose');
+
+// CCTV Review Notification
+Route::get('/notification/requestcreate/{tid}', 'NotificationController@requestcreate');
+Route::get('/notification/requestassign/{id}/{tid}/{tech}', 'NotificationController@requestassign');
+Route::get('/notification/requestaccept/{id}/{tid}/{tech}', 'NotificationController@requestaccept');
+Route::get('/notification/requestpriority/{id}/{tid}/{prio}', 'NotificationController@requestpriority');
+Route::get('/notification/requeststatus/{id}/{tid}/{stat}', 'NotificationController@requeststatus');
 
 Route::get('/', 'PagesController@index');
 Auth::routes();
@@ -100,7 +109,11 @@ Route::get('/it/hct/{id}','DashboardController@searchhandledclosedticket');
 Route::get('/it/ctl/{id}','DashboardController@searchclosedticket');
 
 // CCTV Review
-Route::get('/cr/crl','CctvReviewsController@reviewlist');
+Route::get('/cr/crl','ReviewsController@reviewlist');
+Route::get('/cr/crc','ReviewsController@reviewcreate');
+Route::get('/cr/crv/{id}','ReviewsController@viewreview');
+// Load list
+Route::get('/loadlist/{id}','ReviewsController@loadlist');
 
 // Custom Table Resource
 Route::post('closed_ticket/transfer/{id}','ClosedTicketController@transferticket');
@@ -113,6 +126,7 @@ Route::resources([
     'priorities' => 'PrioritiesController',
     'ticket_updates' => 'TicketUpdatesController',
     'closed_ticket' => 'ClosedTicketController',
+    'cctvreview' => 'CctvReviewsController',
 ]);
 Route::get('testing', function () {
     event(new App\Events\TicketCreated('Someone'));

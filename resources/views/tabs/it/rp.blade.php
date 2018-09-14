@@ -83,7 +83,7 @@
                             @if($trentime > 60)
                                 <span class='font-weight-bold'>{{floor($trentime/60)}}.{{$trentime%60}} hours</span><br>
                             @else
-                                <span>{{$trentime}} minutes</span><br>
+                                <span class='font-weight-bold'>{{round($trentime,2)}} minutes</span><br>
                             @endif
                             <span>Average processing time</span> 
                         </div>

@@ -9,6 +9,11 @@ use App\Notifications\PriorityChanged;
 use App\Notifications\StatusChanged;
 use App\Notifications\TicketClosed;
 use App\Notifications\TicketCreated;
+use App\Notifications\ReviewRequestCreated;
+use App\Notifications\ReviewRequestAssigned;
+use App\Notifications\ReviewRequestAccepted;
+use App\Notifications\ReviewRequestPriorityChanged;
+use App\Notifications\ReviewRequestStatusChanged;
 use Auth;
 use App\User;
 
@@ -35,6 +40,9 @@ class NotificationController extends Controller
         }        
         else if($mod == 'close'){
             return redirect(url('/it/ctlv/'.$tid));
+        }
+        else if($mod == 'request'){
+            return redirect(url('/cr/crv/'.$tid));
         }
     }
     public function ticketcreate($tid,$mod){
@@ -74,5 +82,42 @@ class NotificationController extends Controller
         $user = User::where('id',$id)->first();
         $user->notify(new TicketClosed($tid,$user->name));
         return redirect('/it/ht')->with('success','Ticket Closed Successfully.');
-    }    
+    }
+    
+    // CCTV Request
+
+    public function requestcreate($tid){
+        $users = User::where('admin',1)->get();
+        foreach ($users as $user) {
+            $user->notify(new ReviewRequestCreated($tid,$user->name));
+        }
+        return redirect()->back()->with('success','Request Submitted Successfully.');
+        /* if($mod == 'default'){
+            return redirect('/it/ct')->with('success','Ticket Submitted Successfully.');
+        }else if($mod == 'admin'){
+            return redirect('/it/ac')->with('success','Ticket Submitted Successfully.');
+        } */
+    }
+    public function requestassign($id,$tid,$tech){
+        $user = User::where('id',$id)->first();
+        $tech = User::where('id',$tech)->first();
+        $user->notify(new ReviewRequestAssigned($tid,$user->name,'user'));
+        $tech->notify(new ReviewRequestAssigned($tid,$tech->name,'tech'));
+        return redirect()->back()->with('success','Request Assigned Successfully.'); 
+    }
+    public function requestaccept($id,$tid,$tech){
+        $user = User::where('id',$id)->first();
+        $user->notify(new ReviewRequestAccepted($tid,$user->name,$tech));
+        return redirect()->back()->with('success','Request Accepted Successfully.'); 
+    }
+    public function requestpriority($id,$tid,$prio){
+        $user = User::where('id',$id)->first();
+        $user->notify(new ReviewRequestPriorityChanged($tid,$user->name,$prio));
+        return redirect()->back()->with('success','Request Priority Changed Successfully.');
+    }
+    public function requeststatus($id,$tid,$stat){
+        $user = User::where('id',$id)->first();
+        $user->notify(new ReviewRequestStatusChanged($tid,$user->name,$stat));
+        return redirect()->back()->with('success','Request Status Changed Successfully.');
+    }
 }

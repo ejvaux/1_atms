@@ -6,6 +6,8 @@ use App\Status;
 use App\Priority;
 use App\Ticket;
 use App\Serial;
+use App\ReviewSerial;
+use App\ReviewStatus;
 
 class CustomFunctions
 {   
@@ -43,7 +45,6 @@ class CustomFunctions
         }
         return $form;
     }
-
     public static function priority_format($prio){
         $form = '';
         $html = Priority::where('id', $prio)->first();    
@@ -191,8 +192,91 @@ class CustomFunctions
         }
         /* return $tnum; */
     }
+    public static function generateRequestNumber(){
+        $tnum = "MIS";
+        $month = date('m');
+        $year = date('y');
+        /* $month = '09';
+        $year = '18'; */
+        $tnum .= $year . $month;
+        $series = ReviewSerial::orderBy('id', 'desc')->first();
+        if(empty($series)){
+            return $tnum . "001";
+        }
+        else{
+            $tid = $series->number;
+            $yr = substr($tid,3,2);
+            $mnth = substr($tid,5,2);
+            $num = substr($tid,-3);
+            if($yr == $year && $mnth == $month){
+                return $tnum . str_pad($num+1, 3, '0', STR_PAD_LEFT);
+            }
+            else if($yr != $year || $mnth != $month){
+                return "MIS" . $year . $month . "001";
+            }
+        }
+        /* return $tnum; */
+    }
     public static function colorsets(){
         $col = ['red','blue','yellow','tomato','orange','violet'];
         return $col;
+    }
+    public static function r_status_color($stat){
+        $form = '';
+        $html = ReviewStatus::where('id', $stat)->first();   
+        switch($stat){
+            case 1:
+                $form = "<span class='text-danger'>" . $html->name . "</span>";
+                break;
+        
+            case 2:
+                $form = "<span class='text-info'>" . $html->name . "</span>";
+                break;
+
+            case 3:
+                $form = "<span class='text-primary'>" . $html->name . "</span>";
+                break;
+
+            case 4:
+                $form = "<span class='text-warning'>" . $html->name . "</span>";
+                break;
+
+            case 5:
+                $form = "<span class='text-success'>" . $html->name . "</span>";
+                break;            
+        
+            default:
+                $form = "<span>Something went wrong, please try again</span>";
+        }
+        return $form;
+    }
+    public static function r_status_format($stat){
+        $form = '';
+        $html = ReviewStatus::where('id', $stat)->first();
+        switch($stat){
+            case 1:
+                $form = "<span class='badge badge-danger'>" . $html->name . "</span>";
+                break;
+        
+            case 2:
+                $form = "<span class='badge badge-info'>" . $html->name . "</span>";
+                break;
+
+            case 3:
+                $form = "<span class='badge badge-primary'>" . $html->name . "</span>";
+                break;
+
+            case 4:
+                $form = "<span class='badge badge-warning'>" . $html->name . "</span>";
+                break;
+
+            case 5:
+                $form = "<span class='badge badge-success'>" . $html->name . "</span>";
+                break;
+
+            default:
+                $form = "<span>Something went wrong, please try again</span>";
+        }
+        return $form;
     }
 }

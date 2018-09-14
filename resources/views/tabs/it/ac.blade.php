@@ -67,7 +67,7 @@
                 </div>
                 <div class="form-group row text-right">
                     <div class="col-md-5 text-left">
-                        <span>Attach File: </span>
+                        <span>Attach Image/ScreenShot: </span>
                         <input class='border' type='file' name='attachedfile'>
                     </div>
                     <div class="col">
