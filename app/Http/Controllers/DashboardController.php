@@ -74,6 +74,12 @@ class DashboardController extends Controller
     public function listticket()
     {
         $tickets = Ticket::where('user_id',Auth::user()->id)->orderBy('id','desc')->paginate(10);
+        /* $ntickets = Ticket::where('user_id',Auth::user()->id)->orderBy('id','desc')->get();
+        $ctickets = ClosedTicket::where('user_id',Auth::user()->id)->orderBy('id','desc')->get(); */
+        /* $ntickets = Ticket::query()->get();
+        $ctickets = ClosedTicket::query()->get();
+        $tickets = $ntickets->union($ctickets); */
+        /* $tickets = array_merge($ntickets->toArray(), $ctickets->toArray()); */       
         return view('tabs.it.lt', compact('tickets'));
     }
     public function viewticket($id)
@@ -386,8 +392,21 @@ class DashboardController extends Controller
             $rentime += $finish->diffInMinutes($start);
             /* $rentime += $resolvedticket->finish_at - $resolvedticket->start_at; */
         }
-        if($resolvedtickets->count()){
-            $trentime = $rentime / $resolvedtickets->count();
+
+        $cresolvedtickets = ClosedTicket::where('finish_at','!=',null)->get();
+        $crentime = 0;
+        foreach($cresolvedtickets as $cresolveticket){
+            $cstart = Carbon::parse($cresolveticket->start_at);
+            $cfinish = Carbon::parse($cresolveticket->finish_at);
+            $crentime += $cfinish->diffInMinutes($cstart);
+            /* $rentime += $resolvedticket->finish_at - $resolvedticket->start_at; */
+        }
+        
+        if($resolvedtickets->count() || $resolvedtickets->count()){
+            $totalrentime = $rentime + $crentime;
+            $ticketcount = $resolvedtickets->count() + $cresolvedtickets->count();
+            $trentime = $totalrentime / $ticketcount;
+            /* $trentime = $rentime / $resolvedtickets->count(); */
         }
         else{
             $trentime = 0;
@@ -422,7 +441,8 @@ class DashboardController extends Controller
         return 
         /* DB::select('SELECT tickets.department_id, tickets.id, departments.id, departments.name FROM `tickets` LEFT OUTER JOIN departments ON departments.id = tickets.department_id UNION
         SELECT tickets.department_id, tickets.id, departments.id, departments.name FROM `tickets` RIGHT OUTER JOIN departments ON departments.id = tickets.department_id'); */
-        DB::select('SELECT count(tickets.department_id) as total, departments.name FROM `tickets` 
-        RIGHT OUTER JOIN departments ON departments.id = tickets.department_id GROUP BY departments.name');
+        /* DB::select('SELECT count(tickets.department_id) as total, departments.name FROM `tickets` 
+        RIGHT OUTER JOIN departments ON departments.id = tickets.department_id GROUP BY departments.name'); */
+        CustomFunctions::generateRequestNumber();
     }
 }

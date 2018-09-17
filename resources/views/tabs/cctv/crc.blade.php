@@ -1,6 +1,6 @@
 @extends('layouts.app2')
 
-@section('pageTitle','Ticket | ATMS - Primatech')
+@section('pageTitle','CCTV Review | ATMS - Primatech')
 
 @section('content')
 @include('inc.messages')
@@ -9,8 +9,8 @@
         <div class='col-md'>
             <nav>
                 <ol class="breadcrumb">
-                    <li class="breadcrumb-item"><a href="/1_atms/public/it/lt">My Tickets</a></li>
-                    <li class="breadcrumb-item">Create Ticket</li>
+                    <li class="breadcrumb-item"><a href="{{ url('/cr/crl') }}">CCTV Review</a></li>
+                    <li class="breadcrumb-item">Create Request</li>
                     {{-- <li class="breadcrumb-item">Data</li> --}}
                 </ol>
             </nav>
@@ -18,13 +18,13 @@
     </div>
     <div class="row pt-1">
         <div class="col-md-12">
-            <form class='form_to_submit' id='createticketform' method='POST' action='/1_atms/public/tickets' enctype="multipart/form-data">                
+            <form class='form_to_submit' id='createrequestform' method='POST' action='/1_atms/public/cctvreview'>                
                 @csrf
-                <input name="userid" type="hidden" value="{{ Auth::user()->id }}">                
+                <input name="user_id" type="hidden" value="{{ Auth::user()->id }}">                
                 <input type="hidden" id="username" name="username" placeholder="" value="{{ Auth::user()->name }}">
                 <input type='hidden' id="createticket_message" name="message">
                 <input type='hidden' name="mod" value='default'>
-                <input type='hidden' name="ticket_id" value='{{ CustomFunctions::generateTicketNumber() }}'>
+                <input type='hidden' name="request_id" value='{{ CustomFunctions::generateRequestNumber() }}'>
                 <div class="form-group row">
                     <div class="col-md-5">
                         <label for="subject">Subject:</label>
@@ -32,7 +32,7 @@
                     </div>                    
                     <div class="col-md-2">
                         <label for="priority">Priority:</label>
-                        <select type="text" class="form-control" id="priority" name="priority" placeholder="" required>
+                        <select type="text" class="form-control" id="priority" name="priority_id" placeholder="" required>
                             <option value="">- Select Priority -</option>
                             @foreach($priorities as $priority)
                                 <option value="{{$priority->id}}">{{$priority->name}}</option>
@@ -40,17 +40,17 @@
                         </select>
                     </div>
                     <div class="col-md-3">                            
-                        <label for="category">Category:</label>
-                        <select type="text" class="form-control" id="category" name="category" placeholder=""  required>
-                            <option value="">- Select Category -</option>                            
-                            @foreach($categories as $category)
-                                <option value="{{$category->id}}">{{$category->name}}</option>
+                        <label for="priority">Location:</label>
+                        <select type="text" class="form-control" id="priority" name="location" placeholder="" required>
+                            <option value="">- Select Location -</option>
+                            @foreach($locations as $location)
+                                <option value="{{$location->id}}">{{$location->name}}</option>
                             @endforeach
                         </select>
                     </div>
                     <div class="col-md-2">
-                        <label for="department">Department:</label>
-                        <select type="text" class="form-control" id="department" name="department" placeholder="" required>
+                        <label for="department">Department:</label> 
+                        <select type="text" class="form-control" id="department" name="department_id" placeholder="" required>
                             <option value="">- Select Department -</option>
                             @foreach($departments as $department)
                                 <option value="{{$department->id}}">{{$department->name}}</option>
@@ -58,20 +58,23 @@
                         </select>
                     </div>
                 </div>
-                <div class="form-group row">
-                    <div class="col-md" id='messagecol'>
-                        <label for="message">Description:</label>
-                        <textarea type="text" class="form-control quill" rows="8" id="message" name="message" placeholder="" required></textarea>                       
-                        {{-- <div id='test' style="height:250px; overflow-y:auto" ></div> --}}
+                <div class='row'>
+                    <div class='col-md'>
+                        <label for="start_time">Time:</label>
+                        <div class="btn-group">
+                            <input class="form-control" type='datetime-local' id='start_time' name='start_time'><span class='pt-2 mx-1'> to </span><input class="form-control" type='datetime-local' id='end_time' name='end_time'>
+                        </div>
                     </div>
                 </div>
-                <div class="form-group row text-right">
-                    <div class="col-md-5 text-left">
-                        <span>Attach Image/ScreenShot: </span>
-                        <input class='border' type='file' name='attachedfile'>
+                <div class="form-group row mt-2">
+                    <div class="col-md" id='messagecol'>
+                        <label for="message">Description:</label>
+                        <textarea type="text" class="form-control" rows="8" id="message" name="message" placeholder="" required></textarea>                        
                     </div>
+                </div>
+                <div class="form-group row text-right">                    
                     <div class="col-md">
-                        <button type='submit' class="btn btn-primary form_submit_button" id="saveTicketButton">Submit Ticket</button>
+                        <button type='submit' class="btn btn-primary form_submit_button" id="saveTicketButton">Submit Request</button>
                     </div>
                 </div>
             </form>

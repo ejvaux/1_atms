@@ -45,4 +45,5 @@
 <!-- Custom -->
 <script src="{{ asset('js/pjax.js') }}" defer></script>
 <script src="{{ asset('js/dashboard.js') }}" defer></script>
+<script src="{{ asset('js/creview.js') }}" defer></script>
 {{-- <script src="{{ asset('js/ticketupdate.js') }}" defer></script> --}}
