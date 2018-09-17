@@ -3,6 +3,7 @@
         <table class="table">
             <thead class="thead-light">
                 <tr>
+                    <th>#</th>
                     <th>@sortablelink('priority_id','Priority')</th>
                     <th>@sortablelink('subject','Subject')</th>
                     <th>@sortablelink('status_id','Status')</th>
@@ -15,6 +16,7 @@
                 @if (count($tickets)>0)
                     @foreach($tickets as $ticket)
                         <tr>
+                            <th>{{ $loop->iteration + (($tickets->currentPage() - 1) * 10) }}</th>
                             <th>
                                 {!! CustomFunctions::priority_format($ticket->priority_id) !!}<br>
                                 <span style="font-size:.8rem">

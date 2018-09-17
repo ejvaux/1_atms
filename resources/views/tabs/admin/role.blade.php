@@ -33,7 +33,7 @@
             <table class="table">
                 <thead class="thead-light">
                     <tr>
-                        <th>ID</th>
+                        <th>#</th>
                         <th>NAME</th>
                         <th>EMAIL</th>
                         <th>ADMIN</th>
@@ -45,9 +45,7 @@
                     @if (count($users)>0)
                         @foreach($users as $user)
                             <tr>
-                                <th>
-                                    {{$user->id}}
-                                </th>
+                                <th>{{ $loop->iteration + (($users->currentPage() - 1) * 10) }}</th>
                                 <th>
                                     {{$user->name}}
                                 </th>

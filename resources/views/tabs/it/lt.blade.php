@@ -31,7 +31,7 @@
                 <a class='btn btn-secondary' href='/1_atms/public/it/ct'>Create Ticket</a>
             </div>
         @endif
-        <div class='col-md-3 ml-auto input-group'>
+        {{-- <div class='col-md-3 ml-auto input-group'>
             <div class='input-group-prepend'>
                 <label class='input-group-text'>Sort by: </label>
             </div>
@@ -39,9 +39,9 @@
                 <option value='all'>All</option>
                 <option value='handled'>Closed</option>
             </select>
-        </div>
+        </div> --}}
         
-        <div class="col-md-4">
+        <div class="col-md-4 ml-auto">
             <form>
                 <div class="input-group">
                     <input type="text" class="form-control" id="searchtextbox" placeholder="Enter ticket number . . .">

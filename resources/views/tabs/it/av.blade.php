@@ -172,6 +172,11 @@
                                         </div>
                                     </form>
                                 </div>
+                                <form class='form_to_submit' id='cancel_ticket_form' method='POST' action='/1_atms/public/tickets/{{ $tickets->id }}'>
+                                    @method('DELETE')
+                                    @csrf           
+                                    <button type='button' id='cancel_ticket' class='btn btn-danger mt-2' style='display:inline;'>Cancel Ticket</button>
+                                </form>
                             @endif
                         </div>
                     </div>

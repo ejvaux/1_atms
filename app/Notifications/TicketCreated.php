@@ -8,6 +8,7 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
 use App\Ticket;
 use App\Events\triggerEvent;
+use App\Custom\CustomFunctions;
 
 class TicketCreated extends Notification implements ShouldQueue
 {
@@ -50,7 +51,39 @@ class TicketCreated extends Notification implements ShouldQueue
         $t = Ticket::where('id',$this->ticket_id)->first();
         return (new MailMessage)
                 ->greeting('Hello! ' .$this->name)
-                ->line('Ticket #'.$t->ticket_id.' is created.')
+                ->line('Ticket <b>#'.$t->ticket_id.'</b> is by '.$t->user->name.'.')
+                ->line('<table class="table table-bordered">
+                <thead>
+                  <tr>
+                    <th scope="col" colspan="4">TICKET DETAILS</th>      
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <th scope="row" >Priority</th>
+                    <td>Low</td>
+                  </tr>
+                  <tr>
+                    <th scope="row">Department</th>
+                    <td>Accounting</td>
+                  </tr>
+                  <tr>
+                    <th scope="row">Category</th>
+                    <td>Hardware - Desktop</td>
+                  </tr>
+                  <tr>
+                    <th scope="row">Subject</th>
+                    <td>Test Subject</td>
+                  </tr>
+                </tbody>
+              </table>')
+                /* ->line('<span class="font-weight-bold center">TICKET DETAILS</span>')
+                ->line('Priority: '.CustomFunctions::priority_format($t->priority_id))
+                ->line('Department: '.$t->department->name)
+                ->line('Category: '.$t->category->name)
+                ->line('Subject: '.$t->subject)
+                ->line('Description: '.$t->message) */
+                ->line('For more info click on the link below.')              
                 ->action('View Ticket', $url)
                 ->line('Thank you for using our application!');
     }
