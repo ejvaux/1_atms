@@ -52,37 +52,13 @@ class TicketCreated extends Notification implements ShouldQueue
         return (new MailMessage)
                 ->greeting('Hello! ' .$this->name)
                 ->line('Ticket <b>#'.$t->ticket_id.'</b> is by '.$t->user->name.'.')
-                ->line('<table class="table table-bordered">
-                <thead>
-                  <tr>
-                    <th scope="col" colspan="4">TICKET DETAILS</th>      
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <th scope="row" >Priority</th>
-                    <td>Low</td>
-                  </tr>
-                  <tr>
-                    <th scope="row">Department</th>
-                    <td>Accounting</td>
-                  </tr>
-                  <tr>
-                    <th scope="row">Category</th>
-                    <td>Hardware - Desktop</td>
-                  </tr>
-                  <tr>
-                    <th scope="row">Subject</th>
-                    <td>Test Subject</td>
-                  </tr>
-                </tbody>
-              </table>')
-                /* ->line('<span class="font-weight-bold center">TICKET DETAILS</span>')
+                /* ->line('<table class="table table-bordered"><thead><tr><th scope="col" colspan="4">TICKET DETAILS</th></tr></thead><tbody><tr><th scope="row" >Priority</th><td>' . CustomFunctions::priority_format($t->priority_id) . '</td></tr><tr><th scope="row">Department</th><td>' . $t->department->name) . '</td></tr><tr><th scope="row">Category</th><td>' . $t->category->name . '</td></tr><tr><th scope="row">Subject</th><td>' . $t->subject . '</td></tr></tbody></table>') */
+                ->line('<b>TICKET DETAILS</b>')
                 ->line('Priority: '.CustomFunctions::priority_format($t->priority_id))
                 ->line('Department: '.$t->department->name)
                 ->line('Category: '.$t->category->name)
                 ->line('Subject: '.$t->subject)
-                ->line('Description: '.$t->message) */
+                ->line('Description: '.$t->message)
                 ->line('For more info click on the link below.')              
                 ->action('View Ticket', $url)
                 ->line('Thank you for using our application!');
