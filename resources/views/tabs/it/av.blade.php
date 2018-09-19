@@ -114,10 +114,25 @@
                     <div class='row mb-2'>
                         <div class='col-md-6'>
                             @if($tickets->assigned_to == '')
-                                <button type='button' id='assign_ticket' class='btn btn-secondary'>Assign Ticket </button>
+                                <button type='button' id='assign_ticket' class='btn btn-secondary'>Assign Ticket</button>
+                                <button type='button' id='decline_ticket' class='btn btn-warning' style='display:inline;'>Decline Ticket</button>
+                                <form class='form_to_submit' id='decline_ticket_form' method='POST' action='/1_atms/public/declined_ticket/transfer/{{ $tickets->id }}'>
+                                    @csrf
+                                    <input type='hidden' name='status_id' value='{{ $tickets->status_id }}'>
+                                    <input type='hidden' name='mod' value='default'>
+                                    <input type='hidden' name='url' value='/it/ctlv/{{ $tickets->id }}'>                                    
+                                </form>
                             @else
                                 @if($tickets->status_id == 2)
                                     <button type='button' id='assign_ticket' class='btn btn-secondary'>Reassign Ticket </button>
+                                @elseif($tickets->status_id == 5)
+                                    <form class='form_to_submit' id='close_ticket_form' method='POST' action='/1_atms/public/closed_ticket/transfer/{{ $tickets->id }}'>
+                                        @csrf
+                                        <input type='hidden' name='status_id' value='{{ $tickets->status_id }}'>
+                                        <input type='hidden' name='mod' value='default'>
+                                        <input type='hidden' name='url' value='/it/ctlv/{{ $tickets->id }}'>            
+                                        <button type='button' id='close_ticket' class='btn btn-danger mt-2' style='display:inline;'>Close Ticket</button>
+                                    </form>
                                 @endif
                                 <span class='font-weight-bold' style='font-size:1rem'>Assigned to {{ $tickets->assign->name }}</span> 
                             @endif
@@ -143,7 +158,7 @@
                                     <button type='submit' class='btn btn-secondary form_submit_button'>Assign</button>
                                     <button type='button' id='cancel_assign' class='btn btn-warning'>Cancel</button>
                                 </div>                                                                          
-                            </form>                                                                                    
+                            </form>                                                                                                               
                         </div>
                         <div class='col-md'>
                             @if($tickets->attach != null)
@@ -157,6 +172,7 @@
                         <div class='col-md'>
                             @if($tickets->user_id == Auth::user()->id)
                                 <button type='button' id='edit_ticket' class='btn btn-secondary'>Edit Ticket</button>
+                                <button type='button' id='cancel_ticket' class='btn btn-danger' style='display:inline;'>Cancel Ticket</button>
                                 <div id='edit_ticket_buttons' style='display:none'>
                                     <form class='form_to_submit' id='saveEditTicket' method='POST' action='/1_atms/public/tickets/{{ $tickets->id }}'>
                                         @method('PUT')
@@ -174,8 +190,7 @@
                                 </div>
                                 <form class='form_to_submit' id='cancel_ticket_form' method='POST' action='/1_atms/public/tickets/{{ $tickets->id }}'>
                                     @method('DELETE')
-                                    @csrf           
-                                    <button type='button' id='cancel_ticket' class='btn btn-danger mt-2' style='display:inline;'>Cancel Ticket</button>
+                                    @csrf                                    
                                 </form>
                             @endif
                         </div>

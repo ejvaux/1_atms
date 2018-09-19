@@ -16,7 +16,7 @@
                 @if(count($requests)>0)
                     @foreach($requests as $request)
                         <tr>
-                            <th>{{ $loop->iteration + (($tickets->currentPage() - 1) * 10) }}</th>
+                            <th>{{ $loop->iteration + (($requests->currentPage() - 1) * 10) }}</th>
                             <th>
                                 {!! CustomFunctions::priority_format($request->priority_id) !!}<br>
                                 <span style="font-size:.8rem">

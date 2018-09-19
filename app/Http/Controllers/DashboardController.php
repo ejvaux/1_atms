@@ -16,6 +16,7 @@ use Carbon\Carbon;
 use App\Charts\TicketsReport;
 use DB;
 use App\Custom\CustomFunctions;
+use App\DeclinedTicket;
 
 class DashboardController extends Controller
 {
@@ -190,6 +191,18 @@ class DashboardController extends Controller
         $updatetext = '';
         return view('tabs.it.actlv',compact('tickets','updates','updatetext','priorities','statuses'));
     }
+    public function declinedticket(){
+        $tickets = DeclinedTicket::orderBy('id','desc')->paginate(10);
+        return view('tabs.it.dtl',compact('tickets'));
+    }
+    public function declinedticketview($id){
+        $tickets = DeclinedTicket::where('id',$id)->first();   
+        $priorities = Priority::orderBy('id')->get();
+        $statuses = Status::orderBy('id')->get();
+        $updates = TicketUpdates::where('ticket_id',$id)->get();
+        $updatetext = '';
+        return view('tabs.it.dtv',compact('tickets','updates','updatetext','priorities','statuses'));
+    }
 
     // Search
     public function adminsearchticket($id)
@@ -253,7 +266,6 @@ class DashboardController extends Controller
         /* $tickets = Ticket::where([['id','=',$id],['assigned_to','=', Auth::user()->id]])->orderBy('id','desc')->paginate(10); */   
         return view('tabs.it.ht',compact('tickets'));
     }
-
     public function searchhandledclosedticket($id){
         $tickets = ClosedTicket::join('users', 'users.id', '=', 'closed_tickets.user_id')
                         ->join('priorities', 'priorities.id', '=', 'closed_tickets.priority_id')
@@ -352,6 +364,27 @@ class DashboardController extends Controller
                         ->paginate(10);
         return view('tabs.it.ahct',compact('tickets'));
     }
+    public function searchdeclinedticket($id)
+    {
+        $tickets = DeclinedTicket::join('users', 'users.id', '=', 'declined_tickets.user_id')
+                        ->join('priorities', 'priorities.id', '=', 'declined_tickets.priority_id')
+                        ->join('categories', 'categories.id', '=', 'declined_tickets.category_id')
+                        ->join('statuses', 'statuses.id', '=', 'declined_tickets.status_id')
+                        ->select('declined_tickets.*','users.name as username','priorities.name as priority','categories.name as category','statuses.name as status')
+                        /* ->where('assigned_to',Auth::user()->id) */
+                        ->where(function ($query) use($id) {
+                            $query->where('declined_tickets.id','like','%'.$id.'%')
+                                ->orWhere('declined_tickets.ticket_id','like','%'.$id.'%')
+                                ->orWhere('users.name','like','%'.$id.'%')
+                                ->orWhere('priorities.name','like','%'.$id.'%')
+                                ->orWhere('categories.name','like','%'.$id.'%')
+                                ->orWhere('statuses.name','like','%'.$id.'%')
+                                ->orWhere('declined_tickets.subject','like','%'.$id.'%');
+                        })                        
+                        ->orderBy('declined_tickets.id','desc')
+                        ->paginate(10);
+        return view('tabs.it.dtl',compact('tickets'));
+    }
 
     // Reports
     public function ticketreports(){
@@ -443,6 +476,7 @@ class DashboardController extends Controller
         SELECT tickets.department_id, tickets.id, departments.id, departments.name FROM `tickets` RIGHT OUTER JOIN departments ON departments.id = tickets.department_id'); */
         /* DB::select('SELECT count(tickets.department_id) as total, departments.name FROM `tickets` 
         RIGHT OUTER JOIN departments ON departments.id = tickets.department_id GROUP BY departments.name'); */
-        CustomFunctions::generateRequestNumber();
+        /* CustomFunctions::generateRequestNumber(); */
+        DB::select('SELECT * FROM `cctv_reviews` WHERE `user_id` = '.Auth::user()->id.' OR `assigned_to` = '.Auth::user()->id);
     }
 }

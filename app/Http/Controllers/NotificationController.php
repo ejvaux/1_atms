@@ -9,6 +9,7 @@ use App\Notifications\PriorityChanged;
 use App\Notifications\StatusChanged;
 use App\Notifications\TicketClosed;
 use App\Notifications\TicketCreated;
+use App\Notifications\TicketDeclined;
 use App\Notifications\ReviewRequestCreated;
 use App\Notifications\ReviewRequestAssigned;
 use App\Notifications\ReviewRequestAccepted;
@@ -42,6 +43,9 @@ class NotificationController extends Controller
             return redirect(url('/it/ctlv/'.$tid));
         }
         else if($mod == 'request'){
+            return redirect(url('/cr/crv/'.$tid));
+        }
+        else if($mod == 'decline'){
             return redirect(url('/cr/crv/'.$tid));
         }
     }
@@ -81,7 +85,14 @@ class NotificationController extends Controller
     public function ticketclose($id,$tid){
         $user = User::where('id',$id)->first();
         $user->notify(new TicketClosed($tid,$user->name));
-        return redirect('/it/ht')->with('success','Ticket Closed Successfully.');
+        /* return redirect('/it/ht')->with('success','Ticket Closed Successfully.'); */
+        return redirect()->back()->with('success','Ticket Closed Successfully.');
+    }
+    public function ticketdecline($id,$tid){
+        $user = User::where('id',$id)->first();
+        $user->notify(new TicketDeclined($tid,$user->name));
+        /* return redirect('/it/ht')->with('success','Ticket Closed Successfully.'); */
+        return redirect()->back()->with('success','Ticket Declined Successfully.');
     }
     
     // CCTV Request

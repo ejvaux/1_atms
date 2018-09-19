@@ -41,6 +41,7 @@ Route::get('/notification/ticketaccept/{id}/{tid}/{tech}', 'NotificationControll
 Route::get('/notification/ticketpriority/{id}/{tid}/{prio}', 'NotificationController@ticketpriority');
 Route::get('/notification/ticketstatus/{id}/{tid}/{stat}', 'NotificationController@ticketstatus');
 Route::get('/notification/ticketclose/{id}/{tid}', 'NotificationController@ticketclose');
+Route::get('/notification/ticketdecline/{id}/{tid}', 'NotificationController@ticketdecline');
 
 // CCTV Review Notification
 Route::get('/notification/requestcreate/{tid}', 'NotificationController@requestcreate');
@@ -96,12 +97,15 @@ Route::get('/it/ahtv/{id}', ['uses' => 'DashboardController@adminviewhandledtick
 Route::get('/it/ct', 'DashboardController@createticket');
 Route::get('/it/cu', 'DashboardController@contact');
 Route::get('/it/rp','DashboardController@ticketreports');
+Route::get('/it/dtl','DashboardController@declinedticket');
+Route::get('/it/dtv/{id}','DashboardController@declinedticketview');
 
 // IT Search
 Route::get('/it/al/{id}', ['uses' => 'DashboardController@adminsearchticket']);
 Route::get('/it/aq/{id}','DashboardController@searchadminqueue');
 Route::get('/it/ahct/{id}','DashboardController@searchadminhandledclosedticket');
 Route::get('/it/actl/{id}','DashboardController@searchadminclosedticket');
+Route::get('/it/dtl/{id}','DashboardController@searchdeclinedticket');
 
 Route::get('/it/lt/{id}','DashboardController@searchticket');
 Route::get('/it/ht/{id}','DashboardController@searchhandledticket');
@@ -114,9 +118,13 @@ Route::get('/cr/crc','ReviewsController@reviewcreate');
 Route::get('/cr/crv/{id}','ReviewsController@viewreview');
 // Load list
 Route::get('/loadlist/{id}','ReviewsController@loadlist');
+// Search
+Route::get('/cr/crl/{id}','ReviewsController@reviewlistsearch');
 
 // Custom Table Resource
 Route::post('closed_ticket/transfer/{id}','ClosedTicketController@transferticket');
+Route::post('declined_ticket/transfer/{id}','DeclinedTicketController@transferticket');
+
 
 // Tables
 Route::resources([
@@ -127,6 +135,7 @@ Route::resources([
     'ticket_updates' => 'TicketUpdatesController',
     'closed_ticket' => 'ClosedTicketController',
     'cctvreview' => 'CctvReviewsController',
+    'declined_ticket' => 'DeclinedTicketController',
 ]);
 Route::get('testing', function () {
     event(new App\Events\TicketCreated('Someone'));
