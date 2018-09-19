@@ -16,14 +16,26 @@
     </div>
     <div class="row mb-3">
         @if(Auth::user()->tech == true)
-            <div class='col-md'>
+            <div class='col-md-3'>
                 <div class="btn-group" role="group" aria-label="Basic example">
-                    <a class="btn btn-secondary" href='/1_atms/public/it/ht'>Handled</a>
-                    <a class="btn btn-secondary" href='/1_atms/public/it/ctl'>Closed</a>
+                    {{-- <a class="btn btn-secondary" href='/1_atms/public/it/ht'>Handled</a> --}}
+                    <a class='btn btn-secondary' href='/1_atms/public/it/ct'>Create Ticket</a>
+                    {{-- <a class="btn btn-secondary" href='/1_atms/public/it/ctl'>Closed</a> --}}
                 </div>
+                <a class="btn btn-secondary" href='/1_atms/public/it/ctl'>Closed</a>
             </div>
-            <div class='col-md-3 text-right'>
+            {{-- <div class='col-md-3'>
                 <a class='btn btn-secondary' href='/1_atms/public/it/ct'>Create Ticket</a>
+            </div> --}}
+            <div class='col-md'></div>
+            <div class='col-md-3 input-group'>
+                <div class='input-group-prepend'>
+                    <label class='input-group-text'>Sort by: </label>
+                </div>
+                <select id='sortticketdd' class="form-control">
+                    <option value='all'>All</option>
+                    <option value='handled'>Handled</option>
+                </select>
             </div>
         @else
             <div class='col-md-3'>
@@ -35,9 +47,9 @@
             <div class='input-group-prepend'>
                 <label class='input-group-text'>Sort by: </label>
             </div>
-            <select id='sortrequestdd' class="form-control">
+            <select id='sortticketdd' class="form-control">
                 <option value='all'>All</option>
-                <option value='handled'>Closed</option>
+                <option value='closed'>Closed</option>
             </select>
         </div> --}}
         

@@ -99,6 +99,8 @@ Route::get('/it/cu', 'DashboardController@contact');
 Route::get('/it/rp','DashboardController@ticketreports');
 Route::get('/it/dtl','DashboardController@declinedticket');
 Route::get('/it/dtv/{id}','DashboardController@declinedticketview');
+// Load list
+Route::get('/loadticketlist/{id}','DashboardController@loadticketlist');
 
 // IT Search
 Route::get('/it/al/{id}', ['uses' => 'DashboardController@adminsearchticket']);
@@ -124,7 +126,6 @@ Route::get('/cr/crl/{id}','ReviewsController@reviewlistsearch');
 // Custom Table Resource
 Route::post('closed_ticket/transfer/{id}','ClosedTicketController@transferticket');
 Route::post('declined_ticket/transfer/{id}','DeclinedTicketController@transferticket');
-
 
 // Tables
 Route::resources([

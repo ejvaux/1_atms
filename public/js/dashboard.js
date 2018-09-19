@@ -504,5 +504,73 @@ function loadscript(){
 	$('#app').on('submit','.form_to_submit',function(){
 		$('.form_submit_button').prop('disabled', true);
 	});
+
+	// Load List
+	$('#app').on('change','#sortticketdd',function(){
+		// alert($(this).val());
+		var m = $(this).val();
+		/* alert(m); */
+		if(m == 'all'){
+			$.ajax({
+				type		: "GET",
+				url		    : "/1_atms/public/loadticketlist/1",
+				success		: function(html) {					
+								$("#table_list").html(html).show('slow');
+							},
+							error : function (jqXHR, textStatus, errorThrown) {							
+									window.location.href = '/1_atms/public/login';
+							} //end function
+			});//close ajax
+		}
+		else if(m == 'handled'){
+			$.ajax({
+				type		: "GET",
+				url		    : "/1_atms/public/loadticketlist/2",
+				success		: function(html) {					
+								$("#table_list").html(html).show('slow');
+							},
+							error : function (jqXHR, textStatus, errorThrown) {							
+									window.location.href = '/1_atms/public/login';
+							} //end function
+			});//close ajax
+		}
+		else if(m == 'closed'){
+			$.ajax({
+				type		: "GET",
+				url		    : "/1_atms/public/loadticketlist/3",
+				success		: function(html) {					
+								$("#table_list").html(html).show('slow');
+							},
+							error : function (jqXHR, textStatus, errorThrown) {							
+									window.location.href = '/1_atms/public/login';
+							} //end function
+			});//close ajax
+			/* window.location = '/1_atms/public/it/ctl'; */
+		}
+	});
+	/* ------------------- Search ------------------- */
+	$('#app').on('click','#search1',function(){
+		var type = $('sortticketdd').val();
+		var tid = $('#searchtextbox1').val();
+		var url = $(this).val();
+		alert(url + type + '/' + tid);
+		/* if(tid == ""){
+			window.location = url + type;
+		}
+		else{
+			window.location = url + type + '/' + tid;
+		} */									
+	});
+	/* $('#app').on("keypress keyup blur",'#searchtextbox',function (event) {    
+		$(this).val($(this).val().replace(/[^\d].+/, ""));
+		if ((event.which < 48 || event.which > 57)) {
+			event.preventDefault();
+		}
+	}); */
+	$('#app').on("keyup",'#searchtextbox1',function(e) {
+		if (e.keyCode == 13) {
+			$('#search1').trigger('click');
+		}
+	});
 }
 loadscript();
