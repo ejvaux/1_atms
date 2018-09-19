@@ -74,13 +74,12 @@ class DashboardController extends Controller
     }
     public function listticket()
     {
-        $tickets = Ticket::where('user_id',Auth::user()->id)->orderBy('id','desc')->paginate(10);
-        /* $ntickets = Ticket::where('user_id',Auth::user()->id)->orderBy('id','desc')->get();
-        $ctickets = ClosedTicket::where('user_id',Auth::user()->id)->orderBy('id','desc')->get(); */
-        /* $ntickets = Ticket::query()->get();
-        $ctickets = ClosedTicket::query()->get();
-        $tickets = $ntickets->union($ctickets); */
-        /* $tickets = array_merge($ntickets->toArray(), $ctickets->toArray()); */       
+        $tickets = Ticket::where('user_id',Auth::user()->id)->orWhere('assigned_to',Auth::user()->id)->orderBy('id','desc')->paginate(10);
+        /* $ntickets = DB::table('tickets')->where('user_id',Auth::user()->id)->get();
+        $tickets = DB::table('closed_tickets')->where('user_id',Auth::user()->id)->union($ntickets)->get(); */
+        /* $tickets = DB::select('SELECT * FROM `tickets`  WHERE `user_id` = 3
+        UNION ALL
+        SELECT * FROM `closed_tickets` WHERE `user_id` = 3 ORDER BY `id` DESC'); */
         return view('tabs.it.lt', compact('tickets'));
     }
     public function viewticket($id)
@@ -231,7 +230,10 @@ class DashboardController extends Controller
                         ->join('categories', 'categories.id', '=', 'tickets.category_id')
                         ->join('statuses', 'statuses.id', '=', 'tickets.status_id')
                         ->select('tickets.*','users.name as username','priorities.name as priority','categories.name as category','statuses.name as status')
-                        ->where('user_id',Auth::user()->id)
+                        ->where(function ($query) use($id) {
+                            $query->where('user_id',Auth::user()->id)
+                                ->orWhere('assigned_to',Auth::user()->id);
+                        })                        
                         ->where(function ($query) use($id) {
                             $query->where('tickets.id','like','%'.$id.'%')
                                 ->orWhere('tickets.ticket_id','like','%'.$id.'%')
@@ -470,6 +472,39 @@ class DashboardController extends Controller
         /* $chart->dataset('Total Tickets', 'doughnut', $dt)->options(['backgroundColor' => CustomFunctions::colorsets()]); */   
         return view('tabs.it.rp',compact('ticketdepartmentchart','data','totalticketchart','newticket','openticket','assignedticket','totalresolvedticket','trtime','trentime','rtime'));
     }
+    // Load List
+    public function loadticketlist($id){
+        if(Auth::user()->admin == true){           
+            if($id == '1'){
+                $tickets = CctvReview::orderBy('id','desc')->paginate(10);
+            }
+            else if($id == '2'){
+                $tickets = CctvReview::where('assigned_to',Auth::user()->id)->orderBy('id','desc')->paginate(10);
+            }
+        }
+        else{
+            if(Auth::user()->tech == true){
+                if($id == '1'){
+                    $tickets = Ticket::where('user_id',Auth::user()->id)->orWhere('assigned_to',Auth::user()->id)->orderBy('id','desc')->paginate(10);
+                }
+                else if($id == '2'){
+                    $tickets = Ticket::where('assigned_to',Auth::user()->id)->orderBy('id','desc')->paginate(10);
+                }
+                else if($id == '3'){
+                    $tickets = ClosedTicket::where('user_id',Auth::user()->id)->orWhere('assigned_to',Auth::user()->id)->orderBy('id','desc')->paginate(10);
+                }
+            }
+            else{
+                if($id == '1'){
+                    $tickets = Ticket::where('user_id',Auth::user()->id)->orderBy('id','desc')->paginate(10);
+                }
+                else if($id == '3'){
+                    $tickets = ClosedTicket::where('user_id',Auth::user()->id)->orderBy('id','desc')->paginate(10);
+                }
+            }                 
+        }
+        return view('inc.ticketlist',compact('tickets'));
+    }
     public function testdb(){
         return 
         /* DB::select('SELECT tickets.department_id, tickets.id, departments.id, departments.name FROM `tickets` LEFT OUTER JOIN departments ON departments.id = tickets.department_id UNION
@@ -477,6 +512,7 @@ class DashboardController extends Controller
         /* DB::select('SELECT count(tickets.department_id) as total, departments.name FROM `tickets` 
         RIGHT OUTER JOIN departments ON departments.id = tickets.department_id GROUP BY departments.name'); */
         /* CustomFunctions::generateRequestNumber(); */
-        DB::select('SELECT * FROM `cctv_reviews` WHERE `user_id` = '.Auth::user()->id.' OR `assigned_to` = '.Auth::user()->id);
+        /* DB::select('SELECT * FROM `cctv_reviews` WHERE `user_id` = '.Auth::user()->id.' OR `assigned_to` = '.Auth::user()->id); */
+        ClosedTicket::where('user_id',Auth::user()->id)->orderBy('id','desc')->get();
     }
 }
