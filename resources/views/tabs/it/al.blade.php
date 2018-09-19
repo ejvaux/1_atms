@@ -18,7 +18,8 @@
         <div class='col-lg'>
             <div class="btn-group" role="group" aria-label="Basic example">
                 <a class="btn btn-secondary" href='/1_atms/public/it/aq'>Handled</a>
-                <a class="btn btn-secondary" href='/1_atms/public/it/actl'>Closed</a>
+                <a class="btn btn-secondary" href='/1_atms/public/it/dtl'>Declined</a>
+                <a class="btn btn-secondary" href='/1_atms/public/it/actl'>Closed</a>                
             </div>
         </div>
         <div class='col-md-3 text-right mr-0 pr-1'>
@@ -85,15 +86,26 @@
                                                     {{$ticket->user->name}}
                                                 @endif
                                             </span>                                        
-                                            <span class='text-muted ml-1'><i class="fa fa-folder"></i> 
+                                            <span class='text-muted ml-2'><i class="fa fa-building"></i> 
+                                                @if($ticket->department->name == null)
+                                                    {{$ticket->department}}
+                                                @else
+                                                    {{$ticket->department->name}}
+                                                @endif
+                                            </span>
+                                        </div>
+                                    </div>
+                                    <div class='row' style='font-size:.8rem'>
+                                        <div class='col-lg'>                                            
+                                            <span class='text-muted'><i class="fa fa-folder"></i> 
                                                 @if(empty ( $ticket->category->name ))
                                                     {{$ticket->category}}
                                                 @else
                                                     {{$ticket->category->name}}
                                                 @endif
-                                            </span>
+                                            </span>                                           
                                         </div>
-                                    </div>                                   
+                                    </div>                             
                                 </th>
                                 <th>
                                     <div class='row'>

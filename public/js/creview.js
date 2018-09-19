@@ -110,6 +110,23 @@ $('#app').on('click','#req_cancel_change_status',function(){
     $('#req_change_status').hide();
 });
 
+/* ------------------- Search ------------------- */
+$('#app').on('click','#search',function(){	
+    var tid = $('#searchtextbox').val();
+    var url = $(this).val();
+    if(tid == ""){
+        window.location = url;
+    }
+    else{
+        window.location = url + tid;
+    }									
+});
+$('#app').on("keyup",'#searchtextbox',function(e) {
+    if (e.keyCode == 13) {
+        $('#search').trigger('click');
+    }
+});
+
 /* -------------------- Resolving Request -------------------- */
 /* $('#app').on('submit','#req_change_status_form',function(e){		
     e.preventDefault();

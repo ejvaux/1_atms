@@ -482,6 +482,25 @@ function loadscript(){
 		$('#edit_ticket').show();
 		$('.editticketlabel').show();	
 	});
+	
+	// Decline ticket
+	$('#app').on('click','#decline_ticket',function(){
+		/* decline_ticket_form */
+		swal({
+			title: 'Are you sure?',
+			text: "You won't be able to revert this!",
+			type: 'warning',
+			showCancelButton: true,
+			confirmButtonColor: '#3085d6',
+			cancelButtonColor: '#d33',
+			confirmButtonText: 'Yes, decline it!'
+		  }).then((result) => {
+		if (result.value) {
+			$('#decline_ticket_form').trigger('submit');
+		}
+	})
+	});
+
 	$('#app').on('submit','.form_to_submit',function(){
 		$('.form_submit_button').prop('disabled', true);
 	});
