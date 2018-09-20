@@ -21,26 +21,29 @@
                     {{-- <a class="btn btn-secondary" href='/1_atms/public/it/ht'>Handled</a> --}}
                     <a class='btn btn-secondary' href='/1_atms/public/it/ct'>Create Ticket</a>
                     {{-- <a class="btn btn-secondary" href='/1_atms/public/it/ctl'>Closed</a> --}}
-                </div>
-                <a class="btn btn-secondary" href='/1_atms/public/it/ctl'>Closed</a>
+                </div>                
             </div>
             {{-- <div class='col-md-3'>
                 <a class='btn btn-secondary' href='/1_atms/public/it/ct'>Create Ticket</a>
             </div> --}}
-            <div class='col-md'></div>
-            <div class='col-md-3 input-group'>
+            <div class='col-md text-right'><a class="btn btn-secondary" href='/1_atms/public/it/ctl'>Closed</a></div>
+            <div class='col-md-3 input-group'>                    
                 <div class='input-group-prepend'>
                     <label class='input-group-text'>Sort by: </label>
                 </div>
                 <select id='sortticketdd' class="form-control">
                     <option value='all'>All</option>
-                    <option value='handled'>Handled</option>
+                    @if($sorting == 2)
+                        <option value='handled' selected="selected">Handled</option>
+                    @else
+                        <option value='handled'>Handled</option>
+                    @endif  
                 </select>
             </div>
         @else
             <div class='col-md-3'>
-                <a class="btn btn-secondary" href='/1_atms/public/it/ctl'>Closed</a>
                 <a class='btn btn-secondary' href='/1_atms/public/it/ct'>Create Ticket</a>
+                <a class="btn btn-secondary" href='/1_atms/public/it/ctl'>Closed</a>                
             </div>
         @endif
         {{-- <div class='col-md-3 ml-auto input-group'>

@@ -95,7 +95,57 @@
                     </div>
                 </div>
                 <div class='row mb-2'>
-                    <div class='col-md-6'>                        
+                    <div class='col-md-6'>
+                        {{-- assigning --}}
+                        @if(Auth::user()->admin == true)
+                        @if($tickets->assigned_to == '')
+                            <button type='button' id='assign_ticket' class='btn btn-secondary assign_grp'>Assign Ticket</button>
+                            <button type='button' id='decline_ticket' class='btn btn-warning assign_grp' style='display:inline;'>Decline Ticket</button>
+                            <form class='form_to_submit' id='decline_ticket_form' method='POST' action='/1_atms/public/declined_ticket/transfer/{{ $tickets->id }}'>
+                                @csrf
+                                <input type='hidden' name='status_id' value='{{ $tickets->status_id }}'>
+                                <input type='hidden' name='mod' value='default'>
+                                <input type='hidden' name='url' value='/it/ctlv/{{ $tickets->id }}'>                                    
+                            </form>
+                        @else
+                            @if($tickets->status_id == 2)
+                                <button type='button' id='assign_ticket' class='btn btn-secondary assign_grp'>Reassign Ticket </button>
+                            @elseif($tickets->status_id == 5)
+                                <form class='form_to_submit' id='close_ticket_form' method='POST' action='/1_atms/public/closed_ticket/transfer/{{ $tickets->id }}'>
+                                    @csrf
+                                    <input type='hidden' name='status_id' value='{{ $tickets->status_id }}'>
+                                    <input type='hidden' name='mod' value='default'>
+                                    <input type='hidden' name='url' value='/it/ctlv/{{ $tickets->id }}'>            
+                                    <button type='button' id='close_ticket' class='btn btn-danger mt-2' style='display:inline;'>Close Ticket</button>
+                                </form>
+                            @endif
+                            <span class='font-weight-bold assign_grp' style='font-size:1rem'>Assigned to {{ $tickets->assign->name }}</span> 
+                        @endif
+                        <span class='font-weight-bold' id='assign_label' style='font-size:1rem'></span> 
+                        <form class='form_to_submit' method='POST' action='/1_atms/public/tickets/{{ $tickets->id }}'>
+                            @method('PUT')
+                            @csrf
+                            <input type='hidden' name='status_id' value='2'>
+                            <input type='hidden' name='mod' value='assign'>
+                            <input type='hidden' name='assigner' value='{{ Auth::user()->name }}'>
+                            <input type='hidden' name='url' value='/it/htv/{{ $tickets->id }}'>
+                            <input type='hidden' name='ticket_id' value='{{ $tickets->id }}'>
+                            <div class='input-group' id='dd_assigned_to' style='display:none'>
+                                <select type="text" class="form-control" id="assigned_to" name="assigned_to" placeholder="" required>
+                                    <option value="">- Select Tech -</option>                            
+                                    @foreach($users as $user)
+                                        {{-- @if($user->id != $tickets->user_id)
+                                            <option value="{{$user->id}}">{{$user->name}}</option>
+                                        @endif --}}
+                                        <option value="{{$user->id}}">{{$user->name}}</option>
+                                    @endforeach
+                                </select>
+                                <button type='submit' class='btn btn-secondary form_submit_button'>Assign</button>
+                                <button type='button' id='cancel_assign' class='btn btn-warning'>Cancel</button>
+                            </div>                                                                          
+                        </form>
+                        @endif
+                        {{-- old --}}
                         @if($tickets->status_id == 2)                        
                             @if($tickets->assigned_to == Auth::user()->id)
                                 <form class='form_to_submit' method='POST' action='/1_atms/public/tickets/{{ $tickets->id }}'>
@@ -108,7 +158,7 @@
                                     <button type='submit' id='accept_ticket' class='btn btn-secondary form_submit_button'>Accept Ticket</button>
                                 </form>
                             @else
-                                <span class='font-weight-bold' style='font-size:1rem'>Assigned to {{ $tickets->assign->name }}</span>
+                                {{-- <span class='font-weight-bold' style='font-size:1rem'>Assigned to {{ $tickets->assign->name }}</span> --}}
                             @endif
                         @elseif(!($tickets->status_id == 1 || $tickets->status_id == 2))
                             @if($tickets->assigned_to != null)                         
@@ -179,6 +229,7 @@
                     <div class='col-md'>
                         @if($tickets->user_id == Auth::user()->id)
                             <button type='button' id='edit_ticket' class='btn btn-secondary'>Edit Ticket</button>
+                            <button type='button' id='cancel_ticket' class='btn btn-danger'>Cancel Ticket</button>
                             <div id='edit_ticket_buttons' style='display:none'>
                                 <form class='form_to_submit' id='saveEditTicket' method='POST' action='/1_atms/public/tickets/{{ $tickets->id }}'>
                                     @method('PUT')
@@ -200,7 +251,7 @@
                                 {{-- <input type='hidden' name='status_id' value='{{ $tickets->status_id }}'>
                                 <input type='hidden' name='mod' value='default'>
                                 <input type='hidden' name='url' value='/it/ctlv/{{ $tickets->id }}'> --}}            
-                                <button type='button' id='cancel_ticket' class='btn btn-danger mt-2' style='display:inline;'>Cancel Ticket</button>
+                                {{-- <button type='button' id='cancel_ticket' class='btn btn-danger mt-2' style='display:inline;'>Cancel Ticket</button> --}}
                             </form>
                         @endif
                     </div>

@@ -65,22 +65,26 @@ class NotificationController extends Controller
         $tech = User::where('id',$tech)->first();
         $user->notify(new TicketAssigned($tid,$user->name,'user'));
         $tech->notify(new TicketAssigned($tid,$tech->name,'tech'));
-        return redirect('/it/av/'.$tid)->with('success','Ticket Assigned Successfully.'); 
+        return redirect()->back()->with('success','Ticket Assigned Successfully.');
+        /* return redirect('/it/av/'.$tid)->with('success','Ticket Assigned Successfully.'); */ 
     }
     public function ticketaccept($id,$tid,$tech){
         $user = User::where('id',$id)->first();
         $user->notify(new TicketAccepted($tid,$user->name,$tech));
-        return redirect('/it/htv/'.$tid)->with('success','Ticket Accepted Successfully.'); 
+        return redirect()->back()->with('success','Ticket Accepted Successfully.');
+        /* return redirect('/it/htv/'.$tid)->with('success','Ticket Accepted Successfully.'); */ 
     }
     public function ticketpriority($id,$tid,$prio){
         $user = User::where('id',$id)->first();
         $user->notify(new PriorityChanged($tid,$user->name,$prio));
-        return redirect('/it/htv/'.$tid)->with('success','Priority Changed Successfully.');
+        return redirect()->back()->with('success','Priority Changed Successfully.');
+        /* return redirect('/it/htv/'.$tid)->with('success','Priority Changed Successfully.'); */
     }
     public function ticketstatus($id,$tid,$stat){
         $user = User::where('id',$id)->first();
         $user->notify(new StatusChanged($tid,$user->name,$stat));
-        return redirect('/it/htv/'.$tid)->with('success','Status Changed Successfully.');
+        return redirect()->back()->with('success','Status Changed Successfully.');
+        /* return redirect('/it/htv/'.$tid)->with('success','Status Changed Successfully.'); */
     }
     public function ticketclose($id,$tid){
         $user = User::where('id',$id)->first();

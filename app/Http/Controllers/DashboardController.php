@@ -60,7 +60,8 @@ class DashboardController extends Controller
     public function adminlistticket(){
         /* $statuses = Status::orderBy('id')->get(); */
         $tickets = Ticket::sortable()->orderBy('id','desc')->paginate(10);
-        return view('tabs.it.al', compact('tickets'));
+        $sorting = '1';
+        return view('tabs.it.al', compact('tickets','sorting'));
     }
     public function adminviewticket($id)
     {
@@ -74,13 +75,9 @@ class DashboardController extends Controller
     }
     public function listticket()
     {
-        $tickets = Ticket::where('user_id',Auth::user()->id)->orWhere('assigned_to',Auth::user()->id)->orderBy('id','desc')->paginate(10);
-        /* $ntickets = DB::table('tickets')->where('user_id',Auth::user()->id)->get();
-        $tickets = DB::table('closed_tickets')->where('user_id',Auth::user()->id)->union($ntickets)->get(); */
-        /* $tickets = DB::select('SELECT * FROM `tickets`  WHERE `user_id` = 3
-        UNION ALL
-        SELECT * FROM `closed_tickets` WHERE `user_id` = 3 ORDER BY `id` DESC'); */
-        return view('tabs.it.lt', compact('tickets'));
+        $tickets = Ticket::where('user_id',Auth::user()->id)->orWhere('assigned_to',Auth::user()->id)->orderBy('id','desc')->paginate(10);        
+        $sorting = '1';
+        return view('tabs.it.lt', compact('tickets','sorting'));
     }
     public function viewticket($id)
     {
@@ -90,8 +87,9 @@ class DashboardController extends Controller
         $statuses = Status::orderBy('id')->get();
         $priorities = Priority::orderBy('id')->get();
         $updates = TicketUpdates::where('ticket_id',$id)->get();
+        $users = User::where('tech',1)->get();
         $updatetext = '';
-        return view('tabs.it.vt', compact('tickets','updates','updatetext','priorities','statuses','departments','categories'));
+        return view('tabs.it.vt', compact('tickets','updates','updatetext','priorities','statuses','departments','categories','users'));
     }
     public function createticket()
     {
@@ -142,14 +140,13 @@ class DashboardController extends Controller
         return view('tabs.it.ahtv', compact('tickets','updates','updatetext','priorities','statuses','departments','categories'));
     }
     public function closedticket(){
-        $tickets = ClosedTicket::where('user_id',Auth::user()->id)->orderBy('id','desc')->paginate(10);
+        $tickets = ClosedTicket::where('user_id',Auth::user()->id)->orWhere('assigned_to',Auth::user()->id)->orderBy('id','desc')->paginate(10);
         return view('tabs.it.ctl',compact('tickets'));
     }
     public function adminclosedticket(){
         $tickets = ClosedTicket::orderBy('id','desc')->paginate(10);
         return view('tabs.it.actl',compact('tickets'));
-    }   
-
+    }
     public function handledclosedticket(){
         $tickets = ClosedTicket::where('assigned_to',Auth::user()->id)->orderBy('id','desc')->paginate(10);
         return view('tabs.it.hct',compact('tickets'));
@@ -202,7 +199,6 @@ class DashboardController extends Controller
         $updatetext = '';
         return view('tabs.it.dtv',compact('tickets','updates','updatetext','priorities','statuses'));
     }
-
     // Search
     public function adminsearchticket($id)
     {
@@ -220,8 +216,9 @@ class DashboardController extends Controller
                         ->orWhere('tickets.subject','like','%'.$id.'%')
                         ->orderBy('tickets.id','desc')
                         ->paginate(10);
-        /* return $tickets; */                                
-        return view('tabs.it.al', compact('tickets'));
+        /* return $tickets; */
+        $sorting = '1';                               
+        return view('tabs.it.al', compact('tickets','sorting'));
     }
     public function searchticket($id)
     {
@@ -244,8 +241,9 @@ class DashboardController extends Controller
                                 ->orWhere('tickets.subject','like','%'.$id.'%');
                         })
                         ->orderBy('tickets.id','desc')
-                        ->paginate(10);                          
-        return view('tabs.it.lt', compact('tickets'));
+                        ->paginate(10);
+        $sorting = '1';                         
+        return view('tabs.it.lt', compact('tickets','sorting'));
     }
     public function searchhandledticket($id){
         $tickets = Ticket::join('users', 'users.id', '=', 'tickets.user_id')
@@ -305,7 +303,7 @@ class DashboardController extends Controller
                                 ->orWhere('closed_tickets.subject','like','%'.$id.'%');
                         })                        
                         ->orderBy('closed_tickets.id','desc')
-                        ->paginate(10);        
+                        ->paginate(10);
         return view('tabs.it.ctl',compact('tickets'));
     }
     public function searchadminclosedticket($id){
@@ -476,34 +474,44 @@ class DashboardController extends Controller
     public function loadticketlist($id){
         if(Auth::user()->admin == true){           
             if($id == '1'){
-                $tickets = CctvReview::orderBy('id','desc')->paginate(10);
+                $tickets = Ticket::sortable()->orderBy('id','desc')->paginate(10);
+                $sorting = '1';
+                return view('tabs.it.al',compact('tickets','sorting'));
             }
             else if($id == '2'){
-                $tickets = CctvReview::where('assigned_to',Auth::user()->id)->orderBy('id','desc')->paginate(10);
+                $tickets = Ticket::sortable()->where('assigned_to',Auth::user()->id)->orderBy('id','desc')->paginate(10);
+                $sorting = '2';
+                return view('tabs.it.al',compact('tickets','sorting'));
             }
         }
         else{
             if(Auth::user()->tech == true){
                 if($id == '1'){
-                    $tickets = Ticket::where('user_id',Auth::user()->id)->orWhere('assigned_to',Auth::user()->id)->orderBy('id','desc')->paginate(10);
+                    $tickets = Ticket::sortable()->where('user_id',Auth::user()->id)->orWhere('assigned_to',Auth::user()->id)->orderBy('id','desc')->paginate(10);
+                    $sorting = '1';
+                    return view('tabs.it.lt',compact('tickets','sorting'));
                 }
                 else if($id == '2'){
-                    $tickets = Ticket::where('assigned_to',Auth::user()->id)->orderBy('id','desc')->paginate(10);
+                    $tickets = Ticket::sortable()->where('assigned_to',Auth::user()->id)->orderBy('id','desc')->paginate(10);
+                    $sorting = '2';
+                    return view('tabs.it.lt',compact('tickets','sorting'));
                 }
-                else if($id == '3'){
-                    $tickets = ClosedTicket::where('user_id',Auth::user()->id)->orWhere('assigned_to',Auth::user()->id)->orderBy('id','desc')->paginate(10);
-                }
+                /* else if($id == '3'){
+                    $tickets = ClosedTicket::sortable()->where('user_id',Auth::user()->id)->orWhere('assigned_to',Auth::user()->id)->orderBy('id','desc')->paginate(10);
+                    $sorting = '3';
+                    return view('tabs.it.lt',compact('tickets','sorting'));
+                } */
             }
             else{
                 if($id == '1'){
-                    $tickets = Ticket::where('user_id',Auth::user()->id)->orderBy('id','desc')->paginate(10);
+                    $tickets = Ticket::sortable()->where('user_id',Auth::user()->id)->orderBy('id','desc')->paginate(10);
                 }
-                else if($id == '3'){
-                    $tickets = ClosedTicket::where('user_id',Auth::user()->id)->orderBy('id','desc')->paginate(10);
-                }
+                /* else if($id == '3'){
+                    $tickets = ClosedTicket::sortable()->where('user_id',Auth::user()->id)->orderBy('id','desc')->paginate(10);
+                } */
             }                 
         }
-        return view('inc.ticketlist',compact('tickets'));
+        /* return view('inc.ticketlist',compact('tickets')); */
     }
     public function testdb(){
         return 
