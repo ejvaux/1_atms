@@ -9,7 +9,11 @@
         <div class='col-md'>
             <nav>
                 <ol class="breadcrumb">
-                    <li class="breadcrumb-item"><a href="/1_atms/public/it/lt">My Tickets</a></li>
+                    @if(Auth::user()->admin == true)
+                        <li class="breadcrumb-item"><a href="/1_atms/public/it/al">Tickets</a></li>
+                    @else
+                        <li class="breadcrumb-item"><a href="/1_atms/public/it/lt">My Tickets</a></li>
+                    @endif
                     <li class="breadcrumb-item">Details</li>                    
                     {{-- <li class="breadcrumb-item">Data</li> --}}
                 </ol>

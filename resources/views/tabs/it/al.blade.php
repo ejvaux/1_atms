@@ -14,18 +14,33 @@
             </nav>
         </div>
     </div>
-    <div class='row mb-2'>
-        <div class='col-lg'>
+    <div class='row mb-2'>        
+        <div class='col-md-3 '>
+                <a class='btn btn-secondary' href='/1_atms/public/it/ac'>Create Ticket</a>
+        </div>
+        <div class='col-md  text-right'>
             <div class="btn-group" role="group" aria-label="Basic example">
-                <a class="btn btn-secondary" href='/1_atms/public/it/aq'>Handled</a>
+                {{-- <a class="btn btn-secondary" href='/1_atms/public/it/aq'>Handled</a> --}}
                 <a class="btn btn-secondary" href='/1_atms/public/it/dtl'>Declined</a>
                 <a class="btn btn-secondary" href='/1_atms/public/it/actl'>Closed</a>                
             </div>
         </div>
-        <div class='col-md-3 text-right mr-0 pr-1'>
-                <a class='btn btn-secondary' href='/1_atms/public/it/ac'>Create Ticket</a>
-        </div>
-        <div class="col-md-3 ml-0 pl-1">
+        @if(Auth::user()->tech == true)
+            <div class='col-md-3 input-group '>
+                <div class='input-group-prepend'>
+                    <label class='input-group-text'>Sort by: </label>
+                </div>
+                <select id='sortticketdd' class="form-control">
+                <option value='all'>All</option>
+                    @if($sorting == 2)
+                        <option value='handled' selected="selected">Handled</option>
+                    @else
+                        <option value='handled'>Handled</option>
+                    @endif                    
+                </select>
+            </div>
+        @endif
+        <div class="col-md-3 ml-0 pl-1 ">
             <form>
                 <div class="input-group">                    
                     <input type="text" class="form-control" id="searchtextbox" placeholder="Search ticket . . .">
@@ -34,7 +49,8 @@
             </form>
         </div>
     </div>
-    <div class='row mb-1'>
+    <div id='table_list'>@include('inc.ticketlist');</div> 
+    {{-- <div class='row mb-1'>
         <div class='col-lg table-responsive-lg'>
             <table class="table">
                 <thead class="thead-light">
@@ -138,8 +154,8 @@
     </div>
     <div class='row'>
         <div class='col-lg'>
-            {{-- {{$tickets->links()}} --}}{!! $tickets->appends(\Request::except('page'))->render() !!}
+            {!! $tickets->appends(\Request::except('page'))->render() !!}
         </div>
-    </div>
+    </div> --}}
 </div>
 @endsection

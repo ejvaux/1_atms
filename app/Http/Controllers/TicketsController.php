@@ -232,8 +232,9 @@ class TicketsController extends Controller
             $tu->ticket_id = $id;
             $tu->user_id = $techid;
             $tu->message = "Added/Edited ticket details.";
-            $tu->save();          
-            return redirect('/it/htv/'.$id)->with('success','Details Saved Successfully.');
+            $tu->save();
+            return redirect()->back()->with('success','Details Saved Successfully.');
+            /* return redirect('/it/htv/'.$id)->with('success','Details Saved Successfully.'); */
         }
         elseif($request->input('mod') == 'editTicket'){
             if(Auth::user()->admin == 1){
