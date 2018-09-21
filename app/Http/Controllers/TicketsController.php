@@ -246,7 +246,7 @@ class TicketsController extends Controller
             }                           
         }
         elseif($request->input('mod') == 'instruct'){
-            return redirect()->back()->with('success','Ticket Update Saved Successfully.');                          
+            return redirect()->back()->with('success','Ticket Information Saved Successfully.');                          
         }   
     }     
 
