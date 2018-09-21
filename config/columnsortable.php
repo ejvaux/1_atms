@@ -44,7 +44,7 @@ return [
     icon and text separator (any string)
     in case of 'clickable_icon' => true; separator creates possibility to style icon and anchor-text properly
      */
-    'icon_text_separator'           => ' ',
+    'icon_text_separator'           => '',
 
     /*
     suffix class that is appended when ascending order is applied
