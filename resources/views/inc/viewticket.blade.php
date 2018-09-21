@@ -108,8 +108,10 @@
                                 <input type='hidden' name='url' value='/it/ctlv/{{ $tickets->id }}'>                                    
                             </form>
                         @else
+                        <span class='font-weight-bold assign_grp' style='font-size:1rem'>Assigned to {{ $tickets->assign->name }}</span><br>
                             @if($tickets->status_id == 2)
-                                <button type='button' id='assign_ticket' class='btn btn-secondary assign_grp'>Reassign Ticket </button>
+                                <button type='button' id='assign_ticket' class='btn btn-secondary assign_grp'>Reassign Ticket</button>
+                                <button type='button' id='edit_instruction' class='btn btn-secondary assign_grp'>Edit Instructions</button>
                             @elseif($tickets->status_id == 5)
                                 <form class='form_to_submit' id='close_ticket_form' method='POST' action='/1_atms/public/closed_ticket/transfer/{{ $tickets->id }}'>
                                     @csrf
@@ -118,8 +120,7 @@
                                     <input type='hidden' name='url' value='/it/ctlv/{{ $tickets->id }}'>            
                                     <button type='button' id='close_ticket' class='btn btn-danger mt-2' style='display:inline;'>Close Ticket</button>
                                 </form>
-                            @endif
-                            <span class='font-weight-bold assign_grp' style='font-size:1rem'>Assigned to {{ $tickets->assign->name }}</span> 
+                            @endif                            
                         @endif
                         <span class='font-weight-bold' id='assign_label' style='font-size:1rem'></span> 
                         <form class='form_to_submit' method='POST' action='/1_atms/public/tickets/{{ $tickets->id }}'>
@@ -142,6 +143,7 @@
                                 </select>
                                 <button type='submit' class='btn btn-secondary form_submit_button'>Assign</button>
                                 <button type='button' id='cancel_assign' class='btn btn-warning'>Cancel</button>
+                                <textarea id='instNew' name='instruction' class='form-control ' style='width:100%' placeholder="Insert instructions here. . . . .">{{$tickets->instruction}}</textarea>
                             </div>                                                                          
                         </form>
                         @endif
@@ -256,7 +258,31 @@
                         @endif
                     </div>
                 </div>
-                <hr>                          
+                <hr>
+                @if($tickets->status_id == 2)
+                    @if(Auth::user()->admin == true or $tickets->assigned_to == Auth::user()->id)
+                        <div class="row mb-2">
+                            <div class="col-md-2">
+                                <label class='font-weight-bold'><span class='text-muted'>INSTRUCTION:</span></label>      
+                            </div>
+                            <div class="col-md" style='max-height: 15vh; overflow:hidden; overflow-y: scroll'>
+                                <span class='editinstlabel'>{{ $tickets->instruction }}</span>
+                                <form class='form_to_submit' id='edit_instruction_form' method='POST' action='/1_atms/public/tickets/{{ $tickets->id }}'>                        
+                                    @method('PUT')
+                                    @csrf
+                                    <input type='hidden' name='mod' value='instruct'>
+                                    <div class='editinstinput' style='display:none'>
+                                        <textarea id='instNew' name='instruction' class='form-control ' style='width:100%'>{{ $tickets->instruction }}</textarea>
+                                        <div class='input-group'>
+                                            <button type='submit' class='btn btn-secondary form_submit_button '>Save</button>
+                                            <button type='button' id='cancel_editinst' class='btn btn-warning '>Cancel</button>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>  
+                        </div>
+                    @endif
+                @endif                      
                 <div class="row mb-2">
                     <div class="col-md-2">
                         <label class='font-weight-bold'><span class='text-muted'>SUBJECT:</span></label>      

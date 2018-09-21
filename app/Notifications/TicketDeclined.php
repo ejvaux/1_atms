@@ -50,7 +50,7 @@ class TicketDeclined extends Notification
         $t = DeclinedTicket::where('id',$this->ticket_id)->first();
         return (new MailMessage)
                 ->greeting('Hello! ' .$this->name)
-                ->line('Ticket #'.$t->ticket_id.' is been declined.')
+                ->line('Ticket #'.$t->ticket_id.' is been declined by the admin.')
                 /* ->action('View Ticket', $url) */
                 ->line('Thank you for using our application!');
     }
@@ -66,7 +66,7 @@ class TicketDeclined extends Notification
         $url = url('/it/ctlv/'.$this->ticket_id);
         event(new triggerEvent('refresh'));
         return [
-            'message' => 'Ticket declined.',
+            'message' => 'Ticket #'.$t->ticket_id.' declined.',
             'mod' => 'decline',
             'tid' => $this->ticket_id
         ];

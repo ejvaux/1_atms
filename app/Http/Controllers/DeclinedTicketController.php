@@ -106,6 +106,7 @@ class DeclinedTicketController extends Controller
         $t->action = $ticket->action;
         $t->result = $ticket->result;
         $t->recommend = $ticket->recommend;
+        $t->instruction = $ticket->instruction;
         $t->start_at = $ticket->start_at;
         $t->finish_at = $ticket->finish_at;
 

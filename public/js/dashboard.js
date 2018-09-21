@@ -498,7 +498,18 @@ function loadscript(){
 		if (result.value) {
 			$('#decline_ticket_form').trigger('submit');
 		}
-	})
+		})
+	});
+
+	// Edit ticket instructions
+	$('#app').on('click','#edit_instruction',function(){
+		/* edit_instruction_form */
+		$('.editinstlabel').hide();
+		$('.editinstinput').show();
+	});
+	$('#app').on('click','#cancel_editinst',function(){
+		$('.editinstlabel').show();
+		$('.editinstinput').hide();
 	});
 
 	$('#app').on('submit','.form_to_submit',function(){

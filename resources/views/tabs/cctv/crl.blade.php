@@ -16,7 +16,7 @@
     </div>
     <div class="row mb-3">
         <div class='col-md-3'>
-            <a class='btn btn-secondary' href='{{ url('/cr/crc') }}'>Create Request</a>
+            <a class='btn btn-secondary' href='{{ url('/cr/crc') }}'><i class="fa fa-plus-square"></i> Create Request</a>
         </div>
         <div class='col-md'></div>
         @if(Auth::user()->admin == true || Auth::user()->tech == true)

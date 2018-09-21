@@ -19,7 +19,7 @@
             <div class='col-md-3'>
                 <div class="btn-group" role="group" aria-label="Basic example">
                     {{-- <a class="btn btn-secondary" href='/1_atms/public/it/ht'>Handled</a> --}}
-                    <a class='btn btn-secondary' href='/1_atms/public/it/ct'>Create Ticket</a>
+                    <a class='btn btn-secondary' href='/1_atms/public/it/ct'><i class="fa fa-plus-square"></i> Create Ticket</a>
                     {{-- <a class="btn btn-secondary" href='/1_atms/public/it/ctl'>Closed</a> --}}
                 </div>                
             </div>
@@ -42,7 +42,7 @@
             </div>
         @else
             <div class='col-md-3'>
-                <a class='btn btn-secondary' href='/1_atms/public/it/ct'>Create Ticket</a>
+                <a class='btn btn-secondary' href='/1_atms/public/it/ct'><i class="fa fa-plus-square"></i> Create Ticket</a>
                 <a class="btn btn-secondary" href='/1_atms/public/it/ctl'>Closed</a>                
             </div>
         @endif

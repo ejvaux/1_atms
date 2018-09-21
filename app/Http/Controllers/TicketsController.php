@@ -165,6 +165,7 @@ class TicketsController extends Controller
         if($request->input('action') != ""){ $ticket->action = $request->input('action');}
         if($request->input('result') != ""){ $ticket->result = $request->input('result');}
         if($request->input('recommend') != ""){ $ticket->recommend = $request->input('recommend');}
+        if($request->input('instruction') != ""){ $ticket->instruction = $request->input('instruction');}
 
         $mail = new \stdClass();        
         $mail->priority = $ticket->priority->name;
@@ -243,7 +244,10 @@ class TicketsController extends Controller
             else{
                 return redirect('/it/vt/'.$id)->with('success','Ticket Information Saved Successfully.');
             }                           
-        }        
+        }
+        elseif($request->input('mod') == 'instruct'){
+            return redirect()->back()->with('success','Ticket Update Saved Successfully.');                          
+        }   
     }     
 
     /**

@@ -16,7 +16,7 @@
     </div>
     <div class='row mb-2'>        
         <div class='col-md-3 '>
-                <a class='btn btn-secondary' href='/1_atms/public/it/ac'>Create Ticket</a>
+                <a class='btn btn-secondary' href='/1_atms/public/it/ac'><i class="fa fa-plus-square"></i> Create Ticket</a>
         </div>
         <div class='col-md  text-right'>
             <div class="btn-group" role="group" aria-label="Basic example">
