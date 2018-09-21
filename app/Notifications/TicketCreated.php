@@ -74,8 +74,9 @@ class TicketCreated extends Notification implements ShouldQueue
     {
         event(new triggerEvent('refresh'));
         $url = url('/it/av/'.$this->ticket_id);
+        $t = Ticket::where('id',$this->ticket_id)->first();
         return [
-            'message' => 'New Ticket Created.',
+            'message' => 'Ticket #'.$t->ticket_id.' Created.',
             'mod' => 'create',
             'tid' => $this->ticket_id
         ];

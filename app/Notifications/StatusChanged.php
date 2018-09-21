@@ -68,7 +68,7 @@ class StatusChanged extends Notification
         $url = url('/it/vt/'.$this->ticket_id);
         event(new triggerEvent('refresh'));
         return [
-            'message' => 'Ticket status changed.',
+            'message' => 'Ticket #'.$t->ticket_id.' status changed.',
             'mod' => 'user',
             'tid' => $this->ticket_id
         ];

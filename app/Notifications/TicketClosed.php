@@ -66,7 +66,7 @@ class TicketClosed extends Notification
         $url = url('/it/ctlv/'.$this->ticket_id);
         event(new triggerEvent('refresh'));
         return [
-            'message' => 'Ticket closed.',
+            'message' => 'Ticket #'.$t->ticket_id.' closed.',
             'mod' => 'close',
             'tid' => $this->ticket_id
         ];

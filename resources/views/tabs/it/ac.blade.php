@@ -71,7 +71,7 @@
                         <input class='border' type='file' name='attachedfile'>
                     </div>
                     <div class="col">
-                        <button type='submit' class="btn btn-primary form_submit_button" id="saveTicketButton">Submit Ticket</button>
+                        <button type='submit' class="btn btn-primary form_submit_button" id="saveTicketButton"><i class="fa fa-share-square"></i> Submit Ticket</button>
                     </div>
                 </div>
             </form>

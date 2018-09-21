@@ -17,7 +17,7 @@
         </div>
     </div>
     <div class='row mb-2'>              
-        <div class="col-lg-3">
+        <div class="col-lg-3 ml-auto">
             <form>
                 <div class="input-group">
                     <input type="text" class="form-control" id="searchtextbox" placeholder="Enter ticket number . . .">

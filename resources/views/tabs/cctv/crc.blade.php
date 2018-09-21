@@ -74,7 +74,7 @@
                 </div>
                 <div class="form-group row text-right">                    
                     <div class="col-md">
-                        <button type='submit' class="btn btn-primary form_submit_button" id="saveTicketButton">Submit Request</button>
+                        <button type='submit' class="btn btn-primary form_submit_button" id="saveTicketButton"><i class="fa fa-share-square"></i> Submit Request</button>
                     </div>
                 </div>
             </form>

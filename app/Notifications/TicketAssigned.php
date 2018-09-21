@@ -16,7 +16,7 @@ class TicketAssigned extends Notification
     use Queueable;
 
     protected $ticket_id;
-    protected $uname;
+    protected $name;
     protected $type;
 
     /**
@@ -57,6 +57,7 @@ class TicketAssigned extends Notification
             return (new MailMessage)
                     ->greeting('Hello! ' .$this->name)
                     ->line('Your ticket #'.$t->ticket_id.' is now on queue.')
+                    ->line('Ticket is assigned to '.$t->assign->name.'.')
                     ->action('View Ticket', $url)
                     ->line('Thank you for using our application!');
         }
@@ -65,7 +66,7 @@ class TicketAssigned extends Notification
             $turl = '/1_atms/public/it/htv/'.$this->ticket_id;
             return (new MailMessage)
                     ->greeting('Hello! ' . $this->name)
-                    ->line('Ticket #' . $t->ticket_id . ' is assigned to you.')
+                    ->line('Ticket #' . $t->ticket_id . ' is assigned to you by '.Auth::user()->name.'.')
                     ->action('View Ticket', $url)
                     ->line('Your immediate response is highly appreciated.');
         }
@@ -80,10 +81,11 @@ class TicketAssigned extends Notification
     public function toArray($notifiable)
     {
         event(new triggerEvent('refresh'));
+        $t = Ticket::where('id',$this->ticket_id)->first();
         if($this->type == 'user'){
             $url = url('/it/vt/'.$this->ticket_id);
             return [
-                'message' => 'New ticket assigned.',
+                'message' => 'Ticket #'.$t->ticket_id.' Assigned.',
                 'mod' => 'user',
                 'tid' => $this->ticket_id
             ];
@@ -91,7 +93,7 @@ class TicketAssigned extends Notification
         else{
             $url = url('/it/htv/'.$this->ticket_id);
             return [
-                'message' => 'New ticket assigned.',
+                'message' => 'New Ticket Assignment.',
                 'mod' => 'assign_admin',
                 'tid' => $this->ticket_id
             ];            
