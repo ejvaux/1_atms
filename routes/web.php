@@ -130,6 +130,7 @@ Route::get('/cr/crl/{id}','ReviewsController@reviewlistsearch');
 // Custom Table Resource
 Route::post('closed_ticket/transfer/{id}','ClosedTicketController@transferticket');
 Route::post('declined_ticket/transfer/{id}','DeclinedTicketController@transferticket');
+Route::put('users/changepass/{id}','UsersController@changepass');
 
 // Tables
 Route::resources([

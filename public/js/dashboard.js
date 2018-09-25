@@ -36,6 +36,15 @@ function loadscript(){
 		$('.assign_grp').show();
 	});
 
+	// Confirm password
+	/* $('#app').on('submit','#changepass',function(e){
+		e.preventDefault();
+		e.stopImmediatePropagation();
+		if($('new_password').val() == $('con_password').val()){
+			alert('weep');
+		}
+	}); */
+
 	// Assigning Ticket
 	/* $(function(){
 		if($('.container').is('.admincreateticket_container')){

@@ -3,10 +3,10 @@
 @section('pageTitle','Edit Profile | ATMS - Primatech')
 
 @section('content')
-@include('inc.messages')
 <div class="container">
-    <div class="row justify-content-center">
+    <div class="row justify-content-center">        
         <div class="col-md-8">
+            @include('inc.messages')
             <div class="card">
                 <div class="card-header">{{__('Edit User Profile')}}</div>
 
@@ -35,6 +35,9 @@
                                 <button type="submit" class="btn btn-primary">
                                     {{ __('Save') }}
                                 </button>
+                                <a class="btn btn-warning" href='{{ url("/dashboard") }}'>
+                                    {{ __('Home') }}
+                                </a>
                             </div>
                         </div>
                     </form>

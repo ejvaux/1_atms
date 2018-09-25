@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\User;
 use Auth;
+use Hash;
 
 class UsersController extends Controller
 {
@@ -69,13 +70,7 @@ class UsersController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $id)
-    {           
-        $request->validate([
-            'name' => 'string',
-            'email' => 'nullable|email',
-            'admin' => 'nullable|boolean',
-            'tech' => 'nullable|boolean'
-        ]);        
+    {                        
         $user = User::find($id);
         if($request->input('name') != ""){ $user->name = $request->input('name');}
         if($request->input('email') != ""){ $user->email = $request->input('email');}
@@ -87,7 +82,7 @@ class UsersController extends Controller
                 return 'User data updated successfully.';
             }
             else{
-                return redirect('dashboard')->with('success','User data updated successfully.');
+                return redirect()->back()->with('success','User data updated successfully.');
             }
             
         }
@@ -103,5 +98,25 @@ class UsersController extends Controller
     {
         User::where('id',$id)->delete();
         return redirect()->back()->with('success','User Deleted Successfully.');
+    }
+    public function changepass(Request $request, $id)
+    {
+        $user = User::find($id);
+        $hasher = app('hash');
+        $pass = $request->input('curr_password');
+        if ($hasher->check($pass, $user->password)) {
+            if($request->input('new_password') == $request->input('password')){
+                $password = Hash::make($request->input('password'));
+                $user->password = $password;
+                $user->save();
+                return redirect()->back()->with('success','Password updated successfully.');
+            }
+            else{
+                return redirect()->back()->with('error','New Password and Confirm Password are not the same.');
+            }
+        }
+        else{
+            return redirect()->back()->with('error','Password is incorrect.');
+        }    
     }
 }
