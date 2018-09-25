@@ -64,6 +64,7 @@ class TicketDeclined extends Notification
     public function toArray($notifiable)
     {
         $url = url('/it/ctlv/'.$this->ticket_id);
+        $t = DeclinedTicket::where('id',$this->ticket_id)->first();
         event(new triggerEvent('refresh'));
         return [
             'message' => 'Ticket #'.$t->ticket_id.' declined.',

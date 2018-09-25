@@ -66,6 +66,7 @@ class PriorityChanged extends Notification
     public function toArray($notifiable)
     {
         $url = url('/it/vt/'.$this->ticket_id);
+        $t = Ticket::where('id',$this->ticket_id)->first();
         event(new triggerEvent('refresh'));
         return [
             'message' => 'Ticket #'.$t->ticket_id.' priority changed.',
