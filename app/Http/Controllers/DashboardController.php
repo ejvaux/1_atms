@@ -19,7 +19,12 @@ use App\Custom\CustomFunctions;
 use App\DeclinedTicket;
 
 class DashboardController extends Controller
-{
+{   
+    protected $departments;
+    protected $categories;
+    protected $statuses;
+    protected $priorities;
+
     /**
      * Create a new controller instance.
      *
@@ -28,6 +33,10 @@ class DashboardController extends Controller
     public function __construct()
     {
         $this->middleware('auth');
+        $this->departments = Department::orderBy('name')->get();
+        $this->categories = Category::orderBy('name')->get();
+        $this->statuses = Status::orderBy('id')->get();
+        $this->priorities = Priority::orderBy('id')->get();
     }
 
     /**
@@ -70,15 +79,15 @@ class DashboardController extends Controller
     
     // IT Tabs
     public function adminlistticket(){
-        /* $statuses = Status::orderBy('id')->get(); */
+        /* $statuses = $this->statuses; */
         $tickets = Ticket::sortable()->orderBy('id','desc')->paginate(10);
         $sorting = '1';
         return view('tabs.it.al', compact('tickets','sorting'));
     }
     public function adminviewticket($id)
-    {
-        $departments = Department::orderBy('name')->get();
-        $categories = Category::orderBy('name')->get();
+    {        
+        $departments = $this->departments;
+        $categories = $this->categories;
         $users = User::where('tech',1)->get();
         $tickets = Ticket::where('id',$id)->first();
         $updates = TicketUpdates::where('ticket_id',$id)->get();
@@ -87,34 +96,34 @@ class DashboardController extends Controller
     }
     public function listticket()
     {
-        $tickets = Ticket::where('user_id',Auth::user()->id)->orWhere('assigned_to',Auth::user()->id)->orderBy('id','desc')->paginate(10);        
+        $tickets = Ticket::sortable()->where('user_id',Auth::user()->id)->orWhere('assigned_to',Auth::user()->id)->orderBy('id','desc')->paginate(10);        
         $sorting = '1';
         return view('tabs.it.lt', compact('tickets','sorting'));
     }
     public function viewticket($id)
-    {
-        $departments = Department::orderBy('name')->get();
-        $categories = Category::orderBy('name')->get();
-        $tickets = Ticket::where('id',$id)->first();
-        $statuses = Status::orderBy('id')->get();
-        $priorities = Priority::orderBy('id')->get();
+    {        
+        $departments = $this->departments;
+        $categories = $this->categories;        
+        $statuses = $this->statuses;
+        $priorities = $this->priorities;
+        $tickets = Ticket::find($id);
         $updates = TicketUpdates::where('ticket_id',$id)->get();
         $users = User::where('tech',1)->get();
         $updatetext = '';
         return view('tabs.it.vt', compact('tickets','updates','updatetext','priorities','statuses','departments','categories','users'));
     }
     public function createticket()
-    {
-        $departments = Department::orderBy('name')->get();
-        $categories = Category::orderBy('name')->get();
-        $priorities = Priority::orderBy('id')->get();
+    {        
+        $departments = $this->departments;
+        $categories = $this->categories;
+        $priorities = $this->priorities;
         return view('tabs.it.ct', compact('categories', 'priorities','departments'));
     }
     public function admincreateticket()
-    {
-        $departments = Department::orderBy('name')->get();
-        $categories = Category::orderBy('name')->get();
-        $priorities = Priority::orderBy('id')->get();
+    {        
+        $departments = $this->departments;
+        $categories = $this->categories;
+        $priorities = $this->priorities;
         return view('tabs.it.ac', compact('categories', 'priorities','departments'));
     }
     public function contact()
@@ -128,85 +137,97 @@ class DashboardController extends Controller
     }    
     public function handledticket()
     {
-        $tickets = Ticket::where('assigned_to',Auth::user()->id)->orderBy('id','desc')->paginate(10); 
+        $tickets = Ticket::sortable()->where('assigned_to',Auth::user()->id)->orderBy('id','desc')->paginate(10); 
         return view('tabs.it.ht',compact('tickets'));
     }
-    public function viewhandledticket($id){
-        $departments = Department::orderBy('name')->get();
-        $categories = Category::orderBy('name')->get();
+    public function viewhandledticket($id)
+    {        
+        $departments = $this->departments;
+        $categories = $this->categories;
         $tickets = Ticket::where('id',$id)->first();        
-        $priorities = Priority::orderBy('id')->get();
-        $statuses = Status::orderBy('id')->get();
+        $priorities = $this->priorities;
+        $statuses = $this->statuses;
         $updates = TicketUpdates::where('ticket_id',$id)->get();
         $updatetext = '';        
         return view('tabs.it.htv', compact('tickets','updates','updatetext','priorities','statuses','departments','categories'));       
     }
-    public function adminviewhandledticket($id){
-        $departments = Department::orderBy('name')->get();
-        $categories = Category::orderBy('name')->get();
+    public function adminviewhandledticket($id)
+    {        
+        $departments = $this->departments;
+        $categories = $this->categories;
         $tickets = Ticket::where('id',$id)->first();        
-        $priorities = Priority::orderBy('id')->get();
-        $statuses = Status::orderBy('id')->get();
+        $priorities = $this->priorities;
+        $statuses = $this->statuses;
         $updates = TicketUpdates::where('ticket_id',$id)->get();
         $updatetext = '';
         return view('tabs.it.ahtv', compact('tickets','updates','updatetext','priorities','statuses','departments','categories'));
     }
-    public function closedticket(){
-        $tickets = ClosedTicket::where('user_id',Auth::user()->id)->orWhere('assigned_to',Auth::user()->id)->orderBy('id','desc')->paginate(10);
+    public function closedticket()
+    {
+        $tickets = ClosedTicket::sortable()->where('user_id',Auth::user()->id)->orWhere('assigned_to',Auth::user()->id)->orderBy('id','desc')->paginate(10);
         return view('tabs.it.ctl',compact('tickets'));
     }
-    public function adminclosedticket(){
-        $tickets = ClosedTicket::orderBy('id','desc')->paginate(10);
+    public function adminclosedticket()
+    {
+        $tickets = ClosedTicket::sortable()->orderBy('id','desc')->paginate(10);
         return view('tabs.it.actl',compact('tickets'));
     }
-    public function handledclosedticket(){
-        $tickets = ClosedTicket::where('assigned_to',Auth::user()->id)->orderBy('id','desc')->paginate(10);
+    public function handledclosedticket()
+    {
+        $tickets = ClosedTicket::sortable()->where('assigned_to',Auth::user()->id)->orderBy('id','desc')->paginate(10);
         return view('tabs.it.hct',compact('tickets'));
     }
-    public function adminhandledclosedticket(){
-        $tickets = ClosedTicket::where('assigned_to',Auth::user()->id)->orderBy('id','desc')->paginate(10);
+    public function adminhandledclosedticket()
+    {
+        $tickets = ClosedTicket::sortable()->where('assigned_to',Auth::user()->id)->orderBy('id','desc')->paginate(10);
         return view('tabs.it.ahct',compact('tickets'));
     }
-    public function handledclosedticketview($id){
+    public function handledclosedticketview($id)
+    {
         $tickets = ClosedTicket::where('id',$id)->first();   
-        $priorities = Priority::orderBy('id')->get();
-        $statuses = Status::orderBy('id')->get();
+        $priorities = $this->priorities;
+        $statuses = $this->statuses;
         $updates = TicketUpdates::where('ticket_id',$id)->get();
         $updatetext = '';
         return view('tabs.it.hctv',compact('tickets','updates','updatetext','priorities','statuses'));
     }
-    public function adminhandledclosedticketview($id){
+    public function adminhandledclosedticketview($id)
+    {
         $tickets = ClosedTicket::where('id',$id)->first();   
-        $priorities = Priority::orderBy('id')->get();
-        $statuses = Status::orderBy('id')->get();
+        $priorities = $this->priorities;
+        $statuses = $this->statuses;
         $updates = TicketUpdates::where('ticket_id',$id)->get();
         $updatetext = '';
         return view('tabs.it.ahctv',compact('tickets','updates','updatetext','priorities','statuses'));
     }
-    public function closedticketview($id){
+    public function closedticketview($id)
+    {
         $tickets = ClosedTicket::where('id',$id)->first();   
-        $priorities = Priority::orderBy('id')->get();
-        $statuses = Status::orderBy('id')->get();
+        $priorities = $this->priorities;
+        $statuses = $this->statuses;
         $updates = TicketUpdates::where('ticket_id',$id)->get();
         $updatetext = '';
         return view('tabs.it.ctlv',compact('tickets','updates','updatetext','priorities','statuses'));
     }
-    public function adminclosedticketview($id){
+    public function adminclosedticketview($id)
+    {
         $tickets = ClosedTicket::where('id',$id)->first();   
-        $priorities = Priority::orderBy('id')->get();
-        $statuses = Status::orderBy('id')->get();
+        $priorities = $this->priorities;
+        $statuses = $this->statuses;
         $updates = TicketUpdates::where('ticket_id',$id)->get();
         $updatetext = '';
         return view('tabs.it.actlv',compact('tickets','updates','updatetext','priorities','statuses'));
     }
-    public function declinedticket(){
-        $tickets = DeclinedTicket::orderBy('id','desc')->paginate(10);
+    public function declinedticket()
+    {
+        $tickets = DeclinedTicket::sortable()->orderBy('id','desc')->paginate(10);
         return view('tabs.it.dtl',compact('tickets'));
     }
-    public function declinedticketview($id){
+    public function declinedticketview($id)
+    {
         $tickets = DeclinedTicket::where('id',$id)->first();   
-        $priorities = Priority::orderBy('id')->get();
-        $statuses = Status::orderBy('id')->get();
+        $priorities = $this->priorities;
+        $statuses = $this->statuses;
         $updates = TicketUpdates::where('ticket_id',$id)->get();
         $updatetext = '';
         return view('tabs.it.dtv',compact('tickets','updates','updatetext','priorities','statuses'));
@@ -214,7 +235,7 @@ class DashboardController extends Controller
     // Search
     public function adminsearchticket($id)
     {
-        $tickets = Ticket::join('users', 'users.id', '=', 'tickets.user_id')
+        $tickets = Ticket::sortable()->join('users', 'users.id', '=', 'tickets.user_id')
                         ->join('priorities', 'priorities.id', '=', 'tickets.priority_id')
                         ->join('categories', 'categories.id', '=', 'tickets.category_id')
                         ->join('statuses', 'statuses.id', '=', 'tickets.status_id')
@@ -234,7 +255,7 @@ class DashboardController extends Controller
     }
     public function searchticket($id)
     {
-        $tickets = Ticket::join('users', 'users.id', '=', 'tickets.user_id')
+        $tickets = Ticket::sortable()->join('users', 'users.id', '=', 'tickets.user_id')
                         ->join('priorities', 'priorities.id', '=', 'tickets.priority_id')
                         ->join('categories', 'categories.id', '=', 'tickets.category_id')
                         ->join('statuses', 'statuses.id', '=', 'tickets.status_id')
@@ -257,8 +278,9 @@ class DashboardController extends Controller
         $sorting = '1';                         
         return view('tabs.it.lt', compact('tickets','sorting'));
     }
-    public function searchhandledticket($id){
-        $tickets = Ticket::join('users', 'users.id', '=', 'tickets.user_id')
+    public function searchhandledticket($id)
+    {
+        $tickets = Ticket::sortable()->join('users', 'users.id', '=', 'tickets.user_id')
                         ->join('priorities', 'priorities.id', '=', 'tickets.priority_id')
                         ->join('categories', 'categories.id', '=', 'tickets.category_id')
                         ->join('statuses', 'statuses.id', '=', 'tickets.status_id')
@@ -278,8 +300,9 @@ class DashboardController extends Controller
         /* $tickets = Ticket::where([['id','=',$id],['assigned_to','=', Auth::user()->id]])->orderBy('id','desc')->paginate(10); */   
         return view('tabs.it.ht',compact('tickets'));
     }
-    public function searchhandledclosedticket($id){
-        $tickets = ClosedTicket::join('users', 'users.id', '=', 'closed_tickets.user_id')
+    public function searchhandledclosedticket($id)
+    {
+        $tickets = ClosedTicket::sortable()->join('users', 'users.id', '=', 'closed_tickets.user_id')
                         ->join('priorities', 'priorities.id', '=', 'closed_tickets.priority_id')
                         ->join('categories', 'categories.id', '=', 'closed_tickets.category_id')
                         ->join('statuses', 'statuses.id', '=', 'closed_tickets.status_id')
@@ -298,8 +321,9 @@ class DashboardController extends Controller
                         ->paginate(10);
         return view('tabs.it.hct',compact('tickets'));
     }
-    public function searchclosedticket($id){
-        $tickets = ClosedTicket::join('users', 'users.id', '=', 'closed_tickets.user_id')
+    public function searchclosedticket($id)
+    {
+        $tickets = ClosedTicket::sortable()->join('users', 'users.id', '=', 'closed_tickets.user_id')
                         ->join('priorities', 'priorities.id', '=', 'closed_tickets.priority_id')
                         ->join('categories', 'categories.id', '=', 'closed_tickets.category_id')
                         ->join('statuses', 'statuses.id', '=', 'closed_tickets.status_id')
@@ -318,8 +342,9 @@ class DashboardController extends Controller
                         ->paginate(10);
         return view('tabs.it.ctl',compact('tickets'));
     }
-    public function searchadminclosedticket($id){
-        $tickets = ClosedTicket::join('users', 'users.id', '=', 'closed_tickets.user_id')
+    public function searchadminclosedticket($id)
+    {
+        $tickets = ClosedTicket::sortable()->join('users', 'users.id', '=', 'closed_tickets.user_id')
                         ->join('priorities', 'priorities.id', '=', 'closed_tickets.priority_id')
                         ->join('categories', 'categories.id', '=', 'closed_tickets.category_id')
                         ->join('statuses', 'statuses.id', '=', 'closed_tickets.status_id')
@@ -337,7 +362,7 @@ class DashboardController extends Controller
     }
     public function searchadminqueue($id)
     {
-        $tickets = Ticket::join('users', 'users.id', '=', 'tickets.user_id')
+        $tickets = Ticket::sortable()->join('users', 'users.id', '=', 'tickets.user_id')
                         ->join('priorities', 'priorities.id', '=', 'tickets.priority_id')
                         ->join('categories', 'categories.id', '=', 'tickets.category_id')
                         ->join('statuses', 'statuses.id', '=', 'tickets.status_id')
@@ -356,8 +381,9 @@ class DashboardController extends Controller
                         ->paginate(10);
         return view('tabs.it.aq',compact('tickets'));
     }
-    public function searchadminhandledclosedticket($id){
-        $tickets = ClosedTicket::join('users', 'users.id', '=', 'closed_tickets.user_id')
+    public function searchadminhandledclosedticket($id)
+    {
+        $tickets = ClosedTicket::sortable()->join('users', 'users.id', '=', 'closed_tickets.user_id')
                         ->join('priorities', 'priorities.id', '=', 'closed_tickets.priority_id')
                         ->join('categories', 'categories.id', '=', 'closed_tickets.category_id')
                         ->join('statuses', 'statuses.id', '=', 'closed_tickets.status_id')
@@ -378,7 +404,7 @@ class DashboardController extends Controller
     }
     public function searchdeclinedticket($id)
     {
-        $tickets = DeclinedTicket::join('users', 'users.id', '=', 'declined_tickets.user_id')
+        $tickets = DeclinedTicket::sortable()->join('users', 'users.id', '=', 'declined_tickets.user_id')
                         ->join('priorities', 'priorities.id', '=', 'declined_tickets.priority_id')
                         ->join('categories', 'categories.id', '=', 'declined_tickets.category_id')
                         ->join('statuses', 'statuses.id', '=', 'declined_tickets.status_id')
@@ -399,7 +425,8 @@ class DashboardController extends Controller
     }
 
     // Reports
-    public function ticketreports(){
+    public function ticketreports()
+    {
         // Tickets per day
         $newticket = Ticket::where('created_at','LIKE','%'.Date('Y-m-d').'%')->count();
 
@@ -483,7 +510,8 @@ class DashboardController extends Controller
         return view('tabs.it.rp',compact('ticketdepartmentchart','data','totalticketchart','newticket','openticket','assignedticket','totalresolvedticket','trtime','trentime','rtime'));
     }
     // Load List
-    public function loadticketlist($id){
+    public function loadticketlist($id)
+    {
         if(Auth::user()->admin == true){           
             if($id == '1'){
                 $tickets = Ticket::sortable()->orderBy('id','desc')->paginate(10);
@@ -525,7 +553,8 @@ class DashboardController extends Controller
         }
         /* return view('inc.ticketlist',compact('tickets')); */
     }
-    public function testdb(){
+    public function testdb()
+    {
         return 
         /* DB::select('SELECT tickets.department_id, tickets.id, departments.id, departments.name FROM `tickets` LEFT OUTER JOIN departments ON departments.id = tickets.department_id UNION
         SELECT tickets.department_id, tickets.id, departments.id, departments.name FROM `tickets` RIGHT OUTER JOIN departments ON departments.id = tickets.department_id'); */
