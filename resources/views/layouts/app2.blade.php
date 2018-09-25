@@ -21,10 +21,10 @@
         <main class="container-fluid py-4">            
             <div class="container-fluid" style=''>
                 <div class="row">
-                    <div class="col-md-2 m-0 p-0" style='height:100vh;' id='sidebr'>
+                    <div class="col-lg-2 m-1 p-0" style='height:100vh;' id='sidebr'>
                         @include('inc.sidebar')
                     </div>  
-                    <div class='col-md m-0 ml-3 pt-3 border' id="main_panel" style="background:white" >            
+                    <div class='col-lg m-1 pt-3 border' id="main_panel" style="background:white" >            
                         @yield('content')
                     </div> 
                 </div>
