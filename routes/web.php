@@ -24,6 +24,10 @@ Route::get('/testingin', function () {
     return view('welcome');
 });
 
+// User
+Route::get('user/update/{id}','DashboardController@userupdate');
+Route::get('user/changepass','DashboardController@userchangepass');
+
 // Notification
 Route::get('/notification', function () {
     $user = App\User::first();

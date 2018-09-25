@@ -3,6 +3,7 @@
 @section('pageTitle','Dashboard | ATMS - Primatech')
 
 @section('content')
+@include('inc.messages')
 <div class='container mt-4'>
     <div class='row'>
         <div class='col-md text-center'>

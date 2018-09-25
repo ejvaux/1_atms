@@ -71,7 +71,7 @@ class UsersController extends Controller
     public function update(Request $request, $id)
     {           
         $request->validate([
-            'name' => 'nullable|string',
+            'name' => 'string',
             'email' => 'nullable|email',
             'admin' => 'nullable|boolean',
             'tech' => 'nullable|boolean'
@@ -83,7 +83,13 @@ class UsersController extends Controller
         if($request->input('tech') != ""){ $user->tech = $request->input('tech');}
         $user->save();
         if($user->save()){
-            return 'User data updated successfully!';
+            if(empty($request->input('mod'))){
+                return 'User data updated successfully.';
+            }
+            else{
+                return redirect('dashboard')->with('success','User data updated successfully.');
+            }
+            
         }
     }
 

@@ -38,7 +38,19 @@ class DashboardController extends Controller
     public function index()
     {       
         return view('tabs.home.dash');
-    }    
+    }
+
+    // USER
+    public function userupdate($id)
+    {
+        $user = User::where('id',$id)->first();
+        return view('auth.edit',compact('user'));
+    }
+    public function userchangepass()
+    {       
+        return view('auth.passwords.change');
+    }
+
     // HOME
     public function viewdashtab()
     {       
