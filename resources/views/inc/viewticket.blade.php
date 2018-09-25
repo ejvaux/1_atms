@@ -214,7 +214,7 @@
                                         </form>
                                     </div>
                                 @else
-                                    <span class='font-weight-bold' style='font-size:1rem'>Assigned to {{ $tickets->assign->name }}</span>
+                                    {{-- <span class='font-weight-bold' style='font-size:1rem'>Assigned to {{ $tickets->assign->name }}</span> --}}
                                 @endif
                             @endif
                         @endif                                                                                                         
