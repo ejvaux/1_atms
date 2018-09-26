@@ -18,7 +18,7 @@
         <div id='nvbr'>
             @include('inc.navbar')
         </div>  
-        <main class="container-fluid py-4">            
+        <main class="container-fluid my-2">            
             <div class="container-fluid" style=''>
                 <div class="row">
                     <div class="col-lg-2 m-1 p-0" style='height:100vh;' id='sidebr'>
