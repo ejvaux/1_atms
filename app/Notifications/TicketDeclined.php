@@ -14,7 +14,7 @@ class TicketDeclined extends Notification
     use Queueable;
 
     protected $ticket_id;
-    protected $uname;
+    protected $name;
 
     /**
      * Create a new notification instance.

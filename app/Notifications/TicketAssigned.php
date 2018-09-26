@@ -56,17 +56,17 @@ class TicketAssigned extends Notification
             $turl = '/1_atms/public/it/vt/'.$this->ticket_id;
             return (new MailMessage)
                     ->greeting('Hello! ' .$this->name)
-                    ->line('Your ticket #'.$t->ticket_id.' is now on queue.')
-                    ->line('Ticket is assigned to '.$t->assign->name.'.')
+                    ->line('Your ticket <b>#'.$t->ticket_id.'</b> is now on queue.')
+                    ->line('Ticket is assigned to <b>'.$t->assign->name.'</b>.')
                     ->action('View Ticket', $url)
                     ->line('Thank you for using our application!');
         }
         else{
-            $url = url('/it/htv/'.$this->ticket_id);
+            $url = url('/it/vt/'.$this->ticket_id);
             $turl = '/1_atms/public/it/htv/'.$this->ticket_id;
             return (new MailMessage)
                     ->greeting('Hello! ' . $this->name)
-                    ->line('Ticket #' . $t->ticket_id . ' is assigned to you by '.Auth::user()->name.'.')
+                    ->line('Ticket <b>#' . $t->ticket_id . '</b> is assigned to you by <b>'.Auth::user()->name.'</b>.')
                     ->action('View Ticket', $url)
                     ->line('Your immediate response is highly appreciated.');
         }

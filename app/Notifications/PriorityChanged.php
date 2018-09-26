@@ -14,7 +14,7 @@ class PriorityChanged extends Notification
     use Queueable;
 
     protected $ticket_id;
-    protected $uname;
+    protected $name;
     protected $prio;
 
     /**
@@ -52,7 +52,7 @@ class PriorityChanged extends Notification
         $t = Ticket::where('id',$this->ticket_id)->first();
         return (new MailMessage)
                 ->greeting('Hello! ' .$this->name)
-                ->line('Ticket #'.$t->ticket_id.' Priority changed to '. $this->prio .'.')
+                ->line('Ticket <b>#'.$t->ticket_id.'</b> Priority changed to <b>'. $this->prio .'</b>.')
                 ->action('View Ticket', $url)
                 ->line('Please wait for further updates.');
     }

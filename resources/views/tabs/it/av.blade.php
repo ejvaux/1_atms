@@ -15,7 +15,8 @@
             </nav>
         </div>
     </div>
-    @if(count($tickets)>0)
+    @include('inc.viewticket');
+    {{-- @if(count($tickets)>0)
     <div class="row mb-2">
         <div class='col-md'>
             <div class="card" style='width:100%'>
@@ -148,10 +149,7 @@
                                 <div class='input-group' id='dd_assigned_to' style='display:none'>
                                     <select type="text" class="form-control" id="assigned_to" name="assigned_to" placeholder="" required>
                                         <option value="">- Select Tech -</option>                            
-                                        @foreach($users as $user)
-                                            {{-- @if($user->id != $tickets->user_id)
-                                                <option value="{{$user->id}}">{{$user->name}}</option>
-                                            @endif --}}
+                                        @foreach($users as $user)                                            
                                             <option value="{{$user->id}}">{{$user->name}}</option>
                                         @endforeach
                                     </select>
@@ -262,8 +260,7 @@
                             }
                             else{
                                 $updatetext .= "<p class='text-muted mb-0 mt-3'>". $update->user->name . " (" . $update->created_at . ")</p><div class='card mt-0 mb-2 p-0' style='width:fit-content; background-color:#D4E6F1;'><div class='card-body p-2'>" . $update->message . '</div></div>';
-                            }
-                            /* $updatetext .= "<p class='text-muted mb-0 mt-3'>". $update->user->name . " (" . $update->created_at . ")</p><div class='card mt-0 mb-2 p-0' style='width:fit-content; background-color:#D4E6F1;'><div class='card-body p-2'>" . $update->message . '</div></div>'; */                                     
+                            }                                                                 
                         @endphp
                     @endforeach
                     <div class="px-3" id='update_div' style="width:100%; height:300px; overflow-y: auto;">{!!$updatetext!!}</div>
@@ -274,18 +271,10 @@
     <form class='form_to_submit' id='adminupdateform' method="POST" action="/1_atms/public/ticket_updates">
     @csrf
     <input type="hidden" id='admin_update_ticket_id' name="ticket_id" value="{{ $tickets->id }}">
-    <input type="hidden" name="user_id" value="{{ Auth::user()->id }}">
-    {{-- <div class="row pt-0 mt-0 mb-4">
-        <div class="col-md-12">
-            <div class="input-group">
-                <input type="text" name="message" class="" id="update_message" placeholder="Enter text here . . ." style="width:90%">
-                <button type="submit" id="send_update" style="width:10%">SEND</button>
-            </div>
-        </div>        
-    </div> --}}
+    <input type="hidden" name="user_id" value="{{ Auth::user()->id }}">    
     </form>
     @else
         <div class='alert alert-danger'><h3>Ticket not found or, Already cancelled or closed.</h3></div>
-    @endif
+    @endif --}}
 </div>
 @endsection

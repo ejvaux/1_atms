@@ -14,7 +14,7 @@ class StatusChanged extends Notification
     use Queueable;
 
     protected $ticket_id;
-    protected $uname;
+    protected $name;
     protected $stat;
 
     /**
@@ -52,7 +52,7 @@ class StatusChanged extends Notification
         $t = Ticket::where('id',$this->ticket_id)->first();
         return (new MailMessage)
                 ->greeting('Hello! ' .$this->name)
-                ->line('Ticket #'.$t->ticket_id.' Status changed to '. $this->stat .'.')
+                ->line('Ticket <b>#'.$t->ticket_id.'</b> Status changed to <b>'. $this->stat .'</b>.')
                 ->action('View Ticket', $url)
                 ->line('Please wait for further updates.');
     }

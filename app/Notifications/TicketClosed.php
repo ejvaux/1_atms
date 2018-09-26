@@ -14,7 +14,7 @@ class TicketClosed extends Notification
     use Queueable;
 
     protected $ticket_id;
-    protected $uname;
+    protected $name;
 
     /**
      * Create a new notification instance.
@@ -50,7 +50,7 @@ class TicketClosed extends Notification
         $t = ClosedTicket::where('id',$this->ticket_id)->first();
         return (new MailMessage)
                 ->greeting('Hello! ' .$this->name)
-                ->line('Ticket #'.$t->ticket_id.' is been closed.')
+                ->line('Ticket <b>#'.$t->ticket_id.'</b> is been closed.')
                 ->action('View Ticket', $url)
                 ->line('Thank you for using our application!');
     }

@@ -47,8 +47,9 @@ class TicketUpdatesController extends Controller
         $tu->ticket_id = $request->input('ticket_id');
         $tu->user_id = $request->input('user_id');
         $tu->message = $request->input('message');
-        $tu->save();            
-        return redirect('/it/vt/'.$request->input('ticket_id'))->with('success','Comment Submitted Successfully.');      
+        $tu->save();
+        return redirect('/notification/ticketupdate/'.$request->input('ticket_id'));       
+        /* return redirect('/it/vt/'.$request->input('ticket_id'))->with('success','Update Submitted Successfully.');  */     
     }
 
     /**

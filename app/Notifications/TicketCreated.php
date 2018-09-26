@@ -51,7 +51,7 @@ class TicketCreated extends Notification implements ShouldQueue
         $t = Ticket::where('id',$this->ticket_id)->first();
         return (new MailMessage)
                 ->greeting('Hello! ' .$this->name)
-                ->line('Ticket <b>#'.$t->ticket_id.'</b> is by '.$t->user->name.'.')
+                ->line('New Ticket <b>#'.$t->ticket_id.'</b> was created by <b>'.$t->user->name.'</b>.')
                 /* ->line('<table class="table table-bordered"><thead><tr><th scope="col" colspan="4">TICKET DETAILS</th></tr></thead><tbody><tr><th scope="row" >Priority</th><td>' . CustomFunctions::priority_format($t->priority_id) . '</td></tr><tr><th scope="row">Department</th><td>' . $t->department->name) . '</td></tr><tr><th scope="row">Category</th><td>' . $t->category->name . '</td></tr><tr><th scope="row">Subject</th><td>' . $t->subject . '</td></tr></tbody></table>') */
                 ->line('<b>TICKET DETAILS</b>')
                 ->line('Priority: '.CustomFunctions::priority_format($t->priority_id))

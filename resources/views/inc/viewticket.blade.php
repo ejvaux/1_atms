@@ -387,5 +387,5 @@
 </div>
 </form>
 @else
-    <div class='alert alert-danger'><h3>Ticket not found or, Already cancelled or closed.</h3></div>
+    <div class='alert alert-danger'><h3>Ticket not found or, Already cancelled, declined or closed.</h3></div>
 @endif
