@@ -226,7 +226,29 @@ class CustomFunctions
         /* return $tnum; */
     }
     public static function colorsets(){
-        $col = ['red','blue','yellow','tomato','orange','violet'];
+        /* $col = ['red','blue','yellow','tomato','orange','violet']; */
+        /* $col = ['#641E16','#512E5F','#154360','#0E6251','#145A32','#7D6608','#784212','#7B7D7D','#4D5656','#1B2631','#78281F','#4A235A','#1B4F72','#0B5345','#186A3B','#7E5109','#6E2C00','#626567','#424949','#17202A']; */
+        $col =[
+            '#42a5f5',
+            '#5c6bc0',
+            '#7e57c2',
+            '#ab47bc',
+            '#ec407a',
+            '#ef5350',
+            '#d4e157',
+            '#9ccc65',
+            '#66bb6a',
+            '#26a69a',
+            '#26c6da',
+            '#29b6f6',
+            '#bdbdbd',
+            '#8d6e63',
+            '#ff7043',
+            '#ffa726',
+            '#ffee58',
+            '#ffca28',
+            '#78909C'
+        ];
         return $col;
     }
     public static function r_status_color($stat){
