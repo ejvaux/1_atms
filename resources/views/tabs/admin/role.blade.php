@@ -5,7 +5,7 @@
 @section('content')
 @include('inc.messages')
 <div class='container'>
-    <input type='hidden' value='{{Auth::user()->id}}' id='logged_userid'>
+    <input type='hidden' value='{{Auth::user()->id}}' id='logged_userid'>    
     <div class='row'>
         <div class='col-md'>
             <nav>
@@ -38,6 +38,7 @@
                         <th>EMAIL</th>
                         <th>ADMIN</th>
                         <th>TECH</th>
+                        <th>LEVEL</th>
                         <th>DEL</th>
                     </tr>
                 </thead>
@@ -65,6 +66,15 @@
                                     @else
                                         <input id='tech_checkbox' value='{{$user->id}}' type='checkbox'>
                                     @endif
+                                </th>
+                                <th>                                    
+                                    <input type='hidden' value='{{$user->level}}' id='oldselval{{$user->id}}'>
+                                    <select id='levelselect' data-userid='{{$user->id}}' data-prevval='{{$user->level}}'>
+                                        <option value='0'@if($user->level == 0) selected @endif>0</option>
+                                        <option value='1'@if($user->level == 1) selected @endif>1</option>
+                                        <option value='2'@if($user->level == 2) selected @endif>2</option>
+                                        <option value='3'@if($user->level == 3) selected @endif>3</option>
+                                    </select>
                                 </th>
                                 <th>
                                     <form id='delete_user_form{{ $user->id }}' method='POST' action='/1_atms/public/users/{{ $user->id }}'>

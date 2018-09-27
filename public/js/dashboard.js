@@ -276,7 +276,53 @@ function loadscript(){
 				timeout: 2000
 			});
 		}
-	});	
+	});
+	$('#app').on('change','#levelselect',function(e){
+		var val = $(this).data('userid');
+		var level = $("option:selected",this).text();
+		if(val != $('#logged_userid').val()){			
+			$.ajax({
+				type: 'PUT',
+				url	: '/1_atms/public/users/'+val,
+				data: {
+					"_token": $('meta[name="csrf-token"]').attr('content'),
+					"level": level
+				}, 
+				datatype: 'JSON',       
+				success: function(success_data) {						
+						iziToast.success({
+								message: success_data,
+								position: 'topCenter',
+								timeout: 2000
+						});
+						var pr = $('#levelselect').val();
+						$('#levelselect').data('prevval',pr);
+				},
+				error: function(data){
+				var errors = data.responseJSON;
+						var msg = '';
+						$.each(errors['errors'], function( index, value ) {
+								msg += value +"<br>"
+						});
+						iziToast.warning({
+								message: msg,
+								position: 'topCenter',
+								timeout: 5000
+						});
+				} //end function
+			});//close ajax
+		}
+		else{
+			e.preventDefault();
+			e.stopImmediatePropagation();			
+			iziToast.warning({
+				message: 'Changing your data is not allowed',
+				position: 'topCenter',
+				timeout: 2000
+			});
+			$(this).val($(this).data('prevval'));
+		}
+	});
 
 	/* -------------------------- View Ticket ----------------------------- */
 	$('#app').on('submit','#updateform',function(e){

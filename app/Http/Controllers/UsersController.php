@@ -76,6 +76,7 @@ class UsersController extends Controller
         if($request->input('email') != ""){ $user->email = $request->input('email');}
         if($request->input('admin') != ""){ $user->admin = $request->input('admin');}
         if($request->input('tech') != ""){ $user->tech = $request->input('tech');}
+        if($request->input('level') != ""){ $user->level = $request->input('level');}
         $user->save();
         if($user->save()){
             if(empty($request->input('mod'))){
