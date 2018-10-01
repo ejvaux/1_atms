@@ -113,13 +113,13 @@
                                 <button type='button' id='assign_ticket' class='btn btn-secondary assign_grp'>Reassign Ticket</button>
                                 <button type='button' id='edit_instruction' class='btn btn-secondary assign_grp'>Edit Instructions</button>
                             @elseif($tickets->status_id == 5)
-                                <form class='form_to_submit' id='close_ticket_form' method='POST' action='/1_atms/public/closed_ticket/transfer/{{ $tickets->id }}'>
+                                {{-- <form class='form_to_submit' id='close_ticket_form' method='POST' action='/1_atms/public/closed_ticket/transfer/{{ $tickets->id }}'>
                                     @csrf
                                     <input type='hidden' name='status_id' value='{{ $tickets->status_id }}'>
                                     <input type='hidden' name='mod' value='default'>
                                     <input type='hidden' name='url' value='/it/ctlv/{{ $tickets->id }}'>            
-                                    <button type='button' id='close_ticket' class='btn btn-danger mt-2' style='display:inline;'>Close Ticket</button>
-                                </form>
+                                    <button type='button' id='close_ticket' class='btn btn-danger' style='display:inline;'>Close Ticket</button>
+                                </form> --}}
                             @endif                            
                         @endif
                         <span class='font-weight-bold' id='assign_label' style='font-size:1rem'></span> 
@@ -210,7 +210,7 @@
                                             <input type='hidden' name='status_id' value='{{ $tickets->status_id }}'>
                                             <input type='hidden' name='mod' value='default'>
                                             <input type='hidden' name='url' value='/it/ctlv/{{ $tickets->id }}'>            
-                                            <button type='button' id='close_ticket' class='btn btn-danger mt-2' style='display:inline;'>Close Ticket</button>
+                                            <button type='button' id='close_ticket' class='btn btn-danger' style='display:inline;'>Close Ticket</button>
                                         </form>
                                     </div>
                                 @else

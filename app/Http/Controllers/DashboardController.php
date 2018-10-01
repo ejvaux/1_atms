@@ -88,11 +88,13 @@ class DashboardController extends Controller
     {        
         $departments = $this->departments;
         $categories = $this->categories;
+        $priorities = $this->priorities;
+        $statuses = $this->statuses;
         $users = User::where('tech',1)->get();
         $tickets = Ticket::where('id',$id)->first();
         $updates = TicketUpdates::where('ticket_id',$id)->get();
         $updatetext = '';
-        return view('tabs.it.av', compact('tickets','updates','users','updatetext','departments','categories'));
+        return view('tabs.it.av', compact('tickets','updates','users','updatetext','departments','categories','priorities','statuses'));
     }
     public function listticket()
     {
