@@ -3,6 +3,7 @@
 @section('pageTitle','Ticket | ATMS - Primatech')
 
 @section('chart')
+    {!! $ticketbytech->script() !!}
     {!! $totalticketchart->script() !!}
     {!! $ticketdepartmentchart->script() !!}
 @endsection
@@ -96,25 +97,71 @@
         <div class='col-md'>
             <div class="card">
                 <div class="card-header">
-                    Tickets per day
+                    Tickets by Tech
                 </div>
                 <div class="card-body">
-                    {!! $totalticketchart->container() !!}
+                    {!! $ticketbytech->container() !!}
+                </div>
+            </div>
+        </div>
+        <div class='col-md'>
+            <div class="card">
+                <div class="card-header">
+                    Tickets by Priority
+                </div>
+                <div class="card-body">
+                    
                 </div>
             </div>
         </div>
     </div>
     <div class='row mb-2'>
-            <div class='col-md'>
-                <div class="card">
-                    <div class="card-header">
-                        Tickets by Department
-                    </div>
-                    <div class="card-body">
-                        {!! $ticketdepartmentchart->container() !!}
-                    </div>
+        <div class='col-md'>
+            <div class="card">
+                <div class="card-header">
+                    Tickets per Day
+                </div>
+                <div class="card-body">                    
+                    {!! $totalticketchart->container() !!}                                           
                 </div>
             </div>
         </div>
+    </div>
+    <div class='row mb-2'>
+        <div class='col-md'>
+            <div class="card">
+                <div class="card-header">
+                    Tickets by Department
+                </div>
+                <div class="card-body">
+                    {!! $ticketdepartmentchart->container() !!}
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class='row mb-2'>
+        <div class='col-md'>
+            <div class="card">
+                <div class="card-header">
+                    Tickets by Category
+                </div>
+                <div class="card-body">
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class='row mb-2'>
+        <div class='col-md'>
+            <div class="card">
+                <div class="card-header">
+                    Tickets by Status
+                </div>
+                <div class="card-body">
+                    
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 @endsection

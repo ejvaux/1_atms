@@ -82,6 +82,10 @@ Route::get('/protected', function() {
     return "this page requires that you be logged in and an Admin"; 
 }]); */
 
+// Reports
+Route::get('/it/rp/today','ReportsController@ticketreportsToday');
+Route::get('/it/rp/week','ReportsController@ticketreportsweek');
+
 // IT
 Route::get('/it/al', 'DashboardController@adminlistticket')->middleware('auth', 'admin');
 Route::get('/it/aq','DashboardController@adminqueue')->middleware('auth', 'admin');
@@ -102,7 +106,6 @@ Route::get('/it/htv/{id}', ['uses' => 'DashboardController@viewhandledticket']);
 Route::get('/it/ahtv/{id}', ['uses' => 'DashboardController@adminviewhandledticket'])->middleware('auth', 'admin');
 Route::get('/it/ct', 'DashboardController@createticket');
 Route::get('/it/cu', 'DashboardController@contact');
-Route::get('/it/rp','DashboardController@ticketreports');
 Route::get('/it/dtl','DashboardController@declinedticket');
 Route::get('/it/dtv/{id}','DashboardController@declinedticketview');
 // Load list

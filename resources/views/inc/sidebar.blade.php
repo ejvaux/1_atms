@@ -18,7 +18,7 @@
                     @if(Auth::check())
                         @if (Auth::user()->isAdmin())
                             <li class="list-group-item noborder d-flex justify-content-between align-items-center"><a class='sidetab' href='/1_atms/public/it/al'>TICKETS</a><span class="badge badge-info"></span></li>
-                            <li class="list-group-item noborder d-flex justify-content-between align-items-center"><a class='sidetab' href='{{url('/it/rp')}}'>REPORTS</a><span class="badge badge-info"></span></li>
+                            <li class="list-group-item noborder d-flex justify-content-between align-items-center"><a class='sidetab' href='{{url('/it/rp/today')}}'>REPORTS</a><span class="badge badge-info"></span></li>
                         @else
                             <li class="list-group-item noborder d-flex justify-content-between align-items-center"><a class='sidetab' href='/1_atms/public/it/lt'>TICKETS</a><span class="badge badge-info"></span></li>
                         @endif

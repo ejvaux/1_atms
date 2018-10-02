@@ -9,6 +9,8 @@ class ClosedTicket extends Model
 {
     use Sortable;
 
+    protected $fillable = ['created_at','updated_at']; 
+
     public $sortable = ['id', 'user_id', 'department_id','category_id','priority_id','status_id','subject','assigned_to','start_at','finish_at', 'created_at', 'updated_at'];
 
     public function user()

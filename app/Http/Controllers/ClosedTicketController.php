@@ -115,50 +115,57 @@ class ClosedTicketController extends Controller
     {
         if($request->input('status_id') == 5){
             $ticket = Ticket::find($id);
-            $userid = $ticket->user_id;
-            $newticket = $ticket->replicate();
-            unset($newticket['created_at'],$newticket['updated_at']);            
-            $t = new ClosedTicket;
-            $t->id = $ticket->id;
-            $t->user_id = $ticket->user_id;
-            $t->ticket_id = $ticket->ticket_id;
-            $t->department_id = $ticket->department_id;
-            $t->category_id = $ticket->category_id;
-            $t->priority_id = $ticket->priority_id;
-            $t->status_id = 6;
-            $t->subject = $ticket->subject;
-            $t->message = $ticket->message;
-            $t->assigned_to = $ticket->assigned_to;
-            $t->root = $ticket->root;
-            $t->action = $ticket->action;
-            $t->result = $ticket->result;
-            $t->recommend = $ticket->recommend;
-            $t->instruction = $ticket->instruction;
-            $t->start_at = $ticket->start_at;
-            $t->finish_at = $ticket->finish_at;
+            if(!empty($ticket)){
+                $userid = $ticket->user_id;
+                $newticket = $ticket->replicate();
+                unset($newticket['created_at'],$newticket['updated_at']);            
+                $t = new ClosedTicket;
+                $t->id = $ticket->id;
+                $t->user_id = $ticket->user_id;
+                $t->ticket_id = $ticket->ticket_id;
+                $t->department_id = $ticket->department_id;
+                $t->category_id = $ticket->category_id;
+                $t->priority_id = $ticket->priority_id;
+                $t->status_id = 6;
+                $t->subject = $ticket->subject;
+                $t->message = $ticket->message;
+                $t->assigned_to = $ticket->assigned_to;
+                $t->root = $ticket->root;
+                $t->action = $ticket->action;
+                $t->result = $ticket->result;
+                $t->recommend = $ticket->recommend;
+                $t->instruction = $ticket->instruction;
+                $t->start_at = $ticket->start_at;
+                $t->finish_at = $ticket->finish_at;
+                $t->created_at = $ticket->created_at;
+                $t->updated_at = $ticket->updated_at;
 
-            $mail = new \stdClass();
-            $mail->user = $ticket->user->name;            
-            $mail->tech =  $ticket->assign->name;
-            $mail->ticketnum = $ticket->id;
-            $mail->url = $request->input('url');
-            $emailuser = $ticket->user->email;
-            $techid = $ticket->assigned_to;
+                $mail = new \stdClass();
+                $mail->user = $ticket->user->name;            
+                $mail->tech =  $ticket->assign->name;
+                $mail->ticketnum = $ticket->id;
+                $mail->url = $request->input('url');
+                $emailuser = $ticket->user->email;
+                $techid = $ticket->assigned_to;
 
-            $t->save();
-            if($t->save()){
-                Ticket::where('id',$id)->delete();
-                if($request->input('mod') == 'default'){
-                    $tu = new TicketUpdates;
-                    $tu->ticket_id = $id;
-                    $tu->user_id = $techid;
-                    $tu->message = "Ticket Closed.";
-                    $tu->save(); 
-                    return redirect('/notification/ticketclose/'.$userid.'/'.$mail->ticketnum);
-                    /* Mail::to($emailuser)->send(new TicketClosed($mail));
-                    return redirect('/it/ht')->with('success','Ticket Closed Successfully.'); */
-                }                
+                $t->save();
+                if($t->save()){
+                    Ticket::where('id',$id)->delete();
+                    if($request->input('mod') == 'default'){
+                        $tu = new TicketUpdates;
+                        $tu->ticket_id = $id;
+                        $tu->user_id = $techid;
+                        $tu->message = "Ticket Closed.";
+                        $tu->save(); 
+                        return redirect('/notification/ticketclose/'.$userid.'/'.$mail->ticketnum);
+                        /* Mail::to($emailuser)->send(new TicketClosed($mail));
+                        return redirect('/it/ht')->with('success','Ticket Closed Successfully.'); */
+                    }                
+                }
             }
+            else{
+                return redirect()->back();
+            }            
         }
         else{
             return back()->with('error','Ticket must be resolved first.');

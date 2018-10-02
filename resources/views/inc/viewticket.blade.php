@@ -190,7 +190,7 @@
                                             <select type="text" class="form-control" id='change_status_id' name="status_id" placeholder="" required>
                                                 <option value="">- Select Status -</option>
                                                 @foreach($statuses as $status)
-                                                    @if(!($status->id == $tickets->status_id || $status->id == 1 || $status->id == 2 || $status->id == 6))                                                        
+                                                    @if(!($status->id == $tickets->status_id || $status->id == 1 || $status->id == 2 || $status->id == 6 || $status->id == 7))                                                        
                                                         <option value="{{$status->id}}">{{$status->name}}</option>
                                                     @endif                                                    
                                                 @endforeach
