@@ -237,35 +237,36 @@ function loadscript(){
 			var tech = 0;
 		}
 		var val = $(this).val();
-		if(val != $('#logged_userid').val()){			
-			$.ajax({
-				type: 'PUT',
-				url	: '/1_atms/public/users/'+val,
-				data: {
-					"_token": $('meta[name="csrf-token"]').attr('content'),
-					"tech": tech
-				}, 
-				datatype: 'JSON',       
-				success: function(success_data) {
-						iziToast.success({
-								message: success_data,
-								position: 'topCenter',
-								timeout: 2000
-						});     
-				},
-				error: function(data){
-				var errors = data.responseJSON;
-						var msg = '';
-						$.each(errors['errors'], function( index, value ) {
-								msg += value +"<br>"
-						});
-						iziToast.warning({
-								message: msg,
-								position: 'topCenter',
-								timeout: 5000
-						});
-				} //end function
-			});//close ajax
+		$.ajax({
+			type: 'PUT',
+			url	: '/1_atms/public/users/'+val,
+			data: {
+				"_token": $('meta[name="csrf-token"]').attr('content'),
+				"tech": tech
+			}, 
+			datatype: 'JSON',       
+			success: function(success_data) {
+					iziToast.success({
+							message: success_data,
+							position: 'topCenter',
+							timeout: 2000
+					});     
+			},
+			error: function(data){
+			var errors = data.responseJSON;
+					var msg = '';
+					$.each(errors['errors'], function( index, value ) {
+							msg += value +"<br>"
+					});
+					iziToast.warning({
+							message: msg,
+							position: 'topCenter',
+							timeout: 5000
+					});
+			} //end function
+		});//close ajax
+		/* if(val != $('#logged_userid').val()){			
+			
 		}
 		else{
 			e.preventDefault();
@@ -275,7 +276,7 @@ function loadscript(){
 				position: 'topCenter',
 				timeout: 2000
 			});
-		}
+		} */
 	});
 	$('#app').on('change','#levelselect',function(e){
 		var val = $(this).data('userid');
