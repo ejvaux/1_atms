@@ -210,6 +210,7 @@
                                     <div id='req_change_buttons'>
                                         <button type='button' id='req_change_priority_button' class='btn btn-secondary'>Change Priority</button>
                                         <button type='button' id='req_change_status_button' class='btn btn-secondary'>Change Status</button>
+                                        <button type='button' id='add_review_details' class='btn btn-secondary'>Request Details</button>
                                         {{-- <button type='button' id='add_ticket_details' class='btn btn-secondary'>Ticket Details</button>
                                         <form class='form_to_submit' id='close_ticket_form' method='POST' action='/1_atms/public/closed_ticket/transfer/{{ $request->id }}'>
                                             @csrf
@@ -274,7 +275,7 @@
                         <textarea type="text" class="form-control editrequestinput" rows="8" id="messageNew" name="message" placeholder="" style='display:none; width:100%'>{!! $request->message !!}</textarea>
                     </div>
                 </div>
-            {{-- <form class='form_to_submit' method='POST' action='/1_atms/public/tickets/{{ $request->id }}'>
+            <form class='form_to_submit' method='POST' action='{{ url('/cctvreview/'.$request->id) }}'>
                 @method('PUT')
                 @csrf
                 <input type='hidden' name='mod' value='detail'>
@@ -283,8 +284,8 @@
                         <label class='font-weight-bold'><span class='text-muted'>ROOT CAUSE:</span></label>      
                     </div>                    
                     <div class="col-md " style='max-height: 15vh; overflow:hidden; overflow-y: scroll'>
-                        <textarea name='root' class='details_edit' style='display:none; width:100%'>{{ $request->root }}</textarea>
-                        <p class='details_display'>{{ $request->root }}</p>       
+                        <textarea name='root' class='review_details_edit' style='display:none; width:100%'>{{ $request->root }}</textarea>
+                        <p class='review_details_display'>{{ $request->root }}</p>       
                     </div>  
                 </div>
                 <div class="row mb-2">
@@ -292,8 +293,8 @@
                         <label class='font-weight-bold'><span class='text-muted'>ACTION:</span></label>      
                     </div>                    
                     <div class="col-md" style='max-height: 15vh; overflow:hidden; overflow-y: scroll'>
-                        <textarea name='action' class='details_edit' style='display:none; width:100%'>{{ $request->action }}</textarea>
-                        <p class='details_display'>{{ $request->action }}</p>       
+                        <textarea name='action' class='review_details_edit' style='display:none; width:100%'>{{ $request->action }}</textarea>
+                        <p class='review_details_display'>{{ $request->action }}</p>       
                     </div>  
                 </div>
                 <div class="row mb-2">
@@ -301,8 +302,8 @@
                         <label class='font-weight-bold'><span class='text-muted'>RESULT:</span></label>      
                     </div>                    
                     <div class="col-md" style='max-height: 15vh; overflow:hidden; overflow-y: scroll'>
-                        <textarea name='result' class='details_edit' style='display:none; width:100%'>{{ $request->result }}</textarea>
-                        <p class='details_display'>{{ $request->result }}</p>       
+                        <textarea name='result' class='review_details_edit' style='display:none; width:100%'>{{ $request->result }}</textarea>
+                        <p class='review_details_display'>{{ $request->result }}</p>       
                     </div>  
                 </div>
                 <div class="row mb-2">
@@ -310,15 +311,15 @@
                         <label class='font-weight-bold'><span class='text-muted'>RECOMMENDATION:</span></label>      
                     </div>                    
                     <div class="col-md" style='max-height: 20vh; overflow:hidden; overflow-y: scroll'>
-                        <textarea name='recommend' class='mb-2 details_edit' style='display:none; width:100%'>{{ $request->recommend }}</textarea>                        
-                        <p class='details_display'>{{ $request->recommend }}</p>       
+                        <textarea name='recommend' class='mb-2 review_details_edit' style='display:none; width:100%'>{{ $request->recommend }}</textarea>                        
+                        <p class='review_details_display'>{{ $request->recommend }}</p>       
                     </div>                    
                 </div>
-                <div class='col-md details_edit text-right' style='display:none;'>
+                <div class='col-md review_details_edit text-right' style='display:none;'>
                     <button type='submit' id='' class='btn btn-secondary form_submit_button' >Save</button>
-                    <button type='button' id='cancel_add_details' class='btn btn-warning'>Cancel</button>
+                    <button type='button' id='cancel_request_details' class='btn btn-warning'>Cancel</button>
                 </div>
-            </form> --}}
+            </form>
             </div>
         </div>
     </div>

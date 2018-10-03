@@ -109,6 +109,10 @@ class CctvReviewsController extends Controller
         if($request->input('status_id') != ""){ $req->status_id = $request->input('status_id');}
         if($request->input('start_at') != ""){ $req->start_at = $request->input('start_at');}
         if($request->input('priority_id') != ""){ $req->priority_id = $request->input('priority_id');}
+        if($request->input('root') != ""){ $req->root = $request->input('root');}
+        if($request->input('action') != ""){ $req->action = $request->input('action');}
+        if($request->input('result') != ""){ $req->result = $request->input('result');}
+        if($request->input('recommend') != ""){ $req->recommend = $request->input('recommend');}
         if($request->input('status_id') != ""){ $req->status_id = $request->input('status_id');
             if($request->input('status_id') == '5'){
                 $req->finish_at = Date('Y-m-d H:i:s');

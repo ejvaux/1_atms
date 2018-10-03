@@ -127,6 +127,18 @@ $('#app').on("keyup",'#searchtextbox',function(e) {
     }
 });
 
+/* -------------------- Add Request Details -------------------- */
+$('#app').on('click','#add_review_details',function(){
+    $('.review_details_edit').show();
+    $('.review_details_display').hide();
+});
+
+/* --------------------Cancel Request Details -------------------- */
+$('#app').on('click','#cancel_request_details',function(){
+    $('.review_details_edit').hide();
+    $('.review_details_display').show();
+});
+
 /* -------------------- Resolving Request -------------------- */
 /* $('#app').on('submit','#req_change_status_form',function(e){		
     e.preventDefault();
