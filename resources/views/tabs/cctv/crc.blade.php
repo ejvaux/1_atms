@@ -62,7 +62,7 @@
                     <div class='col-md'>
                         <label for="start_time">Time:</label>
                         <div class="btn-group">
-                            <input class="form-control" type='datetime-local' id='start_time' name='start_time'><span class='pt-2 mx-1'> to </span><input class="form-control" type='datetime-local' id='end_time' name='end_time'>
+                            <input class="form-control" type='datetime-local' id='start_time' name='start_time' required><span class='pt-2 mx-1'> to </span><input class="form-control" type='datetime-local' id='end_time' name='end_time' required>
                         </div>
                     </div>
                 </div>
