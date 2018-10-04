@@ -97,8 +97,30 @@ class CctvReviewsController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $req = CctvReview::find($id);        
+        $request->validate([
+            'attach.*' => 'image|mimes:jpeg,png,jpg,gif,svg|nullable|max:10000',
+        ]);
 
+        // Handle File Upload
+        if($request->hasFile('attach')) {
+            $filenameArray = array();
+            foreach($request->attach as $file)
+            {
+                $filenameWithExt = $file->getClientOriginalName();
+                $filename = pathinfo($filenameWithExt, PATHINFO_FILENAME);
+                $extension = $file->getClientOriginalExtension();
+                $fileNameToStore = $filename.'_'.time().'.'.$extension;
+                $file->storeAs('public/requestfile', $fileNameToStore);
+                array_push($filenameArray,$fileNameToStore);       
+            }
+            $filenameArray = json_encode($filenameArray);
+        }
+        else {
+            $filenameArray = null;
+        }
+        $req = CctvReview::find($id);
+
+        $req->attach = $filenameArray;
         if($request->input('department_id') != ""){ $req->department_id = $request->input('department_id');}
         if($request->input('subject') != ""){ $req->subject = $request->input('subject');}
         if($request->input('message') != ""){ $req->message = $request->input('message');}
@@ -156,5 +178,31 @@ class CctvReviewsController extends Controller
     {
         CctvReview::where('id',$id)->delete();
         return redirect()->back()->with('success','Request cancelled Successfully.');   
+    }
+    public function addimage(Request $request, $id)
+    {
+        $request->validate([
+            'attach.*' => 'image|mimes:jpeg,png,jpg,gif,svg|required|max:10000',
+        ]);
+        $req = CctvReview::where('id',$id)->first();
+        // Handle File Upload
+        if($request->hasFile('attach')) {
+            $filenameArray = json_decode($req->attach);
+            foreach($request->attach as $file)
+            {
+                $filenameWithExt = $file->getClientOriginalName();
+                $filename = pathinfo($filenameWithExt, PATHINFO_FILENAME);
+                $extension = $file->getClientOriginalExtension();
+                $fileNameToStore = $filename.'_'.time().'.'.$extension;
+                $file->storeAs('public/requestfile', $fileNameToStore);
+                array_push($filenameArray,$fileNameToStore);       
+            }
+        }
+        else {
+            $filenameArray = null;
+        }        
+        $req->attach = json_encode($filenameArray);
+        $req->save();
+        return redirect()->back()->with('success','Image/s uploaded successfully');
     }
 }

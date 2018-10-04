@@ -29,12 +29,7 @@
                     </div> 
                 </div>
             </div>
-        </main>
-        {{-- <footer class="footer mb-4">
-            <div class="container">
-                <span class="text-muted text-center">Place sticky footer content here.</span>
-            </div>
-        </footer> --}}
+        </main>        
         <!-- Footer -->
         <footer class="page-footer font-small blue">
 

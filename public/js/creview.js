@@ -139,6 +139,30 @@ $('#app').on('click','#cancel_request_details',function(){
     $('.review_details_display').show();
 });
 
+/* -------------------- Upload Images -------------------- */
+$('#app').on('click','#uploadbtn',function(){
+    $('#uploadinput').show();
+    $(this).hide();
+});
+$('#app').on('click','#canceluploadbtn',function(){
+    $('#uploadbtn').show();
+    $('#uploadinput').hide();
+    $('#inputupload').val('');
+});
+
+/* -------------------- Add Images -------------------- */
+$('#app').on('click','#addimagebtn',function(){
+    $('#addimageinput').show();
+    $('#c_attach').hide();
+    $(this).hide();
+});
+$('#app').on('click','#canceladdimagebtn',function(){
+    $('#addimagebtn').show();
+    $('#c_attach').show();
+    $('#addimageinput').hide();
+    $('#inputaddimage').val('');
+});
+
 /* -------------------- Resolving Request -------------------- */
 /* $('#app').on('submit','#req_change_status_form',function(e){		
     e.preventDefault();

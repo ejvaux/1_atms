@@ -127,6 +127,7 @@ Route::get('/it/ctl/{id}','DashboardController@searchclosedticket');
 Route::get('/cr/crl','ReviewsController@reviewlist');
 Route::get('/cr/crc','ReviewsController@reviewcreate');
 Route::get('/cr/crv/{id}','ReviewsController@viewreview');
+Route::get('/cr/crda/{id}','ReviewsController@viewreviewattach');
 // Load list
 Route::get('/loadlist/{id}','ReviewsController@loadlist');
 // Search
@@ -136,6 +137,7 @@ Route::get('/cr/crl/{id}','ReviewsController@reviewlistsearch');
 Route::post('closed_ticket/transfer/{id}','ClosedTicketController@transferticket');
 Route::post('declined_ticket/transfer/{id}','DeclinedTicketController@transferticket');
 Route::put('users/changepass/{id}','UsersController@changepass');
+Route::put('cctvreview/addimage/{id}','CctvReviewsController@addimage');
 
 // Tables
 Route::resources([

@@ -17,6 +17,7 @@ use App\Charts\TicketsReport;
 use DB;
 use App\Custom\CustomFunctions;
 use App\DeclinedTicket;
+use App\CctvReview;
 
 class DashboardController extends Controller
 {   
@@ -469,15 +470,10 @@ class DashboardController extends Controller
         }
         /* return view('inc.ticketlist',compact('tickets')); */
     }
-    public function testdb()
-    {
-        return 
-        /* DB::select('SELECT tickets.department_id, tickets.id, departments.id, departments.name FROM `tickets` LEFT OUTER JOIN departments ON departments.id = tickets.department_id UNION
-        SELECT tickets.department_id, tickets.id, departments.id, departments.name FROM `tickets` RIGHT OUTER JOIN departments ON departments.id = tickets.department_id'); */
-        /* DB::select('SELECT count(tickets.department_id) as total, departments.name FROM `tickets` 
-        RIGHT OUTER JOIN departments ON departments.id = tickets.department_id GROUP BY departments.name'); */
-        /* CustomFunctions::generateRequestNumber(); */
-        /* DB::select('SELECT * FROM `cctv_reviews` WHERE `user_id` = '.Auth::user()->id.' OR `assigned_to` = '.Auth::user()->id); */
-        ClosedTicket::where('user_id',Auth::user()->id)->orderBy('id','desc')->get();
+    public function testdb(Request $request)
+    {        
+        $rs = CctvReview::where('id',17)->first();
+        $json = json_decode($rs->attach);
+        return $json;
     }
 }

@@ -107,12 +107,12 @@
                                 </div>
                                 <div class='row'>
                                     <div class='col-md '>
-                                        <label class='font-weight-bold '>{{ $request->start_at }}</label>
+                                        <label class='font-weight-bold'>{{ $request->start_at }}</label>
                                     </div>
                                 </div>
                                 <div class='row'>
                                     <div class='col-md '>
-                                        <label class='font-weight-bold '>{{ $request->finish_at }}</label>
+                                        <label class='font-weight-bold'>{{ $request->finish_at }}</label>
                                     </div>
                                 </div>
                             </div>
@@ -120,7 +120,7 @@
                     </div>
                 </div>
                 <div class='row mb-2'>
-                    <div class='col-md-6'>
+                    <div class='col-md-5'>
                         @if($request->status_id == 1)
                             {{-- <button type='button' id='assign_request' class='btn btn-secondary'>Assign Request</button> --}}
                             @if($request->assigned_to == '')
@@ -225,7 +225,44 @@
                                 @endif                           
                             @endif
                         @endif                                                                                                         
-                    </div>                                              
+                    </div>
+                    <div class='col-md-7'>
+                        @if($request->attach != null)
+                            <a class='btn btn-secondary' id='c_attach' href="{{ url('/cr/crda/'.$request->id) }}" >See Attachments</a>
+                            @if(Auth::user()->id == $request->assigned_to)
+                            <button id='addimagebtn' class='btn btn-secondary'>Add Images</button>
+                            <div id='addimageinput' style='display:none'>
+                                <form id='addimageform' class='form_to_submit' method='POST' action='{{ url('/cctvreview/addimage/'.$request->id) }}' enctype="multipart/form-data">
+                                    @method('PUT')
+                                    @csrf
+                                    <input id='inputaddimage' class='border border-secondary rounded form-control-sm py-1' type='file' name='attach[]' multiple>
+                                    <button type='submit' class="btn btn-primary form_submit_button" id="saveTicketButton"><i class="fa fa-share-square"></i> Upload</button>
+                                    <button type='button' class='btn btn-warning' id='canceladdimagebtn'>Cancel</button>
+                                </form>
+                            </div>
+                            @endif
+                        @else
+                            @if(Auth::user()->id == $request->assigned_to && !($request->status_id == 1 || $request->status_id == 2))
+                                <div class='row'>                                    
+                                    <div class="col-md text-left">
+                                        {{-- <span>Attach Image/ScreenShot: </span> --}}
+                                        <button id='uploadbtn' class='btn btn-secondary'>Upload Images</button>
+                                        <div id='uploadinput' style='display:none'>
+                                            <form id='uploadform' class='form_to_submit' method='POST' action='{{ url('/cctvreview/'.$request->id) }}' enctype="multipart/form-data">
+                                                @method('PUT')
+                                                @csrf
+                                                <input id='inputupload' class='border border-secondary rounded form-control-sm py-1' type='file' name='attach[]' multiple>
+                                                <button type='submit' class="btn btn-primary form_submit_button" id="saveTicketButton"><i class="fa fa-share-square"></i> Upload</button>
+                                                <button type='button' class='btn btn-warning' id='canceluploadbtn'>Cancel</button>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>                                
+                            @else
+                                <span class='text-muted font-weight-bold'>No attachment.</span>
+                            @endif                            
+                        @endif 
+                    </div>                                           
                 </div>
                 <div class='row mb-2'>
                     <div class='col-md'>
@@ -243,7 +280,7 @@
                                     <input type='hidden' id='editLocation' name='location' value=''>
                                     <input type='hidden' id='' name='mod' value='editTicket'>
                                     <div class='input-group'>
-                                        <button type='submit' class='btn btn-secondary form_submit_button'>Save</button>
+                                        <button type='submit' class='btn btn-primary form_submit_button'>Save Request</button>
                                         <button type='button' id='cancel_edit_request' class='btn btn-warning'>Cancel</button>
                                     </div>
                                 </form>
@@ -254,7 +291,7 @@
                                 <button type='button' id='cancel_request' class='btn btn-danger mt-2' style='display:inline;'>Cancel Request</button>
                             </form>                        
                         @endif
-                    </div>
+                    </div>                    
                 </div>
                 <hr>                          
                 <div class="row mb-2">

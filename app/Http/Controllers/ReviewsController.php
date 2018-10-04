@@ -133,4 +133,11 @@ class ReviewsController extends Controller
         }        
         return view('tabs.cctv.crl',compact('requests'));
     }
+    public function viewreviewattach($id)
+    {
+        /* $images = json_decode(CctvReview::find($id)->pluck('attach')); */
+        $img = CctvReview::where('id',$id)->first();
+        $images = json_decode($img->attach);
+        return view('tabs.cctv.crda',compact('images'));
+    }
 }
