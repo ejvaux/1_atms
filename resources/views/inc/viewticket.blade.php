@@ -103,6 +103,7 @@
                             <button type='button' id='decline_ticket' class='btn btn-warning assign_grp' style='display:inline;'>Decline Ticket</button>
                             <form class='form_to_submit' id='decline_ticket_form' method='POST' action='/1_atms/public/declined_ticket/transfer/{{ $tickets->id }}'>
                                 @csrf
+                                <input id='reason' type='hidden' name='reason' value=''>
                                 <input type='hidden' name='status_id' value='{{ $tickets->status_id }}'>
                                 <input type='hidden' name='mod' value='default'>
                                 <input type='hidden' name='url' value='/it/ctlv/{{ $tickets->id }}'>                                    

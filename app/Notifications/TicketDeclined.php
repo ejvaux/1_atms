@@ -51,6 +51,7 @@ class TicketDeclined extends Notification
         return (new MailMessage)
                 ->greeting('Hello! ' .$this->name)
                 ->line('Ticket #'.$t->ticket_id.' is been declined by the admin.')
+                ->line('Reason: '.$t->reason.'.')
                 /* ->action('View Ticket', $url) */
                 ->line('Thank you for using our application!');
     }

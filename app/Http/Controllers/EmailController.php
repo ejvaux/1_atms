@@ -7,6 +7,11 @@ use Illuminate\Support\Facades\Mail;
 
 class EmailController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+    
     public function send(Request $request){
         $title = $request->input('title');
         $content = $request->input('content');

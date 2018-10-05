@@ -20,6 +20,11 @@ use App\DeclinedTicket;
 
 class ReportsController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+    
     // Reports
     public function ticketreportsToday()
     {

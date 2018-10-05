@@ -79,7 +79,15 @@
                                 </div>
                             </div>                            
                         </div>
-                    </div>                    
+                    </div>
+                    <div class='row mb-2'>
+                        <div class='col-md-2'>
+                            <label class='font-weight-bold text-muted'>REASON:</label>
+                        </div>
+                        <div class='col-md'>
+                            <p>{{ $tickets->reason }}</p>
+                        </div>    
+                    </div>                  
                     <hr>                          
                     <div class="row mb-2">
                         <div class="col-md-2">

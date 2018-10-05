@@ -542,7 +542,7 @@ function loadscript(){
 	// Decline ticket
 	$('#app').on('click','#decline_ticket',function(){
 		/* decline_ticket_form */
-		swal({
+		/* swal({
 			title: 'Are you sure?',
 			text: "You won't be able to revert this!",
 			type: 'warning',
@@ -551,10 +551,52 @@ function loadscript(){
 			cancelButtonColor: '#d33',
 			confirmButtonText: 'Yes, decline it!'
 		  }).then((result) => {
-		if (result.value) {
+		if (result.value) {			
 			$('#decline_ticket_form').trigger('submit');
 		}
-		})
+		}) */
+		swal({
+			title: 'Are you sure?',
+			text: "You won't be able to revert this!",
+			type: 'warning',
+			input:'textarea',
+			inputPlaceholder: 'Type your reason here...',
+			inputAttributes: {
+			  autocapitalize: 'off'
+			},
+			showCancelButton: true,
+			confirmButtonColor: '#3085d6',
+			cancelButtonColor: '#d33',
+			confirmButtonText: 'Yes, decline it!',
+			/* showLoaderOnConfirm: true,
+			preConfirm: () => {
+				return [
+					document.getElementById('swal-input1').value,
+					document.getElementById('swal-input2').value
+				  ]
+			}, */
+			allowOutsideClick: () => !swal.isLoading()
+		  }).then((result) => {			
+			/* if(result.value == 0){
+			}
+			else if(result.value == null){
+			}
+			else if(typeof result.value == "string"){
+				$('#reason').val(result.value);
+				$('#decline_ticket_form').trigger('submit');
+			} */
+			if(result.value != null){
+				/* $('#reason').val(result.value); */
+				if(result.value == ""){
+					$('#reason').val(null);
+					$('#decline_ticket_form').trigger('submit');
+				}
+				else{
+					$('#reason').val(result.value);
+					$('#decline_ticket_form').trigger('submit');
+				}
+			}
+		  })
 	});
 
 	// Edit ticket instructions

@@ -10,6 +10,11 @@ use App\TicketUpdates;
 
 class DeclinedTicketController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+    
     /**
      * Display a listing of the resource.
      *
@@ -89,8 +94,8 @@ class DeclinedTicketController extends Controller
     {        
         $ticket = Ticket::find($id);
         $userid = $ticket->user_id;
-        $newticket = $ticket->replicate();
-        unset($newticket['created_at'],$newticket['updated_at']);            
+        /* $newticket = $ticket->replicate();
+        unset($newticket['created_at'],$newticket['updated_at']);   */          
         $t = new DeclinedTicket;
         $t->id = $ticket->id;
         $t->user_id = $ticket->user_id;
@@ -109,6 +114,9 @@ class DeclinedTicketController extends Controller
         $t->instruction = $ticket->instruction;
         $t->start_at = $ticket->start_at;
         $t->finish_at = $ticket->finish_at;
+        $t->created_at = $ticket->created_at;
+        $t->updated_at = $ticket->updated_at;
+        if($request->input('reason') != ""){ $t->reason = $request->input('reason');}
 
         $mail = new \stdClass();
         $mail->user = $ticket->user->name;   
