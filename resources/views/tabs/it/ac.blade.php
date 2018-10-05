@@ -67,8 +67,8 @@
                 </div>
                 <div class="form-group row text-right">
                     <div class="col-md-5 text-left">
-                        <span>Attach Image/ScreenShot: </span>
-                        <input class='border' type='file' name='attachedfile'>
+                        <span>Attach Images/ScreenShots: </span>
+                        <input class='border border-secondary rounded form-control-sm' type='file' name='attachedfile[]' multiple>
                     </div>
                     <div class="col">
                         <button type='submit' class="btn btn-primary form_submit_button" id="saveTicketButton"><i class="fa fa-share-square"></i> Submit Ticket</button>

@@ -58,10 +58,10 @@ class TicketsController extends Controller
             'category' => 'required', 
             'department' => 'required',          
             'message' => 'required',
-            'attachedfile' => 'image|nullable|max:5000',
+            'attachedfile.*' => 'image|mimes:jpeg,png,jpg,gif,svg|nullable|max:10000',
         ]);
         try{
-            // Handle File Upload
+            /* // Handle File Upload
             if($request->hasFile('attachedfile')) {
                 // Get filename with extension            
                 $filenameWithExt = $request->file('attachedfile')->getClientOriginalName();
@@ -76,6 +76,24 @@ class TicketsController extends Controller
             }
             else {
                 $fileNameToStore = null;
+            } */
+
+            // Handle File Upload
+            if($request->hasFile('attachedfile')) {
+                $filenameArray = array();
+                foreach($request->attachedfile as $file)
+                {
+                    $filenameWithExt = $file->getClientOriginalName();
+                    $filename = pathinfo($filenameWithExt, PATHINFO_FILENAME);
+                    $extension = $file->getClientOriginalExtension();
+                    $fileNameToStore = $filename.'_'.time().'.'.$extension;
+                    $file->storeAs('public/attachedfile', $fileNameToStore);
+                    array_push($filenameArray,$fileNameToStore);       
+                }
+                $filenameArray = json_encode($filenameArray);
+            }
+            else {
+                $filenameArray = null;
             }
 
             // Create Ticket
@@ -87,7 +105,7 @@ class TicketsController extends Controller
             $t->priority_id = $request->input('priority');
             $t->subject = $request->input('subject');
             $t->message = $request->input('message');
-            $t->attach = $fileNameToStore;     
+            $t->attach = $filenameArray;    
             $t->save();
             $s = new Serial;
             $s->number =  $request->input('ticket_id');

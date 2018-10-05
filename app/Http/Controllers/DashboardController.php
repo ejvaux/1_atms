@@ -470,6 +470,13 @@ class DashboardController extends Controller
         }
         /* return view('inc.ticketlist',compact('tickets')); */
     }
+    public function viewticketattach($id)
+    {
+        /* $images = json_decode(CctvReview::find($id)->pluck('attach')); */
+        $img = Ticket::where('id',$id)->first();
+        $images = json_decode($img->attach);
+        return view('tabs.it.tda',compact('images'));
+    }
     public function testdb(Request $request)
     {        
         $rs = CctvReview::where('id',17)->first();

@@ -108,6 +108,7 @@ Route::get('/it/ct', 'DashboardController@createticket');
 Route::get('/it/cu', 'DashboardController@contact');
 Route::get('/it/dtl','DashboardController@declinedticket');
 Route::get('/it/dtv/{id}','DashboardController@declinedticketview');
+Route::get('/it/tda/{id}','DashboardController@viewticketattach');
 // Load list
 Route::get('/loadticketlist/{id}','DashboardController@loadticketlist');
 

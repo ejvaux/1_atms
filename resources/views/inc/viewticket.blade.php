@@ -220,12 +220,12 @@
                             @endif
                         @endif                                                                                                         
                     </div>
-                    <div class='col-md'>
+                    <div class='col-md'>                        
                         @if($tickets->attach != null)
-                            <a class='btn btn-secondary' href="/1_atms/public/storage/attachedfile/{{$tickets->attach}}" onclick="window.open(this.href,'_blank');return false;">See Attachments</a>
-                        @else
-                            No attachment.
-                        @endif 
+                            <a class='btn btn-secondary' id='c_attach' href="{{ url('/it/tda/'.$tickets->id) }}" >See Attachments</a>                           
+                        @else                            
+                            <span class='text-muted font-weight-bold'>No attachment.</span>                                                       
+                        @endif
                     </div>                                               
                 </div>
                 <div class='row mb-2'>
