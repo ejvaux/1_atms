@@ -477,6 +477,20 @@ class DashboardController extends Controller
         $images = json_decode($img->attach);
         return view('tabs.it.tda',compact('images'));
     }
+    public function viewcticketattach($id)
+    {
+        /* $images = json_decode(CctvReview::find($id)->pluck('attach')); */
+        $img = ClosedTicket::where('id',$id)->first();
+        $images = json_decode($img->attach);
+        return view('tabs.it.tda',compact('images'));
+    }
+    public function viewdticketattach($id)
+    {
+        /* $images = json_decode(CctvReview::find($id)->pluck('attach')); */
+        $img = DeclinedTicket::where('id',$id)->first();
+        $images = json_decode($img->attach);
+        return view('tabs.it.tda',compact('images'));
+    }
     public function testdb(Request $request)
     {        
         $rs = CctvReview::where('id',17)->first();
