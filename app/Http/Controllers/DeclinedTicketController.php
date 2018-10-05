@@ -114,6 +114,7 @@ class DeclinedTicketController extends Controller
         $t->instruction = $ticket->instruction;
         $t->start_at = $ticket->start_at;
         $t->finish_at = $ticket->finish_at;
+        $t->attach = $ticket->attach;
         $t->created_at = $ticket->created_at;
         $t->updated_at = $ticket->updated_at;
         if($request->input('reason') != ""){ $t->reason = $request->input('reason');}

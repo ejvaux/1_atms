@@ -79,6 +79,14 @@
                                 </div>
                             </div>                            
                         </div>
+                        <div class='col-md'></div>
+                        <div class='col-md-6'>                        
+                            @if($tickets->attach != null)
+                                <a class='btn btn-secondary' id='c_attach' href="{{ url('/it/tda/'.$tickets->id) }}" >See Attachments</a>                           
+                            @else                            
+                                <span class='text-muted font-weight-bold'>No attachment.</span>                                                       
+                            @endif
+                        </div>
                     </div>
                     <div class='row mb-2'>
                         <div class='col-md-2'>
