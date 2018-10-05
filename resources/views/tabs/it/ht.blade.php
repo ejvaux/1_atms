@@ -9,7 +9,7 @@
         <div class='col-lg'>
             <nav>
                 <ol class="breadcrumb">
-                    <li class="breadcrumb-item"><a href='{{ URL::previous() }}'>My Tickets</a></li>
+                    <li class="breadcrumb-item"><a href='/1_atms/public/it/lt'>My Tickets</a></li>
                     <li class="breadcrumb-item">Handled Tickets</li>
                     {{-- <li class="breadcrumb-item">Data</li> --}}
                 </ol>

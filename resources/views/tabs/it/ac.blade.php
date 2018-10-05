@@ -9,7 +9,7 @@
         <div class='col-md'>
             <nav>
                 <ol class="breadcrumb">
-                    <li class="breadcrumb-item"><a href="{{ URL::previous() }}">Tickets</a></li>
+                    <li class="breadcrumb-item"><a href="/1_atms/public/it/al">Tickets</a></li>
                     <li class="breadcrumb-item">Create Ticket</li>
                     {{-- <li class="breadcrumb-item">Data</li> --}}
                 </ol>
