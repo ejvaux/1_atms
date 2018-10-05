@@ -58,7 +58,7 @@ class TicketsController extends Controller
             'category' => 'required', 
             'department' => 'required',          
             'message' => 'required',
-            'attachedfile.*' => 'image|mimes:jpeg,png,jpg,gif,svg|nullable|max:10000',
+            'attachedfile.*' => 'image|mimes:jpeg,png,jpg,gif,svg,bmp|nullable|max:10000',
         ]);
         try{
             /* // Handle File Upload

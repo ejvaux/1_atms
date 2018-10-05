@@ -10,7 +10,7 @@
             <nav>
                 <ol class="breadcrumb">
                     <li class="breadcrumb-item"><a href="/1_atms/public/it/al">Tickets</a></li>
-                    <li class="breadcrumb-item"><a href='/1_atms/public/it/actl'>Closed Tickets</a></li>                    
+                    <li class="breadcrumb-item"><a href='{{ URL::previous() }}'>Closed Tickets</a></li>                    
                     <li class="breadcrumb-item">Details</li>
                 </ol>
             </nav>

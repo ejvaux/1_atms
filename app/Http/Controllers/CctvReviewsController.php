@@ -103,7 +103,7 @@ class CctvReviewsController extends Controller
     public function update(Request $request, $id)
     {
         $request->validate([
-            'attach.*' => 'image|mimes:jpeg,png,jpg,gif,svg|nullable|max:10000',
+            'attach.*' => 'image|mimes:jpeg,png,jpg,gif,svg,bmp|nullable|max:10000',
         ]);
 
         // Handle File Upload
