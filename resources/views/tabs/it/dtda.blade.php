@@ -8,12 +8,9 @@
     <div class='row mb-1'>
         <div class='col-md'>
             <nav>
-                <ol class="breadcrumb">
-                    @if(Auth::user()->admin == 1)
-                        <li class="breadcrumb-item"><a href="{{ url('/it/al') }}">Tickets</a></li>
-                    @else
-                        <li class="breadcrumb-item"><a href="{{ url('/it/lt') }}">My Tickets</a></li>
-                    @endif                    
+                <ol class="breadcrumb">                    
+                    <li class="breadcrumb-item"><a href="{{ url('/it/al') }}">Tickets</a></li>
+                    <li class="breadcrumb-item"><a href="{{ url('/it/dtl') }}">Declined Tickets</a></li>
                     <li class="breadcrumb-item"><a href="{{ URL::previous() }}">Details</a></li>
                     <li class="breadcrumb-item">Ticket Attachments</li>
                 </ol>

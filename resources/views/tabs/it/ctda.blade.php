@@ -11,8 +11,10 @@
                 <ol class="breadcrumb">
                     @if(Auth::user()->admin == 1)
                         <li class="breadcrumb-item"><a href="{{ url('/it/al') }}">Tickets</a></li>
+                        <li class="breadcrumb-item"><a href="{{ url('/it/actl') }}">Closed Tickets</a></li>
                     @else
                         <li class="breadcrumb-item"><a href="{{ url('/it/lt') }}">My Tickets</a></li>
+                        <li class="breadcrumb-item"><a href="{{ url('/it/ctl') }}">My Closed Tickets</a></li>
                     @endif                    
                     <li class="breadcrumb-item"><a href="{{ URL::previous() }}">Details</a></li>
                     <li class="breadcrumb-item">Ticket Attachments</li>
