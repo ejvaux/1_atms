@@ -20,6 +20,6 @@
             </nav>
         </div>
     </div>
-    @include('inc.viewticket');
+    @include('inc.viewticket')
 </div>
 @endsection

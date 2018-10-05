@@ -29,7 +29,6 @@
             </form>
         </div>        
     </div>
-    {{-- @include('inc.viewticket'); --}}
     <div class='row mb-1'>
         <div class='col-lg table-responsive-lg'>
             <table class="table">

@@ -17,6 +17,6 @@
             </nav>
         </div>
     </div>
-    @include('inc.closedviewticket');
+    @include('inc.closedviewticket')
 </div>
 @endsection

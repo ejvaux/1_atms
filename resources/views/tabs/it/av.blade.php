@@ -15,7 +15,7 @@
             </nav>
         </div>
     </div>
-    @include('inc.viewticket');
+    @include('inc.viewticket')
     {{-- @if(count($tickets)>0)
     <div class="row mb-2">
         <div class='col-md'>

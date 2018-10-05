@@ -25,6 +25,6 @@
             </form>
         </div>
     </div>
-    <div id='table_list'>@include('inc.ticketlistdecline');</div>        
+    <div id='table_list'>@include('inc.ticketlistdecline')</div>        
 </div>
 @endsection

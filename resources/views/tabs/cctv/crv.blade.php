@@ -15,6 +15,6 @@
             </nav>
         </div>
     </div>
-    @include('inc.viewrequest');
+    @include('inc.viewrequest')
 </div>
 @endsection

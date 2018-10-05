@@ -16,6 +16,6 @@
             </nav>
         </div>
     </div>
-    @include('inc.declinedviewticket');
+    @include('inc.declinedviewticket')
 </div>
 @endsection

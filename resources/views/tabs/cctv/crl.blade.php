@@ -39,6 +39,6 @@
             </form>
         </div>
     </div>
-    <div id='table_list'>@include('inc.requestlist');</div>
+    <div id='table_list'>@include('inc.requestlist')</div>
 </div>
 @endsection
