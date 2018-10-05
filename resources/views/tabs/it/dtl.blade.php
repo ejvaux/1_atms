@@ -16,7 +16,7 @@
         </div>
     </div>
     <div class="row mb-2">      
-        <div class="col-md-4 ml-auto">
+        <div class="col-md-4">
             <form>
                 <div class="input-group">                    
                     <input type="text" class="form-control" id="searchtextbox" placeholder="Search ticket . . .">
