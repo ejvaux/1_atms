@@ -9,7 +9,7 @@
         <div class='col-md'>
             <nav>
                 <ol class="breadcrumb">
-                    <li class="breadcrumb-item"><a href="{{ url('/cr/crl') }}">CCTV Review</a></li>
+                    <li class="breadcrumb-item"><a href="{{ URL::previous() }}">CCTV Review</a></li>
                     <li class="breadcrumb-item">Details</li>
                 </ol>
             </nav>

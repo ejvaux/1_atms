@@ -10,9 +10,9 @@
             <nav>
                 <ol class="breadcrumb">
                     @if(Auth::user()->admin == true)
-                        <li class="breadcrumb-item"><a href="/1_atms/public/it/al">Tickets</a></li>
+                        <li class="breadcrumb-item"><a href="{{ URL::previous() }}">Tickets</a></li>
                     @else
-                        <li class="breadcrumb-item"><a href="/1_atms/public/it/lt">My Tickets</a></li>
+                        <li class="breadcrumb-item"><a href="{{ URL::previous() }}">My Tickets</a></li>
                     @endif
                     <li class="breadcrumb-item">Details</li>                    
                     {{-- <li class="breadcrumb-item">Data</li> --}}
