@@ -65,7 +65,10 @@ class NotificationController extends Controller
     {
         $users = User::where('admin',1)->get();
         foreach ($users as $user) {
-            $user->notify(new TicketCreated($tid,$user->name));
+            if($user->email != 'krkim@primatechphils.com')
+            {
+                $user->notify(new TicketCreated($tid,$user->name));
+            }            
         }
         if($mod == 'default'){
             return redirect('/it/ct')->with('success','Ticket Submitted Successfully.');
@@ -150,8 +153,6 @@ class NotificationController extends Controller
         foreach ($users as $user) {
             $user->notify(new ReviewRequestCreated($tid,$user->name));
         }
-        $kr = User::where('email','krkim@primatechphils.com')->first();
-        $kr->notify(new ReviewRequestCreated($tid,$user->name));
         return redirect()->back()->with('success','Request Submitted Successfully.');
         /* if($mod == 'default'){
             return redirect('/it/ct')->with('success','Ticket Submitted Successfully.');
