@@ -33,7 +33,7 @@
         <div class="col-md-4">
             <form>
                 <div class="input-group">                    
-                    <input type="text" class="form-control" id="searchtextbox" placeholder="Search ticket . . .">
+                    <input type="text" class="form-control" id="searchtextbox" placeholder="Search Request . . .">
                     <button type="button" value="/1_atms/public/cr/crl/" id="search"><i class="fa fa-search"></i></button>
                 </div>                
             </form>
