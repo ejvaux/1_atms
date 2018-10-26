@@ -2,7 +2,16 @@
 <div class='row'>
     <div class='col-md'>
         <div class="card" style='width:100%'>
-            <h4 class="card-header font-weight-bold">#{{ $request->request_id }} - {{ $request->user->name }}</h4>
+            <h4 class="card-header font-weight-bold">
+                <div class="row">
+                    <div class="col-md-5">
+                        #{{ $request->request_id }} - {{ $request->user->name }}
+                    </div>
+                    <div class="col-md ml-auto">
+                        Created: {{ $request->created_at }}
+                    </div>
+                </div>                
+            </h4>
             <div class="card-body">
                 <div class="row mb-2">
                     <div class="col-md-5">
