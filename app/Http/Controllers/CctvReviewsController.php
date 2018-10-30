@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\CctvReview;
 use App\ReviewSerial;
+use App\Custom\NotificationFunctions;
+use App\Jobs\TicketUpdate;
 
 class CctvReviewsController extends Controller
 {
@@ -63,12 +65,9 @@ class CctvReviewsController extends Controller
         $s->number =  $request->input('request_id');
         $s->save();
         $req = CctvReview::orderBy('id', 'desc')->first();
-        return redirect('/notification/requestcreate/'.$req->id)->with('success','Request Submitted Successfully.');
-        
-        /* if($request->input('mod') == 'default'){
-            return redirect('/notification/requestcreate/'.$ticket->id.'/default');
-            return redirect()->back()->with('success','Request Submitted Successfully.');           
-        } */
+        NotificationFunctions::requestcreate($req->id);
+        /* return redirect('/notification/requestcreate/'.$req->id)->with('success','Request Submitted Successfully.'); */
+        return redirect()->back()->with('success','Request Submitted Successfully.');        
     }
 
     /**
@@ -154,17 +153,25 @@ class CctvReviewsController extends Controller
 
         $req->save();
 
-        if($request->input('mod') == 'assign'){            
-            return redirect('/notification/requestassign/'.$userid.'/'.$req_id.'/'.$techid)->with('success','Request Assigned Successfully.');                      
+        if($request->input('mod') == 'assign'){
+            NotificationFunctions::requestassign($userid,$req_id,$techid);
+            return redirect()->back()->with('success','Request Assigned Successfully.');
+            /* return redirect('/notification/requestassign/'.$userid.'/'.$req_id.'/'.$techid)->with('success','Request Assigned Successfully.'); */                      
         }
-        elseif($request->input('mod') == 'accept'){            
-            return redirect('/notification/requestaccept/'.$userid.'/'.$req_id.'/'.$techname)->with('success','Request Accepted Successfully');            
+        elseif($request->input('mod') == 'accept'){
+            NotificationFunctions::requestaccept($userid,$req_id,$techname);
+            return redirect()->back()->with('success','Request Accepted Successfully.');
+            /* return redirect('/notification/requestaccept/'.$userid.'/'.$req_id.'/'.$techname)->with('success','Request Accepted Successfully'); */            
         }
-        elseif($request->input('mod') == 'priority'){            
-            return redirect('/notification/requestpriority/'.$userid.'/'.$req_id.'/'.$prior);           
+        elseif($request->input('mod') == 'priority'){
+            NotificationFunctions::requestpriority($userid,$req_id,$prior);
+            return redirect()->back()->with('success','Request Priority Changed Successfully.');
+            /* return redirect('/notification/requestpriority/'.$userid.'/'.$req_id.'/'.$prior); */           
         }
-        elseif($request->input('mod') == 'escalate'){            
-            return redirect('/notification/requeststatus/'.$userid.'/'.$req_id.'/'.$stat);            
+        elseif($request->input('mod') == 'escalate'){
+            NotificationFunctions::requeststatus($userid,$req_id,$stat);
+            return redirect()->back()->with('success','Request Status Changed Successfully.');            
+            /* return redirect('/notification/requeststatus/'.$userid.'/'.$req_id.'/'.$stat); */            
         }
         else{
             return redirect()->back()->with('success','CCTV Review Request updated successfully');

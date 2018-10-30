@@ -8,13 +8,14 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
 use App\Events\triggerEvent;
 use App\CctvReview;
+use App\User;
 
-class ReviewRequestStatusChanged extends Notification
+class ReviewRequestStatusChanged extends Notification implements ShouldQueue
 {
     use Queueable;
 
     protected $ticket_id;
-    protected $uname;
+    protected $name;
     protected $stat;
 
     /**

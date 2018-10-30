@@ -11,12 +11,12 @@ use App\User;
 use App\Events\triggerEvent;
 use App\CctvReview;
 
-class ReviewRequestAssigned extends Notification
+class ReviewRequestAssigned extends Notification implements ShouldQueue
 {
     use Queueable;
 
     protected $request_id;
-    protected $uname;
+    protected $name;
     protected $type;
 
     /**

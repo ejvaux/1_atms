@@ -9,7 +9,7 @@ use Illuminate\Notifications\Messages\MailMessage;
 use App\Events\triggerEvent;
 use App\CctvReview;
 
-class ReviewRequestCreated extends Notification
+class ReviewRequestCreated extends Notification implements ShouldQueue
 {
     use Queueable;
     

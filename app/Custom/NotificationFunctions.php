@@ -16,12 +16,14 @@ use App\Notifications\ReviewRequestAssigned;
 use App\Notifications\ReviewRequestAccepted;
 use App\Notifications\ReviewRequestPriorityChanged;
 use App\Notifications\ReviewRequestStatusChanged;
+use App\Notifications\QueueErrorReport;
 use Auth;
 use App\User;
 use App\Ticket;
 
 class NotificationFunctions
 {   
+    // TICKET
     public static function ticketcreate($tid)
     {
         $users = User::where('admin',1)->get();
@@ -98,5 +100,33 @@ class NotificationFunctions
             $user2 = User::where('id',$ticket->user_id)->first();
             $user2->notify( (new TicketUpdated($id,$user2->name,$ticket->assign->name))->delay(now()->addMinutes(1)) );
         }
+    }
+
+    // CCTV REVIEW
+    public static function requestcreate($tid){
+        $users = User::where('admin',1)->get();
+        foreach ($users as $user) {
+            $user->notify( (new ReviewRequestCreated($tid,$user->name))->delay(now()->addMinutes(1)) );
+        }     
+    }
+    public static function requestassign($id,$tid,$tech){
+        $user = User::where('id',$id)->first();
+        $tech = User::where('id',$tech)->first();
+        $user->notify( (new ReviewRequestAssigned($tid,$user->name,'user'))->delay(now()->addMinutes(1)) );
+        $tech->notify( (new ReviewRequestAssigned($tid,$tech->name,'tech'))->delay(now()->addMinutes(1)) );
+        
+    }
+    public static function requestaccept($id,$tid,$tech){
+        $user = User::where('id',$id)->first();
+        $user->notify( (new ReviewRequestAccepted($tid,$user->name,$tech))->delay(now()->addMinutes(1)) );        
+    }
+    public static function requestpriority($id,$tid,$prio){
+        $user = User::where('id',$id)->first();
+        $user->notify( (new ReviewRequestPriorityChanged($tid,$user->name,$prio))->delay(now()->addMinutes(1)) );        
+    }
+    public static function requeststatus($id,$tid,$stat){
+        $user = User::where('id',$id)->first();
+        $user->notify( (new ReviewRequestStatusChanged($tid,$user->name,$stat))->delay(now()->addMinutes(1)) );
+        /* $user->notify( new QueueErrorReport('Test','Test','Test') ); */
     }
 }

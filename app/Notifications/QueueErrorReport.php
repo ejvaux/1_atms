@@ -6,27 +6,25 @@ use Illuminate\Bus\Queueable;
 use Illuminate\Notifications\Notification;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
-use App\Events\triggerEvent;
-use App\CctvReview;
 
-class ReviewRequestAccepted extends Notification implements ShouldQueue
+class QueueErrorReport extends Notification
 {
     use Queueable;
 
-    protected $ticket_id;
-    protected $name;
-    protected $tech;
+    protected $connectionName;
+    protected $job;
+    protected $exception;
 
     /**
      * Create a new notification instance.
      *
      * @return void
      */
-    public function __construct($tid,$uname,$tech)
+    public function __construct($connectionName = '',$job = '',$exception = '')
     {
-        $this->ticket_id = $tid;
-        $this->name = $uname;
-        $this->tech = $tech;
+        $this->connectionName = $connectionName;
+        $this->job = $job;
+        $this->exception = $exception;
     }
 
     /**
@@ -48,13 +46,13 @@ class ReviewRequestAccepted extends Notification implements ShouldQueue
      */
     public function toMail($notifiable)
     {
-        $url = url('/cr/crv/'.$this->ticket_id);
-        $t = CctvReview::where('id',$this->ticket_id)->first();
+        /* return (new MailMessage)
+                    ->line('An error occurred on ' . $this->connectionName . '.')
+                    ->line('Job: ' . $this->job . '.')
+                    ->line('Exception:')
+                    ->line($this->exception); */
         return (new MailMessage)
-                ->greeting('Hello! ' .$this->name)
-                ->line('Your CCTV Review Request #'.$t->request_id.' is accepted by '.$this->tech.'.')
-                ->action('View Request', $url)
-                ->line('Please wait for the technician to process your request.');
+                    ->line('An error occurred on the Production Server.');
     }
 
     /**
@@ -65,11 +63,8 @@ class ReviewRequestAccepted extends Notification implements ShouldQueue
      */
     public function toArray($notifiable)
     {
-        event(new triggerEvent('refresh'));
         return [
-            'message' => 'New CCTV Review Request accepted.',
-            'mod' => 'request',
-            'tid' => $this->ticket_id
+            //
         ];
     }
 }

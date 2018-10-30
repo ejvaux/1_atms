@@ -138,7 +138,7 @@
                                 @if($request->status_id == 2)
                                     <button type='button' id='assign_request' class='btn btn-secondary'>Reassign Request </button>
                                 @endif
-                                <span class='font-weight-bold' style='font-size:1rem'>Assigned to {{ $request->assign->name }}</span> 
+                                    <span class='font-weight-bold' style='font-size:1rem'>Assigned to {{ $request->assign->name }}</span> 
                             @endif
                             <span class='font-weight-bold' id='assign_label' style='font-size:1rem'></span> 
                             <form class='form_to_submit' method='POST' action='/1_atms/public/cctvreview/{{ $request->id }}'>

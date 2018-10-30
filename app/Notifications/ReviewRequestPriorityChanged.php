@@ -9,12 +9,12 @@ use Illuminate\Notifications\Messages\MailMessage;
 use App\CctvReview;
 use App\Events\triggerEvent;
 
-class ReviewRequestPriorityChanged extends Notification
+class ReviewRequestPriorityChanged extends Notification implements ShouldQueue
 {
     use Queueable;
 
     protected $ticket_id;
-    protected $uname;
+    protected $name;
     protected $prio;
 
     /**
