@@ -20,7 +20,7 @@ class QueueErrorReport extends Notification
      *
      * @return void
      */
-    public function __construct($connectionName = '',$job = '',$exception = '')
+    public function __construct($connectionName = '', $job = '', $exception = '')
     {
         $this->connectionName = $connectionName;
         $this->job = $job;
@@ -35,7 +35,7 @@ class QueueErrorReport extends Notification
      */
     public function via($notifiable)
     {
-        return ['mail','database'];
+        return ['mail'];
     }
 
     /**
@@ -52,7 +52,8 @@ class QueueErrorReport extends Notification
                     ->line('Exception:')
                     ->line($this->exception); */
         return (new MailMessage)
-                    ->line('An error occurred on the Production Server.');
+                    ->greeting('Greetings Master! ')
+                    ->line('An error occurred on the ATMS Production Server.');
     }
 
     /**
