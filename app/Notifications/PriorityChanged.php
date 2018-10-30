@@ -9,7 +9,7 @@ use Illuminate\Notifications\Messages\MailMessage;
 use App\Ticket;
 use App\Events\triggerEvent;
 
-class PriorityChanged extends Notification
+class PriorityChanged extends Notification implements ShouldQueue
 {
     use Queueable;
 
@@ -37,7 +37,7 @@ class PriorityChanged extends Notification
      */
     public function via($notifiable)
     {
-        return ['mail','broadcast','database'];
+        return ['mail','database'];
     }
 
     /**

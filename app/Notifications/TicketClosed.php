@@ -9,7 +9,7 @@ use Illuminate\Notifications\Messages\MailMessage;
 use App\Events\triggerEvent;
 use App\ClosedTicket;
 
-class TicketClosed extends Notification
+class TicketClosed extends Notification implements ShouldQueue
 {
     use Queueable;
 

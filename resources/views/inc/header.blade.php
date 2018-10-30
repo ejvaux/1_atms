@@ -8,7 +8,7 @@
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
 
 <!-- Izitoast -->
-<link rel="stylesheet" href="/1_atms/node_modules/izitoast/dist/css/iziToast.min.css">
+<link rel="stylesheet" href="/1_atms/node_modules/izitoast/dist/css/iziToast.css">
 
 <!-- NProgress -->
 <link rel='stylesheet' href='/1_atms/node_modules/nprogress/nprogress.css'/>
@@ -25,7 +25,7 @@
 <script src="/1_atms/node_modules/jquery/dist/jquery.min.js" type="text/javascript"></script>
 
 <!-- Izitoast -->
-<script src="/1_atms/node_modules/izitoast/dist/js/iziToast.min.js" type="text/javascript"></script>
+<script src="/1_atms/node_modules/izitoast/dist/js/iziToast.js" type="text/javascript"></script>
 
 <!-- NProgress -->
 <script src='/1_atms/node_modules/nprogress/nprogress.js'></script>

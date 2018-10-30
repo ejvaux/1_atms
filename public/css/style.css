@@ -72,3 +72,12 @@ textarea {
     max-height: 200px;
     overflow-x: hidden;
 }
+
+@media only screen and (max-width: 768px) {        
+    .hidewhensmall{
+        display: none;
+    }
+    .showwhensmall{
+        display: block;
+    }
+}

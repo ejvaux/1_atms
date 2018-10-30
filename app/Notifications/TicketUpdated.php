@@ -9,7 +9,7 @@ use Illuminate\Notifications\Messages\MailMessage;
 use App\Ticket;
 use App\Events\triggerEvent;
 
-class TicketUpdated extends Notification
+class TicketUpdated extends Notification implements ShouldQueue
 {
     use Queueable;
 

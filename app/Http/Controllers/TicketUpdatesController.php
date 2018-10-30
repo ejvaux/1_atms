@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\TicketUpdates;
 use App\Ticket;
-
+use App\Custom\NotificationFunctions;
 class TicketUpdatesController extends Controller
 {
     public function __construct()
@@ -53,7 +53,9 @@ class TicketUpdatesController extends Controller
         $tu->user_id = $request->input('user_id');
         $tu->message = $request->input('message');
         $tu->save();
-        return redirect('/notification/ticketupdate/'.$request->input('ticket_id'));       
+        NotificationFunctions::ticketupdate($request->input('ticket_id'));
+        return redirect()->back()->with('success','Update Submitted Successfully.');
+        /* return redirect('/notification/ticketupdate/'.$request->input('ticket_id')); */       
         /* return redirect('/it/vt/'.$request->input('ticket_id'))->with('success','Update Submitted Successfully.');  */     
     }
 

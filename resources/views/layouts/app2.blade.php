@@ -11,17 +11,18 @@
 
     <title>@yield('pageTitle')</title>
     @yield('chart')
-    @include('inc.header')         
+    @include('inc.header')          
 </head>
-<body>        
+<body>
+    {{-- @include('inc.dialog') --}}      
     <div id="app" class='app'>
         <div id='nvbr'>
-            @include('inc.navbar')
+            @include('inc.navbar2')
         </div>  
         <main class="container-fluid my-2">            
             <div class="container-fluid" style=''>
                 <div class="row">
-                    <div class="col-lg-2 m-1 p-0" style='height:100vh;' id='sidebr'>
+                    <div class="col-lg-2 m-1 p-0 hidewhensmall" style='height:100vh;' id='sidebr'>
                         @include('inc.sidebar')
                     </div>  
                     <div class='col-lg m-1 pt-3 border' id="main_panel" style="background:white" >            
@@ -34,7 +35,7 @@
         <footer class="page-footer font-small blue">
 
             <!-- Copyright -->
-            <div class="footer-copyright text-center py-3">© 2018 Prima Tech Phils., Inc.
+            <div class="footer-copyright text-center py-3 text-muted">© 2018 Prima Tech Phils., Inc.
                 <br>Designed and built by Edmund O. Mati Jr.
             </div>
             <!-- Copyright -->

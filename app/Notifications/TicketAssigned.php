@@ -11,24 +11,26 @@ use App\User;
 use App\Events\triggerEvent;
 use App\Ticket;
 
-class TicketAssigned extends Notification
+class TicketAssigned extends Notification implements ShouldQueue
 {
     use Queueable;
 
     protected $ticket_id;
     protected $name;
     protected $type;
+    protected $assigner;
 
     /**
      * Create a new notification instance.
      *
      * @return void
      */
-    public function __construct($tid,$uname,$type)
+    public function __construct($tid,$uname,$type,$assigner = '')
     {        
         $this->ticket_id = $tid;
         $this->name = $uname;
         $this->type = $type;
+        $this->assigner = $assigner;
     }
 
     /**
@@ -66,7 +68,7 @@ class TicketAssigned extends Notification
             $turl = '/1_atms/public/it/htv/'.$this->ticket_id;
             return (new MailMessage)
                     ->greeting('Hello! ' . $this->name)
-                    ->line('Ticket <b>#' . $t->ticket_id . '</b> is assigned to you by <b>'.Auth::user()->name.'</b>.')
+                    ->line('Ticket <b>#' . $t->ticket_id . '</b> is assigned to you by <b>'.$this->assigner.'</b>.')
                     ->action('View Ticket', $url)
                     ->line('Your immediate response is highly appreciated.');
         }

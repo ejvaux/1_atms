@@ -20,7 +20,7 @@
                             <li class="list-group-item noborder d-flex justify-content-between align-items-center"><a class='sidetab' href='/1_atms/public/it/al'>TICKETS</a>
                                 <span class="badge badge-danger" style='font-size: .7rem'>{{ (App\Ticket::where('status_id',1)->count()? App\Ticket::where('status_id',1)->count() : '')}}</span>
                             </li>
-                            <li class="list-group-item noborder d-flex justify-content-between align-items-center"><a class='sidetab' href='{{url('/it/rp/today')}}'>REPORTS</a><span class="badge badge-info"></span></li>
+                            {{-- <li class="list-group-item noborder d-flex justify-content-between align-items-center"><a class='sidetab' href='{{url('/it/rp/today')}}'>REPORTS</a><span class="badge badge-info"></span></li> --}}
                         @else
                             <li class="list-group-item noborder d-flex justify-content-between align-items-center"><a class='sidetab' href='/1_atms/public/it/lt'>TICKETS</a><span class="badge badge-danger" style='font-size: .7rem'>{{ ( App\Ticket::where('status_id',2)->where('assigned_to',Auth::user()->id)->count() ? App\Ticket::where('status_id',2)->where('assigned_to',Auth::user()->id)->count() : '') }}</span></li>
                         @endif
@@ -32,6 +32,7 @@
                         <span class="badge badge-danger">
                             @if (Auth::user()->admin == 1)
                                 {{ ( App\CctvReview::where('status_id',1)->count() ? App\CctvReview::where('status_id',1)->count() : '' ) }}
+                                <li class="list-group-item noborder d-flex justify-content-between align-items-center"><a class='sidetab' href='{{url('/it/rp/today')}}'>REPORTS</a><span class="badge badge-info"></span></li>
                             @else
                                 {{ ( App\CctvReview::where('status_id',2)->where('assigned_to',Auth::user()->id)->count() ? App\CctvReview::where('status_id',2)->where('assigned_to',Auth::user()->id)->count() : '' )}}
                             @endif                            

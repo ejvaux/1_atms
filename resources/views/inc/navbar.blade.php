@@ -1,20 +1,34 @@
-<nav class="navbar navbar-expand-md navbar-light navbar-laravel">
-    <div class="container">
-        <a class="navbar-brand" href="/1_mes/">
-            <img src="{{ asset('images/primatech-logo.png') }}" style="width: 146px; height: 28px">
-        </a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
+<div class="pos-f-t"> 
+<nav class="navbar navbar-expand-md navbar-light navbar-laravel">    
+    <div class="container-fluid">
+        {{-- <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
             <span class="navbar-toggler-icon"></span>
-        </button>
+        </button> --}}
+        <ul class="navbar-nav mr-auto ml-2">
+                <li>
+                    <span class="navbar-text font-weight-bold" style='font-size: 1.11em'>
+                            <a class="" href="/1_mes/">
+                                <img class='' src="{{ asset('images/primatech-logo.png') }}" style="width: 146px; height: 28px">
 
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <!-- Left Side Of Navbar -->
-            <ul class="navbar-nav mr-auto">
-
+                                {{-- <div class='showwhensmall hidewhenlarge'>
+                                    <img src="{{ asset('images/ptpi.png') }}" style="width: 28px; height: 28px;">
+                                </div>  --}}                               
+                            </a>
+                    </span>
+                </li>                
             </ul>
+        {{-- <a class="" href="/1_mes/">
+            <img class='hidewhensmall' src="{{ asset('images/primatech-logo.png') }}" style="width: 146px; height: 28px">
+            <img class='showwhensmall' src="{{ asset('images/ptpi.png') }}" style="width: 28px; height: 28px">
+        </a>  --}}      
+        <div class="row" >
+            <!-- Left Side Of Navbar -->
+            {{-- <ul class="navbar-nav mr-auto">
+
+            </ul> --}}
 
             <!-- Right Side Of Navbar -->
-            <ul class="navbar-nav ml-auto">
+            <div class="navbar-nav col-md">
                 <!-- Authentication Links -->
                 @guest
                     {{-- <li class="nav-item">
@@ -26,7 +40,7 @@
                 @else
                     <div class="nav-item dropdown"> 
                         <a href="#" class="nav-link" data-toggle="dropdown">
-                            <span class="badge badge-danger">@if(Auth::user()->unReadNotifications->count()){{Auth::user()->unReadnotifications->count()}}@endif</span> <i class="fa fa-bell"></i> Notification</a>
+                            <span class="badge badge-danger">@if(Auth::user()->unReadNotifications->count()){{Auth::user()->unReadnotifications->count()}}@endif</span> <i class="fa fa-bell"></i> <span class='hidewhensmall'> Notification</span></a>
                         <div class="dropdown-menu scrollable-menu" id='notificon'>                            
                             @if(Auth::user()->Notifications->count())
                                 <a class="dropdown-item" href='{{ route("markallread")}}'><span class='font-weight-bold'>- Mark all as Read -</span></a>
@@ -44,9 +58,9 @@
                             @endif                                                                               
                         </div>                   
                     </div> 
-                    <li class="nav-item dropdown">
+                    <div class="nav-item dropdown">  
                         <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
-                            <i class="fa fa-user-circle"></i> {{ Auth::user()->name }} <span class="caret"></span>
+                            <i class="fa fa-user-circle"></i> <span class='hidewhensmall'>{{ Auth::user()->name }}</span> <span class="caret"></span>
                         </a>
 
                         <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
@@ -66,9 +80,13 @@
                                 @csrf
                             </form>
                         </div>
-                    </li>                    
+                    </div>                    
                 @endguest
-            </ul>
-        </div>
+            </div>
+        </div>        
     </div>
 </nav>
+</div>
+<div class="collapse navbar-collapse" id="navbarSupportedContent">
+    {{-- @include('inc.sidebar') --}}
+</div>

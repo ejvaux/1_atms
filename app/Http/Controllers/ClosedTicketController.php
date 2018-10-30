@@ -8,6 +8,8 @@ use App\Ticket;
 use App\Mail\TicketClosed;
 use App\ClosedTicket;
 use App\TicketUpdates;
+use App\Custom\NotificationFunctions;
+use App\Jobs\TicketUpdate;
 
 class ClosedTicketController extends Controller
 {
@@ -158,14 +160,17 @@ class ClosedTicketController extends Controller
                 if($t->save()){
                     Ticket::where('id',$id)->delete();
                     if($request->input('mod') == 'default'){
-                        $tu = new TicketUpdates;
+                        /* $tu = new TicketUpdates;
                         $tu->ticket_id = $id;
                         $tu->user_id = $techid;
                         $tu->message = "Ticket Closed.";
-                        $tu->save(); 
-                        return redirect('/notification/ticketclose/'.$userid.'/'.$mail->ticketnum);
-                        /* Mail::to($emailuser)->send(new TicketClosed($mail));
-                        return redirect('/it/ht')->with('success','Ticket Closed Successfully.'); */
+                        $tu->save(); */
+                        $this->dispatch( (new TicketUpdate($id,$techid,"Ticket Closed.")) );
+                        NotificationFunctions::ticketclose($userid,$mail->ticketnum);
+                        /* return redirect('/notification/ticketclose/'.$userid.'/'.$mail->ticketnum); */
+                        /* Mail::to($emailuser)->send(new TicketClosed($mail)); */
+                        return redirect()->back()->with('success','Ticket Closed Successfully.');
+                        /* return redirect('/it/ht')->with('success','Ticket Closed Successfully.'); */
                     }                
                 }
             }

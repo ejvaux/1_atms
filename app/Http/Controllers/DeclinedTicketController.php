@@ -7,6 +7,8 @@ use App\DeclinedTicket;
 use Auth;
 use App\Ticket;
 use App\TicketUpdates;
+use App\Jobs\TicketUpdate;
+use App\Custom\NotificationFunctions;
 
 class DeclinedTicketController extends Controller
 {
@@ -129,12 +131,15 @@ class DeclinedTicketController extends Controller
         $t->save();
         if($t->save()){
             Ticket::where('id',$id)->delete();
-            $tu = new TicketUpdates;
+            /* $tu = new TicketUpdates;
             $tu->ticket_id = $id;
             $tu->user_id = Auth::user()->id;
             $tu->message = "Ticket Declined.";
-            $tu->save(); 
-            return redirect('/notification/ticketdecline/'.$userid.'/'.$mail->ticketnum);               
+            $tu->save(); */
+            $this->dispatch( (new TicketUpdate($id,Auth::user()->id,"Ticket Declined.")) );
+            NotificationFunctions::ticketdecline($userid,$mail->ticketnum);
+            return redirect()->back()->with('success','Ticket Declined Successfully.');
+            /* return redirect('/notification/ticketdecline/'.$userid.'/'.$mail->ticketnum);  */              
         }           
     }
 }
