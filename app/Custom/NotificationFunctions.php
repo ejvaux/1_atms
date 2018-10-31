@@ -30,7 +30,7 @@ class NotificationFunctions
         foreach ($users as $user) {
             if($user->email != 'krkim@primatechphils.com')
             {
-                $user->notify( (new TicketCreated($tid,$user->name))->delay(now()->addMinutes(1)) );
+                $user->notify( (new TicketCreated($tid,$user->name))->delay(now()->addSeconds(30)) );
             }            
         }
     }
@@ -38,40 +38,40 @@ class NotificationFunctions
     public static function ticketaccept($id,$tid,$tech)
     {
         $user = User::where('id',$id)->first();
-        $user->notify( (new TicketAccepted($tid,$user->name,$tech))->delay(now()->addMinutes(1)) );        
+        $user->notify( (new TicketAccepted($tid,$user->name,$tech))->delay(now()->addSeconds(30)) );        
     }
 
     public static function ticketassign($id,$tid,$tech)
     {
         $user = User::where('id',$id)->first();
         $tech = User::where('id',$tech)->first();
-        $user->notify( (new TicketAssigned($tid,$user->name,'user'))->delay(now()->addMinutes(1)) );
-        $tech->notify( (new TicketAssigned($tid,$tech->name,'tech',Auth::user()->name))->delay(now()->addMinutes(1)) );
+        $user->notify( (new TicketAssigned($tid,$user->name,'user'))->delay(now()->addSeconds(30)) );
+        $tech->notify( (new TicketAssigned($tid,$tech->name,'tech',Auth::user()->name))->delay(now()->addSeconds(30)) );
         return redirect()->back()->with('success','Ticket Assigned Successfully.');
     }
 
     public static function ticketpriority($id,$tid,$prio)
     {
         $user = User::where('id',$id)->first();
-        $user->notify( (new PriorityChanged($tid,$user->name,$prio))->delay(now()->addMinutes(1)) );        
+        $user->notify( (new PriorityChanged($tid,$user->name,$prio))->delay(now()->addSeconds(30)) );        
     }
 
     public static function ticketstatus($id,$tid,$stat)
     {
         $user = User::where('id',$id)->first();
-        $user->notify( (new StatusChanged($tid,$user->name,$stat))->delay(now()->addMinutes(1)) );
+        $user->notify( (new StatusChanged($tid,$user->name,$stat))->delay(now()->addSeconds(30)) );
     }
 
     public static function ticketclose($id,$tid)
     {
         $user = User::where('id',$id)->first();
-        $user->notify( (new TicketClosed($tid,$user->name))->delay(now()->addMinutes(1)) );        
+        $user->notify( (new TicketClosed($tid,$user->name))->delay(now()->addSeconds(30)) );        
     }
 
     public static function ticketdecline($id,$tid)
     {
         $user = User::where('id',$id)->first();
-        $user->notify( (new TicketDeclined($tid,$user->name))->delay(now()->addMinutes(1)) );        
+        $user->notify( (new TicketDeclined($tid,$user->name))->delay(now()->addSeconds(30)) );        
     }
 
     public static function ticketupdate($id)
@@ -85,20 +85,20 @@ class NotificationFunctions
                 foreach ($users as $user) {
                     if($user->email != 'krkim@primatechphils.com')
                     {
-                        $user->notify( (new TicketUpdated($id,$user->name,$ticket->user->name))->delay(now()->addMinutes(1)) );
+                        $user->notify( (new TicketUpdated($id,$user->name,$ticket->user->name))->delay(now()->addSeconds(30)) );
                     }                    
                 }                
             }
             else
             {
                 $user1 = User::find($ticket->assigned_to);
-                $user1->notify( (new TicketUpdated($id,$user1->name,$ticket->user->name))->delay(now()->addMinutes(1)) );
+                $user1->notify( (new TicketUpdated($id,$user1->name,$ticket->user->name))->delay(now()->addSeconds(30)) );
             }
         }        
         else
         {
             $user2 = User::where('id',$ticket->user_id)->first();
-            $user2->notify( (new TicketUpdated($id,$user2->name,$ticket->assign->name))->delay(now()->addMinutes(1)) );
+            $user2->notify( (new TicketUpdated($id,$user2->name,$ticket->assign->name))->delay(now()->addSeconds(30)) );
         }
     }
 
@@ -106,27 +106,27 @@ class NotificationFunctions
     public static function requestcreate($tid){
         $users = User::where('admin',1)->get();
         foreach ($users as $user) {
-            $user->notify( (new ReviewRequestCreated($tid,$user->name))->delay(now()->addMinutes(1)) );
+            $user->notify( (new ReviewRequestCreated($tid,$user->name))->delay(now()->addSeconds(30)) );
         }     
     }
     public static function requestassign($id,$tid,$tech){
         $user = User::where('id',$id)->first();
         $tech = User::where('id',$tech)->first();
-        $user->notify( (new ReviewRequestAssigned($tid,$user->name,'user'))->delay(now()->addMinutes(1)) );
-        $tech->notify( (new ReviewRequestAssigned($tid,$tech->name,'tech'))->delay(now()->addMinutes(1)) );
+        $user->notify( (new ReviewRequestAssigned($tid,$user->name,'user'))->delay(now()->addSeconds(30)) );
+        $tech->notify( (new ReviewRequestAssigned($tid,$tech->name,'tech'))->delay(now()->addSeconds(30)) );
         
     }
     public static function requestaccept($id,$tid,$tech){
         $user = User::where('id',$id)->first();
-        $user->notify( (new ReviewRequestAccepted($tid,$user->name,$tech))->delay(now()->addMinutes(1)) );        
+        $user->notify( (new ReviewRequestAccepted($tid,$user->name,$tech))->delay(now()->addSeconds(30)) );        
     }
     public static function requestpriority($id,$tid,$prio){
         $user = User::where('id',$id)->first();
-        $user->notify( (new ReviewRequestPriorityChanged($tid,$user->name,$prio))->delay(now()->addMinutes(1)) );        
+        $user->notify( (new ReviewRequestPriorityChanged($tid,$user->name,$prio))->delay(now()->addSeconds(30)) );        
     }
     public static function requeststatus($id,$tid,$stat){
         $user = User::where('id',$id)->first();
-        $user->notify( (new ReviewRequestStatusChanged($tid,$user->name,$stat))->delay(now()->addMinutes(1)) );
+        $user->notify( (new ReviewRequestStatusChanged($tid,$user->name,$stat))->delay(now()->addSeconds(30)) );
         /* $user->notify( new QueueErrorReport('Test','Test','Test') ); */
     }
 }
