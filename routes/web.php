@@ -59,7 +59,8 @@ Route::get('/notification/requeststatus/{id}/{tid}/{stat}', 'NotificationControl
 Route::get('/', 'PagesController@index');
 Auth::routes();
 Route::get('/unauthorize', function () {
-    return '<h3>Access Denied!</h3><br><a href="/1_atms/public/dashboard">HOME</a>';
+    /* return '<h3>Access Denied!</h3><br><a href="/1_atms/public/dashboard">HOME</a>'; */
+    return abort(403, 'Unauthorized action.');
 });
 Route::get('/comingsoon', function () {
     return view('pages.comingsoon');
