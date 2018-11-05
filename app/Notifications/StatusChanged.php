@@ -16,17 +16,19 @@ class StatusChanged extends Notification implements ShouldQueue
     protected $ticket_id;
     protected $name;
     protected $stat;
+    protected $ticid;
 
     /**
      * Create a new notification instance.
      *
      * @return void
      */
-    public function __construct($tid,$uname,$stat)
+    public function __construct($tid,$uname,$stat,$ticid)
     {
         $this->ticket_id = $tid;
         $this->name = $uname;
         $this->stat = $stat;
+        $this->ticid = $ticid;
     }
 
     /**
@@ -49,10 +51,9 @@ class StatusChanged extends Notification implements ShouldQueue
     public function toMail($notifiable)
     {
         $url = url('/it/vt/'.$this->ticket_id);
-        $t = Ticket::where('id',$this->ticket_id)->first();
         return (new MailMessage)
                 ->greeting('Hello! ' .$this->name)
-                ->line('Ticket <b>#'.$t->ticket_id.'</b> Status changed to <b>'. $this->stat .'</b>.')
+                ->line('Ticket <b>#'.$this->ticid.'</b> Status changed to <b>'. $this->stat .'</b>.')
                 ->action('View Ticket', $url)
                 ->line('Please wait for further updates.');
     }
@@ -66,10 +67,9 @@ class StatusChanged extends Notification implements ShouldQueue
     public function toArray($notifiable)
     {
         $url = url('/it/vt/'.$this->ticket_id);
-        $t = Ticket::where('id',$this->ticket_id)->first();
         event(new triggerEvent('refresh'));
         return [
-            'message' => 'Ticket #'.$t->ticket_id.' status changed.',
+            'message' => 'Ticket #'.$this->ticid.' status changed.',
             'mod' => 'user',
             'tid' => $this->ticket_id
         ];
