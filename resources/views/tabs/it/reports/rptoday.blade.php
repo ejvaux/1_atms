@@ -10,23 +10,24 @@
             <div class="card repcard">
                 <div class="card-body">
                     <div class='container text-center'>
-                        <div class="row">
+                        {{-- <div class="row">
                             <div class="col-md">
                                 <div class='alert alert-danger mt-2'>
                                     *** UNDER DEVELOPMENT. DATA ARE FOR TODAY ONLY. ***
                                 </div>
                             </div>
-                        </div>
-                        <div class='row'>
+                        </div> --}}
+                        {{-- <div class='row'>
                             <div class='col-md'></div>
                             <div class='col-md-1 pt-2 mr-0'>
                                 <label class='font-weight-bold'>Period:</label>
                             </div>
                             <div class='col-md-2 p-0 ml-0 mr-2'>
                                 <select class='form-control'>
-                                    <option value='1'>Today</option>                                   
-                                    <option value='2'>Last 7 days</option>                                    
-                                    <option value='3'>Last 30 days</option>
+                                    <option value='1'>Month</option>                              
+                                    <option value='1'>Month</option>
+                                    <option value='2'>Week</option>
+                                    <option value='3'>Today</option>   
                                 </select>
                             </div>
                             <div class='col-md-3 p-0 mx-1'>
@@ -40,6 +41,81 @@
                                 <button class='btn btn-primary form-control'>Update</button>
                             </div>
                             <div class='col-md'></div>
+                        </div> --}}
+                        <div class="row">
+                            <div class="col-md">
+                                <ul class="nav justify-content-center">
+                                    <li class="nav-item mx-1">
+                                        <a href="{{url('/it/rp/today')}}" class="nav-link btn btn-outline-secondary">Day</a>
+                                    </li>
+                                    <li class="nav-item mx-1">
+                                        <a href="#" class="nav-link btn btn-outline-secondary disabled">Week</a>
+                                    </li>
+                                    <li class="nav-item mx-1">
+                                        <a href="#" class="nav-link btn btn-outline-secondary disabled">Month</a>
+                                    </li>
+                                    <li class="nav-item mx-1">
+                                        <a href="#" class="nav-link btn btn-outline-secondary disabled">Year</a>
+                                    </li>
+                                    <li class="nav-item mx-1 ">
+                                        <div class="dropdown">  
+                                            <a class="nav-link btn btn-outline-secondary dropdown-toggle  disabled" href="#" role="button" data-toggle="dropdown">
+                                                Custom Date Range
+                                            </a>            
+                                            <div class="dropdown-menu dropdown-menu-right">
+                                                <div class='dropdown-header'>
+                                                    <input class='' type='date'> -
+                                                    <input class='' type='date'>
+                                                    <button class='btn btn-primary py-0'>Go!</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </li>
+                                </ul>
+                                {{-- <a href="{{url('/it/rp/today')}}" class="btn btn-outline-secondary">Day</a>
+                                <a href="#" class="btn btn-outline-secondary">Week</a>
+                                <a href="#" class="btn btn-outline-secondary">Month</a>
+                                <a href="#" class="btn btn-outline-secondary">Year</a>
+                                <div class="dropdown">  
+                                    <a class="btn btn-outline-secondary dropdown-toggle" href="#" role="button" data-toggle="dropdown">
+                                        Custom Date Range
+                                    </a>            
+                                    <div class="dropdown-menu dropdown-menu-right">
+                                        <div class="dropdown-item">
+                                            <input class='' type='date'> -
+                                            <input class='' type='date'>
+                                            <button class='btn btn-primary'>Go!</button>
+                                        </div>
+                                    </div>
+                                </div> --}}
+                            </div>
+                            {{-- <div class="col-md-1">
+                                <a href="{{url('/it/rp/today')}}" class="btn btn-outline-secondary">Day</a>
+                            </div>
+                            <div class="col-md-1">
+                                <a href="#" class="btn btn-outline-secondary">Week</a>
+                            </div>
+                            <div class="col-md-1">
+                                <a href="#" class="btn btn-outline-secondary">Month</a>
+                            </div>
+                            <div class="col-md-1">
+                                <a href="#" class="btn btn-outline-secondary">Year</a>
+                            </div>
+                            <div class="col-md-2">
+                                <div class="dropdown">  
+                                    <a class="btn btn-outline-secondary dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" v-pre>
+                                        <span>Custom Date Range</span>
+                                    </a>            
+                                    <div class="dropdown-menu dropdown-menu-right">
+                                        <div class="dropdown-item" style='display:inline;'>
+                                            <input class='' type='date'> -
+                                            <input class='' type='date'>
+                                            <button class='btn btn-primary'>Go!</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md"></div> --}}
                         </div>
                     </div>  
                 </div>
@@ -93,7 +169,7 @@
             <div class="card repcard2 stat1">
                 <div class="card-body text-center">
                     <span class='font-weight-bold statnum'>{{$newticket}}</span><br>
-                    <span class='font-weight-bold statlabel'>Total tickets</span>
+                    <span class='font-weight-bold statlabel'>Total Tickets</span>
                 </div>
             </div>
         </div>
@@ -101,7 +177,7 @@
             <div class="card repcard2 stat2">
                 <div class="card-body text-center">
                     <span class='font-weight-bold statnum'>{{$openticket}}</span><br>
-                    <span class='font-weight-bold statlabel'>Open tickets</span>
+                    <span class='font-weight-bold statlabel'>Open Tickets</span>
                 </div>
             </div>
         </div>
@@ -109,7 +185,7 @@
             <div class="card repcard2 stat3">
                 <div class="card-body text-center">
                     <span class='font-weight-bold statnum'>{{$assignedticket}}</span><br>
-                    <span class='font-weight-bold statlabel'>Assigned tickets</span>
+                    <span class='font-weight-bold statlabel'>Assigned Tickets</span>
                 </div>
             </div>
         </div>
