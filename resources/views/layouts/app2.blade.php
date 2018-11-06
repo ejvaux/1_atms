@@ -24,7 +24,7 @@
                     <div class="col-lg-2 m-1 p-0 hidewhensmall" style='height:100vh;' id='sidebr'>
                         @include('inc.sidebar')
                     </div>  
-                    <div class='col-lg m-1 pt-3 border' id="main_panel" style="background:white" >            
+                    <div class='col-lg m-1 pt-3 border rightpanel' id="main_panel" >            
                         @yield('content')
                     </div> 
                 </div>

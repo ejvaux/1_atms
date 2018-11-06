@@ -100,6 +100,7 @@ class ReportsController extends Controller
         \Lava::ColumnChart('ticketbytech',$ticketbytechchart,[
             'title'=>'Tickets by Tech',
             'colors'=> array('#26C6DA'),
+            /* 'backgroundColor'   => '#F8F9F9', */
             ]);
 
         // Ticket by Priority
@@ -116,6 +117,7 @@ class ReportsController extends Controller
         \Lava::ColumnChart('ticketbypriority',$ticketbyprioritychart,[
             'title'=>'Tickets by Priority',
             'colors'=> array('#26C6DA'),
+            /* 'backgroundColor'   => '#F8F9F9', */
             ]);                
 
         // Tickets by Department       
@@ -131,6 +133,7 @@ class ReportsController extends Controller
         \Lava::ColumnChart('ticketbydept',$ticketbydeptchart,[
             'title'=>'Tickets by Department',
             'colors'=> array('#26C6DA'),
+            /* 'backgroundColor'   => '#F8F9F9', */
             ]);
 
         // Tickets by Category
@@ -145,6 +148,7 @@ class ReportsController extends Controller
 
         \Lava::PieChart('ticketbycategory',$ticketbycategorychart,[
             'title'=>'Tickets by Category',
+            /* 'backgroundColor'   => '#F8F9F9', */
             /* 'colors'=> array('#26C6DA'), */
             ]);
 
@@ -161,6 +165,7 @@ class ReportsController extends Controller
         \Lava::ColumnChart('ticketbystatus',$ticketbystatuschart,[
             'title'=>'Tickets by Status',
             'colors'=> array('#26C6DA'),
+            /* 'backgroundColor'   => '#F8F9F9', */
             ]);
         
         return view('tabs.it.reports.rptoday',compact('ticketdepartmentchart','data','totalticketchart','newticket','openticket','assignedticket','totalresolvedticket','trtime','trentime','rtime','ticketbytech'));
