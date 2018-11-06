@@ -1,7 +1,7 @@
 <div class="card m-0 p-0" style="font-size:.8rem; height:100%">                              
     <nav class="card-body m-0 pl-1 mr-0 pr-0">
         <ul class="list-group list-group-flush">
-            <li class="list-group-item noborder"><i class="fas fa-chart-line mr-2"></i><a class='sidetab' href='#'>DASHBOARD</a><span class="badge badge-info"></span>
+            <li class="list-group-item noborder"><i class="fas fa-chart-line mr-2"></i><a class='sidetab' href='{{url('/dashboard')}}'>DASHBOARD</a><span class="badge badge-info"></span>
                 <ul class="list-group list-group-flush">
                     <li class="list-group-item noborder d-flex justify-content-between align-items-center"><a class='sidetab' href='{{url('/it/rp/today')}}'>TICKETS</a><span class="badge badge-info"></span></li>
                     {{-- <li class="list-group-item noborder d-flex justify-content-between align-items-center"><a id="hr2" class='sidetab' href='#'>OTHER REQUEST</a><span class="badge badge-info"></span></li>

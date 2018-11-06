@@ -16,16 +16,19 @@ class TicketAccepted extends Notification implements ShouldQueue
     protected $ticket_id;
     protected $name;
     protected $tech;
+    protected $ticid;
+
     /**
      * Create a new notification instance.
      *
      * @return void
      */
-    public function __construct($tid,$uname,$tech)
+    public function __construct($tid,$uname,$tech,$ticid)
     {
         $this->ticket_id = $tid;
         $this->name = $uname;
         $this->tech = $tech;
+        $this->ticid = $ticid;
     }
 
     /**
@@ -48,10 +51,9 @@ class TicketAccepted extends Notification implements ShouldQueue
     public function toMail($notifiable)
     {
         $url = url('/it/vt/'.$this->ticket_id);
-        $t = Ticket::where('id',$this->ticket_id)->first();
         return (new MailMessage)
                 ->greeting('Hello! ' .$this->name)
-                ->line('Your ticket <b>#'.$t->ticket_id.'</b> is accepted by <b>'.$this->tech.'</b>.')
+                ->line('Your ticket <b>#'.$this->ticid.'</b> is accepted by <b>'.$this->tech.'</b>.')
                 ->action('View Ticket', $url)
                 ->line('Please wait for the technician to process your ticket.');
     }
@@ -65,10 +67,9 @@ class TicketAccepted extends Notification implements ShouldQueue
     public function toArray($notifiable)
     {
         $url = url('/it/vt/'.$this->ticket_id);
-        $t = Ticket::where('id',$this->ticket_id)->first();
         event(new triggerEvent('refresh'));
         return [
-            'message' => 'Ticket #'.$t->ticket_id.' Accepted.',
+            'message' => 'Ticket #'.$this->ticid.' Accepted.',
             'mod' => 'user',
             'tid' => $this->ticket_id
         ];

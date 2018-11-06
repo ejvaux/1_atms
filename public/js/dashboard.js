@@ -278,6 +278,44 @@ function loadscript(){
 			});
 		} */
 	});
+	$('#app').on('click','#reqapp_checkbox',function(e){
+		if($(this).is(":checked")){
+			var approve = 1;
+		}
+		else{
+			var approve = 0;
+		}
+		
+		$val = $(this).val();	
+			$.ajax({
+				type: 'PUT',
+				url	: '/1_atms/public/users/'+$val,
+				data: {
+					"_token": $('meta[name="csrf-token"]').attr('content'),
+					"req_approver": approve
+				}, 
+				datatype: 'JSON',       
+				success: function(success_data) {
+						iziToast.success({
+								message: success_data,
+								position: 'topCenter',
+								timeout: 2000
+						});     
+				},
+				error: function(data){
+				var errors = data.responseJSON;
+						var msg = '';
+						$.each(errors['errors'], function( index, value ) {
+								msg += value +"<br>"
+						});
+						iziToast.warning({
+								message: msg,
+								position: 'topCenter',
+								timeout: 5000
+						});
+				} //end function
+			});//close ajax
+	});
 	$('#app').on('change','#levelselect',function(e){
 		var val = $(this).data('userid');
 		var level = $("option:selected",this).text();

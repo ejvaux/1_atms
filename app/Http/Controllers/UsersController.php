@@ -82,6 +82,7 @@ class UsersController extends Controller
         if($request->input('admin') != ""){ $user->admin = $request->input('admin');}
         if($request->input('tech') != ""){ $user->tech = $request->input('tech');}
         if($request->input('level') != ""){ $user->level = $request->input('level');}
+        if($request->input('req_approver') != ""){ $user->req_approver = $request->input('req_approver');}
         $user->save();
         if($user->save()){
             if(empty($request->input('mod'))){

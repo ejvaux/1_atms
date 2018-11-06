@@ -130,8 +130,125 @@
                 </div>
                 <div class='row mb-2'>
                     <div class='col-md-5'>
-                        @if($request->status_id == 1)
-                            {{-- <button type='button' id='assign_request' class='btn btn-secondary'>Assign Request</button> --}}
+                        @if ($request->status_id == 6)
+                            @if (Auth::user()->req_approver == 1)
+                                <form class='form_to_submit' method='POST' action='/1_atms/public/cctvreview/{{ $request->id }}'>
+                                    @method('PUT')
+                                    @csrf
+                                    <input type='hidden' name='approved' value='1'>
+                                    <input type='hidden' name='status_id' value='1'>
+                                    <input type='hidden' name='mod' value='approve'>
+                                    <button type='submit' id='approve_request' class='btn btn-secondary'>Approve Request</button>
+                                </form>                                    
+                            @endif
+                        @elseif ($request->status_id == 1)                            
+                            @if (Auth::user()->admin == 1)
+                                @if($request->assigned_to == '')
+                                    <button type='button' id='assign_request' class='btn btn-secondary'>Assign Request</button>
+                                @else
+                                    @if($request->start_at == null)
+                                        <button type='button' id='assign_request' class='btn btn-secondary'>Reassign Request </button>
+                                    @endif
+                                    <span class='font-weight-bold' style='font-size:1rem'>Assigned to {{ $request->assign->name }}</span> 
+                                @endif                                     
+                            @endif
+                            <span class='font-weight-bold' id='assign_label' style='font-size:1rem'></span> 
+                            <form class='form_to_submit' method='POST' action='/1_atms/public/cctvreview/{{ $request->id }}'>
+                                @method('PUT')
+                                @csrf
+                                <input type='hidden' name='status_id' value='2'>
+                                <input type='hidden' name='mod' value='assign'>
+                                <input type='hidden' name='assigner' value='{{ Auth::user()->name }}'>
+                                <input type='hidden' name='url' value='/it/htv/{{ $request->id }}'>
+                                <input type='hidden' name='request_id' value='{{ $request->id }}'>
+                                <div class='input-group' id='req_assigned_to' style='display:none'>
+                                    <select type="text" class="form-control" id="assigned_to" name="assigned_to" placeholder="" required>
+                                        <option value="">- Select Tech -</option>                            
+                                        @foreach($techs as $tech)
+                                            {{-- @if($user->id != $tickets->user_id)
+                                                <option value="{{$user->id}}">{{$user->name}}</option>
+                                            @endif --}}
+                                            <option value="{{$tech->id}}">{{$tech->name}}</option>
+                                        @endforeach
+                                    </select>
+                                    <button type='submit' class='btn btn-secondary form_submit_button'>Assign</button>
+                                    <button type='button' id='req_cancel_assign' class='btn btn-warning'>Cancel</button>
+                                </div>                                                                          
+                            </form>
+                        @elseif ($request->status_id == 2)
+                            @if($request->assigned_to == Auth::user()->id)
+                                <form class='form_to_submit' method='POST' action='/1_atms/public/cctvreview/{{ $request->id }}'>
+                                    @method('PUT')
+                                    @csrf
+                                    <input type='hidden' name='status_id' value='3'>
+                                    <input type='hidden' name='mod' value='accept'>
+                                    <input id='datenow' type='hidden' name='start_at' value="{{ Date('Y-m-d H:i:s') }}">
+                                    <input type='hidden' name='url' value='/it/vt/{{ $request->id }}'>
+                                    <button type='submit' id='accept_ticket' class='btn btn-secondary form_submit_button'>Accept Ticket</button>
+                                </form>
+                            @else
+                                <span class='font-weight-bold' style='font-size:1rem'>Assigned to {{ $request->assign->name }}</span>
+                            @endif
+                        @else
+                            @if($request->assigned_to != null)                         
+                                @if($request->assigned_to == Auth::user()->id)
+                                    <form class='form_to_submit' method='POST' action='/1_atms/public/cctvreview/{{ $request->id }}'>
+                                            @method('PUT')
+                                            @csrf
+                                        <div class='input-group' id='req_change_priority' style='display:none'>
+                                            <select type="text" class="form-control" name="priority_id" placeholder="" required >
+                                                <option value="">- Select Priority -</option>
+                                                @foreach($priorities as $priority)
+                                                    @if($priority->id != $request->priority_id)
+                                                        <option value="{{$priority->id}}">{{$priority->name}}</option>
+                                                    @endif                                                    
+                                                @endforeach
+                                            </select>
+                                            <input type='hidden' name='mod' value='priority'>
+                                            <input type='hidden' name='url' value='/it/vt/{{ $request->id }}'>
+                                            <button type='submit' class='btn btn-secondary form_submit_button'>Change</button>
+                                            <button type='button' id='req_cancel_change_priority' class='btn btn-warning'>Cancel</button>
+                                        </div>
+                                    </form>
+                                    <form class='form_to_submit' id='req_change_status_form' method='POST' action='/1_atms/public/cctvreview/{{ $request->id }}'>
+                                            @method('PUT')
+                                            @csrf
+                                        <div class='input-group' id='req_change_status' style='display:none'>
+                                            <select type="text" class="form-control" id='req_change_status_id' name="status_id" placeholder="" required>
+                                                <option value="">- Select Status -</option>
+                                                @foreach($statuses as $status)
+                                                    @if(!($status->id == $request->status_id || $status->id == 1 || $status->id == 2 || $status->id == 6))                                                        
+                                                        <option value="{{$status->id}}">{{$status->name}}</option>
+                                                    @endif                                                    
+                                                @endforeach
+                                            </select>                                            
+                                            <input type='hidden' name='mod' value='escalate'>
+                                            <input type='hidden' name='url' value='/it/vt/{{ $request->id }}'>
+                                            <button type='submit' class='btn btn-secondary form_submit_button'>Change</button>
+                                            <button type='button' id='req_cancel_change_status' class='btn btn-warning'>Cancel</button>
+                                        </div>
+                                    </form>
+                                    <div id='req_change_buttons'>
+                                        <button type='button' id='req_change_priority_button' class='btn btn-secondary'>Change Priority</button>
+                                        <button type='button' id='req_change_status_button' class='btn btn-secondary'>Change Status</button>
+                                        <button type='button' id='add_review_details' class='btn btn-secondary'>Request Details</button>
+                                        {{-- <button type='button' id='add_ticket_details' class='btn btn-secondary'>Ticket Details</button>
+                                        <form class='form_to_submit' id='close_ticket_form' method='POST' action='/1_atms/public/closed_ticket/transfer/{{ $request->id }}'>
+                                            @csrf
+                                            <input type='hidden' name='status_id' value='{{ $request->status_id }}'>
+                                            <input type='hidden' name='mod' value='default'>
+                                            <input type='hidden' name='url' value='/it/ctlv/{{ $request->id }}'>            
+                                            <button type='button' id='close_ticket' class='btn btn-danger mt-2' style='display:inline;'>Close Ticket</button>
+                                        </form> --}}
+                                    </div>
+                                @else
+                                    <span class='font-weight-bold' style='font-size:1rem'>Assigned to {{ $request->assign->name }}</span>
+                                @endif                           
+                            @endif
+                        @endif
+
+                        {{-- @if($request->status_id == 1)
+                            <button type='button' id='assign_request' class='btn btn-secondary'>Assign Request</button>
                             @if($request->assigned_to == '')
                                 <button type='button' id='assign_request' class='btn btn-secondary'>Assign Request</button>
                             @else
@@ -152,10 +269,7 @@
                                 <div class='input-group' id='req_assigned_to' style='display:none'>
                                     <select type="text" class="form-control" id="assigned_to" name="assigned_to" placeholder="" required>
                                         <option value="">- Select Tech -</option>                            
-                                        @foreach($techs as $tech)
-                                            {{-- @if($user->id != $tickets->user_id)
-                                                <option value="{{$user->id}}">{{$user->name}}</option>
-                                            @endif --}}
+                                        @foreach($techs as $tech)                                            
                                             <option value="{{$tech->id}}">{{$tech->name}}</option>
                                         @endforeach
                                     </select>
@@ -219,21 +333,13 @@
                                     <div id='req_change_buttons'>
                                         <button type='button' id='req_change_priority_button' class='btn btn-secondary'>Change Priority</button>
                                         <button type='button' id='req_change_status_button' class='btn btn-secondary'>Change Status</button>
-                                        <button type='button' id='add_review_details' class='btn btn-secondary'>Request Details</button>
-                                        {{-- <button type='button' id='add_ticket_details' class='btn btn-secondary'>Ticket Details</button>
-                                        <form class='form_to_submit' id='close_ticket_form' method='POST' action='/1_atms/public/closed_ticket/transfer/{{ $request->id }}'>
-                                            @csrf
-                                            <input type='hidden' name='status_id' value='{{ $request->status_id }}'>
-                                            <input type='hidden' name='mod' value='default'>
-                                            <input type='hidden' name='url' value='/it/ctlv/{{ $request->id }}'>            
-                                            <button type='button' id='close_ticket' class='btn btn-danger mt-2' style='display:inline;'>Close Ticket</button>
-                                        </form> --}}
+                                        <button type='button' id='add_review_details' class='btn btn-secondary'>Request Details</button>                                        
                                     </div>
                                 @else
                                     <span class='font-weight-bold' style='font-size:1rem'>Assigned to {{ $request->assign->name }}</span>
                                 @endif                           
                             @endif
-                        @endif                                                                                                         
+                        @endif --}}                                                                                                         
                     </div>
                     <div class='col-md-7'>
                         @if($request->attach != null)

@@ -7,13 +7,13 @@ use Illuminate\Notifications\Notification;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
 use App\Events\triggerEvent;
-use App\ClosedTicket;
+use App\CctvReview;
 
-class TicketClosed extends Notification implements ShouldQueue
+class ReviewRequestApproved extends Notification implements ShouldQueue
 {
     use Queueable;
 
-    protected $ticket_id;
+    protected $request_id;
     protected $name;
 
     /**
@@ -23,7 +23,7 @@ class TicketClosed extends Notification implements ShouldQueue
      */
     public function __construct($tid,$uname)
     {
-        $this->ticket_id = $tid;
+        $this->request_id = $tid;
         $this->name = $uname;
     }
 
@@ -46,12 +46,13 @@ class TicketClosed extends Notification implements ShouldQueue
      */
     public function toMail($notifiable)
     {
-        $url = url('/it/ctlv/'.$this->ticket_id);
-        $t = ClosedTicket::where('id',$this->ticket_id)->first();
+        $url = url('/cr/crv/'.$this->request_id);
+        $t = CctvReview::where('id',$this->request_id)->first();
         return (new MailMessage)
                 ->greeting('Hello! ' .$this->name)
-                ->line('Ticket <b>#'.$t->ticket_id.'</b> is now closed.')
-                ->action('View Ticket', $url)
+                ->line('CCTV Review Request #'.$t->request_id.' has been approved..')
+                ->line('Click the link below for more information.')
+                ->action('View Request', $url)
                 ->line('Thank you for using our application!');
     }
 
@@ -63,13 +64,12 @@ class TicketClosed extends Notification implements ShouldQueue
      */
     public function toArray($notifiable)
     {
-        $url = url('/it/ctlv/'.$this->ticket_id);
-        $t = ClosedTicket::where('id',$this->ticket_id)->first();
         event(new triggerEvent('refresh'));
+        $url = url('/cr/crv/'.$this->request_id);
         return [
-            'message' => 'Ticket #'.$t->ticket_id.' closed.',
-            'mod' => 'close',
-            'tid' => $this->ticket_id
+            'message' => 'New CCTV Review Request Approved.',
+            'mod' => 'request',
+            'tid' => $this->request_id
         ];
     }
 }

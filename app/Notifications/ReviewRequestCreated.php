@@ -50,7 +50,8 @@ class ReviewRequestCreated extends Notification implements ShouldQueue
         $t = CctvReview::where('id',$this->request_id)->first();
         return (new MailMessage)
                 ->greeting('Hello! ' .$this->name)
-                ->line('CCTV Review Request #'.$t->request_id.' is created.')
+                ->line('CCTV Review Request #'.$t->request_id.' is created and needs approval.')
+                ->line('Click the link below for more details.')
                 ->action('View Request', $url)
                 ->line('Thank you for using our application!');
     }

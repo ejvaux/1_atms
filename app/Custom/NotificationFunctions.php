@@ -16,6 +16,7 @@ use App\Notifications\ReviewRequestAssigned;
 use App\Notifications\ReviewRequestAccepted;
 use App\Notifications\ReviewRequestPriorityChanged;
 use App\Notifications\ReviewRequestStatusChanged;
+use App\Notifications\ReviewRequestApproved;
 use App\Notifications\QueueErrorReport;
 use Auth;
 use App\User;
@@ -28,17 +29,15 @@ class NotificationFunctions
     {
         $users = User::where('admin',1)->get();
         foreach ($users as $user) {
-            if($user->email != 'krkim@primatechphils.com')
-            {
-                $user->notify( (new TicketCreated($tid,$user->name))->delay(now()->addSeconds(30)) );
-            }            
+            $user->notify( (new TicketCreated($tid,$user->name))->delay(now()->addSeconds(30)) );            
         }
     }
 
     public static function ticketaccept($id,$tid,$tech)
     {
         $user = User::where('id',$id)->first();
-        $user->notify( (new TicketAccepted($tid,$user->name,$tech))->delay(now()->addSeconds(30)) );        
+        $t = Ticket::where('id',$tid)->first();
+        $user->notify( (new TicketAccepted($tid,$user->name,$tech,$t->ticket_id))->delay(now()->addSeconds(30)) );        
     }
 
     public static function ticketassign($id,$tid,$tech)
@@ -59,7 +58,8 @@ class NotificationFunctions
     public static function ticketstatus($id,$tid,$stat)
     {
         $user = User::where('id',$id)->first();
-        $user->notify( (new StatusChanged($tid,$user->name,$stat))->delay(now()->addSeconds(30)) );
+        $t = Ticket::where('id',$tid)->first();
+        $user->notify( (new StatusChanged($tid,$user->name,$stat,$t->ticket_id))->delay(now()->addSeconds(30)) );
     }
 
     public static function ticketclose($id,$tid)
@@ -104,10 +104,16 @@ class NotificationFunctions
 
     // CCTV REVIEW
     public static function requestcreate($tid){
-        $users = User::where('admin',1)->get();
+        $users = User::where('req_approver',1)->get();
         foreach ($users as $user) {
             $user->notify( (new ReviewRequestCreated($tid,$user->name))->delay(now()->addSeconds(30)) );
         }     
+    }
+    public static function requestapprove($tid){
+        $users = User::where('admin',1)->get();
+        foreach ($users as $user){
+            $user->notify( (new ReviewRequestApproved($tid,$user->name))->delay(now()->addSeconds(30)) );
+        }        
     }
     public static function requestassign($id,$tid,$tech){
         $user = User::where('id',$id)->first();
@@ -128,5 +134,5 @@ class NotificationFunctions
         $user = User::where('id',$id)->first();
         $user->notify( (new ReviewRequestStatusChanged($tid,$user->name,$stat))->delay(now()->addSeconds(30)) );
         /* $user->notify( new QueueErrorReport('Test','Test','Test') ); */
-    }
+    }    
 }

@@ -139,6 +139,7 @@ class CctvReviewsController extends Controller
         if($request->input('action') != ""){ $req->action = $request->input('action');}
         if($request->input('result') != ""){ $req->result = $request->input('result');}
         if($request->input('recommend') != ""){ $req->recommend = $request->input('recommend');}
+        if($request->input('approved') != ""){ $req->approved = $request->input('approved');}
         if($request->input('status_id') != ""){ $req->status_id = $request->input('status_id');
             if($request->input('status_id') == '5'){
                 $req->finish_at = Date('Y-m-d H:i:s');
@@ -146,7 +147,7 @@ class CctvReviewsController extends Controller
 
         $req_id = $req->id;
         $techid = $req->assigned_to;
-        $techname = $req->assign->name;
+        if($req->assigned_to != ""){ $techname = $req->assign->name;}
         $userid = $req->user_id;
         $prior = $req->priority->name;
         $stat = $req->status->name;
@@ -171,6 +172,11 @@ class CctvReviewsController extends Controller
         elseif($request->input('mod') == 'escalate'){
             NotificationFunctions::requeststatus($userid,$req_id,$stat);
             return redirect()->back()->with('success','Request Status Changed Successfully.');            
+            /* return redirect('/notification/requeststatus/'.$userid.'/'.$req_id.'/'.$stat); */            
+        }
+        elseif($request->input('mod') == 'approve'){
+            NotificationFunctions::requestapprove($req_id);
+            return redirect()->back()->with('success','Request Approved Successfully.');            
             /* return redirect('/notification/requeststatus/'.$userid.'/'.$req_id.'/'.$stat); */            
         }
         else{
