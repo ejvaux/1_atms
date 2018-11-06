@@ -34,7 +34,7 @@ class ReviewsController extends Controller
     }
     public function reviewlist()
     {
-        if(Auth::user()->admin == true){
+        if(Auth::user()->admin == true or Auth::user()->req_approver == true){
             $requests = CctvReview::orderBy('id','desc')->paginate(10);
             /* if($id == 'all'){
                 $requests = CctvReview::orderBy('id','desc')->paginate(10);
