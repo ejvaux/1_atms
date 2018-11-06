@@ -104,7 +104,7 @@ class ReportsController extends Controller
 
         // Ticket by Priority
         $ticketbyprioritychart = \Lava::DataTable();
-        $ticketbyprioritydata = DB::select("SELECT COUNT(tickets.`priority_id`) as total, priorities.name as name FROM ( SELECT * FROM `tickets` WHERE tickets.created_at LIKE concat(curdate(),'%') UNION ALL SELECT * FROM `closed_tickets` WHERE closed_tickets.created_at LIKE concat(curdate(),'%') ) as tickets RIGHT JOIN priorities ON priorities.id = tickets.`priority_id` GROUP BY priorities.name");
+        $ticketbyprioritydata = DB::select("SELECT COUNT(tickets.`priority_id`) as total, priorities.name as name FROM ( SELECT * FROM `tickets` WHERE tickets.created_at LIKE concat(curdate(),'%') UNION ALL SELECT * FROM `closed_tickets` WHERE closed_tickets.created_at LIKE concat(curdate(),'%') ) as tickets RIGHT JOIN priorities ON priorities.id = tickets.`priority_id` GROUP BY priorities.name ORDER BY priorities.id");
 
         $ticketbyprioritychart->addStringColumn('Priority')
                         ->addNumberColumn('Total');

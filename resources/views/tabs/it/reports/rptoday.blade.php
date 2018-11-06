@@ -10,6 +10,13 @@
             <div class="card">
                 <div class="card-body">
                     <div class='container text-center'>
+                        <div class="row">
+                            <div class="col-md">
+                                <div class='alert alert-danger mt-2'>
+                                    *** UNDER DEVELOPMENT. REPORTS ARE FOR TODAY ONLY. ***
+                                </div>
+                            </div>
+                        </div>
                         <div class='row'>
                             <div class='col-md'></div>
                             <div class='col-md-2 pt-2 mr-0'>
