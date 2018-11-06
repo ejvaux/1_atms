@@ -148,6 +148,7 @@ return [
         Illuminate\View\ViewServiceProvider::class,
         Kyslik\ColumnSortable\ColumnSortableServiceProvider::class,
         Maatwebsite\Excel\ExcelServiceProvider::class,
+        Khill\Lavacharts\Laravel\LavachartsServiceProvider::class,
 
         /*
          * Package Service Providers...
@@ -213,6 +214,7 @@ return [
         'Excel' => Maatwebsite\Excel\Facades\Excel::class,
         'CustomFunctions' => App\Custom\CustomFunctions::class,
         'NotificationFunctions' => App\Custom\NotificationFunctions::class,
+        'Lava' => Khill\Lavacharts\Laravel\LavachartsFacade::class,
 
     ],
 

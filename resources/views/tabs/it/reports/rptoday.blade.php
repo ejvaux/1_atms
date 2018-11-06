@@ -2,12 +2,6 @@
 
 @section('pageTitle','Ticket | ATMS - Primatech')
 
-@section('chart')
-    {!! $ticketbytech->script() !!}
-    {!! $totalticketchart->script() !!}
-    {!! $ticketdepartmentchart->script() !!}
-@endsection
-
 @section('content')
 @include('inc.messages')
 <div class="container">
@@ -96,26 +90,22 @@
     <div class='row mb-2'>
         <div class='col-md'>
             <div class="card">
-                <div class="card-header">
-                    Tickets by Tech
-                </div>
                 <div class="card-body">
-                    {!! $ticketbytech->container() !!}
+                    <div id="ticketbytechdiv"></div>
                 </div>
             </div>
-        </div>
+        </div>        
+    </div>
+    <div class="row mb-2">
         <div class='col-md'>
             <div class="card">
-                <div class="card-header">
-                    Tickets by Priority
-                </div>
                 <div class="card-body">
-                    
+                    <div id="ticketbyprioritydiv"></div>
                 </div>
             </div>
         </div>
     </div>
-    <div class='row mb-2'>
+    {{-- <div class='row mb-2'>
         <div class='col-md'>
             <div class="card">
                 <div class="card-header">
@@ -126,15 +116,12 @@
                 </div>
             </div>
         </div>
-    </div>
+    </div> --}}
     <div class='row mb-2'>
         <div class='col-md'>
             <div class="card">
-                <div class="card-header">
-                    Tickets by Department
-                </div>
                 <div class="card-body">
-                    {!! $ticketdepartmentchart->container() !!}
+                    <div id="ticketbydeptdiv"></div>
                 </div>
             </div>
         </div>
@@ -142,11 +129,8 @@
     <div class='row mb-2'>
         <div class='col-md'>
             <div class="card">
-                <div class="card-header">
-                    Tickets by Category
-                </div>
                 <div class="card-body">
-                    
+                    <div id="ticketbycategorydiv"></div>
                 </div>
             </div>
         </div>
@@ -154,14 +138,18 @@
     <div class='row mb-2'>
         <div class='col-md'>
             <div class="card">
-                <div class="card-header">
-                    Tickets by Status
-                </div>
                 <div class="card-body">
-                    
+                    <div id="ticketbystatusdiv"></div>
                 </div>
             </div>
         </div>
     </div>
 </div>
+@endsection
+@section('graphs')
+    {!! \Lava::render('ColumnChart', 'ticketbytech', 'ticketbytechdiv') !!}
+    {!! \Lava::render('ColumnChart', 'ticketbypriority', 'ticketbyprioritydiv') !!}
+    {!! \Lava::render('ColumnChart', 'ticketbydept', 'ticketbydeptdiv') !!}
+    {!! \Lava::render('PieChart', 'ticketbycategory', 'ticketbycategorydiv') !!}
+    {!! \Lava::render('ColumnChart', 'ticketbystatus', 'ticketbystatusdiv') !!}
 @endsection

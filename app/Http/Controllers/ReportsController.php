@@ -86,51 +86,83 @@ class ReportsController extends Controller
             $trentime = 0;
         }
         
-        // Ticket by Tech
-        $ticketbytech = new TicketsReport;
-        $data = DB::select("SELECT COUNT(tickets.assigned_to) as total, users.name as name FROM ( SELECT * FROM `tickets` WHERE tickets.created_at LIKE concat(curdate(),'%') AND tickets.assigned_to IS NOT null UNION ALL SELECT * FROM `closed_tickets` WHERE closed_tickets.created_at LIKE concat(curdate(),'%') AND closed_tickets.assigned_to IS NOT null ) as tickets RIGHT JOIN users ON users.id = tickets.assigned_to WHERE users.tech = true GROUP BY users.name");
-        foreach($data as $dat){
-            $techlabels[] = $dat->name;
-            $techdt[] = $dat->total;
+        // Ticket by Tech        
+        $ticketbytechchart = \Lava::DataTable();
+        $ticketbytechdata = DB::select("SELECT COUNT(tickets.assigned_to) as total, users.name as name FROM ( SELECT * FROM `tickets` WHERE tickets.created_at LIKE concat(curdate(),'%') AND tickets.assigned_to IS NOT null UNION ALL SELECT * FROM `closed_tickets` WHERE closed_tickets.created_at LIKE concat(curdate(),'%') AND closed_tickets.assigned_to IS NOT null ) as tickets RIGHT JOIN users ON users.id = tickets.assigned_to WHERE users.tech = true GROUP BY users.name");
+        
+        $ticketbytechchart->addStringColumn('Tech')
+                        ->addNumberColumn('Total');
+                        /* ->addRow($loclabels,$locdt) */;
+        foreach($ticketbytechdata as $dat){
+            $ticketbytechchart->addRow([$dat->name,$dat->total]);
         }
-        $ticketbytech->labels($techlabels);
-        $ticketbytech->dataset('Total Tickets', 'bar', $techdt);
+        
+        \Lava::ColumnChart('ticketbytech',$ticketbytechchart,[
+            'title'=>'Tickets by Tech',
+            'colors'=> array('#26C6DA'),
+            ]);
 
-        // Total Ticket Chart
-        $totalticketchart = new TicketsReport;
-        /* $data = DB::select('SELECT DATE(created_at) as date, count(created_at) as total FROM `tickets` GROUP BY DAY(`created_at`)'); */
-        $data = DB::select("SELECT DATE_ADD( TIME(DATE_FORMAT(created_at, '%Y-%m-%d %H:00:00')), INTERVAL IF(MINUTE(created_at) < 30, 0, 1) HOUR ) as hr, count(created_at) as total FROM `tickets` WHERE `created_at` LIKE concat(curdate(),'%') GROUP BY HOUR(`created_at`)");
-        if(!empty($data)){
-            foreach($data as $dat){
-                $label[] = $dat->hr;
-                $dt[] = $dat->total;
-            }            
-        }
-        else{
-            $label[] = '';
-            $dt[] = '';            
-        }
-        $totalticketchart->labels($label);
-        $totalticketchart->dataset('Total Tickets', 'line', $dt);        
+        // Ticket by Priority
+        $ticketbyprioritychart = \Lava::DataTable();
+        $ticketbyprioritydata = DB::select("SELECT COUNT(tickets.`priority_id`) as total, priorities.name as name FROM ( SELECT * FROM `tickets` WHERE tickets.created_at LIKE concat(curdate(),'%') UNION ALL SELECT * FROM `closed_tickets` WHERE closed_tickets.created_at LIKE concat(curdate(),'%') ) as tickets RIGHT JOIN priorities ON priorities.id = tickets.`priority_id` GROUP BY priorities.name");
 
-        // Tickets by Department
-        /* $deptdata = DB::select('SELECT count(tickets.department_id) as total, departments.name FROM `tickets` 
-        RIGHT OUTER JOIN departments ON departments.id = tickets.department_id GROUP BY departments.name'); */
-        $deptdata = DB::select('SELECT count(department_id) as total, departments.name FROM ( SELECT * FROM `tickets` UNION ALL SELECT * FROM `closed_tickets` ) as ticket RIGHT OUTER JOIN departments ON departments.id = ticket.department_id WHERE ticket.created_at LIKE concat(curdate(),"%") GROUP BY departments.name');
-        if(!empty($data)){
-            foreach($deptdata as $dat){
-                $deptlabel[] = $dat->name;
-                $deptdt[] = $dat->total;
-            }
+        $ticketbyprioritychart->addStringColumn('Priority')
+                        ->addNumberColumn('Total');
+                        /* ->addRow($loclabels,$locdt) */;
+        foreach($ticketbyprioritydata as $dat){
+            $ticketbyprioritychart->addRow([$dat->name,$dat->total]);
         }
-        else{
-            $deptlabel[] = '';
-            $deptdt[] = ''; 
-        }        
-        $ticketdepartmentchart = new TicketsReport;
-        $ticketdepartmentchart->labels($deptlabel);
-        $ticketdepartmentchart->dataset('Total Tickets', 'pie', $deptdt)->options(['backgroundColor' => CustomFunctions::colorsets()]);
-        /* $chart->dataset('Total Tickets', 'doughnut', $dt)->options(['backgroundColor' => CustomFunctions::colorsets()]); */   
+
+        \Lava::ColumnChart('ticketbypriority',$ticketbyprioritychart,[
+            'title'=>'Tickets by Priority',
+            'colors'=> array('#26C6DA'),
+            ]);                
+
+        // Tickets by Department       
+        $ticketbydeptchart = \Lava::DataTable();
+        $ticketbydeptdata = DB::select("SELECT count(department_id) as total, departments.name AS name FROM ( SELECT * FROM `tickets` WHERE tickets.created_at LIKE concat(curdate(),'%') UNION ALL SELECT * FROM `closed_tickets` WHERE closed_tickets.created_at LIKE concat(curdate(),'%') ) as ticket RIGHT OUTER JOIN departments ON departments.id = ticket.department_id GROUP BY departments.name");
+        $ticketbydeptchart->addStringColumn('Department')
+                        ->addNumberColumn('Total');
+
+        foreach($ticketbydeptdata as $dat){
+            $ticketbydeptchart->addRow([$dat->name,$dat->total]);
+        }
+
+        \Lava::ColumnChart('ticketbydept',$ticketbydeptchart,[
+            'title'=>'Tickets by Department',
+            'colors'=> array('#26C6DA'),
+            ]);
+
+        // Tickets by Category
+        $ticketbycategorychart = \Lava::DataTable();
+        $ticketbycategorydata = DB::select("SELECT count(`category_id`) as total, categories.name AS name FROM ( SELECT * FROM `tickets` WHERE tickets.created_at LIKE concat(curdate(),'%') UNION ALL SELECT * FROM `closed_tickets` WHERE closed_tickets.created_at LIKE concat(curdate(),'%') ) as ticket RIGHT OUTER JOIN categories ON categories.id = ticket.`category_id` GROUP BY categories.name");
+        $ticketbycategorychart->addStringColumn('Category')
+                        ->addNumberColumn('Total');
+
+        foreach($ticketbycategorydata as $dat){
+            $ticketbycategorychart->addRow([$dat->name,$dat->total]);
+        }
+
+        \Lava::PieChart('ticketbycategory',$ticketbycategorychart,[
+            'title'=>'Tickets by Category',
+            /* 'colors'=> array('#26C6DA'), */
+            ]);
+
+        // Tickets by Status
+        $ticketbystatuschart = \Lava::DataTable();
+        $ticketbystatusdata = DB::select("SELECT count(`status_id`) as total, statuses.name AS name FROM ( SELECT * FROM `tickets` WHERE tickets.created_at LIKE concat(curdate(),'%') UNION ALL SELECT * FROM `closed_tickets` WHERE closed_tickets.created_at LIKE concat(curdate(),'%') ) as ticket RIGHT OUTER JOIN statuses ON statuses.id = ticket.`status_id` GROUP BY statuses.name");
+        $ticketbystatuschart->addStringColumn('Status')
+                        ->addNumberColumn('Total');
+
+        foreach($ticketbystatusdata as $dat){
+            $ticketbystatuschart->addRow([$dat->name,$dat->total]);
+        }
+
+        \Lava::ColumnChart('ticketbystatus',$ticketbystatuschart,[
+            'title'=>'Tickets by Status',
+            'colors'=> array('#26C6DA'),
+            ]);
+        
         return view('tabs.it.reports.rptoday',compact('ticketdepartmentchart','data','totalticketchart','newticket','openticket','assignedticket','totalresolvedticket','trtime','trentime','rtime','ticketbytech'));
     }
     public function ticketreportsweek()

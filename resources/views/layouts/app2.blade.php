@@ -10,7 +10,6 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
     <title>@yield('pageTitle')</title>
-    @yield('chart')
     @include('inc.header')          
 </head>
 <body>
@@ -41,6 +40,7 @@
             <!-- Copyright -->
         </footer>
         <!-- Footer -->
-    </div>    
+    </div>
+    @yield('graphs')
 </body>
 </html>
