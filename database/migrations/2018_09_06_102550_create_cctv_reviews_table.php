@@ -19,7 +19,7 @@ class CreateCctvReviewsTable extends Migration
             $table->integer('user_id');
             $table->integer('department_id');
             $table->integer('priority_id');
-            $table->integer('status_id')->default(1);
+            $table->integer('status_id')->default(6);
             $table->text('subject');
             $table->mediumText('message');
             $table->string('start_time');
