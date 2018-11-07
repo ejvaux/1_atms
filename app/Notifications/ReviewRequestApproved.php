@@ -15,16 +15,18 @@ class ReviewRequestApproved extends Notification implements ShouldQueue
 
     protected $request_id;
     protected $name;
+    protected $type;
 
     /**
      * Create a new notification instance.
      *
      * @return void
      */
-    public function __construct($tid,$uname)
+    public function __construct($tid,$uname,$type)
     {
         $this->request_id = $tid;
         $this->name = $uname;
+        $this->type = $type;
     }
 
     /**
@@ -48,12 +50,21 @@ class ReviewRequestApproved extends Notification implements ShouldQueue
     {
         $url = url('/cr/crv/'.$this->request_id);
         $t = CctvReview::where('id',$this->request_id)->first();
-        return (new MailMessage)
+        if($this->type == 'user'){
+            return (new MailMessage)
+                ->greeting('Hello! ' .$this->name)
+                ->line('Your CCTV Review Request #'.$t->request_id.' has been approved..')
+                ->action('View Request', $url)
+                ->line('Thank you for using our application!');
+        }
+        else{
+            return (new MailMessage)
                 ->greeting('Hello! ' .$this->name)
                 ->line('CCTV Review Request #'.$t->request_id.' has been approved..')
                 ->line('Click the link below for more information.')
                 ->action('View Request', $url)
                 ->line('Thank you for using our application!');
+        }        
     }
 
     /**
@@ -67,7 +78,7 @@ class ReviewRequestApproved extends Notification implements ShouldQueue
         event(new triggerEvent('refresh'));
         $url = url('/cr/crv/'.$this->request_id);
         return [
-            'message' => 'New CCTV Review Request Approved.',
+            'message' => 'CCTV Review Request Approved.',
             'mod' => 'request',
             'tid' => $this->request_id
         ];

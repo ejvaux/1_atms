@@ -79,14 +79,14 @@ class ReviewRequestAssigned extends Notification implements ShouldQueue
         event(new triggerEvent('refresh'));
         if($this->type == 'user'){            
             return [
-                'message' => 'New CCTV Review Request assigned.',
+                'message' => 'CCTV Review Request assigned.',
                 'mod' => 'request',
                 'tid' => $this->request_id
             ];
         }
         else{
             return [
-                'message' => 'New CCTV Review Request assigned.',
+                'message' => 'CCTV Review Request assigned.',
                 'mod' => 'request',
                 'tid' => $this->request_id
             ];            

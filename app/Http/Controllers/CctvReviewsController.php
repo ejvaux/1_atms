@@ -175,7 +175,7 @@ class CctvReviewsController extends Controller
             /* return redirect('/notification/requeststatus/'.$userid.'/'.$req_id.'/'.$stat); */            
         }
         elseif($request->input('mod') == 'approve'){
-            NotificationFunctions::requestapprove($req_id);
+            NotificationFunctions::requestapprove($req_id,$userid);
             return redirect()->back()->with('success','Request Approved Successfully.');            
             /* return redirect('/notification/requeststatus/'.$userid.'/'.$req_id.'/'.$stat); */            
         }

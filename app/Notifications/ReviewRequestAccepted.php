@@ -67,7 +67,7 @@ class ReviewRequestAccepted extends Notification implements ShouldQueue
     {
         event(new triggerEvent('refresh'));
         return [
-            'message' => 'New CCTV Review Request accepted.',
+            'message' => 'CCTV Review Request accepted.',
             'mod' => 'request',
             'tid' => $this->ticket_id
         ];

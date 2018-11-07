@@ -109,11 +109,13 @@ class NotificationFunctions
             $user->notify( (new ReviewRequestCreated($tid,$user->name))->delay(now()->addSeconds(30)) );
         }     
     }
-    public static function requestapprove($tid){
+    public static function requestapprove($tid,$id){
         $users = User::where('admin',1)->get();
         foreach ($users as $user){
-            $user->notify( (new ReviewRequestApproved($tid,$user->name))->delay(now()->addSeconds(30)) );
-        }        
+            $user->notify( (new ReviewRequestApproved($tid,$user->name,'admin'))->delay(now()->addSeconds(30)) );
+        }
+        $user1 = User::where('id',$id)->first();
+        $user1->notify( (new ReviewRequestApproved($tid,$user->name,'user'))->delay(now()->addSeconds(30)) );
     }
     public static function requestassign($id,$tid,$tech){
         $user = User::where('id',$id)->first();
