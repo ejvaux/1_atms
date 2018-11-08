@@ -48,7 +48,6 @@ Route::get('/notification/ticketclose/{id}/{tid}', 'NotificationController@ticke
 Route::get('/notification/ticketdecline/{id}/{tid}', 'NotificationController@ticketdecline');
 Route::get('/notification/ticketupdate/{id}', 'NotificationController@ticketupdate');
 
-
 // CCTV Review Notification
 Route::get('/notification/requestcreate/{tid}', 'NotificationController@requestcreate');
 Route::get('/notification/requestassign/{id}/{tid}/{tech}', 'NotificationController@requestassign');

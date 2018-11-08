@@ -49,8 +49,33 @@ class CctvReviewsController extends Controller
             'department_id' => 'required',          
             'message' => 'required',            
         ]);
+        
+        // Creating Request
+        
+        // Saving Serial
+        $s = new ReviewSerial;
+        $s->number =  $request->input('request_id');
+        $s->save();
 
+        // Getting ID of Serial
+        $i = ReviewSerial::where('number',$request->input('request_id'))->first();
+
+        // Inserting New Request
         $r = new CctvReview();
+        $r->id = $i->id;
+        $r->request_id = $request->input('request_id');
+        $r->user_id = $request->input('user_id');
+        $r->department_id = $request->input('department_id');
+        $r->priority_id = $request->input('priority_id');
+        $r->subject = $request->input('subject');
+        $r->message = $request->input('message');
+        $r->start_time = $request->input('start_time');
+        $r->end_time = $request->input('end_time');
+        $r->location = $request->input('location');
+        $r->save();
+
+        // Old creating request logic, primary id - auto increment
+        /* $r = new CctvReview();
         $r->request_id = $request->input('request_id');
         $r->user_id = $request->input('user_id');
         $r->department_id = $request->input('department_id');
@@ -63,10 +88,12 @@ class CctvReviewsController extends Controller
         $r->save();
         $s = new ReviewSerial;
         $s->number =  $request->input('request_id');
-        $s->save();
+        $s->save(); */
+
+        // Sending Notifications
         $req = CctvReview::orderBy('id', 'desc')->first();
         NotificationFunctions::requestcreate($req->id);
-        /* return redirect('/notification/requestcreate/'.$req->id)->with('success','Request Submitted Successfully.'); */
+
         return redirect()->back()->with('success','Request Submitted Successfully.');        
     }
 
