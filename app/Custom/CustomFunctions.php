@@ -237,7 +237,7 @@ class CustomFunctions
         $html = ReviewStatus::where('id', $stat)->first();   
         switch($stat){
             case 1:
-                $form = "<span class='text-danger'>" . $html->name . "</span>";
+                $form = "<span class='text-success'>" . $html->name . "</span>";
                 break;        
             case 2:
                 $form = "<span class='text-info'>" . $html->name . "</span>";
@@ -267,7 +267,7 @@ class CustomFunctions
         $html = ReviewStatus::where('id', $stat)->first();
         switch($stat){
             case 1:
-                $form = "<span class='badge badge-danger'>" . $html->name . "</span>";
+                $form = "<span class='badge badge-success'>" . $html->name . "</span>";
                 break;        
             case 2:
                 $form = "<span class='badge badge-info'>" . $html->name . "</span>";
