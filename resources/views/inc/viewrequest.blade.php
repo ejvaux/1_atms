@@ -388,6 +388,7 @@
                     <div class='col-md'>
                         @if($request->user_id == Auth::user()->id)
                             <button type='button' id='edit_request' class='btn btn-secondary'>Edit Request</button>
+                            <button type='button' id='cancel_request' class='btn btn-danger' style='display:inline;'>Cancel Request</button>
                             <div id='edit_request_buttons' style='display:none'>
                                 <form class='form_to_submit' id='saveEditRequest' method='POST' action='{{ url('/cctvreview/'.$request->id) }}'>
                                     @method('PUT')
@@ -408,7 +409,7 @@
                             <form class='form_to_submit' id='cancel_request_form' method='POST' action='{{ url('/cctvreview/'.$request->id) }}'>
                                 @method('DELETE')
                                 @csrf                                           
-                                <button type='button' id='cancel_request' class='btn btn-danger mt-2' style='display:inline;'>Cancel Request</button>
+                                
                             </form>                        
                         @endif
                     </div>                    
