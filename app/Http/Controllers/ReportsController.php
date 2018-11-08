@@ -25,7 +25,7 @@ class ReportsController extends Controller
         $this->middleware('auth');
     }
     
-    // Reports
+    // TICKET ---------------------------------------------------------------------------
     public function ticketreportsToday()
     {
         // Tickets per day
@@ -35,7 +35,7 @@ class ReportsController extends Controller
         $openticket = Ticket::where('status_id',1)->where('created_at','LIKE','%'.Date('Y-m-d').'%')->count();
 
         // Assigned Ticket
-        $assignedticket = Ticket::where('assigned_to','!=',null)->where('created_at','LIKE','%'.Date('Y-m-d').'%')->count();
+        $assignedticket = Ticket::where('assigned_to','!=',null)->where('status_id','!=',5)->where('created_at','LIKE','%'.Date('Y-m-d').'%')->count();
 
         // Completed Ticket
         $resolvedticket = Ticket::where('finish_at','!=',null)->where('created_at','LIKE','%'.Date('Y-m-d').'%')->count();
@@ -172,22 +172,22 @@ class ReportsController extends Controller
     }
     public function ticketreportsweek()
     {
-        // Tickets per day
-        $newticket = Ticket::where('created_at','LIKE','%'.Date('Y-m-d').'%')->count() + ClosedTicket::where('created_at','LIKE','%'.Date('Y-m-d').'%')->count();
+        // Total Tickets
+        $newticket = Ticket::whereBetween('created_at', [now()->subDays(7), now()])->count() + ClosedTicket::whereBetween('created_at', [now()->subDays(7), now()])->count();
 
         // Open Ticket
-        $openticket = Ticket::where('status_id',1)->where('created_at','LIKE','%'.Date('Y-m-d').'%')->count();
+        $openticket = Ticket::where('status_id',1)->whereBetween('created_at', [now()->subDays(7), now()])->count();
 
         // Assigned Ticket
-        $assignedticket = Ticket::where('assigned_to','!=',null)->where('created_at','LIKE','%'.Date('Y-m-d').'%')->count();
+        $assignedticket = Ticket::where('assigned_to','!=',null)->whereBetween('created_at', [now()->subDays(7), now()])->count();
 
         // Completed Ticket
         $resolvedticket = Ticket::where('finish_at','!=',null)->where('created_at','LIKE','%'.Date('Y-m-d').'%')->count();
         $closedticket = ClosedTicket::count();
-        $totalresolvedticket = Ticket::where('finish_at','!=',null)->where('created_at','LIKE','%'.Date('Y-m-d').'%')->count() + ClosedTicket::where('created_at','LIKE','%'.Date('Y-m-d').'%')->count();
+        $totalresolvedticket = Ticket::where('finish_at','!=',null)->whereBetween('created_at', [now()->subDays(7), now()])->count() + ClosedTicket::whereBetween('created_at', [now()->subDays(7), now()])->count();
 
         // Average response time
-        $assigntickets = Ticket::where('start_at','!=',null)->where('created_at','LIKE','%'.Date('Y-m-d').'%')->get();
+        $assigntickets = Ticket::where('start_at','!=',null)->whereBetween('created_at', [now()->subDays(7), now()])->get();
         $rtime = 0;
         foreach($assigntickets as $assignticket){
             $start = Carbon::parse($assignticket->start_at);
@@ -202,7 +202,7 @@ class ReportsController extends Controller
         }
 
         // Average processing time
-        $resolvedtickets = Ticket::where('finish_at','!=',null)->where('created_at','LIKE','%'.Date('Y-m-d').'%')->get();
+        $resolvedtickets = Ticket::where('finish_at','!=',null)->whereBetween('created_at', [now()->subDays(7), now()])->get();
         $rentime = 0;
         foreach($resolvedtickets as $resolveticket){
             $start = Carbon::parse($resolveticket->start_at);
@@ -211,7 +211,7 @@ class ReportsController extends Controller
             /* $rentime += $resolvedticket->finish_at - $resolvedticket->start_at; */
         }
 
-        $cresolvedtickets = ClosedTicket::where('finish_at','!=',null)->where('created_at','LIKE','%'.Date('Y-m-d').'%')->get();
+        $cresolvedtickets = ClosedTicket::where('finish_at','!=',null)->whereBetween('created_at', [now()->subDays(7), now()])->get();
         $crentime = 0;
         foreach($cresolvedtickets as $cresolveticket){
             $cstart = Carbon::parse($cresolveticket->start_at);
@@ -228,31 +228,8 @@ class ReportsController extends Controller
         }
         else{
             $trentime = 0;
-        }      
+        }              
         
-        // Total Ticket Chart
-        $totalticketchart = new TicketsReport;
-        $data = DB::select('SELECT DATE(created_at) as date, count(created_at) as total FROM `tickets` GROUP BY DAY(`created_at`)');
-        foreach($data as $dat){
-            $label[] = $dat->date;
-            $dt[] = $dat->total;
-        }        
-        $totalticketchart->labels($label);
-        $totalticketchart->dataset('Total Tickets', 'line', $dt);
-        /* $totalticketchart->dataset('Total Tickets', 'pie', $dt)->options(['backgroundColor' => CustomFunctions::colorsets()]); */
-
-        // Tickets by Department
-        /* $deptdata = DB::select('SELECT count(tickets.department_id) as total, departments.name FROM `tickets` 
-        RIGHT OUTER JOIN departments ON departments.id = tickets.department_id GROUP BY departments.name'); */
-        $deptdata = DB::select('SELECT count(department_id) as total, departments.name FROM ( SELECT * FROM `tickets` UNION ALL SELECT * FROM `closed_tickets` ) as ticket RIGHT OUTER JOIN departments ON departments.id = ticket.department_id GROUP BY departments.name');
-        foreach($deptdata as $dat){
-            $deptlabel[] = $dat->name;
-            $deptdt[] = $dat->total;
-        }
-        $ticketdepartmentchart = new TicketsReport;
-        $ticketdepartmentchart->labels($deptlabel);
-        $ticketdepartmentchart->dataset('Total Tickets', 'pie', $deptdt)->options(['backgroundColor' => CustomFunctions::colorsets()]);
-        /* $chart->dataset('Total Tickets', 'doughnut', $dt)->options(['backgroundColor' => CustomFunctions::colorsets()]); */   
-        return view('tabs.it.rp',compact('ticketdepartmentchart','data','totalticketchart','newticket','openticket','assignedticket','totalresolvedticket','trtime','trentime','rtime'));
+        return view('tabs.it.reports.rpweek',compact('ticketdepartmentchart','data','totalticketchart','newticket','openticket','assignedticket','totalresolvedticket','trtime','trentime','rtime'));
     }
 }
