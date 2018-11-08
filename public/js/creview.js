@@ -176,3 +176,32 @@ $('#app').on('click','#canceladdimagebtn',function(){
     return true;
 }); */
 
+$('#app').on('click','#reject_request',function(){
+    swal({
+        title: 'Are you sure?',
+        text: "You won't be able to revert this!",
+        type: 'warning',
+        input:'textarea',
+        inputPlaceholder: 'Type your reason here...',
+        inputAttributes: {
+          autocapitalize: 'off'
+        },
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Yes, reject it!',
+        allowOutsideClick: () => !swal.isLoading()
+      }).then((result) => {		        
+        if(result.value != null){
+            if(result.value == ""){
+                $('#reject_request_reason').val(null);
+                $('#reject_request_form').trigger('submit');
+            }
+            else{
+                $('#reject_request_reason').val(result.value);
+                $('#reject_request_form').trigger('submit');
+            }
+        }
+      })
+});
+

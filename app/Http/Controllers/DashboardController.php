@@ -493,9 +493,6 @@ class DashboardController extends Controller
     }
     public function testdb(Request $request)
     {        
-        /* $rs = CctvReview::where('id',17)->first();
-        $json = json_decode($rs->attach);
-        return $json; */
-        return DB::select('SELECT count(department_id) as total, departments.name FROM ( SELECT * FROM `tickets` UNION ALL SELECT * FROM `closed_tickets` ) as ticket RIGHT OUTER JOIN departments ON departments.id = ticket.department_id WHERE ticket.created_at LIKE concat(curdate(),"%") GROUP BY departments.name');
+        return Ticket::where('status_id',1)->whereBetween('created_at', [now()->subDays(7), now()])->count();
     }
 }

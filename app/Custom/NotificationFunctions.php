@@ -17,10 +17,13 @@ use App\Notifications\ReviewRequestAccepted;
 use App\Notifications\ReviewRequestPriorityChanged;
 use App\Notifications\ReviewRequestStatusChanged;
 use App\Notifications\ReviewRequestApproved;
+use App\Notifications\ReviewRequestRejected;
 use App\Notifications\QueueErrorReport;
 use Auth;
 use App\User;
 use App\Ticket;
+use App\CctvReview;
+use App\RejectedRequest;
 
 class NotificationFunctions
 {   
@@ -105,9 +108,16 @@ class NotificationFunctions
     // CCTV REVIEW
     public static function requestcreate($tid){
         $users = User::where('req_approver',1)->get();
+        $t = CctvReview::where('id',$tid)->first();
         foreach ($users as $user) {
-            $user->notify( (new ReviewRequestCreated($tid,$user->name))->delay(now()->addSeconds(30)) );
+            $user->notify( (new ReviewRequestCreated($tid,$user->name,$t->request_id))->delay(now()->addSeconds(30)) );
         }     
+    }
+    public static function requestrejected($tid,$id,$rson){
+        $user = User::where('id',$id)->first();
+        $t = RejectedRequest::where('id',$tid)->first();
+        $user->notify( (new ReviewRequestRejected($tid,$user->name,$rson,$t->request_id))->delay(now()->addSeconds(30)) );
+       
     }
     public static function requestapprove($tid,$id){
         $users = User::where('admin',1)->get();

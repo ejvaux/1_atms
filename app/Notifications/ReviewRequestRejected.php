@@ -6,15 +6,16 @@ use Illuminate\Bus\Queueable;
 use Illuminate\Notifications\Notification;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
+use App\RejectedRequest;
 use App\Events\triggerEvent;
-use App\CctvReview;
 
-class ReviewRequestCreated extends Notification implements ShouldQueue
+class ReviewRequestRejected extends Notification implements ShouldQueue
 {
     use Queueable;
-    
-    protected $request_id;
+
+    protected $ticket_id;
     protected $name;
+    protected $reason;
     protected $rid;
 
     /**
@@ -22,10 +23,11 @@ class ReviewRequestCreated extends Notification implements ShouldQueue
      *
      * @return void
      */
-    public function __construct($tid,$uname,$rid)
+    public function __construct($tid,$uname,$reason,$rid)
     {
-        $this->request_id = $tid;
+        $this->ticket_id = $tid;
         $this->name = $uname;
+        $this->reason = $reason;
         $this->rid = $rid;
     }
 
@@ -48,13 +50,13 @@ class ReviewRequestCreated extends Notification implements ShouldQueue
      */
     public function toMail($notifiable)
     {
-        $url = url('/cr/crv/'.$this->request_id);
-        $t = CctvReview::where('id',$this->request_id)->first();
+        $url = url('/cr/rcrv/'.$this->ticket_id);
         return (new MailMessage)
                 ->greeting('Hello! ' .$this->name)
-                ->line('CCTV Review Request #'.$this->rid.' is created and needs approval.')
-                ->line('Click the link below for more details.')
-                ->action('View Request', $url);
+                ->line('Your CCTV Review Request #'.$this->rid.' is rejected.')
+                ->line('REASON:')
+                ->line($this->reason)
+                ->line('Thank you for using our application!');
     }
 
     /**
@@ -66,11 +68,10 @@ class ReviewRequestCreated extends Notification implements ShouldQueue
     public function toArray($notifiable)
     {
         event(new triggerEvent('refresh'));
-        $url = url('/cr/crv/'.$this->request_id);
         return [
-            'message' => 'New CCTV Review Request Created.',
+            'message' => 'CCTV Review Request rejected.',
             'mod' => 'request',
-            'tid' => $this->request_id
+            'tid' => $this->ticket_id
         ];
     }
 }

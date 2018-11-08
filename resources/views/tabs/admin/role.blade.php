@@ -38,7 +38,7 @@
                         <th>EMAIL</th>
                         <th>ADMIN</th>
                         <th>TECH</th>
-                        <th>REQ_APPRVR</th>
+                        {{-- <th>REQ_APPRVR</th> --}}
                         <th>LEVEL</th>                        
                         <th>DEL</th>
                     </tr>
@@ -68,13 +68,13 @@
                                         <input id='tech_checkbox' value='{{$user->id}}' type='checkbox'>
                                     @endif
                                 </th>
-                                <th>
+                                {{-- <th>
                                     @if ($user->req_approver == true)
                                         <input id='reqapp_checkbox' value='{{$user->id}}' type='checkbox' checked>
                                     @else
                                         <input id='reqapp_checkbox' value='{{$user->id}}' type='checkbox'>
                                     @endif
-                                </th>
+                                </th> --}}
                                 <th>                                    
                                     <input type='hidden' value='{{$user->level}}' id='oldselval{{$user->id}}'>
                                     <select id='levelselect' data-userid='{{$user->id}}' data-prevval='{{$user->level}}'>

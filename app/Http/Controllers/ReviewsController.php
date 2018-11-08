@@ -10,6 +10,7 @@ use App\CctvReview;
 use Auth;
 use App\User;
 use App\ReviewStatus;
+use App\RejectedRequest;
 
 class ReviewsController extends Controller
 {
@@ -35,7 +36,7 @@ class ReviewsController extends Controller
     public function reviewlist()
     {
         if(Auth::user()->admin == true or Auth::user()->req_approver == true){
-            $requests = CctvReview::orderBy('id','desc')->paginate(10);
+            $requests = CctvReview::sortable()->orderBy('id','desc')->paginate(10);
             /* if($id == 'all'){
                 $requests = CctvReview::orderBy('id','desc')->paginate(10);
             }
@@ -44,7 +45,7 @@ class ReviewsController extends Controller
             } */
         }
         else{
-            $requests = CctvReview::where('user_id',Auth::user()->id)->orWhere('assigned_to',Auth::user()->id)->orderBy('id','desc')->paginate(10);
+            $requests = CctvReview::sortable()->where('user_id',Auth::user()->id)->orWhere('assigned_to',Auth::user()->id)->orderBy('id','desc')->paginate(10);
             /* if($id == 'all'){
                 $requests = CctvReview::where('user_id',Auth::user()->id)->orWhere('assigned_to',Auth::user()->id)->orderBy('id','desc')->paginate(10);
             }
@@ -139,5 +140,20 @@ class ReviewsController extends Controller
         $img = CctvReview::where('id',$id)->first();
         $images = json_decode($img->attach);
         return view('tabs.cctv.crda',compact('images'));
+    }
+    public function rejectedreviewlist()
+    {
+        $requests = RejectedRequest::sortable()->orderBy('id','desc')->paginate(10);
+        return view('tabs.cctv.rcrl',compact('requests'));
+    }
+    public function viewrejectedreview($id)
+    {
+        $statuses = ReviewStatus::orderBy('id')->get();
+        $priorities = Priority::orderBy('id')->get();
+        $techs = User::where('tech',true)->get();
+        $request = RejectedRequest::where('id',$id)->first();
+        $departments = Department::orderBy('name')->get();
+        $locations = Location::orderBy('name')->get();
+        return view('tabs.cctv.rcrv',compact('request','departments','locations','techs','priorities','statuses'));
     }
 }

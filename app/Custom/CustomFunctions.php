@@ -254,6 +254,9 @@ class CustomFunctions
             case 6:
                 $form = "<span class='text-danger'>" . $html->name . "</span>";
                 break;
+            case 7:
+                $form = "<span class='text-secondary'>" . $html->name . "</span>";
+                break;
             default:
                 $form = "<span>Something went wrong, please try again</span>";
         }
@@ -280,6 +283,9 @@ class CustomFunctions
                 break;
             case 6:
                 $form = "<span class='badge badge-danger'>" . $html->name . "</span>";
+                break;
+            case 7:
+                $form = "<span class='badge badge-secondary'>" . $html->name . "</span>";
                 break;
             default:
                 $form = "<span>Something went wrong, please try again</span>";

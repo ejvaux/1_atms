@@ -17,8 +17,11 @@
     <div class="row mb-3">
         <div class='col-md-3'>
             <a class='btn btn-secondary' href='{{ url('/cr/crc') }}'><i class="fa fa-plus-square"></i> Create Request</a>
-        </div>
+        </div>        
         <div class='col-md'></div>
+        <div class="col-md">
+            <a class='btn btn-secondary' href='{{ url("/cr/rcrl") }}'>Rejected</a>
+        </div>
         @if(Auth::user()->admin == true || Auth::user()->tech == true)
             <div class='col-md-3 ml-auto input-group'>
                 <div class='input-group-prepend'>
@@ -30,7 +33,7 @@
                     </select>            
             </div>
         @endif      
-        <div class="col-md-4">
+        <div class="col-md-3">
             <form>
                 <div class="input-group">                    
                     <input type="text" class="form-control" id="searchtextbox" placeholder="Search Request . . .">

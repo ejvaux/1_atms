@@ -131,8 +131,10 @@ Route::get('/it/ctl/{id}','DashboardController@searchclosedticket');
 
 // CCTV Review
 Route::get('/cr/crl','ReviewsController@reviewlist');
+Route::get('/cr/rcrl','ReviewsController@rejectedreviewlist');
 Route::get('/cr/crc','ReviewsController@reviewcreate');
 Route::get('/cr/crv/{id}','ReviewsController@viewreview');
+Route::get('/cr/rcrv/{id}','ReviewsController@viewrejectedreview');
 Route::get('/cr/crda/{id}','ReviewsController@viewreviewattach');
 // Load list
 Route::get('/loadlist/{id}','ReviewsController@loadlist');
@@ -144,6 +146,7 @@ Route::post('closed_ticket/transfer/{id}','ClosedTicketController@transferticket
 Route::post('declined_ticket/transfer/{id}','DeclinedTicketController@transferticket');
 Route::put('users/changepass/{id}','UsersController@changepass');
 Route::put('cctvreview/addimage/{id}','CctvReviewsController@addimage');
+Route::post('rejectedrequest/reject/{id}','RejectedRequestController@reject');
 
 // Tables
 Route::resources([
@@ -155,6 +158,7 @@ Route::resources([
     'closed_ticket' => 'ClosedTicketController',
     'cctvreview' => 'CctvReviewsController',
     'declined_ticket' => 'DeclinedTicketController',
+    'rejectedrequest' => 'RejectedRequestController',
 ]);
 Route::get('testing', function () {
     event(new App\Events\TicketCreated('Someone'));

@@ -139,7 +139,12 @@
                                     <input type='hidden' name='status_id' value='1'>
                                     <input type='hidden' name='mod' value='approve'>
                                     <button type='submit' id='approve_request' class='btn btn-secondary'>Approve Request</button>
-                                </form>                                    
+                                    <button type='button' id='reject_request' class='btn btn-warning'>Reject Request</button>
+                                </form>
+                                <form id='reject_request_form' class='form_to_submit' method='POST' action='{{ url('rejectedrequest/reject/'.$request->id) }}'>                                    
+                                    @csrf
+                                    <input id='reject_request_reason' type='hidden' name='reason' value=''>                                                                  
+                                </form>                                     
                             @endif
                         @elseif ($request->status_id == 1)                            
                             @if (Auth::user()->admin == 1)
@@ -217,7 +222,7 @@
                                             <select type="text" class="form-control" id='req_change_status_id' name="status_id" placeholder="" required>
                                                 <option value="">- Select Status -</option>
                                                 @foreach($statuses as $status)
-                                                    @if(!($status->id == $request->status_id || $status->id == 1 || $status->id == 2 || $status->id == 6))                                                        
+                                                    @if(!($status->id == $request->status_id || $status->id == 1 || $status->id == 2 || $status->id == 6 || $status->id == 7 ))                                                        
                                                         <option value="{{$status->id}}">{{$status->name}}</option>
                                                     @endif                                                    
                                                 @endforeach
@@ -477,5 +482,5 @@
     </div>
 </div>
 @else
-    <div class='alert alert-danger'><h5>Request not found, not existed or already cancelled.</h5></div>
+    <div class='alert alert-danger'><h5>Request not found, not existed or already cancelled/rejected.</h5></div>
 @endif
