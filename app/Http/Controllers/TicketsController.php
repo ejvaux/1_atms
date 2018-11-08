@@ -98,8 +98,31 @@ class TicketsController extends Controller
                 $filenameArray = null;
             }
 
-            // Create Ticket
+            // Create Ticket --------
+
+            // Saving Serial
+            $s = new Serial;
+            $s->number =  $request->input('ticket_id');
+            $s->save();
+
+            // Getting ID of serial
+            $i = Serial::where('number',$request->input('ticket_id'))->first();
+
+            // Insert New Ticket
             $t = new Ticket;
+            $t->id = $i->id;
+            $t->ticket_id = $request->input('ticket_id');
+            $t->user_id = $request->input('userid');
+            $t->department_id = $request->input('department');
+            $t->category_id = $request->input('category');
+            $t->priority_id = $request->input('priority');
+            $t->subject = $request->input('subject');
+            $t->message = $request->input('message');
+            $t->attach = $filenameArray;    
+            $t->save();
+
+            // Old creating ticket logic, primary id - auto increment
+            /* $t = new Ticket;
             $t->ticket_id = $request->input('ticket_id');
             $t->user_id = $request->input('userid');
             $t->department_id = $request->input('department');
@@ -111,19 +134,12 @@ class TicketsController extends Controller
             $t->save();
             $s = new Serial;
             $s->number =  $request->input('ticket_id');
-            $s->save();
+            $s->save(); */
+
+            // Sending Notifications
             $ticket = Ticket::orderBy('created_at', 'desc')->first();
             NotificationFunctions::ticketcreate($ticket->id);
             return redirect()->back()->with('success','Ticket Submitted Successfully.');
-
-            /* if($request->input('mod') == 'default'){
-                return redirect('/notification/ticketcreate/'.$ticket->id.'/default')->with('success','Ticket Submitted Successfully.');
-                return redirect('/it/ct')->with('success','Ticket Submitted Successfully.');           
-            }
-            elseif($request->input('mod') == 'admin'){
-                return redirect('/notification/ticketcreate/'.$ticket->id.'/admin');      
-                return redirect('/it/ac')->with('success','Ticket Submitted Successfully.');
-            } */
         }
         catch(\Exception $exception){
             /* $err = $exception->errorInfo[1];

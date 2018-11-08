@@ -9,6 +9,8 @@ class CctvReview extends Model
 {
     use Sortable;
 
+    protected $fillable = ['id'];
+
     public $sortable = ['id', 'request_id', 'user_id', 'department_id','priority_id','status_id','subject','assigned_to','start_at','finish_at', 'created_at', 'updated_at'];
     
     public function user()
