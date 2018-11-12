@@ -80,12 +80,23 @@
                                                 @endif
                                             </span>                                        
                                             <span class='text-muted ml-1'><i class="fa fa-folder"></i> 
+                                                @if(empty($ticket->department->name))
+                                                    {{-- {{$ticket->department}} --}}
+                                                @else
+                                                    {{$ticket->department->name}}
+                                                @endif
+                                            </span>
+                                        </div>
+                                    </div>
+                                    <div class='row' style='font-size:.8rem'>
+                                        <div class='col-lg'>                                            
+                                            <span class='text-muted'><i class="fa fa-folder"></i> 
                                                 @if(empty ( $ticket->category->name ))
-                                                    {{$ticket->category}}
+                                                    {{-- {{$ticket->category}} --}}
                                                 @else
                                                     {{$ticket->category->name}}
                                                 @endif
-                                            </span>
+                                            </span>                                           
                                         </div>
                                     </div>                                   
                                 </th>

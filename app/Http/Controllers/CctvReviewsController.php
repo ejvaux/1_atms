@@ -47,8 +47,26 @@ class CctvReviewsController extends Controller
             'subject' => 'required',
             'priority_id' => 'required',
             'department_id' => 'required',          
-            'message' => 'required',            
+            'message' => 'required',     
+            'report' => 'required|max:2048|mimes:doc,pdf,docx,zip',       
         ]);
+
+        // Handle File Upload
+        if($request->hasFile('report')) {
+            // Get filename with extension            
+            $filenameWithExt = $request->file('report')->getClientOriginalName();
+            // Get just filename
+            $filename = pathinfo($filenameWithExt, PATHINFO_FILENAME);            
+            // Get just ext
+            $extension = $request->file('report')->getClientOriginalExtension();
+            //Filename to store
+            $fileNameToStore = $filename.'_'.time().'.'.$extension;                       
+            // Upload Image
+            $path = $request->file('report')->storeAs('public/report', $fileNameToStore);
+        }
+        else {
+            $fileNameToStore = null;
+        }
         
         // Creating Request
         
@@ -72,6 +90,7 @@ class CctvReviewsController extends Controller
         $r->start_time = $request->input('start_time');
         $r->end_time = $request->input('end_time');
         $r->location = $request->input('location');
+        $r->r_attach = $fileNameToStore;
         $r->save();
 
         // Old creating request logic, primary id - auto increment

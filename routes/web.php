@@ -135,6 +135,10 @@ Route::get('/cr/crc','ReviewsController@reviewcreate');
 Route::get('/cr/crv/{id}','ReviewsController@viewreview');
 Route::get('/cr/rcrv/{id}','ReviewsController@viewrejectedreview');
 Route::get('/cr/crda/{id}','ReviewsController@viewreviewattach');
+
+// Download Report
+Route::get('/report/{fn}','ReviewsController@downloadreport');
+
 // Load list
 Route::get('/loadlist/{id}','ReviewsController@loadlist');
 // Search

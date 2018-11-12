@@ -39,6 +39,11 @@
                                 </h4>
                             </div>
                         </div>
+                        <div class="row">
+                            <div class="col-md">
+                                <a href='{{ url("/report/".$request->r_attach) }}' id='show_report' class='btn btn-secondary'>Download Report</a>
+                            </div>
+                        </div>
                     </div>
                     <div class="col-md-7">
                         <div class='row '>

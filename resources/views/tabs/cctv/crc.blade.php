@@ -18,7 +18,7 @@
     </div>
     <div class="row pt-1">
         <div class="col-md-12">
-            <form class='form_to_submit' id='createrequestform' method='POST' action='/1_atms/public/cctvreview'>                
+            <form class='form_to_submit' id='createrequestform' method='POST' action='/1_atms/public/cctvreview' enctype="multipart/form-data">                
                 @csrf
                 <input name="user_id" type="hidden" value="{{ Auth::user()->id }}">                
                 <input type="hidden" id="username" name="username" placeholder="" value="{{ Auth::user()->name }}">
@@ -59,11 +59,15 @@
                     </div>
                 </div>
                 <div class='row'>
-                    <div class='col-md'>
+                    <div class='col-md-7'>
                         <label for="start_time">Time:</label>
                         <div class="btn-group">
                             <input class="form-control" type='datetime-local' id='start_time' name='start_time' required><span class='pt-2 mx-1'> to </span><input class="form-control" type='datetime-local' id='end_time' name='end_time' required>
                         </div>
+                    </div>
+                    <div class="col-md-5">
+                        <label>Attach Report: </label>
+                        <input class='border' type='file' name='report' required>
                     </div>
                 </div>
                 <div class="form-group row mt-2">
