@@ -71,7 +71,8 @@ class TicketAccepted extends Notification implements ShouldQueue
         return [
             'message' => 'Ticket #'.$this->ticid.' Accepted.',
             'mod' => 'user',
-            'tid' => $this->ticket_id
+            'tid' => $this->ticket_id,
+            'series' => $this->ticid
         ];
     }
 }

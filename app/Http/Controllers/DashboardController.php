@@ -18,6 +18,8 @@ use DB;
 use App\Custom\CustomFunctions;
 use App\DeclinedTicket;
 use App\CctvReview;
+use App\Custom\NotificationFunctions;
+use App\Events\triggerEvent;
 
 class DashboardController extends Controller
 {   
@@ -113,6 +115,12 @@ class DashboardController extends Controller
         $updates = TicketUpdates::where('ticket_id',$id)->get();
         $users = User::where('tech',1)->get();
         $updatetext = '';
+        $ticket = Ticket::where('id',$id)->first();
+        // mark as read notification
+        if(!empty($ticket)){
+            NotificationFunctions::markread($ticket->ticket_id);            
+        }
+
         return view('tabs.it.vt', compact('tickets','updates','updatetext','priorities','statuses','departments','categories','users'));
     }
     public function createticket()
@@ -219,6 +227,11 @@ class DashboardController extends Controller
         $statuses = $this->statuses;
         $updates = TicketUpdates::where('ticket_id',$id)->get();
         $updatetext = '';
+        $ticket = ClosedTicket::where('id',$id)->first();
+        // mark as read notification
+        if(!empty($ticket)){
+            NotificationFunctions::markread($ticket->ticket_id);            
+        }
         return view('tabs.it.actlv',compact('tickets','updates','updatetext','priorities','statuses'));
     }
     public function declinedticket()
@@ -233,6 +246,11 @@ class DashboardController extends Controller
         $statuses = $this->statuses;
         $updates = TicketUpdates::where('ticket_id',$id)->get();
         $updatetext = '';
+        $ticket = DeclinedTicket::where('id',$id)->first();
+        // mark as read notification
+        if(!empty($ticket)){
+            NotificationFunctions::markread($ticket->ticket_id);            
+        }
         return view('tabs.it.dtv',compact('tickets','updates','updatetext','priorities','statuses'));
     }
     // Search

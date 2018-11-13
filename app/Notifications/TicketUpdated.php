@@ -69,9 +69,10 @@ class TicketUpdated extends Notification implements ShouldQueue
         event(new triggerEvent('refresh'));
         $t = Ticket::where('id',$this->ticket_id)->first();
         return [
-            'message' => 'New Message on Ticket #'.$t->ticket_id,
+            'message' => 'New Update on Ticket #'.$t->ticket_id,
             'mod' => 'user',
-            'tid' => $this->ticket_id
+            'tid' => $this->ticket_id,
+            'series' => $t->ticket_id
         ];
     }
 }

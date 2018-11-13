@@ -24,9 +24,21 @@ use App\User;
 use App\Ticket;
 use App\CctvReview;
 use App\RejectedRequest;
+use App\Events\triggerEvent;
 
 class NotificationFunctions
 {   
+    // Realtime Notification
+    public static function markread($id)
+    {        
+        foreach (Auth::user()->unReadNotifications as $rn) {
+            if($rn->data['series'] == $id){
+                $rn->markAsRead();
+            }
+        }
+        event(new triggerEvent('refresh'));
+    }
+
     // TICKET
     public static function ticketcreate($tid)
     {

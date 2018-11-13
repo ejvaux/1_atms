@@ -71,7 +71,8 @@ class PriorityChanged extends Notification implements ShouldQueue
         return [
             'message' => 'Ticket #'.$t->ticket_id.' priority changed.',
             'mod' => 'user',
-            'tid' => $this->ticket_id
+            'tid' => $this->ticket_id,
+            'series' => $t->ticket_id
         ];
     }    
 }

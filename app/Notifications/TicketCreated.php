@@ -78,7 +78,8 @@ class TicketCreated extends Notification implements ShouldQueue
         return [
             'message' => 'Ticket #'.$t->ticket_id.' Created.',
             'mod' => 'create',
-            'tid' => $this->ticket_id
+            'tid' => $this->ticket_id,
+            'series' => $t->ticket_id
         ];
     }
 }
