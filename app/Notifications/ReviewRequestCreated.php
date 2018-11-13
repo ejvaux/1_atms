@@ -67,10 +67,12 @@ class ReviewRequestCreated extends Notification implements ShouldQueue
     {
         event(new triggerEvent('refresh'));
         $url = url('/cr/crv/'.$this->request_id);
+        $t = CctvReview::where('id',$this->request_id)->first();
         return [
             'message' => 'New CCTV Review Request Created.',
             'mod' => 'request',
-            'tid' => $this->request_id
+            'tid' => $this->request_id,
+            'series' => $t->request_id
         ];
     }
 }

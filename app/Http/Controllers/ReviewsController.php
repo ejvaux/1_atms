@@ -12,6 +12,7 @@ use App\User;
 use App\ReviewStatus;
 use App\RejectedRequest;
 use Response;
+use App\Custom\NotificationFunctions;
 
 class ReviewsController extends Controller
 {
@@ -71,6 +72,11 @@ class ReviewsController extends Controller
         $request = CctvReview::where('id',$id)->first();
         $departments = Department::orderBy('name')->get();
         $locations = Location::orderBy('name')->get();
+        $request = CctvReview::where('id',$id)->first();
+        // mark as read notification
+        if(!empty($request)){
+            NotificationFunctions::markread($request->request_id);            
+        }
         return view('tabs.cctv.crv',compact('request','departments','locations','techs','priorities','statuses'));
     }
     public function loadlist($id){

@@ -8,6 +8,7 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
 use App\RejectedRequest;
 use App\Events\triggerEvent;
+use App\CctvReview;
 
 class ReviewRequestRejected extends Notification implements ShouldQueue
 {
@@ -39,7 +40,7 @@ class ReviewRequestRejected extends Notification implements ShouldQueue
      */
     public function via($notifiable)
     {
-        return ['mail','database'];
+        return ['mail'];
     }
 
     /**
@@ -71,7 +72,8 @@ class ReviewRequestRejected extends Notification implements ShouldQueue
         return [
             'message' => 'CCTV Review Request rejected.',
             'mod' => 'request',
-            'tid' => $this->ticket_id
+            'tid' => $this->ticket_id,
+            'series' => ''
         ];
     }
 }

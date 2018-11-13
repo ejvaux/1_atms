@@ -77,18 +77,21 @@ class ReviewRequestAssigned extends Notification implements ShouldQueue
     public function toArray($notifiable)
     {
         event(new triggerEvent('refresh'));
+        $t = CctvReview::where('id',$this->request_id)->first();
         if($this->type == 'user'){            
             return [
                 'message' => 'CCTV Review Request assigned.',
                 'mod' => 'request',
-                'tid' => $this->request_id
+                'tid' => $this->request_id,
+                'series' => $t->request_id
             ];
         }
         else{
             return [
                 'message' => 'CCTV Review Request assigned.',
                 'mod' => 'request',
-                'tid' => $this->request_id
+                'tid' => $this->request_id,
+                'series' => $t->request_id
             ];            
         }
     }

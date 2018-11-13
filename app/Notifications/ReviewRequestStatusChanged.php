@@ -67,10 +67,12 @@ class ReviewRequestStatusChanged extends Notification implements ShouldQueue
     public function toArray($notifiable)
     {
         event(new triggerEvent('refresh'));
+        $t = CctvReview::where('id',$this->ticket_id)->first();
         return [
             'message' => 'CCTV Review Request status changed.',
             'mod' => 'request',
-            'tid' => $this->ticket_id
+            'tid' => $this->ticket_id,
+            'series' => $t->request_id
         ];
     }
 }
