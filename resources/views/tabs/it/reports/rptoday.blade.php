@@ -191,7 +191,7 @@
                             <span class='font-weight-bold statnum'>{{$assignedticket}}</span>                                            
                         </div>
                         <div class="col-md-7 stat3-2 p-2">
-                            <span class='font-weight-bold statlabel'>Queued Tickets</span>                                    
+                            <span class='font-weight-bold statlabel'>In-Progress Tickets</span>                                    
                         </div>
                     </div>
                 </div>

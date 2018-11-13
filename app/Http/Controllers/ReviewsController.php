@@ -11,6 +11,7 @@ use Auth;
 use App\User;
 use App\ReviewStatus;
 use App\RejectedRequest;
+use Response;
 
 class ReviewsController extends Controller
 {
@@ -155,5 +156,10 @@ class ReviewsController extends Controller
         $departments = Department::orderBy('name')->get();
         $locations = Location::orderBy('name')->get();
         return view('tabs.cctv.rcrv',compact('request','departments','locations','techs','priorities','statuses'));
+    }
+    public function downloadreport($filename)
+    {
+        $file_path = url('/storage/report/'.  $filename);
+        return response()->download(storage_path("app/public/report/{$filename}"));
     }
 }

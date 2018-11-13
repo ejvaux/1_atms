@@ -40,7 +40,7 @@
                     @else
                         <div class="nav-item dropdown"> 
                             <a href="#" class="nav-link" data-toggle="dropdown">
-                                <span class="badge badge-danger">@if(Auth::user()->unReadNotifications->count()){{Auth::user()->unReadnotifications->count()}}@endif</span> <i class="fa fa-bell"></i> <span class='hidewhensmall'> Notification</span></a>
+                                @if(Auth::user()->unReadNotifications->count()>0)<span class="badge badge-danger">{{Auth::user()->unReadnotifications->count()}}</span>@else <span class="badge badge-danger"></span> @endif <i class="fa fa-bell"></i> <span class='hidewhensmall'> Notification</span></a>
                             <div class="dropdown-menu scrollable-menu" id='notificon'>                            
                                 @if(Auth::user()->Notifications->count())
                                     <a class="dropdown-item" href='{{ route("markallread")}}'><span class='font-weight-bold'>- Mark all as Read -</span></a>
