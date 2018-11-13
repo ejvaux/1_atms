@@ -35,7 +35,11 @@ class ReportsController extends Controller
         $openticket = Ticket::where('status_id',1)->where('created_at','LIKE','%'.Date('Y-m-d').'%')->count();
 
         // In-progress Ticket
-        $assignedticket = Ticket::where('status_id',3)->orwhere('status_id',4)->where('created_at','LIKE','%'.Date('Y-m-d').'%')->count();
+        $assignedticket = Ticket::where(function ($query) {
+                                    $query->where('status_id',3)
+                                        ->orwhere('status_id',4);
+                                })
+                                ->where('created_at','LIKE','%'.Date('Y-m-d').'%')->count();
 
         // Completed Ticket
         $resolvedticket = Ticket::where('finish_at','!=',null)->where('created_at','LIKE','%'.Date('Y-m-d').'%')->count();
@@ -181,7 +185,11 @@ class ReportsController extends Controller
         $openticket = Ticket::where('status_id',1)->whereBetween('created_at', [now()->subDays(7), now()])->count();
 
         // Assigned Ticket
-        $assignedticket = Ticket::where('status_id',3)->orwhere('status_id',4)->whereBetween('created_at', [now()->subDays(7), now()])->count() + 
+        $assignedticket = Ticket::where(function ($query) {
+                                    $query->where('status_id',3)
+                                        ->orwhere('status_id',4);
+                                })
+                                ->whereBetween('created_at', [now()->subDays(7), now()])->count() + 
 
         // Completed Ticket
         $resolvedticket = Ticket::where('finish_at','!=',null)->where('created_at','LIKE','%'.Date('Y-m-d').'%')->count();
