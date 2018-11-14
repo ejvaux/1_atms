@@ -280,7 +280,7 @@
 </div>
 @endsection
 @section('graphs')
-    {!! \Lava::render('ColumnChart', 'ticketbyday', 'ticketbydaydiv') !!}
+    {!! \Lava::render('LineChart', 'ticketbyday', 'ticketbydaydiv') !!}
     {!! \Lava::render('ColumnChart', 'ticketbytech', 'ticketbytechdiv') !!}
     {!! \Lava::render('ColumnChart', 'ticketbypriority', 'ticketbyprioritydiv') !!}
     {!! \Lava::render('ColumnChart', 'ticketbydept', 'ticketbydeptdiv') !!}

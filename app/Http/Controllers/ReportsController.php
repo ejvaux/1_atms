@@ -262,7 +262,7 @@ class ReportsController extends Controller
             $ticketbydaychart->addRow([$dat->date,$dat->total]);
         }
 
-        \Lava::ColumnChart('ticketbyday',$ticketbydaychart,[
+        \Lava::LineChart('ticketbyday',$ticketbydaychart,[
             'title'=>'Tickets by Day',
             'colors'=> array('#26C6DA'),
             /* 'backgroundColor'   => '#F8F9F9', */
@@ -440,7 +440,7 @@ class ReportsController extends Controller
             $ticketbydaychart->addRow([$dat->date,$dat->total]);
         }
 
-        \Lava::ColumnChart('ticketbyday',$ticketbydaychart,[
+        \Lava::LineChart('ticketbyday',$ticketbydaychart,[
             'title'=>'Tickets by Day',
             'colors'=> array('#26C6DA'),
             /* 'backgroundColor'   => '#F8F9F9', */
