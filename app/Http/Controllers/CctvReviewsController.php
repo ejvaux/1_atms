@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\CctvReview;
 use App\ReviewSerial;
 use App\Custom\NotificationFunctions;
+use App\Custom\CustomFunctions;
 use App\Jobs\TicketUpdate;
 
 class CctvReviewsController extends Controller
@@ -72,11 +73,12 @@ class CctvReviewsController extends Controller
         
         // Saving Serial
         $s = new ReviewSerial;
-        $s->number =  $request->input('request_id');
+        $s->number =  CustomFunctions::generateRequestNumber();
+        $reqid = $s->number;
         $s->save();
 
         // Getting ID of Serial
-        $i = ReviewSerial::where('number',$request->input('request_id'))->first();
+        $i = ReviewSerial::where('number',$reqid)->first();
 
         // Inserting New Request
         $r = new CctvReview();

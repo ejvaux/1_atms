@@ -18,6 +18,7 @@ use App\Department;
 use App\TicketUpdates;
 use App\Serial;
 use App\Custom\NotificationFunctions;
+use App\Custom\CustomFunctions;
 use App\Jobs\TicketUpdate;
 class TicketsController extends Controller
 {
@@ -102,11 +103,12 @@ class TicketsController extends Controller
 
             // Saving Serial
             $s = new Serial;
-            $s->number =  $request->input('ticket_id');
+            $s->number =  CustomFunctions::generateTicketNumber();
+            $tic_id = $s->number;
             $s->save();
 
             // Getting ID of serial
-            $i = Serial::where('number',$request->input('ticket_id'))->first();
+            $i = Serial::where('number',$tic_id)->first();
 
             // Insert New Ticket
             $t = new Ticket;
