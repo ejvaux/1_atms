@@ -18,17 +18,19 @@ class ReviewRequestAssigned extends Notification implements ShouldQueue
     protected $request_id;
     protected $name;
     protected $type;
+    protected $assigner;
 
     /**
      * Create a new notification instance.
      *
      * @return void
      */
-    public function __construct($tid,$uname,$type)
+    public function __construct($tid,$uname,$type,$assigner = '')
     {
         $this->request_id = $tid;
         $this->name = $uname;
         $this->type = $type;
+        $this->assigner = $assigner;
     }
 
     /**
@@ -62,7 +64,7 @@ class ReviewRequestAssigned extends Notification implements ShouldQueue
         else{
             return (new MailMessage)
                     ->greeting('Hello! ' . $this->name)
-                    ->line('CCTV Review Request #' . $t->request_id . ' is assigned to you.')
+                    ->line('CCTV Review Request #' . $t->request_id . ' is assigned to you  by <b>'.$this->assigner.'</b>.')
                     ->action('View Request', $url)
                     ->line('Your immediate response is highly appreciated.');
         }

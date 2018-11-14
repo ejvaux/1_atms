@@ -143,7 +143,7 @@ class NotificationFunctions
         $user = User::where('id',$id)->first();
         $tech = User::where('id',$tech)->first();
         $user->notify( (new ReviewRequestAssigned($tid,$user->name,'user'))->delay(now()->addSeconds(30)) );
-        $tech->notify( (new ReviewRequestAssigned($tid,$tech->name,'tech'))->delay(now()->addSeconds(30)) );
+        $tech->notify( (new ReviewRequestAssigned($tid,$tech->name,'tech',Auth::user()->name))->delay(now()->addSeconds(30)) );
         
     }
     public static function requestaccept($id,$tid,$tech){

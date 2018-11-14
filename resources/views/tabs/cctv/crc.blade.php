@@ -67,7 +67,7 @@
                     </div>
                     <div class="col-md-5">
                         <label>Attach Report: </label>
-                        <input class='border' type='file' name='report' required>
+                        <input class='border' type='file' name='report'>
                     </div>
                 </div>
                 <div class="form-group row mt-2">
