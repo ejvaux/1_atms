@@ -170,7 +170,8 @@ class CctvReviewsController extends Controller
         }
         $req = CctvReview::find($id);
 
-        $req->attach = $filenameArray;
+        /* $req->attach = $filenameArray; */
+        if($filenameArray != ""){ $req->attach = $filenameArray;}
         if($request->input('department_id') != ""){ $req->department_id = $request->input('department_id');}
         if($request->input('subject') != ""){ $req->subject = $request->input('subject');}
         if($request->input('message') != ""){ $req->message = $request->input('message');}
