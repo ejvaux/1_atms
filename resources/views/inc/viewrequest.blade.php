@@ -41,7 +41,11 @@
                         </div>
                         <div class="row">
                             <div class="col-md">
-                                <a href='{{ url("/report/".$request->r_attach) }}' id='show_report' class='btn btn-secondary'>Download Report</a>
+                                @if (!empty($request->r_attach))
+                                    <a href='{{ url("/report/".$request->r_attach) }}' id='show_report' class='btn btn-secondary'>Download Report</a>
+                                @else
+                                    <span class='text-muted font-weight-bold'>No Report</span>
+                                @endif                                
                             </div>
                         </div>
                     </div>
