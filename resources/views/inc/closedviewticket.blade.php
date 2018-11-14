@@ -88,7 +88,9 @@
                                 </div>
                             </div>   
                         </div>
-                        <div class='col-md'></div>
+                        <div class='col-md'>
+                            <span class='font-weight-bold assign_grp' style='font-size:1rem'>Assigned to {{ $tickets->assign->name }}</span>
+                        </div>
                         <div class='col-md-6'>                        
                             @if($tickets->attach != null)
                                 <a class='btn btn-secondary' id='c_attach' href="{{ url('/it/ctda/'.$tickets->id) }}" >See Attachments</a>                           
