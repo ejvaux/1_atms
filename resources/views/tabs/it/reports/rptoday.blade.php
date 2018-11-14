@@ -52,10 +52,10 @@
                                         <a href="{{url('/it/rp/week')}}" class="nav-link btn btn-outline-secondary">Week</a>
                                     </li>
                                     <li class="nav-item mx-1">
-                                        <a href="#" class="nav-link btn btn-outline-secondary disabled">Month</a>
+                                        <a href="{{url('/it/rp/month')}}" class="nav-link btn btn-outline-secondary">Month</a>
                                     </li>
                                     <li class="nav-item mx-1">
-                                        <a href="#" class="nav-link btn btn-outline-secondary disabled">Year</a>
+                                        <a href="{{url('/it/rp/year')}}" class="nav-link btn btn-outline-secondary disabled">Year</a>
                                     </li>
                                     <li class="nav-item mx-1 ">
                                         <div class="dropdown">  
