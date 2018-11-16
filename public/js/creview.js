@@ -204,4 +204,48 @@ $('#app').on('click','#reject_request',function(){
         }
       })
 });
-
+$('#app').on('click','#allow_checkbox',function(e){
+    /* alert('TEST'); */
+    if($(this).is(":checked")){
+        var allow = 1;
+        var mod = 'allow';
+    }
+    else{
+        var allow = 0;
+        var mod = 'disallow';
+    }
+    var val = $(this).val();
+    $.ajax({
+        type: 'PUT',
+        url	: '/1_atms/public/cctvreview/'+val,
+        data: {
+            "_token": $('meta[name="csrf-token"]').attr('content'),
+            "allow": allow,
+            "mod": mod
+        }, 
+        datatype: 'JSON',       
+        success: function(success_data) {
+                iziToast.success({
+                        message: success_data,
+                        position: 'topCenter',
+                        timeout: 2000
+                });     
+        },
+        error: function(data){
+        var errors = data.responseJSON;
+                var msg = '';
+                $.each(errors['errors'], function( index, value ) {
+                        msg += value +"<br>"
+                });
+                iziToast.warning({
+                        message: msg,
+                        position: 'topCenter',
+                        timeout: 5000
+                });
+        } //end function
+    });//close ajax    
+});
+$('#app').on('click','#preview_btn',function(){
+    $('#imagepreview').attr('src', $(this).data('imageurl'));
+    $('#preview_modal').modal('show')
+});

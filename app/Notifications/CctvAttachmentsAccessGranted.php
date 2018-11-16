@@ -6,27 +6,25 @@ use Illuminate\Bus\Queueable;
 use Illuminate\Notifications\Notification;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
-use App\Events\triggerEvent;
 use App\CctvReview;
+use App\Events\triggerEvent;
 
-class ReviewRequestAccepted extends Notification implements ShouldQueue
+class CctvAttachmentsAccessGranted extends Notification implements ShouldQueue
 {
     use Queueable;
 
     protected $ticket_id;
     protected $name;
-    protected $tech;
 
     /**
      * Create a new notification instance.
      *
      * @return void
      */
-    public function __construct($tid,$uname,$tech)
+    public function __construct($tid,$uname)
     {
         $this->ticket_id = $tid;
         $this->name = $uname;
-        $this->tech = $tech;
     }
 
     /**
@@ -52,9 +50,8 @@ class ReviewRequestAccepted extends Notification implements ShouldQueue
         $t = CctvReview::where('id',$this->ticket_id)->first();
         return (new MailMessage)
                 ->greeting('Hello! ' .$this->name)
-                ->line('Your CCTV Review Request #'.$t->request_id.' is accepted by '.$this->tech.'.')
-                ->action('View Request', $url)
-                ->line('Please wait for the assigned personnel to process your request.');
+                ->line('You are granted access to view attachments on CCTV Review Request #'.$t->request_id.'.')
+                ->action('View Request', $url);
     }
 
     /**
@@ -68,7 +65,7 @@ class ReviewRequestAccepted extends Notification implements ShouldQueue
         event(new triggerEvent('refresh'));
         $t = CctvReview::where('id',$this->ticket_id)->first();
         return [
-            'message' => 'CCTV Review Request accepted.',
+            'message' => 'Request Attachment Access Granted.',
             'mod' => 'request',
             'tid' => $this->ticket_id,
             'series' => $t->request_id

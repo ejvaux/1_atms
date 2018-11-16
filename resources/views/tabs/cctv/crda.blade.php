@@ -35,13 +35,34 @@
                                 {{$image}}
                             </th>
                             <th>
-                                <a class='btn btn-primary' href='{{url('/storage/requestfile/'.$image)}}' onclick="window.open(this.href,'_blank');return false;"><i class="far fa-eye"></i> Preview</a>                                    
+                                {{-- <a class='btn btn-primary' href='{{url('/storage/requestfile/'.$image)}}' onclick="window.open(this.href,'_blank');return false;"><i class="far fa-eye"></i> Preview</a> --}}
+                                <button id='preview_btn' class='btn btn-primary' data-imageurl='{{url('/storage/requestfile/'.$image)}}'><i class="far fa-eye"></i> Preview</button>
                                 <a class='btn btn-primary' href='{{url('/storage/requestfile/'.$image)}}' download='{{$image}}' download><i class="fas fa-download"></i> Download</a>
                             </th>
                         </tr>
                     @endforeach                            
                 </tbody>
-            </table>            
+            </table>
+            {{-- --------------- Modal --------------------- --}}
+            <div id='preview_modal' class="modal" tabindex="-1" role="dialog">
+                <div class="modal-dialog modal-lg" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title">Preview</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body text-center">
+                            <img src="" id="imagepreview" style="width: 720px; height: auto;" >
+                        </div>
+                        {{-- <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                            <button type="button" class="btn btn-primary">Save changes</button>
+                        </div> --}}
+                    </div>
+                </div>
+            </div>
         </div>
     </div>    
 </div>

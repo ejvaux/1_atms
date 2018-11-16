@@ -174,6 +174,7 @@ class CctvReviewsController extends Controller
 
         /* $req->attach = $filenameArray; */
         if($filenameArray != ""){ $req->attach = $filenameArray;}
+        if($request->input('allow') != ""){ $req->allow = $request->input('allow');}
         if($request->input('department_id') != ""){ $req->department_id = $request->input('department_id');}
         if($request->input('subject') != ""){ $req->subject = $request->input('subject');}
         if($request->input('message') != ""){ $req->message = $request->input('message');}
@@ -228,6 +229,21 @@ class CctvReviewsController extends Controller
             return redirect()->back()->with('success','Request Approved Successfully.');            
             /* return redirect('/notification/requeststatus/'.$userid.'/'.$req_id.'/'.$stat); */            
         }
+        elseif($request->input('mod') == 'upload'){
+            NotificationFunctions::requestattachmentupload($req_id);
+            return redirect()->back()->with('success','Image/s uploaded successfully.');
+        }
+        elseif($request->input('mod') == 'allow'){
+            NotificationFunctions::requestallow($userid,$req_id);
+            return 'Successfully Updated';          
+        }
+        elseif($request->input('mod') == 'disallow'){
+            NotificationFunctions::requestdisallow($userid,$req_id);
+            return 'Successfully Updated';          
+        }
+        elseif($request->input('mod') == 'ajax'){        
+            return 'Successfully Updated';           
+        }
         else{
             return redirect()->back()->with('success','CCTV Review Request updated successfully');
         }
@@ -269,7 +285,9 @@ class CctvReviewsController extends Controller
             $filenameArray = null;
         }        
         $req->attach = json_encode($filenameArray);
+        $req_id =  $req->id;
         $req->save();
+        NotificationFunctions::requestattachmentupload($req_id);
         return redirect()->back()->with('success','Image/s uploaded successfully');
     }
 }
