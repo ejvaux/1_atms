@@ -287,7 +287,7 @@ class CctvReviewsController extends Controller
         $req->attach = json_encode($filenameArray);
         $req_id =  $req->id;
         $req->save();
-        NotificationFunctions::requestattachmentupload($req_id);
+        /* NotificationFunctions::requestattachmentupload($req_id); */
         return redirect()->back()->with('success','Image/s uploaded successfully');
     }
 }
