@@ -53,14 +53,14 @@
                                                     @if (!empty($request->approver->name))
                                                         {{ $request->approver->name }}
                                                     @else
-                                                        No data
+                                                        N/A
                                                     @endif
                                                 </li>                                               
                                                 <li class="list-group-item p-0 font-weight-bold">
                                                     @if (!empty($request->approved_at))
                                                         {{ $request->approved_at }}
                                                     @else
-                                                        No data
+                                                        No date
                                                     @endif                                                    
                                                 </li>
                                             </ul>
