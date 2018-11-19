@@ -42,6 +42,15 @@
                             </div>
                             <div class="row">
                                 <div class="col-md">
+                                    @if (!empty($request->r_attach))
+                                        <a href='{{ url("/report/".$request->r_attach) }}' id='show_report' class='btn btn-secondary'>Download Report</a>
+                                    @else
+                                        <h5><span class='text-muted font-weight-bold'>No Report</span></h5>
+                                    @endif                                
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md">
                                     {{-- @if ($request->approved)
                                     <h3><span class='badge badge-success'>APPROVED</span></h3>
                                     @endif  --}}
@@ -67,16 +76,7 @@
                                         </div> 
                                     @endif                          
                                 </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-md">
-                                    @if (!empty($request->r_attach))
-                                        <a href='{{ url("/report/".$request->r_attach) }}' id='show_report' class='btn btn-secondary'>Download Report</a>
-                                    @else
-                                        <h5><span class='text-muted font-weight-bold'>No Report</span></h5>
-                                    @endif                                
-                                </div>
-                            </div>
+                            </div>                            
                         </div>
                         <div class="col-md-7">
                             <div class='row '>
