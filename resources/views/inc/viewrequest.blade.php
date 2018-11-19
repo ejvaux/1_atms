@@ -42,9 +42,30 @@
                             </div>
                             <div class="row">
                                 <div class="col-md">
-                                    @if ($request->approved)
+                                    {{-- @if ($request->approved)
                                     <h3><span class='badge badge-success'>APPROVED</span></h3>
-                                    @endif                              
+                                    @endif  --}}
+                                    @if ($request->approved)
+                                        <div class="card border-secondary" style="width: 12rem;">
+                                            <ul class="list-group list-group-flush text-center">
+                                                <li class="list-group-item p-1"><h3><span class='badge badge-success badge-outlined'>APPROVED</span></h3></li>                                            
+                                                <li class="list-group-item p-0 font-weight-bold">
+                                                    @if (!empty($request->approver->name))
+                                                        {{ $request->approver->name }}
+                                                    @else
+                                                        No data
+                                                    @endif
+                                                </li>                                               
+                                                <li class="list-group-item p-0 font-weight-bold">
+                                                    @if (!empty($request->approved_at))
+                                                        {{ $request->approved_at }}
+                                                    @else
+                                                        No data
+                                                    @endif                                                    
+                                                </li>
+                                            </ul>
+                                        </div> 
+                                    @endif                          
                                 </div>
                             </div>
                             <div class="row">
@@ -220,7 +241,7 @@
                                         <input type='hidden' name='mod' value='accept'>
                                         <input id='datenow' type='hidden' name='start_at' value="{{ Date('Y-m-d H:i:s') }}">
                                         <input type='hidden' name='url' value='/it/vt/{{ $request->id }}'>
-                                        <button type='submit' id='accept_ticket' class='btn btn-secondary form_submit_button'>Accept Ticket</button>
+                                        <button type='submit' id='accept_ticket' class='btn btn-secondary form_submit_button'>Accept Assigned Request</button>
                                     </form>
                                 @else
                                     <span class='font-weight-bold' style='font-size:1rem'>Assigned to {{ $request->assign->name }}</span>

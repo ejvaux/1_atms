@@ -195,14 +195,17 @@ textarea {
     border-color: #808B96;
     /* background-color: #F8F9F9; */
 }
-/* .repcard2{
-} */
 .rightpanel{
     background-color: white;
 }
 .statnum{
     font-size: 1rem;
 }
-/* .statlabel{
-       
-} */
+.badge-outlined{
+    background-color: transparent;
+}
+.badge.badge-outlined.badge-success {
+    border: 2px solid;
+    border-color: #5cb85c;
+    color: #5cb85c;
+  }

@@ -36,5 +36,9 @@ class CctvReview extends Model
     public function assign()
     {
         return $this->belongsTo('App\User','assigned_to');
-    }    
+    }
+    public function approver()
+    {
+        return $this->belongsTo('App\User','approver_id');
+    } 
 }

@@ -8,6 +8,7 @@ use App\ReviewSerial;
 use App\Custom\NotificationFunctions;
 use App\Custom\CustomFunctions;
 use App\Jobs\TicketUpdate;
+use Auth;
 
 class CctvReviewsController extends Controller
 {
@@ -168,7 +169,7 @@ class CctvReviewsController extends Controller
             $filenameArray = json_encode($filenameArray);
         }
         else {
-            $filenameArray = null;
+            $filenameArray = "";
         }
         $req = CctvReview::find($id);
 
@@ -189,11 +190,16 @@ class CctvReviewsController extends Controller
         if($request->input('action') != ""){ $req->action = $request->input('action');}
         if($request->input('result') != ""){ $req->result = $request->input('result');}
         if($request->input('recommend') != ""){ $req->recommend = $request->input('recommend');}
-        if($request->input('approved') != ""){ $req->approved = $request->input('approved');}
+        if($request->input('approved') != ""){
+            $req->approved = $request->input('approved');
+            $req->approver_id = Auth::user()->id;
+            $req->approved_at = date('Y-m-d H:i:s');
+        }
         if($request->input('status_id') != ""){ $req->status_id = $request->input('status_id');
             if($request->input('status_id') == '5'){
                 $req->finish_at = Date('Y-m-d H:i:s');
-            };}
+            };
+        }
 
         $req_id = $req->id;
         $techid = $req->assigned_to;
