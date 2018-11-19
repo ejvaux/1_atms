@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\RejectedRequest;
 use App\CctvReview;
 use App\Custom\NotificationFunctions;
+use Auth;
 
 class RejectedRequestController extends Controller
 {
@@ -111,7 +112,9 @@ class RejectedRequestController extends Controller
         $rreq->start_at = $req->start_at;
         $rreq->finish_at = $req->finish_at;
         $rreq->attach = $req->attach;
-        $rreq->approved = $req->approved;
+        /* $rreq->approved = $req->approved; */
+        $rreq->approver_id = Auth::user()->id;
+        $rreq->approved_at = date('Y-m-d H:i:s');
         $rreq->reason = $request->input('reason');
         $rreq->created_at = $req->created_at;
         $rreq->updated_at = $req->updated_at;

@@ -39,6 +39,29 @@
                                 </h4>
                             </div>
                         </div>
+                        <div class="row">
+                            <div class="col-md">
+                                <div class="card border-secondary" style="width: 12rem;">
+                                    <ul class="list-group list-group-flush text-center">
+                                        <li class="list-group-item p-1"><h3><span class='badge badge-danger badge-outlined'>REJECTED</span></h3></li>                                            
+                                        <li class="list-group-item p-0 font-weight-bold">
+                                            @if (!empty($request->approver->name))
+                                                {{ $request->approver->name }}
+                                            @else
+                                                N/A
+                                            @endif
+                                        </li>                                               
+                                        <li class="list-group-item p-0 font-weight-bold">
+                                            @if (!empty($request->approved_at))
+                                                {{ $request->approved_at }}
+                                            @else
+                                                No date
+                                            @endif                                                    
+                                        </li>
+                                    </ul>
+                                </div>                            
+                            </div>
+                        </div>
                     </div>
                     <div class="col-md-7">
                         <div class='row '>

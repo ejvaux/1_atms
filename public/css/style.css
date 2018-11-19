@@ -208,4 +208,9 @@ textarea {
     border: 2px solid;
     border-color: #5cb85c;
     color: #5cb85c;
-  }
+}
+.badge.badge-outlined.badge-danger {
+    border: 2px solid;
+    border-color: 	#d9534f;
+    color: 	#d9534f;
+}
