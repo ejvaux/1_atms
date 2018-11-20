@@ -48,8 +48,40 @@ class DashboardController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function index()
-    {       
-        return view('tabs.home.dash');
+    {
+        // Handled Tickets
+        $queuedticketh = Ticket::where('status_id',2)->where('assigned_to',Auth::user()->id)->count();
+        $inprogressticketh = Ticket::where('status_id',3)->where('assigned_to',Auth::user()->id)->count();
+        $pendingticketh = Ticket::where('status_id',4)->where('assigned_to',Auth::user()->id)->count();
+        $resolvedticketh = Ticket::where('status_id',5)->where('assigned_to',Auth::user()->id)->count();
+        $closedticketh = ClosedTicket::where('status_id',6)->where('assigned_to',Auth::user()->id)->count();
+
+        // Handled CCTV Reviews
+        $queuedrequesth = CctvReview::where('status_id',2)->where('assigned_to',Auth::user()->id)->count();
+        $inprogressrequesth = CctvReview::where('status_id',3)->where('assigned_to',Auth::user()->id)->count();
+        $pendingrequesth = CctvReview::where('status_id',4)->where('assigned_to',Auth::user()->id)->count();
+        $donerequesth = CctvReview::where('status_id',5)->where('assigned_to',Auth::user()->id)->count();
+
+        // Tickets
+        $openticket = Ticket::where('status_id',1)->where('user_id',Auth::user()->id)->count();
+        $queuedticket = Ticket::where('status_id',2)->where('user_id',Auth::user()->id)->count();
+        $inprogressticket = Ticket::where('status_id',3)->where('user_id',Auth::user()->id)->count();
+        $pendingticket = Ticket::where('status_id',4)->where('user_id',Auth::user()->id)->count();
+        $resolvedticket = Ticket::where('status_id',5)->where('user_id',Auth::user()->id)->count();
+        $closedticket = ClosedTicket::where('status_id',6)->where('user_id',Auth::user()->id)->count();
+
+        // CCTV Reviews
+        $forapprovalrequest = CctvReview::where('status_id',6)->where('user_id',Auth::user()->id)->count();
+        $approvedrequest = CctvReview::where('status_id',1)->where('user_id',Auth::user()->id)->count();
+        $queuedrequest = CctvReview::where('status_id',2)->where('user_id',Auth::user()->id)->count();
+        $inprogressrequest = CctvReview::where('status_id',3)->where('user_id',Auth::user()->id)->count();
+        $pendingrequest = CctvReview::where('status_id',4)->where('user_id',Auth::user()->id)->count();
+        $donerequest = CctvReview::where('status_id',5)->where('user_id',Auth::user()->id)->count();
+
+        return view('tabs.home.dash',compact('openticket','queuedticket','inprogressticket','pendingticket','resolvedticket','closedticket',
+                                            'forapprovalrequest','approvedrequest','queuedrequest','inprogressrequest','pendingrequest','donerequest',
+                                            'openticketh','queuedticketh','inprogressticketh','pendingticketh','resolvedticketh','closedticketh',
+                                            'forapprovalrequesth','approvedrequesth','queuedrequesth','inprogressrequesth','pendingrequesth','donerequesth'));
     }
 
     // USER
