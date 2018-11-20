@@ -3,7 +3,9 @@
         <ul class="list-group list-group-flush">
             <li class="list-group-item noborder"><i class="fas fa-chart-line mr-2"></i><a class='sidetab' href='{{url('/dashboard')}}'>DASHBOARD</a><span class="badge badge-info"></span>
                 <ul class="list-group list-group-flush">
-                    <li class="list-group-item noborder d-flex justify-content-between align-items-center"><a class='sidetab' href='{{url('/it/rp/today')}}'>TICKETS</a><span class="badge badge-info"></span></li>
+                    @if (Auth::user()->isadmin() || Auth::user()->tech == 1)
+                        <li class="list-group-item noborder d-flex justify-content-between align-items-center"><a class='sidetab' href='{{url('/it/rp/today')}}'>TICKETS</a><span class="badge badge-info"></span></li>
+                    @endif                    
                     {{-- <li class="list-group-item noborder d-flex justify-content-between align-items-center"><a id="hr2" class='sidetab' href='#'>OTHER REQUEST</a><span class="badge badge-info"></span></li>
                     <li class="list-group-item noborder d-flex justify-content-between align-items-center"><a id="hr3" class='sidetab' href='#'>OTHERS</a><span class="badge badge-info"></span></li> --}}
                 </ul>
