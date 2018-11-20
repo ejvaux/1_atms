@@ -198,7 +198,7 @@ class ReportsController extends Controller
                                         ->orwhere('status_id',3)
                                         ->orwhere('status_id',4);
                                 })
-                                ->whereBetween('created_at', [now()->subDays(7), now()])->count() + 
+                                ->whereBetween('created_at', [now()->subDays(7), now()])->count();
 
         // Completed Ticket
         $totalresolvedticket = Ticket::where('finish_at','!=',null)->whereBetween('created_at', [now()->subDays(7), now()])->count() + ClosedTicket::whereBetween('created_at', [now()->subDays(7), now()])->count();
@@ -375,7 +375,7 @@ class ReportsController extends Controller
                                         ->orwhere('status_id',3)
                                         ->orwhere('status_id',4);
                                 })
-                                ->whereBetween('created_at', [now()->subMonth(), now()])->count() + 
+                                ->whereBetween('created_at', [now()->subMonth(), now()])->count(); 
 
         // Completed Ticket
         $totalresolvedticket = Ticket::where('finish_at','!=',null)->whereBetween('created_at', [now()->subMonth(), now()])->count() + ClosedTicket::whereBetween('created_at', [now()->subMonth(), now()])->count();
@@ -552,7 +552,7 @@ class ReportsController extends Controller
                                             ->orwhere('status_id',3)
                                             ->orwhere('status_id',4);
                                 })
-                                ->whereBetween('created_at', [now()->subYear(), now()])->count() + 
+                                ->whereBetween('created_at', [now()->subYear(), now()])->count();
 
         // Completed Ticket
         $totalresolvedticket = Ticket::where('finish_at','!=',null)->whereBetween('created_at', [now()->subYear(), now()])->count() + ClosedTicket::whereBetween('created_at', [now()->subYear(), now()])->count();
@@ -729,7 +729,7 @@ class ReportsController extends Controller
                                         ->orwhere('status_id',3)
                                         ->orwhere('status_id',4);
                                 })
-                                ->whereBetween('created_at', [$request->start_date, Carbon::parse($request->end_date)->addDay()])->count() + 
+                                ->whereBetween('created_at', [$request->start_date, Carbon::parse($request->end_date)->addDay()])->count();
 
         // Completed Ticket
         $totalresolvedticket = Ticket::where('finish_at','!=',null)->whereBetween('created_at', [$request->start_date, Carbon::parse($request->end_date)->addDay()])->count() + ClosedTicket::whereBetween('created_at', [$request->start_date, Carbon::parse($request->end_date)->addDay()])->count();
