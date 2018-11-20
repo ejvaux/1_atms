@@ -86,7 +86,8 @@ Route::get('/protected', function() {
 Route::get('/it/rp/today','ReportsController@ticketreportsToday');
 Route::get('/it/rp/week','ReportsController@ticketreportsweek');
 Route::get('/it/rp/month','ReportsController@ticketreportsmonth');
-Route::get('/it/rp/range','ReportsController@ticketreportsrange');
+Route::get('/it/rp/year','ReportsController@ticketreportsyear');
+Route::post('/it/rp/range','ReportsController@ticketreportsrange');
 
 // IT
 Route::get('/it/al', 'DashboardController@adminlistticket')->middleware('auth', 'admin');

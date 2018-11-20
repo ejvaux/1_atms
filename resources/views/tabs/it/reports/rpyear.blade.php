@@ -17,13 +17,13 @@
                                         <a href="{{url('/it/rp/today')}}" class="nav-link btn btn-outline-secondary">Day</a>
                                     </li>
                                     <li class="nav-item mx-1">
-                                        <a href="{{url('/it/rp/week')}}" class="nav-link btn btn-secondary">Week</a>
+                                        <a href="{{url('/it/rp/week')}}" class="nav-link btn btn-outline-secondary">Week</a>
                                     </li>
                                     <li class="nav-item mx-1">
                                         <a href="{{url('/it/rp/month')}}" class="nav-link btn btn-outline-secondary">Month</a>
                                     </li>
                                     <li class="nav-item mx-1">
-                                        <a href="{{url('/it/rp/year')}}" class="nav-link btn btn-outline-secondary">Year</a>
+                                        <a href="{{url('/it/rp/year')}}" class="nav-link btn btn-secondary">Year</a>
                                     </li>
                                     <li class="nav-item mx-1 ">
                                         <div class="dropdown">  
@@ -166,66 +166,6 @@
             </div>
         </div>
     </div>
-    {{-- <div class='row mb-2'>
-        <div class='col-md-4'>
-            <div class="card repcard2 stat1">
-                <div class="card-body text-center">
-                    <span class='font-weight-bold statnum'>{{$newticket}}</span><br>
-                    <span class='font-weight-bold statlabel'>Total Tickets</span>
-                </div>
-            </div>
-        </div>
-        <div class='col-md-4'>
-            <div class="card repcard2 stat2">
-                <div class="card-body text-center">
-                    <span class='font-weight-bold statnum'>{{$openticket}}</span><br>
-                    <span class='font-weight-bold statlabel'>Open Tickets</span>
-                </div>
-            </div>
-        </div>
-        <div class='col-md-4'>
-            <div class="card repcard2 stat3">
-                <div class="card-body text-center">
-                    <span class='font-weight-bold statnum'>{{$assignedticket}}</span><br>
-                    <span class='font-weight-bold statlabel'>Queued Tickets</span>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class='row mb-2'>
-            <div class='col-md-4'>
-                <div class="card repcard2 stat4">
-                    <div class="card-body text-center">
-                        <span class='font-weight-bold statnum'>{{$totalresolvedticket}}</span><br>
-                        <span class='font-weight-bold statlabel'>Completed Tickets</span>
-                    </div>
-                </div>
-            </div>
-            <div class='col-md-4'>
-                <div class="card repcard2 stat5">
-                    <div class="card-body text-center">
-                        @if($trtime > 60)
-                            <span class='font-weight-bold statnum'>{{floor($trtime/60)}}.{{$trtime%60}}</span><span class='font-weight-bold statlabel'> hour/s</span><br>
-                        @else
-                            <span class='font-weight-bold statnum'>{{$trtime}}</span><span class='font-weight-bold statlabel'> minute/s</span><br>
-                        @endif                            
-                        <span class='font-weight-bold statlabel'>Average response time</span>
-                    </div>
-                </div>
-            </div>
-            <div class='col-md-4'>
-                <div class="card repcard2 stat6">
-                    <div class="card-body text-center">
-                        @if($trentime > 60)
-                            <span class='font-weight-bold statnum'>{{floor($trentime/60)}}.{{$trentime%60}}</span><span class='font-weight-bold statlabel'> hour/s</span><br>
-                        @else
-                            <span class='font-weight-bold statnum'>{{round($trentime,2)}}</span><span class='font-weight-bold statlabel'> minute/s</span><br>
-                        @endif
-                        <span class='font-weight-bold statlabel'>Average processing time</span>
-                    </div>
-                </div>
-            </div>
-        </div> --}}
         <div class='row mb-2'>
             <div class='col-md'>
                 <div class="card repcard">

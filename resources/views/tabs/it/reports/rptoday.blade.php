@@ -23,18 +23,21 @@
                                         <a href="{{url('/it/rp/month')}}" class="nav-link btn btn-outline-secondary">Month</a>
                                     </li>
                                     <li class="nav-item mx-1">
-                                        <a href="{{url('/it/rp/year')}}" class="nav-link btn btn-outline-secondary disabled">Year</a>
+                                        <a href="{{url('/it/rp/year')}}" class="nav-link btn btn-outline-secondary">Year</a>
                                     </li>
                                     <li class="nav-item mx-1 ">
                                         <div class="dropdown">  
-                                            <a class="nav-link btn btn-outline-secondary dropdown-toggle  disabled" href="#" role="button" data-toggle="dropdown">
+                                            <a class="nav-link btn btn-outline-secondary dropdown-toggle" href="#" role="button" data-toggle="dropdown">
                                                 Custom Date Range
                                             </a>            
                                             <div class="dropdown-menu dropdown-menu-right">
                                                 <div class='dropdown-header'>
-                                                    <input class='' type='date'> -
-                                                    <input class='' type='date'>
-                                                    <button class='btn btn-primary py-0'>Go!</button>
+                                                    <form action="{{url('/it/rp/range')}}" method="post">
+                                                        @csrf
+                                                        <input class='' type='date' name='start_date'> -
+                                                        <input class='' type='date' name='end_date'>
+                                                        <button type='submit' class='btn btn-primary py-0'>Go!</button>
+                                                    </form>
                                                 </div>
                                             </div>
                                         </div>
