@@ -173,7 +173,7 @@
                                             @else
                                                 <input class="custom-control-input" id='allow_checkbox'  value='{{$request->id}}' data-id='{{$request->id}}' type="checkbox">
                                             @endif
-                                                <label class="custom-control-label font-weight-bold" for="allow_checkbox"><span style='background-color:yellow'>SHOW DETAILS/ATTACHMENTS</span></label>
+                                                <label class="custom-control-label font-weight-bold" for="allow_checkbox"><span style='background-color:yellow'>SHOW ATTACHMENTS TO THE REQUESTOR</span></label>
                                         </div>
                                     @endif
                                 </div>    
