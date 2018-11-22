@@ -7,7 +7,7 @@
         <ul class="navbar-nav mr-auto ml-2">
                 <li>
                     <span class="navbar-text font-weight-bold" style='font-size: 1.11em'>
-                            <a class="" href="/1_mes/">
+                            <a class="" href="http://172.16.1.13:8000">
                                 <img class='' src="{{ asset('images/primatech-logo.png') }}" style="width: 146px; height: 28px">
 
                                 {{-- <div class='showwhensmall hidewhenlarge'>
