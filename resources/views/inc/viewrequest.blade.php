@@ -112,7 +112,7 @@
                                         <div class='col-md '>
                                             <label class='font-weight-bold editrequestlabel '>{{ $request->department->name }}</label>
                                             <input type='hidden' id='departmentNewSelected' value='{{ $request->department_id }}'>
-                                            <select type="text" class="form-control-sm editrequestinput border" id="departmentNew" name="department_id" style='display:none' required>
+                                            <select type="text" class="form-control-sm editrequestinput border custom-select" id="departmentNew" name="department_id" style='display:none' required>
                                                 <option value="">- Select Department -</option>
                                                 @foreach($departments as $department)
                                                     <option value="{{$department->id}}">{{$department->name}}</option>
@@ -124,7 +124,7 @@
                                         <div class='col-md '>
                                             <label class='font-weight-bold editrequestlabel'>{{ $request->locationname->name }}</label>
                                             <input type='hidden' id='locationNewSelected' value='{{ $request->location }}'>
-                                            <select type="text" class="form-control-sm editrequestinput border" id="locationNew" name="location" style='display:none' required>
+                                            <select type="text" class="form-control-sm editrequestinput border custom-select" id="locationNew" name="location" style='display:none' required>
                                                 <option value="">- Select Location -</option>
                                                 @foreach($locations as $location)
                                                     <option value="{{$location->id}}">{{$location->name}}</option>
@@ -163,25 +163,25 @@
                                         </div>
                                     </div>
                                 </div>
-                            </div>                                                                                
+                            </div>
+                            <div class="row">
+                                <div class="col-md">
+                                    @if (!empty($request->attach) && Auth::user()->req_approver == 1)                                
+                                        <div class="custom-control custom-checkbox">
+                                            @if ($request->allow == 1)
+                                                <input class="custom-control-input" id='allow_checkbox'  value='{{$request->id}}' data-id='{{$request->id}}' type="checkbox" checked>
+                                            @else
+                                                <input class="custom-control-input" id='allow_checkbox'  value='{{$request->id}}' data-id='{{$request->id}}' type="checkbox">
+                                            @endif
+                                                <label class="custom-control-label font-weight-bold" for="allow_checkbox">SHOW DETAILS/ATTACHMENTS</label>
+                                        </div>
+                                    @endif
+                                </div>    
+                            </div>                                                                               
                         </div>
                     </div>
                     <div class='row mb-2'>
-                        <div class='col-md-5'>
-                            @if (!empty($request->attach) && Auth::user()->req_approver == 1)                                
-                                <div class="input-group mb-3">
-                                    <div class="input-group-prepend">
-                                        <div class="input-group-text">
-                                            @if ($request->allow == 1)
-                                                <input id='allow_checkbox'  value='{{$request->id}}' data-id='{{$request->id}}' type="checkbox" checked>
-                                            @else
-                                                <input id='allow_checkbox'  value='{{$request->id}}' data-id='{{$request->id}}' type="checkbox">
-                                            @endif                                            
-                                            <span>SHOW DETAILS/ATTACHMENTS</span>
-                                        </div>
-                                    </div>                                    
-                                </div>
-                            @endif
+                        <div class='col-md-5'>                            
                             @if ($request->status_id == 6)
                                 @if (Auth::user()->req_approver == 1)
                                     <form class='form_to_submit' method='POST' action='/1_atms/public/cctvreview/{{ $request->id }}'>
@@ -219,7 +219,7 @@
                                     <input type='hidden' name='url' value='/it/htv/{{ $request->id }}'>
                                     <input type='hidden' name='request_id' value='{{ $request->id }}'>
                                     <div class='input-group' id='req_assigned_to' style='display:none'>
-                                        <select type="text" class="form-control" id="assigned_to" name="assigned_to" placeholder="" required>
+                                        <select type="text" class="form-control custom-select" id="assigned_to" name="assigned_to" placeholder="" required>
                                             <option value="">- Select Tech -</option>                            
                                             @foreach($techs as $tech)
                                                 {{-- @if($user->id != $tickets->user_id)
@@ -253,7 +253,7 @@
                                                 @method('PUT')
                                                 @csrf
                                             <div class='input-group' id='req_change_priority' style='display:none'>
-                                                <select type="text" class="form-control" name="priority_id" placeholder="" required >
+                                                <select type="text" class="form-control custom-select" name="priority_id" placeholder="" required >
                                                     <option value="">- Select Priority -</option>
                                                     @foreach($priorities as $priority)
                                                         @if($priority->id != $request->priority_id)
@@ -271,7 +271,7 @@
                                                 @method('PUT')
                                                 @csrf
                                             <div class='input-group' id='req_change_status' style='display:none'>
-                                                <select type="text" class="form-control" id='req_change_status_id' name="status_id" placeholder="" required>
+                                                <select type="text" class="form-control custom-select" id='req_change_status_id' name="status_id" placeholder="" required>
                                                     <option value="">- Select Status -</option>
                                                     @foreach($statuses as $status)
                                                         @if(!($status->id == $request->status_id || $status->id == 1 || $status->id == 2 || $status->id == 6 || $status->id == 7 ))                                                        

@@ -96,30 +96,17 @@
                                 <div class='row'>
                                     <div class='col-md '>
                                         <label class='font-weight-bold editrequestlabel '>{{ $request->department->name }}</label>
-                                        <input type='hidden' id='departmentNewSelected' value='{{ $request->department_id }}'>
-                                        <select type="text" class="form-control-sm editrequestinput border" id="departmentNew" name="department_id" style='display:none' required>
-                                            <option value="">- Select Department -</option>
-                                            @foreach($departments as $department)
-                                                <option value="{{$department->id}}">{{$department->name}}</option>
-                                            @endforeach
-                                        </select>                                      
+                                                                             
                                     </div>                                    
                                 </div>
                                 <div class='row'>
                                     <div class='col-md '>
                                         <label class='font-weight-bold editrequestlabel'>{{ $request->locationname->name }}</label>
-                                        <input type='hidden' id='locationNewSelected' value='{{ $request->location }}'>
-                                        <select type="text" class="form-control-sm editrequestinput border" id="locationNew" name="location" style='display:none' required>
-                                            <option value="">- Select Location -</option>
-                                            @foreach($locations as $location)
-                                                <option value="{{$location->id}}">{{$location->name}}</option>
-                                            @endforeach
-                                        </select>
+                                        
                                     </div>
                                 </div>
                                 <div class='row'>
-                                    <div class='col-md '>
-                                        
+                                    <div class='col-md '>                                        
                                         <div class='font-weight-bold editrequestlabel'>
                                             {{ str_replace('T',' ',$request->start_time) }} -- {{ str_replace('T',' ',$request->end_time) }}
                                         </div>

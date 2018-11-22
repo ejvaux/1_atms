@@ -27,7 +27,7 @@
                 <div class='input-group-prepend'>
                     <label class='input-group-text'>Sort by: </label>
                 </div>           
-                    <select id='sortrequestdd' class="form-control">
+                    <select id='sortrequestdd' class="form-control custom-select">
                         <option value='all'>All</option>
                         <option value='handled'>Handled</option>
                     </select>            

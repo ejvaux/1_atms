@@ -32,7 +32,7 @@
                     </div>                    
                     <div class="col-md-2">
                         <label for="priority">Priority:</label>
-                        <select type="text" class="form-control" id="priority" name="priority" placeholder="" required>
+                        <select type="text" class="form-control custom-select" id="priority" name="priority" placeholder="" required>
                             <option value="">- Select Priority -</option>
                             @foreach($priorities as $priority)
                                 <option value="{{$priority->id}}">{{$priority->name}}</option>
@@ -41,7 +41,7 @@
                     </div>
                     <div class="col-md-3">                            
                         <label for="category">Category:</label>
-                        <select type="text" class="form-control" id="category" name="category" placeholder="" required>
+                        <select type="text" class="form-control custom-select" id="category" name="category" placeholder="" required>
                             <option value="">- Select Category -</option>                            
                             @foreach($categories as $category)
                                 <option value="{{$category->id}}">{{$category->name}}</option>
@@ -50,7 +50,7 @@
                     </div>
                     <div class="col-md-2">
                         <label for="department">Department:</label>
-                        <select type="text" class="form-control" id="department" name="department" placeholder="" required>
+                        <select type="text" class="form-control custom-select" id="department" name="department" placeholder="" required>
                             <option value="">- Select Department -</option>
                             @foreach($departments as $department)
                                 <option value="{{$department->id}}">{{$department->name}}</option>

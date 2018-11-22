@@ -32,7 +32,7 @@
                     </div>                    
                     <div class="col-md-2">
                         <label for="priority">Priority:</label>
-                        <select type="text" class="form-control" id="priority" name="priority_id" placeholder="" required>
+                        <select type="text" class="form-control custom-select" id="priority" name="priority_id" placeholder="" required>
                             <option value="">- Select Priority -</option>
                             @foreach($priorities as $priority)
                                 <option value="{{$priority->id}}">{{$priority->name}}</option>
@@ -41,7 +41,7 @@
                     </div>
                     <div class="col-md-3">                            
                         <label for="priority">Location:</label>
-                        <select type="text" class="form-control" id="priority" name="location" placeholder="" required>
+                        <select type="text" class="form-control custom-select" id="priority" name="location" placeholder="" required>
                             <option value="">- Select Location -</option>
                             @foreach($locations as $location)
                                 <option value="{{$location->id}}">{{$location->name}}</option>
@@ -50,7 +50,7 @@
                     </div>
                     <div class="col-md-2">
                         <label for="department">Department:</label> 
-                        <select type="text" class="form-control" id="department" name="department_id" placeholder="" required>
+                        <select type="text" class="form-control custom-select" id="department" name="department_id" placeholder="" required>
                             <option value="">- Select Department -</option>
                             @foreach($departments as $department)
                                 <option value="{{$department->id}}">{{$department->name}}</option>
@@ -66,8 +66,8 @@
                         </div>
                     </div>
                     <div class="col-md-5">
-                        <label>Attach Report: </label>
-                        <input class='border' type='file' name='report'>
+                        <label>Attach Report:</label>
+                        <input class='border' type='file' name='report'>                        
                     </div>
                 </div>
                 <div class="form-group row mt-2">

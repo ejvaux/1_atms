@@ -78,9 +78,7 @@ Route::get('/admin/role/{id}','DashboardController@searchuserview');
 Route::get('/protected', function() {
      return "this page requires that you be logged in and an Admin"; 
 })->middleware('auth', 'admin');
-/* Route::get('/admin', ['middleware' => ['auth', 'admin'], function() {
-    return "this page requires that you be logged in and an Admin"; 
-}]); */
+Route::get('/admin/export', 'DashboardController@viewexporttab');
 
 // Reports
 Route::get('/it/rp/today','ReportsController@ticketreportsToday');
@@ -164,6 +162,10 @@ Route::resources([
     'declined_ticket' => 'DeclinedTicketController',
     'rejectedrequest' => 'RejectedRequestController',
 ]);
+
+// Exporting
+Route::post('/admin/ticket/export', 'TicketsController@export');
+
 Route::get('testing', function () {
     event(new App\Events\TicketCreated('Someone'));
     return "Event has been sent!";

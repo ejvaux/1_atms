@@ -69,7 +69,7 @@
                                     <div class='col-md '>
                                         <label class='font-weight-bold editticketlabel '>{{ $tickets->department->name }}</label>
                                         <input type='hidden' id='departmentNewSelected' value='{{ $tickets->department_id }}'>
-                                        <select type="text" class="form-control-sm editticketinput border" id="departmentNew" name="department_id" style='display:none' required>
+                                        <select type="text" class="form-control-sm editticketinput border custom-select" id="departmentNew" name="department_id" style='display:none' required>
                                             <option value="">- Select Department -</option>
                                             @foreach($departments as $department)
                                                 <option value="{{$department->id}}">{{$department->name}}</option>
@@ -81,7 +81,7 @@
                                     <div class='col-md '>
                                         <label class='font-weight-bold editticketlabel '>{{ $tickets->category->name }}</label>
                                         <input type='hidden' id='categoryNewSelected' value='{{ $tickets->category_id }}'>
-                                        <select type="text" class="form-control-sm editticketinput border" id="categoryNew" name="category_id" style='display:none' required>
+                                        <select type="text" class="form-control-sm editticketinput border custom-select" id="categoryNew" name="category_id" style='display:none' required>
                                             <option value="">- Select Category -</option>                            
                                             @foreach($categories as $category)
                                                 <option value="{{$category->id}}">{{$category->name}}</option>
@@ -142,7 +142,7 @@
                             <input type='hidden' name='url' value='/it/htv/{{ $tickets->id }}'>
                             <input type='hidden' name='ticket_id' value='{{ $tickets->id }}'>
                             <div class='input-group' id='dd_assigned_to' style='display:none'>
-                                <select type="text" class="form-control" id="assigned_to" name="assigned_to" placeholder="" required>
+                                <select type="text" class="form-control custom-select" id="assigned_to" name="assigned_to" placeholder="" required>
                                     <option value="">- Select Tech -</option>                            
                                     @foreach($users as $user)
                                         {{-- @if($user->id != $tickets->user_id)
@@ -179,7 +179,7 @@
                                             @method('PUT')
                                             @csrf
                                         <div class='input-group' id='change_priority' style='display:none'>
-                                            <select type="text" class="form-control" name="priority_id" placeholder="" required >
+                                            <select type="text" class="form-control custom-select" name="priority_id" placeholder="" required >
                                                 <option value="">- Select Priority -</option>
                                                 @foreach($priorities as $priority)
                                                     @if($priority->id != $tickets->priority_id)
@@ -197,7 +197,7 @@
                                             @method('PUT')
                                             @csrf
                                         <div class='input-group' id='change_status' style='display:none'>
-                                            <select type="text" class="form-control" id='change_status_id' name="status_id" placeholder="" required>
+                                            <select type="text" class="form-control custom-select" id='change_status_id' name="status_id" placeholder="" required>
                                                 <option value="">- Select Status -</option>
                                                 @foreach($statuses as $status)
                                                     @if(!($status->id == $tickets->status_id || $status->id == 1 || $status->id == 2 || $status->id == 6 || $status->id == 7))                                                        
@@ -241,7 +241,7 @@
                     <div class='col-md'>
                         @if($tickets->user_id == Auth::user()->id)
                             <button type='button' id='edit_ticket' class='btn btn-secondary'>Edit Ticket</button>
-                            <button type='button' id='cancel_ticket' class='btn btn-danger'>Cancel Ticket</button>
+                            <button type='button' id='cancel_ticket' class='btn btn-danger editticketlabel'>Cancel Ticket</button>
                             <div id='edit_ticket_buttons' style='display:none'>
                                 <form class='form_to_submit' id='saveEditTicket' method='POST' action='/1_atms/public/tickets/{{ $tickets->id }}'>
                                     @method('PUT')

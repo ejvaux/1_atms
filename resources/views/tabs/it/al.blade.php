@@ -30,7 +30,7 @@
                 <div class='input-group-prepend'>
                     <label class='input-group-text'>Sort by: </label>
                 </div>
-                <select id='sortticketdd' class="form-control">
+                <select id='sortticketdd' class="form-control custom-select">
                 <option value='all'>All</option>
                     @if($sorting == 2)
                         <option value='handled' selected="selected">Handled</option>
