@@ -51,6 +51,7 @@ class CctvAttachmentsUploaded extends Notification implements ShouldQueue
         return (new MailMessage)
                 ->greeting('Hello! ' .$this->name)
                 ->line('Attachment/s has been uploaded/added on CCTV Review Request #'.$t->request_id.'.')
+                ->line('Follow the link below if you want to allow the requestor to view the attachments.')
                 ->action('View Request', $url);
     }
 
