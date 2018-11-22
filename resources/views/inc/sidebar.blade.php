@@ -16,8 +16,14 @@
                     <li class="list-group-item noborder"><i class="fa fa-lock mr-2"></i><span class='sidetab'>ADMIN</span><span class="badge badge-info"></span>
                         <ul class="list-group list-group-flush">
                             <li class="list-group-item noborder d-flex justify-content-between align-items-center"><a class='sidetab' href='/1_atms/public/admin/role'>ROLES</a><span class="badge badge-info"></span></li>
-                            {{-- <li class="list-group-item noborder d-flex justify-content-between align-items-center"><a id="hr2" class='sidetab' href='#'>OTHER REQUEST</a><span class="badge badge-info"></span></li>
-                            <li class="list-group-item noborder d-flex justify-content-between align-items-center"><a id="hr3" class='sidetab' href='#'>OTHERS</a><span class="badge badge-info"></span></li> --}}
+                            <li class="list-group-item noborder d-flex justify-content-between align-items-center"><a class='sidetab' href='{{ url('/admin/export') }}'>EXPORT</a>
+                                <span class="badge badge-info">
+                                    @if (now() <= \Carbon\Carbon::parse('2018-11-22')->addDays(15))
+                                        NEW
+                                    @endif        
+                                </span>
+                            </li>
+                            {{-- <li class="list-group-item noborder d-flex justify-content-between align-items-center"><a id="hr3" class='sidetab' href='#'>OTHERS</a><span class="badge badge-info"></span></li> --}}
                         </ul>
                     </li>
                 @endif

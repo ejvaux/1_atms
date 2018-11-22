@@ -20,6 +20,8 @@ use App\Serial;
 use App\Custom\NotificationFunctions;
 use App\Custom\CustomFunctions;
 use App\Jobs\TicketUpdate;
+use App\Exports\TicketsExport;
+use Maatwebsite\Excel\Facades\Excel;
 class TicketsController extends Controller
 {
     public function __construct()
@@ -317,5 +319,19 @@ class TicketsController extends Controller
     {
         Ticket::where('id',$id)->delete();
         return redirect()->back()->with('success','Ticket cancelled Successfully.');    
+    }
+    public function export(Request $request)
+    {
+        return
+            (new TicketsExport(
+                $request->input('user_id'),
+                $request->input('department_id'),
+                $request->input('category_id'),
+                $request->input('priority_id'),
+                $request->input('status_id'),
+                $request->input('assigned_to'),
+                $request->input('created_from'),
+                $request->input('created_to')
+                ))->download('Ticket List '.Date('Y-m-d H:i:s').'.xlsx');
     }
 }

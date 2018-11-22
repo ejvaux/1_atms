@@ -27,6 +27,8 @@ class DashboardController extends Controller
     protected $categories;
     protected $statuses;
     protected $priorities;
+    protected $user_list;
+    protected $user_tech;
 
     /**
      * Create a new controller instance.
@@ -40,6 +42,8 @@ class DashboardController extends Controller
         $this->categories = Category::orderBy('name')->get();
         $this->statuses = Status::orderBy('id')->get();
         $this->priorities = Priority::orderBy('id')->get();
+        $this->user_list = User::all();
+        $this->user_tech = User::where('tech',1)->get();
     }
 
     /**
@@ -110,6 +114,16 @@ class DashboardController extends Controller
         /* $users = User::paginate(20); */
         $users = User::where('name','like','%'.$id.'%')->orWhere('email','like','%'.$id.'%')->paginate(20);
         return view('tabs.admin.role',compact('users'));
+    }
+    public function viewexporttab()
+    {
+        $user_list = $this->user_list;
+        $user_tech = $this->user_tech;
+        $departments =  $this->departments;
+        $categories = $this->categories;
+        $priorities = $this->priorities;
+        $statuses = $this->statuses;
+        return view('tabs.admin.export',compact('user_list','departments','categories','priorities','statuses','user_tech'));
     }
     
     // IT Tabs
@@ -543,6 +557,25 @@ class DashboardController extends Controller
     }
     public function testdb(Request $request)
     {        
-        return Ticket::where('status_id',1)->whereBetween('created_at', [now()->subDays(7), now()])->count();
+        $ticket = Ticket::select('ticket_id','user_id','department_id','category_id','priority_id','status_id','subject',
+        'message','assigned_to','root','action','result','recommend','instruction','start_at','finish_at','created_at');
+
+        $query = ClosedTicket::select('ticket_id','user_id','department_id','category_id','priority_id','status_id','subject',
+        'message','assigned_to','root','action','result','recommend','instruction','start_at','finish_at','created_at');
+
+        /* if($this->user_id != ''){
+            $ticket = $ticket->where('user_id',$this->user_id);
+            $query = $query->where('user_id',$this->user_id);
+        }
+        if($this->department_id != ''){
+            $ticket = $ticket->where('department_id',$this->department_id);
+            $query = $query->where('department_id',$this->department_id);
+        } */
+        $ticket = $ticket->where('department_id',1)->count();
+        $query = $query->where('department_id',1)->count();
+
+        return $ticket + $query;
+
+        /* return $query->union($ticket)->orderBy('created_at')->count(); */
     }
 }
