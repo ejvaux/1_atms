@@ -9,6 +9,8 @@ use App\Custom\NotificationFunctions;
 use App\Custom\CustomFunctions;
 use App\Jobs\TicketUpdate;
 use Auth;
+use App\Exports\ReviewsExport;
+use Maatwebsite\Excel\Facades\Excel;
 
 class CctvReviewsController extends Controller
 {
@@ -295,5 +297,31 @@ class CctvReviewsController extends Controller
         $req->save();
         /* NotificationFunctions::requestattachmentupload($req_id); */
         return redirect()->back()->with('success','Image/s uploaded successfully');
+    }
+
+    public function export(Request $request)
+    {
+        if ( !empty($request->input('created_from')) && !empty($request->input('created_to')) ) {
+            $filedate = '('.$request->input('created_from').' to '.$request->input('created_to').') '.Date('Y-m-d H:i:s');
+        } elseif( !empty($request->input('created_from')) && empty($request->input('created_to')) ){
+            $filedate = '('.$request->input('created_from').') '.Date('Y-m-d H:i:s');
+        } elseif( empty($request->input('created_from')) && !empty($request->input('created_to')) ){
+            $filedate = '('.$request->input('created_to').') '.Date('Y-m-d H:i:s');
+        } else {
+            $filedate = Date('Y-m-d H:i:s');
+        }
+
+        return
+            (new ReviewsExport(
+                $request->input('user_id'),
+                $request->input('department_id'),
+                $request->input('location'),
+                $request->input('priority_id'),
+                $request->input('status_id'),
+                $request->input('assigned_to'),
+                $request->input('approved'),
+                $request->input('created_from'),
+                $request->input('created_to')
+                ))->download('Review List '.$filedate.'.xlsx');
     }
 }

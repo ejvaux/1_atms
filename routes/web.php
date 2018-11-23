@@ -165,6 +165,7 @@ Route::resources([
 
 // Exporting
 Route::post('/admin/ticket/export', 'TicketsController@export');
+Route::post('/admin/request/export', 'CctvReviewsController@export');
 
 Route::get('testing', function () {
     event(new App\Events\TicketCreated('Someone'));

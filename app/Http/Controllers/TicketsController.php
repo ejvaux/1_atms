@@ -22,6 +22,7 @@ use App\Custom\CustomFunctions;
 use App\Jobs\TicketUpdate;
 use App\Exports\TicketsExport;
 use Maatwebsite\Excel\Facades\Excel;
+
 class TicketsController extends Controller
 {
     public function __construct()
@@ -322,6 +323,16 @@ class TicketsController extends Controller
     }
     public function export(Request $request)
     {
+        if ( !empty($request->input('created_from')) && !empty($request->input('created_to')) ) {
+            $filedate = '('.$request->input('created_from').' to '.$request->input('created_to').') '.Date('Y-m-d H:i:s');
+        } elseif( !empty($request->input('created_from')) && empty($request->input('created_to')) ){
+            $filedate = '('.$request->input('created_from').') '.Date('Y-m-d H:i:s');
+        } elseif( empty($request->input('created_from')) && !empty($request->input('created_to')) ){
+            $filedate = '('.$request->input('created_to').') '.Date('Y-m-d H:i:s');
+        } else {
+            $filedate = Date('Y-m-d H:i:s');
+        }
+        
         return
             (new TicketsExport(
                 $request->input('user_id'),
@@ -332,6 +343,6 @@ class TicketsController extends Controller
                 $request->input('assigned_to'),
                 $request->input('created_from'),
                 $request->input('created_to')
-                ))->download('Ticket List '.Date('Y-m-d H:i:s').'.xlsx');
+                ))->download('Ticket List '. $filedate.'.xlsx');
     }
 }

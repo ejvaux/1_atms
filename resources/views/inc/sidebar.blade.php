@@ -19,7 +19,7 @@
                             <li class="list-group-item noborder d-flex justify-content-between align-items-center"><a class='sidetab' href='{{ url('/admin/export') }}'>EXPORT</a>
                                 <span class="badge badge-info">
                                     @if (now() <= \Carbon\Carbon::parse('2018-11-22')->addDays(15))
-                                        NEW
+                                        <span style='font-size:.8rem'><i class="far fa-hand-point-left"></i> NEW</span>
                                     @endif        
                                 </span>
                             </li>

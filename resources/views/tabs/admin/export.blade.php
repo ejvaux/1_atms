@@ -18,7 +18,7 @@
         <div class="col-md-6">
             <div class="card">
                 <div class="card-header">
-                    <span class='text-muted'>Tickets <span class="badge badge-info">NEW</span></span>
+                    <span class='text-muted'>Tickets</span>
                 </div>
                 <div class="card-body container">
                 <form action="{{ url('/admin/ticket/export') }}" method="POST">
@@ -83,7 +83,9 @@
                             <select class="custom-select sel2" id="" name='status_id'>
                                 <option value=''>ALL</option>
                                 @foreach ($statuses as $status)
-                                <option value='{{ $status->id }}'>{{ $status->name }}</option>
+                                    @if ($status->id != 7)
+                                        <option value='{{ $status->id }}'>{{ $status->name }}</option>
+                                    @endif                                
                                 @endforeach
                             </select>
                         </div>
@@ -125,7 +127,7 @@
                                         <span>CREATED FROM</span>
                                     </div>
                                     <div class="col-md-8">
-                                        <input type="date" class="form-control form-control-sm" id="created_from" name='created_from'>
+                                        <input type="date" class="form-control form-control-sm ticketrange" id="ticket_from" name='created_from'>
                                     </div>
                                 </div>
                                 <div class="row">
@@ -133,7 +135,7 @@
                                         <span>TO</span>
                                     </div>
                                     <div class="col-md-8">
-                                        <input type="date" class="form-control form-control-sm" id="" name='created_to'>
+                                        <input type="date" class="form-control form-control-sm ticketrange" id="ticket_to" name='created_to'>
                                     </div>
                                 </div>                                
                             </div>
@@ -141,7 +143,7 @@
                     </div>
                     <div class="row mb-2">
                         <div class="col-md text-right">
-                            <button type='submit' class='btn btn-secondary'><i class="far fa-file-excel"></i> Export</button>
+                            <button type='submit' class='btn btn-secondary'><i class="fas fa-download"></i> Export</button>
                         </div>
                     </div>
                 </form>
@@ -154,11 +156,128 @@
                     <span class='text-muted'>CCTV Reviews</span>
                 </div>
                 <div class="card-body container">
-                    <div class="row">
-                        <div class="col-md">
-                            Coming soon :)
+                    <form action="{{ url('/admin/request/export') }}" method="POST">
+                        @csrf
+                        <div class="row mb-2">
+                            <div class="col-md-4">
+                                <label for="">REQUEST OWNER</label>
+                            </div>
+                            <div class="col-md-8">
+                                <select class="custom-select sel2" id="" name='user_id'>
+                                    <option value=''>ALL</option>
+                                    @foreach ($user_list as $user)
+                                    <option value='{{ $user->id }}'>{{ $user->name }}</option>
+                                    @endforeach
+                                </select>
+                            </div>
                         </div>
-                    </div>
+                        <div class="row mb-2">
+                            <div class="col-md-4">
+                                <label for="">DEPARTMENT</label>
+                            </div>
+                            <div class="col-md-8">
+                                <select class="custom-select sel2" id="" name='department_id'>
+                                    <option value=''>ALL</option>
+                                    @foreach ($departments as $department)
+                                    <option value='{{ $department->id }}'>{{ $department->name }}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                        </div>
+                        <div class="row mb-2">
+                            <div class="col-md-4">
+                                <label for="">LOCATION</label>
+                            </div>
+                            <div class="col-md-8">
+                                <select class="custom-select sel2" id="" name='location'>
+                                    <option value=''>ALL</option>
+                                    @foreach ($locations as $location)
+                                    <option value='{{ $location->id }}'>{{ $location->name }}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                        </div>
+                        <div class="row mb-2">
+                            <div class="col-md-4">
+                                <label for="">PRIORITY</label>
+                            </div>
+                            <div class="col-md-8">
+                                <select class="custom-select sel2" id="" name='priority_id'>
+                                    <option value=''>ALL</option>
+                                    @foreach ($priorities as $priority)
+                                    <option value='{{ $priority->id }}'>{{ $priority->name }}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                        </div>
+                        <div class="row mb-2">
+                            <div class="col-md-4">
+                                <label for="">STATUS</label>
+                            </div>
+                            <div class="col-md-8">
+                                <select class="custom-select sel2" id="" name='status_id'>
+                                    <option value=''>ALL</option>
+                                    @foreach ($r_statuses as $status)
+                                        @if ($status->id != 7)
+                                            <option value='{{ $status->id }}'>{{ $status->name }}</option>
+                                        @endif                                        
+                                    @endforeach
+                                </select>
+                            </div>
+                        </div>
+                        <div class="row mb-2">
+                            <div class="col-md-4">
+                                <label for="">TECH</label>
+                            </div>
+                            <div class="col-md-8">
+                                <select class="custom-select sel2" id="" name='assigned_to'>
+                                    <option value=''>ALL</option>
+                                    @foreach ($user_tech as $tech)
+                                    <option value='{{ $tech->id }}'>{{ $tech->name }}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                        </div>
+                        <div class="row mb-2">
+                            <div class="col-md-4">
+                                <label for="">APPROVED</label>
+                            </div>
+                            <div class="col-md-8">
+                                <select class="custom-select sel2" id="" name='approved'>
+                                    <option value=''>ALL</option>
+                                    <option value='1'>YES</option>
+                                    <option value='0'>NO</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="row mb-2">
+                            <div class="col-md">
+                                <div class="form-group">
+                                    <div class="row mb-2">
+                                        <div class="col-md-4">
+                                            <span>CREATED FROM</span>
+                                        </div>
+                                        <div class="col-md-8">
+                                            <input type="date" class="form-control form-control-sm requestrange" id="request_from" name='created_from'>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-4">
+                                            <span>TO</span>
+                                        </div>
+                                        <div class="col-md-8">
+                                            <input type="date" class="form-control form-control-sm requestrange" id="request_to" name='created_to'>
+                                        </div>
+                                    </div>                                
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row mb-2">
+                            <div class="col-md text-right">
+                                <button type='submit' class='btn btn-secondary'><i class="fas fa-download"></i> Export</button>
+                            </div>
+                        </div>
+                    </form>
                 </div>
             </div>
         </div>

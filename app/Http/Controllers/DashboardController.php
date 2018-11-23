@@ -20,6 +20,8 @@ use App\DeclinedTicket;
 use App\CctvReview;
 use App\Custom\NotificationFunctions;
 use App\Events\triggerEvent;
+use App\Location;
+use App\ReviewStatus;
 
 class DashboardController extends Controller
 {   
@@ -123,7 +125,10 @@ class DashboardController extends Controller
         $categories = $this->categories;
         $priorities = $this->priorities;
         $statuses = $this->statuses;
-        return view('tabs.admin.export',compact('user_list','departments','categories','priorities','statuses','user_tech'));
+        $locations = Location::orderBy('name')->get();
+        $r_statuses = ReviewStatus::orderBy('id')->get();
+        return view('tabs.admin.export',compact('user_list','departments','categories','priorities','statuses','user_tech',
+                                                'locations','r_statuses'));
     }
     
     // IT Tabs
