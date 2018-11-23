@@ -1,5 +1,9 @@
 <link rel="shortcut icon" href="{{ asset('favicon.ico') }}">
 
+<!-- ______________________ FONTS ______________________ -->
+<link href="https://fonts.googleapis.com/css?family=Lobster" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css?family=Allura" rel="stylesheet">
+
 <!-- ______________________ Styles ______________________ -->
 <link href="{{ asset('css/app.css') }}" rel="stylesheet">
 <link href="{{ asset('css/style.css') }}" rel="stylesheet">

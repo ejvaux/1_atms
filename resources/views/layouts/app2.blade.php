@@ -26,7 +26,7 @@
                     </div>  
                     <div class='col-lg m-1 pt-3 border rightpanel' id="main_panel" >            
                         @yield('content')
-                    </div> 
+                    </div>
                 </div>
             </div>
         </main>        
@@ -35,8 +35,9 @@
 
             <!-- Copyright -->
             <div class="footer-copyright text-center py-3 text-muted">© 2018 Prima Tech Phils., Inc.
-                <br>Designed and built by Edmund O. Mati Jr.
+                <br>Designed and built by <span class='footerdev'>Edmund O. Mati Jr.</span> 
             </div>
+            
             <!-- Copyright -->
         </footer>
         <!-- Footer -->
