@@ -123,15 +123,16 @@ textarea {
     /* color: #3498DB;
     border: 2px solid;
     border-color: #3498DB; */
-    background-color: #3498DB;
+    /* background-color: #3498DB; */
+    background-color: #707B7C;
 }
 .stat3-2{
     color: whitesmoke;
     /* background-image: linear-gradient(#0288D1 ,#039BE5); */
-    background-color: #85C1E9;
+    /* background-color: #85C1E9; */
     /* color: #3498DB;
-    border: 2px solid;
-    border-color: #3498DB; */
+    border: 2px solid; */
+    background-color: #99A3A4;
 }
 .stat4{
     color: whitesmoke;
