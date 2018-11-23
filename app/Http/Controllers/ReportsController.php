@@ -85,7 +85,7 @@ class ReportsController extends Controller
             /* $rentime += $resolvedticket->finish_at - $resolvedticket->start_at; */
         }
         
-        if($resolvedtickets->count() || $resolvedtickets->count()){
+        if($resolvedtickets->count() || $cresolvedtickets->count()){
             $totalrentime = $rentime + $crentime;
             $ticketcount = $resolvedtickets->count() + $cresolvedtickets->count();
             $trentime = round($totalrentime / $ticketcount, 2);
@@ -237,7 +237,7 @@ class ReportsController extends Controller
             /* $rentime += $resolvedticket->finish_at - $resolvedticket->start_at; */
         }
         
-        if($resolvedtickets->count() || $resolvedtickets->count()){
+        if($resolvedtickets->count() || $cresolvedtickets->count()){
             $totalrentime = $rentime + $crentime;
             $ticketcount = $resolvedtickets->count() + $cresolvedtickets->count();
             $trentime = round($totalrentime / $ticketcount, 2);
@@ -414,7 +414,7 @@ class ReportsController extends Controller
             /* $rentime += $resolvedticket->finish_at - $resolvedticket->start_at; */
         }
         
-        if($resolvedtickets->count() || $resolvedtickets->count()){
+        if($resolvedtickets->count() || $cresolvedtickets->count()){
             $totalrentime = $rentime + $crentime;
             $ticketcount = $resolvedtickets->count() + $cresolvedtickets->count();
             $trentime = round($totalrentime / $ticketcount, 2);
@@ -591,7 +591,7 @@ class ReportsController extends Controller
             /* $rentime += $resolvedticket->finish_at - $resolvedticket->start_at; */
         }
         
-        if($resolvedtickets->count() || $resolvedtickets->count()){
+        if($resolvedtickets->count() || $cresolvedtickets->count()){
             $totalrentime = $rentime + $crentime;
             $ticketcount = $resolvedtickets->count() + $cresolvedtickets->count();
             $trentime = round($totalrentime / $ticketcount, 2);
@@ -768,7 +768,7 @@ class ReportsController extends Controller
             /* $rentime += $resolvedticket->finish_at - $resolvedticket->start_at; */
         }
         
-        if($resolvedtickets->count() || $resolvedtickets->count()){
+        if($resolvedtickets->count() || $cresolvedtickets->count()){
             $totalrentime = $rentime + $crentime;
             $ticketcount = $resolvedtickets->count() + $cresolvedtickets->count();
             $trentime = round($totalrentime / $ticketcount, 2);
