@@ -47,7 +47,7 @@
                     @if (count($users)>0)
                         @foreach($users as $user)
                             <tr>
-                                <th>{{ $loop->iteration + (($users->currentPage() - 1) * 10) }}</th>
+                                <th>{{ $loop->iteration + (($users->currentPage() - 1) * 20) }}</th>
                                 <th>
                                     {{$user->name}}
                                 </th>
