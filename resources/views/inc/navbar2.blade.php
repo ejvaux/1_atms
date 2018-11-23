@@ -60,7 +60,13 @@
                         </div> 
                         <div class="nav-item dropdown">  
                             <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
-                                <i class="fa fa-user-circle"></i> <span class='hidewhensmall'>{{ Auth::user()->name }}</span> <span class="caret"></span>
+                                <i class="fa fa-user-circle"></i> <span class='hidewhensmall'>
+                                    @if (Auth::user()->id != 1)
+                                        {{ Auth::user()->name }}
+                                    @else
+                                        <span class='medev'>{{ Auth::user()->name }}</span>
+                                    @endif
+                                </span> <span class="caret"></span>
                             </a>
     
                             <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">

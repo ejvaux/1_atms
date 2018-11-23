@@ -3,6 +3,7 @@
 <!-- ______________________ FONTS ______________________ -->
 <link href="https://fonts.googleapis.com/css?family=Lobster" rel="stylesheet">
 <link href="https://fonts.googleapis.com/css?family=Allura" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css?family=Audiowide" rel="stylesheet">
 
 <!-- ______________________ Styles ______________________ -->
 <link href="{{ asset('css/app.css') }}" rel="stylesheet">
