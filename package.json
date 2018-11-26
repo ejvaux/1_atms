@@ -21,6 +21,7 @@
         "vue": "^2.5.17"
     },
     "dependencies": {
+        "@fortawesome/fontawesome-free": "^5.5.0",
         "chart.js": "^2.7.2",
         "font-awesome": "^4.7.0",
         "izitoast": "^1.4.0",
