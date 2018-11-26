@@ -1,4 +1,9 @@
-$('.sel2').select2();
+$(document).on({
+    ajaxStart: function() { NProgress.configure({ showSpinner: false }); NProgress.start(); },   
+    ajaxStop: function() { NProgress.done() }    
+});
+
+$('.sel2').select2({ width: '100%' });
 
 $('.ticketrange').on('change', function(){
     $('#ticket_to').attr('min', $('#ticket_from').val());

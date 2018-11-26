@@ -8,7 +8,7 @@
     <div class='row'>
         <div class='col-md'>
             <nav>
-                <ol class="breadcrumb">
+                <ol class="breadcrumb labelfontbold">
                     <li class="breadcrumb-item text-muted">Export Data</li>
                 </ol>
             </nav>
@@ -18,7 +18,7 @@
         <div class="col-md-6">
             <div class="card">
                 <div class="card-header">
-                    <span class='text-muted'>Tickets</span>
+                    <span class='labelfontbold text-muted'>Tickets</span>
                 </div>
                 <div class="card-body container">
                 <form action="{{ url('/admin/ticket/export') }}" method="POST">
@@ -153,7 +153,7 @@
         <div class="col-md">
             <div class="card">
                 <div class="card-header">
-                    <span class='text-muted'>CCTV Reviews</span>
+                    <span class='labelfontbold text-muted'>CCTV Reviews</span>
                 </div>
                 <div class="card-body container">
                     <form action="{{ url('/admin/request/export') }}" method="POST">

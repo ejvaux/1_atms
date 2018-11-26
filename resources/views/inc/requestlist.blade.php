@@ -2,7 +2,7 @@
     <div class='col-lg table-responsive-lg'>
         <table class="table">
             <thead class="thead-light">
-                <tr>
+                <tr class="labelfontbold">
                     <th>#</th>
                     <th>@sortablelink('priority_id','Priority')</th>
                     <th>@sortablelink('subject','Subject')</th>

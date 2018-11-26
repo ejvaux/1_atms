@@ -8,11 +8,11 @@
     <div class='row mb-1'>
         <div class='col-md'>
             <nav>
-                <ol class="breadcrumb">                    
-                    <li class="breadcrumb-item"><a href="{{ url('/it/al') }}">Tickets</a></li>
-                    <li class="breadcrumb-item"><a href="{{ url('/it/dtl') }}">Declined Tickets</a></li>
-                    <li class="breadcrumb-item"><a href="{{ URL::previous() }}">Details</a></li>
-                    <li class="breadcrumb-item">Ticket Attachments</li>
+                <ol class="breadcrumb labelfontbold">                    
+                    <li class="breadcrumb-item text-muted"><a href="{{ url('/it/al') }}">Tickets</a></li>
+                    <li class="breadcrumb-item text-muted"><a href="{{ url('/it/dtl') }}">Declined Tickets</a></li>
+                    <li class="breadcrumb-item text-muted"><a href="{{ URL::previous() }}">Details</a></li>
+                    <li class="breadcrumb-item text-muted">Ticket Attachments</li>
                 </ol>
             </nav>
         </div>

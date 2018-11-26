@@ -8,8 +8,8 @@
     <div class='row mb-1'>
         <div class='col-md'>
             <nav>
-                <ol class="breadcrumb">
-                    <li class="breadcrumb-item">CCTV Review</li>
+                <ol class="breadcrumb labelfontbold">
+                    <li class="breadcrumb-item text-muted">CCTV Review</li>
                 </ol>
             </nav>
         </div>

@@ -2,7 +2,7 @@
 <div class="row mb-2">
     <div class='col-md'>
         <div class="card" style='width:100%'>
-            <h4 class="card-header font-weight-bold">
+            <h4 class="card-header labelfontbold">
                 <div class="row">
                     <div class="col-md">
                         #{{ $tickets->ticket_id }} - {{ $tickets->user->name }} 

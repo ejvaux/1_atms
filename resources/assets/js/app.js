@@ -46,3 +46,8 @@ const app = new Vue({
 });
 
 var $ = require("jquery");
+
+require('select2');
+window.iziToast = require('izitoast');
+window.NProgress = require('nprogress');
+window.swal = require('sweetalert2');

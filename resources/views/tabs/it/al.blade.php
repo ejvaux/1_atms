@@ -8,8 +8,8 @@
     <div class='row'>
         <div class='col-lg'>
             <nav>
-                <ol class="breadcrumb">
-                    <li class="breadcrumb-item">Tickets</li>
+                <ol class="breadcrumb labelfontbold">
+                    <li class="breadcrumb-item text-muted">Tickets</li>
                 </ol>
             </nav>
         </div>
@@ -49,7 +49,7 @@
             </form>
         </div>
     </div>
-    <div id='table_list'>@include('inc.ticketlist');</div> 
+    <div id='table_list'>@include('inc.ticketlist')</div> 
     {{-- <div class='row mb-1'>
         <div class='col-lg table-responsive-lg'>
             <table class="table">

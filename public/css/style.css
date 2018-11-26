@@ -1,13 +1,19 @@
 .footerdev
 {
-    /* font-family: 'Lobster', cursive; */
     font-family: 'Allura', cursive;  
-    font-size: 1.8rem;
+    font-size: 1.5rem;
     font-weight: bold;
 }
 .medev
 {
     font-family: 'Audiowide', cursive;
+    font-weight: bold;
+}
+.labelfont{
+    font-family: 'Roboto Slab', serif;
+}
+.labelfontbold{
+    font-family: 'Roboto Slab', serif;
     font-weight: bold;
 }
 .accordion {
@@ -219,4 +225,11 @@ textarea {
     border: 2px solid;
     border-color: 	#d9534f;
     color: 	#d9534f;
+}
+.scrollable-menu {
+    height: auto;
+    max-height: 15rem;
+    width: auto;
+    max-width: 18rem;
+    overflow-x: auto;
 }

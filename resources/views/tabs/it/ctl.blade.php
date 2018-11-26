@@ -8,9 +8,9 @@
     <div class='row'>
         <div class='col-lg'>
             <nav>
-                <ol class="breadcrumb">
-                    <li class="breadcrumb-item"><a href='/1_atms/public/it/lt'>My Tickets</a></li>
-                    <li class="breadcrumb-item">My Closed Tickets</li>
+                <ol class="breadcrumb labelfontbold">
+                    <li class="breadcrumb-item text-muted"><a href='/1_atms/public/it/lt'>My Tickets</a></li>
+                    <li class="breadcrumb-item text-muted">My Closed Tickets</li>
                 </ol>
             </nav>
         </div>
@@ -29,7 +29,7 @@
         <div class='col-lg table-responsive-lg'>
             <table class="table">
                 <thead class="thead-light">
-                    <tr>
+                    <tr class="labelfontbold">
                         <th>#</th>
                         <th>@sortablelink('priority_id','Priority')</th>
                         <th>@sortablelink('subject','Subject')</th>

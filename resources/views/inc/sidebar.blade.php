@@ -1,4 +1,4 @@
-<div class="card m-0 p-0" style="font-size:.8rem; height:100%">                              
+<div class="card m-0 p-0 labelfontbold" style="font-size:.8rem; height:100%">                              
     <nav class="card-body m-0 pl-1 mr-0 pr-0">
         <ul class="list-group list-group-flush">
             <li class="list-group-item noborder"><i class="fas fa-chart-line mr-2"></i><a class='sidetab' href='{{url('/dashboard')}}'>DASHBOARD</a><span class="badge badge-info"></span>

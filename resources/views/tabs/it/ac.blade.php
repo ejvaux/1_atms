@@ -8,9 +8,9 @@
     <div class='row mb-1'>
         <div class='col-md'>
             <nav>
-                <ol class="breadcrumb">
-                    <li class="breadcrumb-item"><a href="/1_atms/public/it/al">Tickets</a></li>
-                    <li class="breadcrumb-item">Create Ticket</li>
+                <ol class="breadcrumb labelfontbold">
+                    <li class="breadcrumb-item text-muted"><a href="/1_atms/public/it/al">Tickets</a></li>
+                    <li class="breadcrumb-item text-muted">Create Ticket</li>
                     {{-- <li class="breadcrumb-item">Data</li> --}}
                 </ol>
             </nav>
@@ -27,11 +27,11 @@
                 <input type='hidden' name="ticket_id" value='{{ CustomFunctions::generateTicketNumber() }}'>             
                 <div class="form-group row">
                     <div class="col-md-5">
-                        <label for="subject">Subject:</label>
+                        <label for="subject" class='labelfontbold text-muted'>Subject:</label>
                         <input type="text" class="form-control" id="subject" name="subject" placeholder="" required>
                     </div>                    
                     <div class="col-md-2">
-                        <label for="priority">Priority:</label>
+                        <label for="priority" class='labelfontbold text-muted'>Priority:</label>
                         <select type="text" class="form-control custom-select" id="priority" name="priority" placeholder="" required>
                             <option value="">- Select Priority -</option>
                             @foreach($priorities as $priority)
@@ -40,7 +40,7 @@
                         </select>
                     </div>
                     <div class="col-md-3">                            
-                        <label for="category">Category:</label>
+                        <label for="category" class='labelfontbold text-muted'>Category:</label>
                         <select type="text" class="form-control custom-select" id="category" name="category" placeholder="" required>
                             <option value="">- Select Category -</option>                            
                             @foreach($categories as $category)
@@ -49,7 +49,7 @@
                         </select>
                     </div>
                     <div class="col-md-2">
-                        <label for="department">Department:</label>
+                        <label for="department" class='labelfontbold text-muted'>Department:</label>
                         <select type="text" class="form-control custom-select" id="department" name="department" placeholder="" required>
                             <option value="">- Select Department -</option>
                             @foreach($departments as $department)
@@ -60,14 +60,14 @@
                 </div>
                 <div class="form-group row">
                     <div class="col" id='messagecol'>
-                        <label for="message">Description:</label>
+                        <label for="message" class='labelfontbold text-muted'>Description:</label>
                         <textarea type="text" class="form-control quill" rows="8" id="message" name="message" placeholder="" required></textarea>
                         {{-- <div id='test' style="height:250px; overflow-y:auto" ></div> --}}
                     </div>
                 </div>
                 <div class="form-group row text-right">
                     <div class="col-md-5 text-left">
-                        <span>Attach Images/ScreenShots: </span>
+                        <span class='labelfontbold text-muted'>Attach Images/ScreenShots: </span>
                         <input class='border border-secondary rounded form-control-sm' type='file' name='attachedfile[]' multiple>
                     </div>
                     <div class="col">

@@ -1,6 +1,6 @@
 
 // Fonts
-@import url("https://fonts.googleapis.com/css?family=Raleway:300,400,600");
+@import url("https://fonts.googleapis.com/css?family=Raleway:300,400,600|Audiowide|Allura|Roboto:300|Roboto+Slab:300|Open+Sans:300,400");
 
 // Variables
 @import "variables";
@@ -9,7 +9,16 @@
 @import '~bootstrap/scss/bootstrap';
 
 // Font Awesome
-@import "node_modules/font-awesome/scss/font-awesome";
+@import "/1_atms/node_modules/@fortawesome/fontawesome-free/css/all.min.css";
+
+// Izitoast
+@import "/1_atms/node_modules/izitoast/dist/css/iziToast.css";
+
+// NProgress
+@import '/1_atms/node_modules/nprogress/nprogress.css';
+
+// select2
+@import "/1_atms/node_modules/select2/dist/css/select2.min.css";
 
 .navbar-laravel {
   background-color: #fff;

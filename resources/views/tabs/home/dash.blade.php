@@ -9,8 +9,8 @@
         <div class='col-md text-center'>
             {{-- <h1>Dashboard</h1> --}}
             <nav>
-                <ol class="breadcrumb" {{-- style='background-color:#3498DB' --}}>
-                    <li class="breadcrumb-item"><h3 {{-- style='color:whitesmoke' --}}>Dashboard</h3></li>
+                <ol class="breadcrumb labelfontbold" {{-- style='background-color:#3498DB' --}}>
+                    <li class="breadcrumb-item text-muted">Dashboard</li>
                 </ol>
             </nav>
         </div>
@@ -22,7 +22,7 @@
     @if(Auth::user()->tech == 1)
     <div class="row mb-5">
         <div class="col-md-6">
-            <div class="card-header font-weight-bold" style='background-color:/* #85C1E9 */#707B7C; color:white'>
+            <div class="card-header labelfont" style='background-color:/* #85C1E9 */#707B7C; color:white'>
                 My Handled Tickets
             </div>
             <div class="card" style='background-color:/* #D6EAF8 */#E5E8E8'>
@@ -83,7 +83,7 @@
             </div>
         </div>
         <div class="col-md-6">
-            <div class="card-header font-weight-bold" style='background-color:/* #85C1E9 */#707B7C; color:white'>
+            <div class="card-header labelfont" style='background-color:/* #85C1E9 */#707B7C; color:white'>
                 My Handled CCTV Review Requests
             </div>
             <div class="card" style='background-color:/* #D6EAF8 */#E5E8E8'>
@@ -139,7 +139,7 @@
     {{-- My Ticket and Requests --}}
     <div class="row mb-5">
         <div class="col-md-6">
-            <div class="card-header font-weight-bold" style='background-color:/* #85C1E9 */#707B7C; color:white'>
+            <div class="card-header labelfont" style='background-color:/* #85C1E9 */#707B7C; color:white'>
                 My Tickets
             </div>
             <div class="card" style='background-color:/* #D6EAF8 */#E5E8E8'>
@@ -210,7 +210,7 @@
             </div>
         </div>
         <div class="col-md-6">
-            <div class="card-header font-weight-bold" style='background-color:/* #85C1E9 */#707B7C; color:white'>
+            <div class="card-header labelfont" style='background-color:/* #85C1E9 */#707B7C; color:white'>
                 My CCTV Review Requests
             </div>
             <div class="card" style='background-color:/* #D6EAF8 */#E5E8E8'>

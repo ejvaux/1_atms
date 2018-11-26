@@ -8,9 +8,9 @@
     <div class='row'>
         <div class='col-md'>
             <nav>
-                <ol class="breadcrumb">
-                    <li class="breadcrumb-item"><a href='/1_atms/public/it/al'>Tickets</a></li>
-                    <li class="breadcrumb-item">Declined Tickets</li>
+                <ol class="breadcrumb labelfontbold">
+                    <li class="breadcrumb-item text-muted"><a href='/1_atms/public/it/al'>Tickets</a></li>
+                    <li class="breadcrumb-item text-muted">Declined Tickets</li>
                 </ol>
             </nav>
         </div>

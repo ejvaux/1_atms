@@ -5,6 +5,15 @@
 @section('content')
 @include('inc.messages')
 <div class="container">
+    <div class='row mb-1'>
+        <div class='col-md'>
+            <nav>
+                <ol class="breadcrumb labelfontbold">
+                    <li class="breadcrumb-item text-muted">Tickets - Dashboard</li>
+                </ol>
+            </nav>
+        </div>
+    </div>
     <div class='row mb-2'>
         <div class='col-md'>
             <div class="card repcard">
@@ -12,7 +21,7 @@
                     <div class='container text-center'>                        
                         <div class="row">
                             <div class="col-md">
-                                <ul class="nav justify-content-center">
+                                <ul class="nav justify-content-center labelfontbold">
                                     <li class="nav-item mx-1">
                                         <a href="{{url('/it/rp/today')}}" class="nav-link btn btn-secondary">Day</a>
                                     </li>
@@ -61,7 +70,7 @@
                             <span class='font-weight-bold statnum'>{{$newticket}}</span>
                         </div>
                         <div class="col-md-7 stat3-2 p-2">
-                            <span class='font-weight-bold statlabel'>Total Tickets</span>
+                            <span class='labelfont statlabel'>Total Tickets</span>
                         </div>
                     </div>                   
                 </div>
@@ -77,7 +86,7 @@
                             <span class='font-weight-bold statnum'>{{$openticket}}</span>
                         </div>
                         <div class="col-md-7 stat3-2 p-2">
-                            <span class='font-weight-bold statlabel'>Open Tickets</span>                                    
+                            <span class='labelfont statlabel'>Open Tickets</span>                                    
                         </div>
                     </div>
                 </div>
@@ -93,7 +102,7 @@
                             <span class='font-weight-bold statnum'>{{$assignedticket}}</span>                                            
                         </div>
                         <div class="col-md-7 stat3-2 p-2">
-                            <span class='font-weight-bold statlabel'>In-Progress Tickets</span>                                    
+                            <span class='labelfont statlabel'>In-Progress Tickets</span>                                    
                         </div>
                     </div>
                 </div>
@@ -111,7 +120,7 @@
                             <span class='font-weight-bold statnum'>{{$totalresolvedticket}}</span>
                         </div>
                         <div class="col-md-7 stat3-2 p-2">
-                            <span class='font-weight-bold statlabel'>Completed<br>Tickets</span>
+                            <span class='labelfont statlabel'>Completed<br>Tickets</span>
                         </div>
                     </div>
                 </div>
@@ -129,13 +138,13 @@
                     <div class="row">
                         <div class="col-md-5 stat3 p-2">
                             @if($trtime > 60)
-                                <span class='font-weight-bold statnum'>{{floor($trtime/60)}}.{{$trtime%60}}</span><br><span class='font-weight-bold statlabel'> hours</span>
+                                <span class='font-weight-bold statnum'>{{floor($trtime/60)}}.{{$trtime%60}}</span><br><span class='labelfont statlabel'> hours</span>
                             @else
-                                <span class='font-weight-bold statnum'>{{$trtime}}</span><br><span class='font-weight-bold statlabel'> minutes</span>
+                                <span class='font-weight-bold statnum'>{{$trtime}}</span><br><span class='labelfont statlabel'> minutes</span>
                             @endif                                        
                         </div>
                         <div class="col-md-7 stat3-2 p-2">                                        
-                            <span class='font-weight-bold statlabel'>Average response<br>time</span>                                    
+                            <span class='labelfont statlabel'>Average response<br>time</span>                                    
                         </div>
                     </div>
                 </div>
@@ -153,13 +162,13 @@
                     <div class="row">
                         <div class="col-md-5 stat3 p-2">
                             @if($trentime > 60)
-                                <span class='font-weight-bold statnum'>{{floor($trentime/60)}}.{{$trentime%60}}</span><br><span class='font-weight-bold statlabel'> hours</span>
+                                <span class='font-weight-bold statnum'>{{floor($trentime/60)}}.{{$trentime%60}}</span><br><span class='labelfont statlabel'> hours</span>
                             @else
-                                <span class='font-weight-bold statnum'>{{round($trentime,2)}}</span><br><span class='font-weight-bold statlabel'> minutes</span>
+                                <span class='font-weight-bold statnum'>{{round($trentime,2)}}</span><br><span class='labelfont statlabel'> minutes</span>
                             @endif                                           
                         </div>
                         <div class="col-md-7 stat3-2 p-2">
-                            <span class='font-weight-bold statlabel'>Average processing<br>time</span>                                    
+                            <span class='labelfont statlabel'>Average processing<br>time</span>                                    
                         </div>
                     </div>
                 </div>

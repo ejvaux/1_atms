@@ -8,14 +8,14 @@
     <div class='row mb-1'>
         <div class='col-md'>
             <nav>
-                <ol class="breadcrumb">
+                <ol class="breadcrumb labelfontbold">
                     @if(Auth::user()->admin == 1)
-                        <li class="breadcrumb-item"><a href="{{ url('/it/al') }}">Tickets</a></li>
+                        <li class="breadcrumb-item text-muted"><a href="{{ url('/it/al') }}">Tickets</a></li>
                     @else
-                        <li class="breadcrumb-item"><a href="{{ url('/it/lt') }}">My Tickets</a></li>
+                        <li class="breadcrumb-item text-muted"><a href="{{ url('/it/lt') }}">My Tickets</a></li>
                     @endif                    
-                    <li class="breadcrumb-item"><a href="{{ URL::previous() }}">Details</a></li>
-                    <li class="breadcrumb-item">Ticket Attachments</li>
+                    <li class="breadcrumb-item text-muted"><a href="{{ URL::previous() }}">Details</a></li>
+                    <li class="breadcrumb-item text-muted">Ticket Attachments</li>
                 </ol>
             </nav>
         </div>

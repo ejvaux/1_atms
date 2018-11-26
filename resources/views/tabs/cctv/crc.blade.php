@@ -8,9 +8,9 @@
     <div class='row mb-1'>
         <div class='col-md'>
             <nav>
-                <ol class="breadcrumb">
-                    <li class="breadcrumb-item"><a href="{{ url('/cr/crl') }}">CCTV Review</a></li>
-                    <li class="breadcrumb-item">Create Request</li>
+                <ol class="breadcrumb labelfontbold">
+                    <li class="breadcrumb-item text-muted"><a href="{{ url('/cr/crl') }}">CCTV Review</a></li>
+                    <li class="breadcrumb-item text-muted">Create Request</li>
                     {{-- <li class="breadcrumb-item">Data</li> --}}
                 </ol>
             </nav>
@@ -27,11 +27,11 @@
                 <input type='hidden' name="request_id" value='{{ CustomFunctions::generateRequestNumber() }}'>
                 <div class="form-group row">
                     <div class="col-md-5">
-                        <label for="subject">Subject:</label>
+                        <label for="subject" class='labelfontbold text-muted'>Subject:</label>
                         <input type="text" class="form-control" id="subject" name="subject" placeholder="" required>
                     </div>                    
                     <div class="col-md-2">
-                        <label for="priority">Priority:</label>
+                        <label for="priority" class='labelfontbold text-muted'>Priority:</label>
                         <select type="text" class="form-control custom-select" id="priority" name="priority_id" placeholder="" required>
                             <option value="">- Select Priority -</option>
                             @foreach($priorities as $priority)
@@ -40,7 +40,7 @@
                         </select>
                     </div>
                     <div class="col-md-3">                            
-                        <label for="priority">Location:</label>
+                        <label for="priority" class='labelfontbold text-muted'>Location:</label>
                         <select type="text" class="form-control custom-select" id="priority" name="location" placeholder="" required>
                             <option value="">- Select Location -</option>
                             @foreach($locations as $location)
@@ -49,7 +49,7 @@
                         </select>
                     </div>
                     <div class="col-md-2">
-                        <label for="department">Department:</label> 
+                        <label for="department" class='labelfontbold text-muted'>Department:</label> 
                         <select type="text" class="form-control custom-select" id="department" name="department_id" placeholder="" required>
                             <option value="">- Select Department -</option>
                             @foreach($departments as $department)
@@ -60,19 +60,19 @@
                 </div>
                 <div class='row'>
                     <div class='col-md-7'>
-                        <label for="start_time">Time:</label>
+                        <label for="start_time" class='labelfontbold text-muted'>Time:</label>
                         <div class="btn-group">
                             <input class="form-control" type='datetime-local' id='start_time' name='start_time' required><span class='pt-2 mx-1'> to </span><input class="form-control" type='datetime-local' id='end_time' name='end_time' required>
                         </div>
                     </div>
                     <div class="col-md-5">
-                        <label>Attach Report:</label>
+                        <label class='labelfontbold text-muted'>Attach Report:</label>
                         <input class='border' type='file' name='report'>                        
                     </div>
                 </div>
                 <div class="form-group row mt-2">
                     <div class="col-md" id='messagecol'>
-                        <label for="message">Description:</label>
+                        <label for="message" class='labelfontbold text-muted'>Description:</label>
                         <textarea type="text" class="form-control" rows="8" id="message" name="message" placeholder="" required></textarea>                        
                     </div>
                 </div>

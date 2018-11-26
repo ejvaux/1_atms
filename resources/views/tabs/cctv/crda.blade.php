@@ -8,10 +8,10 @@
     <div class='row mb-1'>
         <div class='col-md'>
             <nav>
-                <ol class="breadcrumb">
-                    <li class="breadcrumb-item"><a href="{{ url('/cr/crl') }}">CCTV Review</a></li>
-                    <li class="breadcrumb-item"><a href="{{ URL::previous() }}">Request Details</a></li>
-                    <li class="breadcrumb-item">Request Attachments</li>
+                <ol class="breadcrumb labelfontbold">
+                    <li class="breadcrumb-item text-muted"><a href="{{ url('/cr/crl') }}">CCTV Review</a></li>
+                    <li class="breadcrumb-item text-muted"><a href="{{ URL::previous() }}">Request Details</a></li>
+                    <li class="breadcrumb-item text-muted">Request Attachments</li>
                 </ol>
             </nav>
         </div>

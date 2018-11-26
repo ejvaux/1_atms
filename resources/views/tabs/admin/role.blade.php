@@ -9,8 +9,8 @@
     <div class='row'>
         <div class='col-md'>
             <nav>
-                <ol class="breadcrumb">
-                    <li class="breadcrumb-item">Roles</li>
+                <ol class="breadcrumb labelfontbold">
+                    <li class="breadcrumb-item text-muted">Roles</li>
                 </ol>
             </nav>
         </div>        
