@@ -13908,27 +13908,34 @@ Vue.component('example-component', __webpack_require__(41));
 var app = new Vue({
     el: '#app',
     created: function created() {
-        Echo.channel('primatech').listen('triggerEvent', function (e) {
+        Echo.channel('notification.refresh').listen('triggerEvent', function (e) {
             console.log(e);
             $.ajax({
                 type: 'get',
-                url: "/1_atms/public/nvbr",
+                url: "/1_atms/public/ddmenu",
                 global: false,
                 success: function success(data) {
-                    $('#nvbr').html(data);
+                    $('#notificon').html(data);
                 }
             });
-            /* alert(e.message.message);
-            alert(e.message.mod);
-            alert(e.message.tid); */
-            /* document.getElementById('notificon').append('<a value="option6">option6</a>'); */
         });
-        /* var userid = $('meta[name="userid"]').attr('content'); */
-        /* var userid = document.querySelector("meta[name='userid']").getAttribute("content");
-        Echo.channel('App.User.' + userid)
-            .notification((notification) => {
-            console.log(notification.type);
+        /* Echo.private('notification')
+        .listen('NotificationTask', (e) => {
+            console.log(e);
         }); */
+        Echo.private('App.User.' + document.head.querySelector('meta[name="userid"]').content).notification(function (notification) {
+            console.log(notification.type);
+            /* $('#nvbr').load('/1_atms/public/nvbr'); */
+            /* $('#notificon').load('/1_atms/public/ddmenu'); */
+            $.ajax({
+                type: 'get',
+                url: "/1_atms/public/ddmenu",
+                global: false,
+                success: function success(data) {
+                    $('#notificon').html(data);
+                }
+            });
+        });
     }
 });
 
@@ -13999,9 +14006,10 @@ window.Pusher = __webpack_require__(37);
 
 window.Echo = new __WEBPACK_IMPORTED_MODULE_0_laravel_echo___default.a({
   broadcaster: 'pusher',
-  key: 'f216c3c289c1b322cc70',
+  key: '9ded4536db9de5bc49b7',
   cluster: 'ap1',
-  encrypted: true
+  encrypted: false,
+  authEndpoint: '/1_atms/public/broadcasting/auth'
 });
 
 /***/ }),

@@ -8,27 +8,26 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
 use App\Events\triggerEvent;
 use App\Ticket;
+use App\User;
 
 class TicketAccepted extends Notification implements ShouldQueue
 {
     use Queueable;
 
-    protected $ticket_id;
-    protected $name;
-    protected $tech;
-    protected $ticid;
+    protected $ticket;
+    protected $user;
+    protected $url;
 
     /**
      * Create a new notification instance.
      *
      * @return void
      */
-    public function __construct($tid,$uname,$tech,$ticid)
+    public function __construct(Ticket $ticket,User $user)
     {
-        $this->ticket_id = $tid;
-        $this->name = $uname;
-        $this->tech = $tech;
-        $this->ticid = $ticid;
+        $this->ticket = $ticket;
+        $this->user = $user;
+        $this->url = url('/it/vt/'.$ticket->id);
     }
 
     /**
@@ -39,7 +38,7 @@ class TicketAccepted extends Notification implements ShouldQueue
      */
     public function via($notifiable)
     {
-        return ['mail','database'];
+        return ['mail','database','broadcast'];
     }
 
     /**
@@ -50,11 +49,10 @@ class TicketAccepted extends Notification implements ShouldQueue
      */
     public function toMail($notifiable)
     {
-        $url = url('/it/vt/'.$this->ticket_id);
         return (new MailMessage)
-                ->greeting('Hello! ' .$this->name)
-                ->line('Your ticket <b>#'.$this->ticid.'</b> is accepted by <b>'.$this->tech.'</b>.')
-                ->action('View Ticket', $url)
+                ->greeting('Hello! ' .$this->user->name. ',')
+                ->line('Your ticket <b>#'.$this->ticket->ticket_id.'</b> is accepted by <b>'.$this->ticket->assign->name.'</b>.')
+                ->action('View Ticket', $this->url)
                 ->line('Please wait for the technician to process your ticket.');
     }
 
@@ -66,13 +64,11 @@ class TicketAccepted extends Notification implements ShouldQueue
      */
     public function toArray($notifiable)
     {
-        $url = url('/it/vt/'.$this->ticket_id);
-        event(new triggerEvent('refresh'));
         return [
-            'message' => 'Ticket #'.$this->ticid.' Accepted.',
+            'message' => 'Ticket #'.$this->ticket->ticket_id.' Accepted.',
             'mod' => 'user',
-            'tid' => $this->ticket_id,
-            'series' => $this->ticid
+            'tid' => $this->ticket->id,
+            'series' => $this->ticket->ticket_id
         ];
     }
 }

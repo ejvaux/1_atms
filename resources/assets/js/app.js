@@ -20,28 +20,36 @@ Vue.component('example-component', require('./components/ExampleComponent.vue'))
 const app = new Vue({
     el: '#app',
     created(){
-        Echo.channel('primatech')
+        Echo.channel('notification.refresh')
         .listen('triggerEvent', (e) => {
             console.log(e);
             $.ajax({
                 type: 'get',
-                url: "/1_atms/public/nvbr",
+                url: "/1_atms/public/ddmenu",
                 global: false,
                 success: function (data) {
-                    $('#nvbr').html(data);
+                    $('#notificon').html(data);
                 }
-              });            
-            /* alert(e.message.message);
-            alert(e.message.mod);
-            alert(e.message.tid); */
-            /* document.getElementById('notificon').append('<a value="option6">option6</a>'); */            
+              });                    
         });
-        /* var userid = $('meta[name="userid"]').attr('content'); */
-        /* var userid = document.querySelector("meta[name='userid']").getAttribute("content");
-        Echo.channel('App.User.' + userid)
-            .notification((notification) => {
-            console.log(notification.type);
+        /* Echo.private('notification')
+        .listen('NotificationTask', (e) => {
+            console.log(e);
         }); */
+        Echo.private(`App.User.` + document.head.querySelector('meta[name="userid"]').content)
+        .notification((notification) => {
+            console.log(notification.type);
+            /* $('#nvbr').load('/1_atms/public/nvbr'); */
+            /* $('#notificon').load('/1_atms/public/ddmenu'); */
+            $.ajax({
+                type: 'get',
+                url: "/1_atms/public/ddmenu",
+                global: false,
+                success: function (data) {
+                    $('#notificon').html(data);
+                }
+            });
+        });        
     }
 });
 

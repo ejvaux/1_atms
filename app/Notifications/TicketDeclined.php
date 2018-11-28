@@ -8,23 +8,24 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
 use App\Events\triggerEvent;
 use App\DeclinedTicket;
+use App\User;
 
 class TicketDeclined extends Notification implements ShouldQueue
 {
     use Queueable;
 
-    protected $ticket_id;
-    protected $name;
+    protected $ticket;
+    protected $user;
 
     /**
      * Create a new notification instance.
      *
      * @return void
      */
-    public function __construct($tid,$uname)
+    public function __construct(DeclinedTicket $ticket, User $user)
     {
-        $this->ticket_id = $tid;
-        $this->name = $uname;
+        $this->ticket = $ticket;
+        $this->user = $user;
     }
 
     /**
@@ -35,7 +36,7 @@ class TicketDeclined extends Notification implements ShouldQueue
      */
     public function via($notifiable)
     {
-        return ['mail','database'];
+        return ['mail','database','broadcast'];
     }
 
     /**
@@ -46,12 +47,12 @@ class TicketDeclined extends Notification implements ShouldQueue
      */
     public function toMail($notifiable)
     {
-        $url = url('/it/ctlv/'.$this->ticket_id);
-        $t = DeclinedTicket::where('id',$this->ticket_id)->first();
+        /* $url = url('/it/ctlv/'.$this->ticket_id); */
+        /* $t = DeclinedTicket::where('id',$this->ticket_id)->first(); */
         return (new MailMessage)
-                ->greeting('Hello! ' .$this->name)
-                ->line('Ticket #'.$t->ticket_id.' is been declined by the admin.')
-                ->line('Reason: '.$t->reason.'.')
+                ->greeting('Hello! ' .$this->user->name)
+                ->line('Ticket #'.$this->ticket->ticket_id.' is been declined by the admin.')
+                ->line('Reason: '.$this->ticket->reason.'.')
                 /* ->action('View Ticket', $url) */
                 ->line('Thank you for using our application!');
     }
@@ -64,14 +65,11 @@ class TicketDeclined extends Notification implements ShouldQueue
      */
     public function toArray($notifiable)
     {
-        $url = url('/it/ctlv/'.$this->ticket_id);
-        $t = DeclinedTicket::where('id',$this->ticket_id)->first();
-        event(new triggerEvent('refresh'));
         return [
-            'message' => 'Ticket #'.$t->ticket_id.' declined.',
+            'message' => 'Ticket #'.$this->ticket->ticket_id.' declined.',
             'mod' => 'decline',
-            'tid' => $this->ticket_id,
-            'series' => $t->ticket_id
+            'tid' => $this->ticket->id,
+            'series' => $this->ticket->ticket_id
         ];
     }
 }

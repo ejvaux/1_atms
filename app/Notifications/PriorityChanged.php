@@ -7,26 +7,29 @@ use Illuminate\Notifications\Notification;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
 use App\Ticket;
+use App\User;
 use App\Events\triggerEvent;
 
 class PriorityChanged extends Notification implements ShouldQueue
 {
     use Queueable;
 
-    protected $ticket_id;
-    protected $name;
+    protected $ticket;
+    protected $user;
     protected $prio;
+    protected $url;
 
     /**
      * Create a new notification instance.
      *
      * @return void
      */
-    public function __construct($tid,$uname,$prio)
+    public function __construct(Ticket $ticket, User $user,$prio)
     {
-        $this->ticket_id = $tid;
-        $this->name = $uname;
+        $this->ticket = $ticket;
+        $this->user = $user;
         $this->prio = $prio;
+        $this->url = url('/it/vt/'.$ticket->id);
     }
 
     /**
@@ -37,7 +40,7 @@ class PriorityChanged extends Notification implements ShouldQueue
      */
     public function via($notifiable)
     {
-        return ['mail','database'];
+        return ['mail','database','broadcast'];
     }
 
     /**
@@ -48,12 +51,10 @@ class PriorityChanged extends Notification implements ShouldQueue
      */
     public function toMail($notifiable)
     {
-        $url = url('/it/vt/'.$this->ticket_id);
-        $t = Ticket::where('id',$this->ticket_id)->first();
         return (new MailMessage)
-                ->greeting('Hello! ' .$this->name)
-                ->line('Ticket <b>#'.$t->ticket_id.'</b> Priority changed to <b>'. $this->prio .'</b>.')
-                ->action('View Ticket', $url)
+                ->greeting('Hello! ' .$this->user->name)
+                ->line('Ticket <b>#'.$this->ticket->ticket_id.'</b> Priority changed to <b>'. $this->prio .'</b>.')
+                ->action('View Ticket', $this->url)
                 ->line('Please wait for further updates.');
     }
 
@@ -65,14 +66,12 @@ class PriorityChanged extends Notification implements ShouldQueue
      */
     public function toArray($notifiable)
     {
-        $url = url('/it/vt/'.$this->ticket_id);
-        $t = Ticket::where('id',$this->ticket_id)->first();
-        event(new triggerEvent('refresh'));
+        /* event(new triggerEvent('refresh')); */
         return [
-            'message' => 'Ticket #'.$t->ticket_id.' priority changed.',
+            'message' => 'Ticket #'.$this->ticket->ticket_id.' priority changed.',
             'mod' => 'user',
-            'tid' => $this->ticket_id,
-            'series' => $t->ticket_id
+            'tid' => $this->ticket->id,
+            'series' => $this->ticket->ticket_id
         ];
     }    
 }

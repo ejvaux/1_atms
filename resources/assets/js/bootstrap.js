@@ -50,7 +50,8 @@ window.Pusher = require('pusher-js');
 
 window.Echo = new Echo({
     broadcaster: 'pusher',
-    key: 'f216c3c289c1b322cc70',
+    key: '9ded4536db9de5bc49b7',
     cluster: 'ap1',
-    encrypted: true
+    encrypted: false,
+    authEndpoint: '/1_atms/public/broadcasting/auth'
 });

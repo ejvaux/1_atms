@@ -7,6 +7,7 @@ use Illuminate\Notifications\Notification;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
 use App\Ticket;
+use App\User;
 use App\Events\triggerEvent;
 use App\Custom\CustomFunctions;
 
@@ -14,18 +15,20 @@ class TicketCreated extends Notification implements ShouldQueue
 {
     use Queueable;
 
-    protected $ticket_id;
-    protected $name;
+    protected $ticket;
+    protected $user;
+    protected $url;
 
     /**
      * Create a new notification instance.
      *
      * @return void
      */
-    public function __construct($tid,$uname)
+    public function __construct(Ticket $ticket, User $user)
     {
-        $this->ticket_id = $tid;
-        $this->name = $uname;
+        $this->ticket = $ticket;
+        $this->user = $user;
+        $this->url = url('/it/av/'.$ticket->id);
     }
 
     /**
@@ -36,7 +39,7 @@ class TicketCreated extends Notification implements ShouldQueue
      */
     public function via($notifiable)
     {
-        return ['mail','database'];
+        return ['mail','database','broadcast'];
     }
 
     /**
@@ -47,20 +50,18 @@ class TicketCreated extends Notification implements ShouldQueue
      */
     public function toMail($notifiable)
     {
-        $url = url('/it/av/'.$this->ticket_id);
-        $t = Ticket::where('id',$this->ticket_id)->first();
         return (new MailMessage)
-                ->greeting('Hello! ' .$this->name)
-                ->line('New Ticket <b>#'.$t->ticket_id.'</b> was created by <b>'.$t->user->name.'</b>.')
+                ->greeting('Hello! ' .$this->user->name. ',')
+                ->line('New Ticket <b>#'.$this->ticket->ticket_id.'</b> was created by <b>'.$this->ticket->user->name.'</b>.')
                 /* ->line('<table class="table table-bordered"><thead><tr><th scope="col" colspan="4">TICKET DETAILS</th></tr></thead><tbody><tr><th scope="row" >Priority</th><td>' . CustomFunctions::priority_format($t->priority_id) . '</td></tr><tr><th scope="row">Department</th><td>' . $t->department->name) . '</td></tr><tr><th scope="row">Category</th><td>' . $t->category->name . '</td></tr><tr><th scope="row">Subject</th><td>' . $t->subject . '</td></tr></tbody></table>') */
                 ->line('<b>TICKET DETAILS</b>')
-                ->line('Priority: '.CustomFunctions::priority_format($t->priority_id))
-                ->line('Department: '.$t->department->name)
-                ->line('Category: '.$t->category->name)
-                ->line('Subject: '.$t->subject)
-                ->line('Description: '.$t->message)
+                ->line('Priority: '.CustomFunctions::priority_format($this->ticket->priority_id))
+                ->line('Department: '.$this->ticket->department->name)
+                ->line('Category: '.$this->ticket->category->name)
+                ->line('Subject: '.$this->ticket->subject)
+                ->line('Description: '.$this->ticket->message)
                 ->line('For more info click on the link below.')              
-                ->action('View Ticket', $url)
+                ->action('View Ticket', $this->url)
                 ->line('Thank you for using our application!');
     }
 
@@ -72,14 +73,11 @@ class TicketCreated extends Notification implements ShouldQueue
      */
     public function toArray($notifiable)
     {
-        event(new triggerEvent('refresh'));
-        $url = url('/it/av/'.$this->ticket_id);
-        $t = Ticket::where('id',$this->ticket_id)->first();
         return [
-            'message' => 'Ticket #'.$t->ticket_id.' Created.',
+            'message' => 'Ticket #'.$this->ticket->ticket_id.' Created.',
             'mod' => 'create',
-            'tid' => $this->ticket_id,
-            'series' => $t->ticket_id
+            'tid' => $this->ticket->id,
+            'series' => $this->ticket->ticket_id
         ];
     }
 }

@@ -269,6 +269,7 @@ class DashboardController extends Controller
         $statuses = $this->statuses;
         $updates = TicketUpdates::where('ticket_id',$id)->get();
         $updatetext = '';
+        NotificationFunctions::markread($tickets->ticket_id);
         return view('tabs.it.ctlv',compact('tickets','updates','updatetext','priorities','statuses'));
     }
     public function adminclosedticketview($id)
@@ -560,6 +561,7 @@ class DashboardController extends Controller
         $images = json_decode($img->attach);
         return view('tabs.it.dtda',compact('images'));
     }
+
     public function testdb(Request $request)
     {        
         $ticket = Ticket::select('ticket_id','user_id','department_id','category_id','priority_id','status_id','subject',

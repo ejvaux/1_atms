@@ -9,21 +9,37 @@ use Illuminate\Broadcasting\PresenceChannel;
 use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Broadcasting\InteractsWithSockets;
 use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
+use App\User;
 
-class triggerEvent implements ShouldBroadcast
+class NotificationTask implements ShouldBroadcast
 {
     use Dispatchable, InteractsWithSockets, SerializesModels;
 
-    public $message;
+    protected $user;
+    protected $message;
 
     /**
      * Create a new event instance.
      *
      * @return void
      */
-    public function __construct($message)
+    public function __construct(User $user, $message)
     {
+        $this->user = $user;
         $this->message = $message;
+    }
+
+    /**
+     * Get the data to broadcast.
+     *
+     * @return array
+     */
+    public function broadcastWith()
+    {
+        return [
+            'name' => $this->user->name,
+            'message'   => $this->message
+        ];
     }
 
     /**
@@ -33,6 +49,7 @@ class triggerEvent implements ShouldBroadcast
      */
     public function broadcastOn()
     {
-        return new Channel('notification.refresh');
+        return new PrivateChannel('notification');
+        /* return new Channel('primatech'); */
     }
 }

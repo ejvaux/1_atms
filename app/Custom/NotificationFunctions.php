@@ -25,6 +25,8 @@ use App\Notifications\CctvAttachmentsAccessRemoved;
 use Auth;
 use App\User;
 use App\Ticket;
+use App\DeclinedTicket;
+use App\ClosedTicket;
 use App\CctvReview;
 use App\RejectedRequest;
 use App\Events\triggerEvent;
@@ -39,58 +41,63 @@ class NotificationFunctions
                 $rn->markAsRead();
             }
         }
-        event(new triggerEvent('refresh'));
+        event( (new triggerEvent('refresh')) );
     }
 
     // TICKET
     // ->delay(now()->addSeconds(30)
     public static function ticketcreate($tid)
     {
+        $ticket = Ticket::where('id',$tid)->first();
         $users = User::where('admin',1)->get();
         foreach ($users as $user) {
-            $user->notify( (new TicketCreated($tid,$user->name)) );            
+            $user->notify( (new TicketCreated($ticket,$user)) );            
         }
     }
 
-    public static function ticketaccept($id,$tid,$tech)
+    public static function ticketaccept($id,$tid)
     {
+        $ticket = Ticket::where('id',$tid)->first();
         $user = User::where('id',$id)->first();
-        $t = Ticket::where('id',$tid)->first();
-        $user->notify( (new TicketAccepted($tid,$user->name,$tech,$t->ticket_id)) );        
+        $user->notify( (new TicketAccepted($ticket,$user)) );
     }
 
     public static function ticketassign($id,$tid,$tech)
     {
+        $ticket = Ticket::where('id',$tid)->first();
         $user = User::where('id',$id)->first();
         $tech = User::where('id',$tech)->first();
-        $user->notify( (new TicketAssigned($tid,$user->name,'user')) );
-        $tech->notify( (new TicketAssigned($tid,$tech->name,'tech',Auth::user()->name)) );
+        $user->notify( (new TicketAssigned($ticket,$user,'user')) );
+        $tech->notify( (new TicketAssigned($ticket,$tech,'tech',Auth::user()->name)) );
         return redirect()->back()->with('success','Ticket Assigned Successfully.');
     }
 
     public static function ticketpriority($id,$tid,$prio)
     {
+        $ticket = Ticket::where('id',$tid)->first();
         $user = User::where('id',$id)->first();
-        $user->notify( (new PriorityChanged($tid,$user->name,$prio)) );        
+        $user->notify( (new PriorityChanged($ticket,$user,$prio)) );        
     }
 
     public static function ticketstatus($id,$tid,$stat)
     {
         $user = User::where('id',$id)->first();
-        $t = Ticket::where('id',$tid)->first();
-        $user->notify( (new StatusChanged($tid,$user->name,$stat,$t->ticket_id)) );
+        $ticket = Ticket::where('id',$tid)->first();
+        $user->notify( (new StatusChanged($ticket,$user,$stat)) );
     }
 
     public static function ticketclose($id,$tid)
     {
+        $ticket = ClosedTicket::where('id',$tid)->first();
         $user = User::where('id',$id)->first();
-        $user->notify( (new TicketClosed($tid,$user->name)) );        
+        $user->notify( (new TicketClosed($ticket,$user)) );        
     }
 
     public static function ticketdecline($id,$tid)
     {
+        $ticket = DeclinedTicket::where('id',$tid)->first();
         $user = User::where('id',$id)->first();
-        $user->notify( (new TicketDeclined($tid,$user->name)) );        
+        $user->notify( (new TicketDeclined($ticket,$user)) );        
     }
 
     public static function ticketupdate($id)
@@ -104,20 +111,20 @@ class NotificationFunctions
                 foreach ($users as $user) {
                     if($user->email != 'krkim@primatechphils.com')
                     {
-                        $user->notify( (new TicketUpdated($id,$user->name,$ticket->user->name)) );
+                        $user->notify( (new TicketUpdated($ticket,$user,$ticket->user->name)) );
                     }                    
                 }                
             }
             else
             {
                 $user1 = User::find($ticket->assigned_to);
-                $user1->notify( (new TicketUpdated($id,$user1->name,$ticket->user->name)) );
+                $user1->notify( (new TicketUpdated($ticket,$user1,$ticket->user->name)) );
             }
         }        
         else
         {
             $user2 = User::where('id',$ticket->user_id)->first();
-            $user2->notify( (new TicketUpdated($id,$user2->name,$ticket->assign->name)) );
+            $user2->notify( (new TicketUpdated($ticket,$user2,$ticket->assign->name)) );
         }
     }
 

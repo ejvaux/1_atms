@@ -232,28 +232,13 @@ class TicketsController extends Controller
 
         $ticket->save();
         if($request->input('mod') == 'assign'){
-            /* $tu = new TicketUpdates;
-            $tu->ticket_id = $id;
-            $tu->user_id = User::where('name',$request->input('assigner'))->first()->id;
-            $tu->message = "Assigned ticket to " . $mail->tech . ".";
-            $tu->save(); */
             $this->dispatch(new TicketUpdate($id,User::where('name',$request->input('assigner'))->first()->id,"Assigned ticket to " . $mail->tech . "."));
             NotificationFunctions::ticketassign($userid,$request->input('ticket_id'),$techid);
-            return redirect()->back()->with('success','Ticket Accepted Successfully.');
-            /* return redirect('/notification/ticketassign/'.$userid.'/'.$request->input('ticket_id').'/'.$techid); */
-            /* Mail::to($email)->send(new TicketAssigned($mail)); */            
-            /* return redirect('/it/av/'.$id)->with('success','Ticket Assigned Successfully.'); */            
+            return redirect()->back()->with('success','Ticket Accepted Successfully.');          
         }
         elseif($request->input('mod') == 'accept'){
-            /* $tu = new TicketUpdates;
-            $tu->ticket_id = $id;
-            $tu->user_id = $techid;
-            $tu->message = "Ticket Accepted.";
-            $tu->save(); */
             $this->dispatch( (new TicketUpdate($id,$techid,"Ticket Accepted.")) );
-            NotificationFunctions::ticketaccept($userid,$mail->ticketnum,$mail->tech);
-            /* return redirect('/notification/ticketaccept/'.$userid.'/'.$mail->ticketnum.'/'.$mail->tech); */
-            /* Mail::to($emailuser)->send(new TicketAccepted($mail)); */         
+            NotificationFunctions::ticketaccept($userid,$mail->ticketnum); 
             return redirect()->back()->with('success','Ticket Accepted Successfully.');
         }
         elseif($request->input('mod') == 'priority'){

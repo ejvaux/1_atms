@@ -7,26 +7,29 @@ use Illuminate\Notifications\Notification;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
 use App\Ticket;
+use App\User;
 use App\Events\triggerEvent;
 
 class TicketUpdated extends Notification implements ShouldQueue
 {
     use Queueable;
 
-    protected $ticket_id;
-    protected $name;
+    protected $ticket;
+    protected $user;
     protected $aname;
+    protected $url;
 
     /**
      * Create a new notification instance.
      *
      * @return void
      */
-    public function __construct($tid,$uname,$aname)
+    public function __construct(Ticket $ticket,User $user ,$aname)
     {
-        $this->ticket_id = $tid;
-        $this->name = $uname;
+        $this->ticket = $ticket;
+        $this->user = $user;
         $this->aname = $aname;
+        $this->url = url('/it/vt/'.$ticket->id);
     }
 
     /**
@@ -37,7 +40,7 @@ class TicketUpdated extends Notification implements ShouldQueue
      */
     public function via($notifiable)
     {
-        return ['mail','database'];
+        return ['mail','database','broadcast'];
     }
 
     /**
@@ -48,13 +51,11 @@ class TicketUpdated extends Notification implements ShouldQueue
      */
     public function toMail($notifiable)
     {
-        $url = url('/it/vt/'.$this->ticket_id);
-        $t = Ticket::where('id',$this->ticket_id)->first();
         return (new MailMessage)
-                ->greeting('Hello! ' .$this->name)
-                ->line('Ticket <b>#'.$t->ticket_id.'</b> has a new message from <b>'.$this->aname.'</b>.')
+                ->greeting('Hello! ' .$this->user->name)
+                ->line('Ticket <b>#'.$this->ticket->ticket_id.'</b> has a new message from <b>'.$this->aname.'</b>.')
                 ->line('Click on the button link to view the message.')
-                ->action('View Ticket', $url)
+                ->action('View Ticket', $this->url)
                 ->line('Thank you for using our application!');
     }
 
@@ -66,13 +67,11 @@ class TicketUpdated extends Notification implements ShouldQueue
      */
     public function toArray($notifiable)
     {
-        event(new triggerEvent('refresh'));
-        $t = Ticket::where('id',$this->ticket_id)->first();
         return [
-            'message' => 'New Update on Ticket #'.$t->ticket_id,
+            'message' => 'New Update on Ticket #'.$this->ticket->ticket_id,
             'mod' => 'user',
-            'tid' => $this->ticket_id,
-            'series' => $t->ticket_id
+            'tid' => $this->ticket->id,
+            'series' => $this->ticket->ticket_id
         ];
     }
 }

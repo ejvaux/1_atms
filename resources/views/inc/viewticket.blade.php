@@ -215,12 +215,13 @@
                                         <button type='button' id='change_priority_button' class='btn btn-secondary'>Change Priority</button>
                                         <button type='button' id='change_status_button' class='btn btn-secondary'>Change Status</button>
                                         <button type='button' id='add_ticket_details' class='btn btn-secondary'>Ticket Details</button>
+                                        <button type='button' id='close_ticket' class='btn btn-danger'>Close Ticket</button>
                                         <form class='form_to_submit' id='close_ticket_form' method='POST' action='/1_atms/public/closed_ticket/transfer/{{ $tickets->id }}'>
                                             @csrf
                                             <input type='hidden' name='status_id' value='{{ $tickets->status_id }}'>
                                             <input type='hidden' name='mod' value='default'>
                                             <input type='hidden' name='url' value='/it/ctlv/{{ $tickets->id }}'>            
-                                            <button type='button' id='close_ticket' class='btn btn-danger' style='display:inline;'>Close Ticket</button>
+                                            
                                         </form>
                                     </div>
                                 @else
@@ -239,7 +240,7 @@
                 </div>
                 <div class='row mb-2'>
                     <div class='col-md'>
-                        @if($tickets->user_id == Auth::user()->id)
+                        @if($tickets->user_id == Auth::user()->id && ($tickets->status_id == 1 || $tickets->status_id == 2) )
                             <button type='button' id='edit_ticket' class='btn btn-secondary'>Edit Ticket</button>
                             <button type='button' id='cancel_ticket' class='btn btn-danger editticketlabel'>Cancel Ticket</button>
                             <div id='edit_ticket_buttons' style='display:none'>

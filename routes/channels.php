@@ -23,3 +23,6 @@ Broadcast::channel('primatech', function ($user, $id) {
 /* Broadcast::channel('primatech', function () {
     return true;
 }); */
+Broadcast::channel('notification', function () {
+    return true;
+});

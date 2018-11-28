@@ -15,22 +15,24 @@ class TicketAssigned extends Notification implements ShouldQueue
 {
     use Queueable;
 
-    protected $ticket_id;
-    protected $name;
+    protected $ticket;
+    protected $user;
     protected $type;
     protected $assigner;
+    protected $url;
 
     /**
      * Create a new notification instance.
      *
      * @return void
      */
-    public function __construct($tid,$uname,$type,$assigner = '')
+    public function __construct(Ticket $ticket,User $user,$type,$assigner = '')
     {        
-        $this->ticket_id = $tid;
-        $this->name = $uname;
+        $this->ticket = $ticket;
+        $this->user = $user;
         $this->type = $type;
         $this->assigner = $assigner;
+        $this->url = url('/it/vt/'.$ticket->id);
     }
 
     /**
@@ -41,7 +43,7 @@ class TicketAssigned extends Notification implements ShouldQueue
      */
     public function via($notifiable)
     {
-        return ['mail','database'];
+        return ['mail','database','broadcast'];
     }
 
     /**
@@ -52,24 +54,19 @@ class TicketAssigned extends Notification implements ShouldQueue
      */
     public function toMail($notifiable)
     {   
-        $t = Ticket::where('id',$this->ticket_id)->first();
         if($this->type == 'user'){
-            $url = url('/it/vt/'.$this->ticket_id);
-            $turl = '/1_atms/public/it/vt/'.$this->ticket_id;
             return (new MailMessage)
-                    ->greeting('Hello! ' .$this->name)
-                    ->line('Your ticket <b>#'.$t->ticket_id.'</b> is now on queue.')
-                    ->line('Ticket is assigned to <b>'.$t->assign->name.'</b>.')
-                    ->action('View Ticket', $url)
+                    ->greeting('Hello! ' .$this->user->name)
+                    ->line('Your ticket <b>#'.$this->ticket->ticket_id.'</b> is now on queue.')
+                    ->line('Ticket is assigned to <b>'.$this->ticket->assign->name.'</b>.')
+                    ->action('View Ticket', $this->url)
                     ->line('Thank you for using our application!');
         }
         else{
-            $url = url('/it/vt/'.$this->ticket_id);
-            $turl = '/1_atms/public/it/htv/'.$this->ticket_id;
             return (new MailMessage)
-                    ->greeting('Hello! ' . $this->name)
-                    ->line('Ticket <b>#' . $t->ticket_id . '</b> is assigned to you by <b>'.$this->assigner.'</b>.')
-                    ->action('View Ticket', $url)
+                    ->greeting('Hello! ' . $this->user->name)
+                    ->line('Ticket <b>#' . $this->ticket->ticket_id . '</b> is assigned to you by <b>'.$this->assigner.'</b>.')
+                    ->action('View Ticket', $this->url)
                     ->line('Your immediate response is highly appreciated.');
         }
     }
@@ -82,24 +79,20 @@ class TicketAssigned extends Notification implements ShouldQueue
      */
     public function toArray($notifiable)
     {
-        event(new triggerEvent('refresh'));
-        $t = Ticket::where('id',$this->ticket_id)->first();
         if($this->type == 'user'){
-            $url = url('/it/vt/'.$this->ticket_id);
             return [
-                'message' => 'Ticket #'.$t->ticket_id.' Assigned.',
+                'message' => 'Ticket #'.$this->ticket->ticket_id.' Assigned.',
                 'mod' => 'user',
-                'tid' => $this->ticket_id,
-                'series' => $t->ticket_id
+                'tid' => $this->ticket->id,
+                'series' => $this->ticket->ticket_id
             ];
         }
         else{
-            $url = url('/it/htv/'.$this->ticket_id);
             return [
                 'message' => 'New Ticket Assignment.',
                 'mod' => 'assign_admin',
-                'tid' => $this->ticket_id,
-                'series' => $t->ticket_id
+                'tid' => $this->ticket->id,
+                'series' => $this->ticket->ticket_id
             ];            
         }
     }

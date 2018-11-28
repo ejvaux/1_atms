@@ -9,8 +9,8 @@
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>@yield('pageTitle')</title>
-    @include('inc.header')          
+    <title>@yield('pageTitle')</title>    
+    @include('inc.header')     
 </head>
 <body>
     {{-- @include('inc.dialog') --}}      
@@ -43,5 +43,11 @@
         <!-- Footer -->
     </div>
     @yield('graphs')
+    <script>        
+        /* Echo.channel('notification')
+        .listen('NotificationTask', (e) => {
+            console.log(e);
+        }); */
+    </script>
 </body>
 </html>

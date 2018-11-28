@@ -8,23 +8,26 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
 use App\Events\triggerEvent;
 use App\ClosedTicket;
+use App\User;
 
 class TicketClosed extends Notification implements ShouldQueue
 {
     use Queueable;
 
-    protected $ticket_id;
-    protected $name;
+    protected $ticket;
+    protected $user;
+    protected $url;
 
     /**
      * Create a new notification instance.
      *
      * @return void
      */
-    public function __construct($tid,$uname)
+    public function __construct(ClosedTicket $ticket, User $user)
     {
-        $this->ticket_id = $tid;
-        $this->name = $uname;
+        $this->ticket = $ticket;
+        $this->user = $user;
+        $this->url = url('/it/ctlv/'.$ticket->id);
     }
 
     /**
@@ -35,7 +38,7 @@ class TicketClosed extends Notification implements ShouldQueue
      */
     public function via($notifiable)
     {
-        return ['mail','database'];
+        return ['mail','database','broadcast'];
     }
 
     /**
@@ -46,12 +49,10 @@ class TicketClosed extends Notification implements ShouldQueue
      */
     public function toMail($notifiable)
     {
-        $url = url('/it/ctlv/'.$this->ticket_id);
-        $t = ClosedTicket::where('id',$this->ticket_id)->first();
         return (new MailMessage)
-                ->greeting('Hello! ' .$this->name)
-                ->line('Ticket <b>#'.$t->ticket_id.'</b> is now closed.')
-                ->action('View Ticket', $url)
+                ->greeting('Hello! ' .$this->user->name)
+                ->line('Ticket <b>#'.$this->ticket->ticket_id.'</b> is now closed.')
+                ->action('View Ticket', $this->url)
                 ->line('Thank you for using our application!');
     }
 
@@ -63,14 +64,11 @@ class TicketClosed extends Notification implements ShouldQueue
      */
     public function toArray($notifiable)
     {
-        $url = url('/it/ctlv/'.$this->ticket_id);
-        $t = ClosedTicket::where('id',$this->ticket_id)->first();
-        event(new triggerEvent('refresh'));
         return [
-            'message' => 'Ticket #'.$t->ticket_id.' closed.',
+            'message' => 'Ticket #'.$this->ticket->ticket_id.' closed.',
             'mod' => 'close',
-            'tid' => $this->ticket_id,
-            'series' => $t->ticket_id
+            'tid' => $this->ticket->id,
+            'series' => $this->ticket->ticket_id
         ];
     }
 }
