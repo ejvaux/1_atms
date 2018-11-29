@@ -1,6 +1,6 @@
 @if(count($request)>0)
     @if ($request->user_id == Auth::user()->id || Auth::user()->admin == 1 || Auth::user()->req_approver == 1 || Auth::user()->id == $request->assigned_to)
-    <div class='row'>
+    <div class='row mb-4'>
         <div class='col-md'>
             <div class="card" style='width:100%'>
                 <h4 class="card-header labelfontbold">
@@ -198,7 +198,7 @@
                                         <input id='reject_request_reason' type='hidden' name='reason' value=''>                                                                  
                                     </form>                                     
                                 @endif
-                            @elseif ($request->status_id == 1)                            
+                            @elseif ($request->status_id == 1 || $request->status_id == 2)                            
                                 @if (Auth::user()->admin == 1)
                                     @if($request->assigned_to == '')
                                         <button type='button' id='assign_request' class='btn btn-secondary'>Assign Request</button>
@@ -206,7 +206,7 @@
                                         @if($request->start_at == null)
                                             <button type='button' id='assign_request' class='btn btn-secondary'>Reassign Request </button>
                                         @endif
-                                        <span class='font-weight-bold' style='font-size:1rem'>Assigned to {{ $request->assign->name }}</span> 
+                                        {{-- <span class='font-weight-bold' style='font-size:1rem'>Assigned to {{ $request->assign->name }}</span> --}} 
                                     @endif                                     
                                 @endif
                                 <span class='font-weight-bold' id='assign_label' style='font-size:1rem'></span> 
@@ -232,7 +232,6 @@
                                         <button type='button' id='req_cancel_assign' class='btn btn-warning'>Cancel</button>
                                     </div>                                                                          
                                 </form>
-                            @elseif ($request->status_id == 2)
                                 @if($request->assigned_to == Auth::user()->id)
                                     <form class='form_to_submit' method='POST' action='/1_atms/public/cctvreview/{{ $request->id }}'>
                                         @method('PUT')
@@ -244,6 +243,9 @@
                                         <button type='submit' id='accept_ticket' class='btn btn-secondary form_submit_button'>Accept Assigned Request</button>
                                     </form>
                                 @else
+                                    {{-- <span class='font-weight-bold' style='font-size:1rem'>Assigned to {{ $request->assign->name }}</span> --}}
+                                @endif
+                                @if (!empty($request->assigned_to))
                                     <span class='font-weight-bold' style='font-size:1rem'>Assigned to {{ $request->assign->name }}</span>
                                 @endif
                             @else
@@ -542,7 +544,7 @@
         </div>
     </div>
     @else
-        <div class='alert alert-danger'><h5>You are not authorized to view this request.</h5></div>
+        <div class='alert alert-danger'><h5>You are unauthorized to view this request.</h5></div>
     @endif
 @else
     <div class='alert alert-danger'><h5>Request not found, not existed or already cancelled/rejected.</h5></div>

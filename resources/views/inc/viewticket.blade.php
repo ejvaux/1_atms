@@ -1,5 +1,5 @@
 @if(count($tickets)>0)
-<div class="row mb-2">
+<div class="row mb-4">
     <div class='col-md'>
         <div class="card" style='width:100%'>
             <h4 class="card-header labelfontbold">
