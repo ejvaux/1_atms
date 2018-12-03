@@ -15,22 +15,24 @@ class ReviewRequestAssigned extends Notification implements ShouldQueue
 {
     use Queueable;
 
-    protected $request_id;
-    protected $name;
+    protected $request;
+    protected $user;
     protected $type;
     protected $assigner;
+    protected $url;
 
     /**
      * Create a new notification instance.
      *
      * @return void
      */
-    public function __construct($tid,$uname,$type,$assigner = '')
+    public function __construct(CctvReview $request, User $user,$type,$assigner = '')
     {
-        $this->request_id = $tid;
-        $this->name = $uname;
+        $this->request = $request;
+        $this->user = $user;
         $this->type = $type;
         $this->assigner = $assigner;
+        $this->url = url('/cr/crv/'.$request->id);
     }
 
     /**
@@ -41,7 +43,7 @@ class ReviewRequestAssigned extends Notification implements ShouldQueue
      */
     public function via($notifiable)
     {
-        return ['mail','database'];
+        return ['mail','database','broadcast'];
     }
 
     /**
@@ -51,21 +53,19 @@ class ReviewRequestAssigned extends Notification implements ShouldQueue
      * @return \Illuminate\Notifications\Messages\MailMessage
      */
     public function toMail($notifiable)
-    {
-        $t = CctvReview::where('id',$this->request_id)->first();
-        $url = url('/cr/crv/'.$this->request_id);
+    {        
         if($this->type == 'user'){
             return (new MailMessage)
-                    ->greeting('Hello! ' .$this->name)
-                    ->line('Your CCTV Review Request #'.$t->request_id.' is now on queue.')
-                    ->action('View Request', $url)
+                    ->greeting('Hello! ' .$this->user->name)
+                    ->line('Your CCTV Review Request #'.$this->request->request_id.' is now on queue.')
+                    ->action('View Request', $this->url)
                     ->line('Thank you for using our application!');
         }
         else{
             return (new MailMessage)
-                    ->greeting('Hello! ' . $this->name)
-                    ->line('CCTV Review Request #' . $t->request_id . ' is assigned to you  by <b>'.$this->assigner.'</b>.')
-                    ->action('View Request', $url)
+                    ->greeting('Hello! ' . $this->user->name)
+                    ->line('CCTV Review Request #' . $this->request->request_id . ' is assigned to you  by <b>'.$this->assigner.'</b>.')
+                    ->action('View Request', $this->url)
                     ->line('Your immediate response is highly appreciated.');
         }
     }
@@ -78,22 +78,20 @@ class ReviewRequestAssigned extends Notification implements ShouldQueue
      */
     public function toArray($notifiable)
     {
-        event(new triggerEvent('refresh'));
-        $t = CctvReview::where('id',$this->request_id)->first();
         if($this->type == 'user'){            
             return [
                 'message' => 'CCTV Review Request assigned.',
                 'mod' => 'request',
-                'tid' => $this->request_id,
-                'series' => $t->request_id
+                'tid' => $this->request->id,
+                'series' => $this->request->request_id
             ];
         }
         else{
             return [
                 'message' => 'CCTV Review Request assigned.',
                 'mod' => 'request',
-                'tid' => $this->request_id,
-                'series' => $t->request_id
+                'tid' => $this->request->id,
+                'series' => $this->request->request_id
             ];            
         }
     }

@@ -131,56 +131,63 @@ class NotificationFunctions
     // CCTV REVIEW
     public static function requestcreate($tid){
         $users = User::where('req_approver',1)->get();
-        $t = CctvReview::where('id',$tid)->first();
+        $review = CctvReview::where('id',$tid)->first();
         foreach ($users as $user) {
-            $user->notify( (new ReviewRequestCreated($tid,$user->name,$t->request_id)) );
+            $user->notify( (new ReviewRequestCreated($review,$user)) );
         }     
     }
     public static function requestrejected($tid,$id,$rson){
         $user = User::where('id',$id)->first();
-        $t = RejectedRequest::where('id',$tid)->first();
-        $user->notify( (new ReviewRequestRejected($tid,$user->name,$rson,$t->request_id)) );
+        $request = RejectedRequest::where('id',$tid)->first();
+        $user->notify( (new ReviewRequestRejected($request, $user)) );
        
     }
     public static function requestapprove($tid,$id){
         $users = User::where('admin',1)->get();
+        $request = CctvReview::where('id',$tid)->first();
         foreach ($users as $user){
-            $user->notify( (new ReviewRequestApproved($tid,$user->name,'admin')) );
+            $user->notify( (new ReviewRequestApproved($request,$user,'admin')) );
         }
         $user1 = User::where('id',$id)->first();
-        $user1->notify( (new ReviewRequestApproved($tid,$user->name,'user')) );
+        $user1->notify( (new ReviewRequestApproved($request,$user,'user')) );
     }
     public static function requestassign($id,$tid,$tech){
+        $request = CctvReview::where('id',$tid)->first();
         $user = User::where('id',$id)->first();
         $tech = User::where('id',$tech)->first();
-        $user->notify( (new ReviewRequestAssigned($tid,$user->name,'user')) );
-        $tech->notify( (new ReviewRequestAssigned($tid,$tech->name,'tech',Auth::user()->name)) );        
+        $user->notify( (new ReviewRequestAssigned($request,$user,'user')) );
+        $tech->notify( (new ReviewRequestAssigned($request,$tech,'tech',Auth::user()->name)) );        
     }
     public static function requestaccept($id,$tid,$tech){
         $user = User::where('id',$id)->first();
-        $user->notify( (new ReviewRequestAccepted($tid,$user->name,$tech)) );        
+        $request = CctvReview::where('id',$tid)->first();
+        $user->notify( (new ReviewRequestAccepted($request,$user)) );        
     }
     public static function requestpriority($id,$tid,$prio){
         $user = User::where('id',$id)->first();
-        $user->notify( (new ReviewRequestPriorityChanged($tid,$user->name,$prio)) );        
+        $request = CctvReview::where('id',$tid)->first();
+        $user->notify( (new ReviewRequestPriorityChanged($request,$user)) );        
     }
     public static function requeststatus($id,$tid,$stat){
         $user = User::where('id',$id)->first();
-        $user->notify( (new ReviewRequestStatusChanged($tid,$user->name,$stat)) );
-        /* $user->notify( new QueueErrorReport('Test','Test','Test') ); */
+        $request = CctvReview::where('id',$tid)->first();
+        $user->notify( (new ReviewRequestStatusChanged($request,$user)) );
     }
     public static function requestattachmentupload($rid){
         $users = User::where('req_approver',1)->get();
+        $request = CctvReview::where('id',$rid)->first();
         foreach ($users as $user) {
-            $user->notify( (new CctvAttachmentsUploaded($rid,$user->name)) );
+            $user->notify( (new CctvAttachmentsUploaded($request,$user)) );
         }                
     }
     public static function requestallow($id,$rid){
         $user = User::where('id',$id)->first();
-        $user->notify( (new CctvAttachmentsAccessGranted($rid,$user->name)) );               
+        $request = CctvReview::where('id',$rid)->first();
+        $user->notify( (new CctvAttachmentsAccessGranted($request,$user)) );               
     }
     public static function requestdisallow($id,$rid){
         $user = User::where('id',$id)->first();
-        $user->notify( (new CctvAttachmentsAccessRemoved($rid,$user->name)) );               
+        $request = CctvReview::where('id',$rid)->first();
+        $user->notify( (new CctvAttachmentsAccessRemoved($request,$user)) );               
     }
 }

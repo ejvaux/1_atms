@@ -18,9 +18,7 @@
                             <li class="list-group-item noborder d-flex justify-content-between align-items-center"><a class='sidetab' href='/1_atms/public/admin/role'>ROLES</a><span class="badge badge-info"></span></li>
                             <li class="list-group-item noborder d-flex justify-content-between align-items-center"><a class='sidetab' href='{{ url('/admin/export') }}'>EXPORT</a>
                                 <span class="badge badge-info">
-                                    @if (now() <= \Carbon\Carbon::parse('2018-11-22')->addDays(15))
-                                        <span style='font-size:.8rem'><i class="far fa-hand-point-left"></i> NEW</span>
-                                    @endif        
+                                    
                                 </span>
                             </li>
                             {{-- <li class="list-group-item noborder d-flex justify-content-between align-items-center"><a id="hr3" class='sidetab' href='#'>OTHERS</a><span class="badge badge-info"></span></li> --}}

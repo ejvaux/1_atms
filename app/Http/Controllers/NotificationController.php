@@ -55,6 +55,9 @@ class NotificationController extends Controller
         else if($mod == 'request'){
             return redirect(url('/cr/crv/'.$tid));
         }
+        else if($mod == 'reject'){
+            return redirect(url('/cr/rcrv/'.$tid));
+        }
         else if($mod == 'decline'){
             /* return redirect(url('/it/vt/'.$tid)); */
             return redirect()->back();

@@ -8,23 +8,26 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
 use App\Events\triggerEvent;
 use App\CctvReview;
+use App\User;
 
 class CctvAttachmentsUploaded extends Notification implements ShouldQueue
 {
     use Queueable;
 
-    protected $ticket_id;
-    protected $name;
+    protected $request;
+    protected $user;
+    protected $url;
 
     /**
      * Create a new notification instance.
      *
      * @return void
      */
-    public function __construct($tid,$uname)
+    public function __construct(CctvReview $request, User $user)
     {
-        $this->ticket_id = $tid;
-        $this->name = $uname;
+        $this->request = $request;
+        $this->user = $user;
+        $this->url = url('/cr/crv/'.$request->id);
     }
 
     /**
@@ -35,7 +38,7 @@ class CctvAttachmentsUploaded extends Notification implements ShouldQueue
      */
     public function via($notifiable)
     {
-        return ['mail','database'];
+        return ['mail','database','broadcast'];
     }
 
     /**
@@ -46,13 +49,11 @@ class CctvAttachmentsUploaded extends Notification implements ShouldQueue
      */
     public function toMail($notifiable)
     {
-        $url = url('/cr/crv/'.$this->ticket_id);
-        $t = CctvReview::where('id',$this->ticket_id)->first();
         return (new MailMessage)
-                ->greeting('Hello! ' .$this->name)
-                ->line('Attachment/s has been uploaded/added on CCTV Review Request #'.$t->request_id.'.')
+                ->greeting('Hello! ' .$this->user->name)
+                ->line('Attachment/s has been uploaded/added on CCTV Review Request #'.$this->request->request_id.'.')
                 ->line('Follow the link below if you want to allow the requestor to view the attachments.')
-                ->action('View Request', $url);
+                ->action('View Request', $this->url);
     }
 
     /**
@@ -63,13 +64,11 @@ class CctvAttachmentsUploaded extends Notification implements ShouldQueue
      */
     public function toArray($notifiable)
     {
-        event(new triggerEvent('refresh'));
-        $t = CctvReview::where('id',$this->ticket_id)->first();
         return [
             'message' => 'CCTV Request Attachment Uploaded.',
             'mod' => 'request',
-            'tid' => $this->ticket_id,
-            'series' => $t->request_id
+            'tid' => $this->request->id,
+            'series' => $this->request->request_id
         ];
     }
 }
