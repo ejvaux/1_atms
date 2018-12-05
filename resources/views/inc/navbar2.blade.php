@@ -47,7 +47,7 @@
                                     @if (Auth::user()->id != 1)
                                         <span class="labelfontbold">{{ Auth::user()->name }}</span>
                                     @else
-                                        <span class='medev'>{{ Auth::user()->name }}</span>
+                                        <span class='medev'><bdo dir="rtl">{{ Auth::user()->name }}</bdo></span>                                        
                                     @endif
                                 </span> <span class="caret"></span>
                             </a>

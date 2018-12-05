@@ -92,7 +92,7 @@
                                         <div class='col-lg'>                                            
                                             <span class='text-muted'><i class="fa fa-folder"></i> 
                                                 @if(empty ( $ticket->category->name ))
-                                                    {{-- {{$ticket->category}} --}}
+                                                    {{$ticket->category}}
                                                 @else
                                                     {{$ticket->category->name}}
                                                 @endif

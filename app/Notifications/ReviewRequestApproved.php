@@ -8,25 +8,28 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
 use App\Events\triggerEvent;
 use App\CctvReview;
+use App\User;
 
 class ReviewRequestApproved extends Notification implements ShouldQueue
 {
     use Queueable;
 
-    protected $request_id;
-    protected $name;
+    protected $request;
+    protected $user;
     protected $type;
+    protected $url;
 
     /**
      * Create a new notification instance.
      *
      * @return void
      */
-    public function __construct($tid,$uname,$type)
+    public function __construct(CctvReview $request, User $user,$type)
     {
-        $this->request_id = $tid;
-        $this->name = $uname;
+        $this->request = $request;
+        $this->user = $user;
         $this->type = $type;
+        $this->url = url('/cr/crv/'.$request->id);
     }
 
     /**
@@ -37,7 +40,7 @@ class ReviewRequestApproved extends Notification implements ShouldQueue
      */
     public function via($notifiable)
     {
-        return ['mail','database'];
+        return ['mail','database','broadcast'];
     }
 
     /**
@@ -48,21 +51,19 @@ class ReviewRequestApproved extends Notification implements ShouldQueue
      */
     public function toMail($notifiable)
     {
-        $url = url('/cr/crv/'.$this->request_id);
-        $t = CctvReview::where('id',$this->request_id)->first();
         if($this->type == 'user'){
             return (new MailMessage)
-                ->greeting('Hello! ' .$this->name)
-                ->line('Your CCTV Review Request #'.$t->request_id.' has been approved..')
-                ->action('View Request', $url)
+                ->greeting('Hello! ' .$this->user->name)
+                ->line('Your CCTV Review Request #'.$this->request->request_id.' has been approved..')
+                ->action('View Request', $this->url)
                 ->line('Thank you for using our application!');
         }
         else{
             return (new MailMessage)
-                ->greeting('Hello! ' .$this->name)
-                ->line('CCTV Review Request #'.$t->request_id.' has been approved..')
+                ->greeting('Hello! ' .$this->user->name)
+                ->line('CCTV Review Request #'.$this->request->request_id.' has been approved..')
                 ->line('Click the link below for more information.')
-                ->action('View Request', $url)
+                ->action('View Request', $this->url)
                 ->line('Thank you for using our application!');
         }        
     }
@@ -75,14 +76,11 @@ class ReviewRequestApproved extends Notification implements ShouldQueue
      */
     public function toArray($notifiable)
     {
-        event(new triggerEvent('refresh'));
-        $url = url('/cr/crv/'.$this->request_id);
-        $t = CctvReview::where('id',$this->request_id)->first();
         return [
             'message' => 'CCTV Review Request Approved.',
             'mod' => 'request',
-            'tid' => $this->request_id,
-            'series' => $t->request_id
+            'tid' => $this->request->id,
+            'series' => $this->request->request_id
         ];
     }
 }

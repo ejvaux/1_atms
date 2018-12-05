@@ -14,20 +14,20 @@ class ReviewRequestStatusChanged extends Notification implements ShouldQueue
 {
     use Queueable;
 
-    protected $ticket_id;
-    protected $name;
-    protected $stat;
+    protected $request;
+    protected $user;
+    protected $url;
 
     /**
      * Create a new notification instance.
      *
      * @return void
      */
-    public function __construct($tid,$uname,$stat)
+    public function __construct(CctvReview $request, User $user)
     {
-        $this->ticket_id = $tid;
-        $this->name = $uname;
-        $this->stat = $stat;
+        $this->request = $request;
+        $this->user = $user;
+        $this->url = $url = url('/cr/crv/'.$request->id);
     }
 
     /**
@@ -38,7 +38,7 @@ class ReviewRequestStatusChanged extends Notification implements ShouldQueue
      */
     public function via($notifiable)
     {
-        return ['mail','database'];
+        return ['mail','database','broadcast'];
     }
 
     /**
@@ -49,13 +49,19 @@ class ReviewRequestStatusChanged extends Notification implements ShouldQueue
      */
     public function toMail($notifiable)
     {
-        $url = url('/cr/crv/'.$this->ticket_id);
-        $t = CctvReview::where('id',$this->ticket_id)->first();
-        return (new MailMessage)
-                ->greeting('Hello! ' .$this->name)
-                ->line('CCTV Review Request #'.$t->request_id.' Status changed to '. $this->stat .'.')
-                ->action('View Request', $url)
+        if ($this->request->status_id != 5) {
+            return (new MailMessage)
+                ->greeting('Hello! ' .$this->user->name)
+                ->line('CCTV Review Request #'.$this->request->request_id.' Status changed to '. $this->request->status->name .'.')
+                ->action('View Request', $this->url)
                 ->line('Please wait for further updates.');
+        } else {
+            return (new MailMessage)
+                ->greeting('Hello! ' .$this->user->name)
+                ->line('CCTV Review Request #'.$this->request->request_id.' Status changed to '. $this->request->status->name .'.')
+                ->action('View Request', $this->url)
+                ->line('Thank you for using our application!');
+        }       
     }
 
     /**
@@ -66,13 +72,11 @@ class ReviewRequestStatusChanged extends Notification implements ShouldQueue
      */
     public function toArray($notifiable)
     {
-        event(new triggerEvent('refresh'));
-        $t = CctvReview::where('id',$this->ticket_id)->first();
         return [
             'message' => 'CCTV Review Request status changed.',
             'mod' => 'request',
-            'tid' => $this->ticket_id,
-            'series' => $t->request_id
+            'tid' => $this->request->id,
+            'series' => $this->request->request_id
         ];
     }
 }

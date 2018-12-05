@@ -9,27 +9,26 @@ use Illuminate\Notifications\Messages\MailMessage;
 use App\RejectedRequest;
 use App\Events\triggerEvent;
 use App\CctvReview;
+use App\User;
 
 class ReviewRequestRejected extends Notification implements ShouldQueue
 {
     use Queueable;
 
-    protected $ticket_id;
-    protected $name;
-    protected $reason;
-    protected $rid;
+    protected $request;
+    protected $user;
+    protected $url;
 
     /**
      * Create a new notification instance.
      *
      * @return void
      */
-    public function __construct($tid,$uname,$reason,$rid)
+    public function __construct(RejectedRequest $request, User $user)
     {
-        $this->ticket_id = $tid;
-        $this->name = $uname;
-        $this->reason = $reason;
-        $this->rid = $rid;
+        $this->request = $request;
+        $this->user = $user;
+        $this->url = url('/cr/rcrv/'.$request->id);
     }
 
     /**
@@ -40,7 +39,7 @@ class ReviewRequestRejected extends Notification implements ShouldQueue
      */
     public function via($notifiable)
     {
-        return ['mail'];
+        return ['mail','database','broadcast'];
     }
 
     /**
@@ -51,12 +50,13 @@ class ReviewRequestRejected extends Notification implements ShouldQueue
      */
     public function toMail($notifiable)
     {
-        $url = url('/cr/rcrv/'.$this->ticket_id);
         return (new MailMessage)
-                ->greeting('Hello! ' .$this->name)
-                ->line('Your CCTV Review Request #'.$this->rid.' is rejected.')
-                ->line('REASON:')
-                ->line($this->reason)
+                ->greeting('Hello! ' .$this->user->name)
+                ->line('Your CCTV Review Request #'.$this->request->request_id.' is rejected.')
+                ->line('<b>REASON:</b>')
+                ->line($this->request->reason)
+                ->line('Click the link below for more details.')
+                ->action('View Request', $this->url)
                 ->line('Thank you for using our application!');
     }
 
@@ -68,12 +68,11 @@ class ReviewRequestRejected extends Notification implements ShouldQueue
      */
     public function toArray($notifiable)
     {
-        event(new triggerEvent('refresh'));
         return [
             'message' => 'CCTV Review Request rejected.',
-            'mod' => 'request',
-            'tid' => $this->ticket_id,
-            'series' => ''
+            'mod' => 'reject',
+            'tid' => $this->request->id,
+            'series' => $this->request->request_id
         ];
     }
 }

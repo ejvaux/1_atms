@@ -24,7 +24,7 @@ class StatusChanged extends Notification implements ShouldQueue
      *
      * @return void
      */
-    public function __construct($ticket,$user,$stat)
+    public function __construct(Ticket $ticket,User $user,$stat)
     {
         $this->ticket = $ticket;
         $this->user = $user;

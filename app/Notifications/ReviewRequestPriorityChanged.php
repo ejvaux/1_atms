@@ -8,25 +8,26 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
 use App\CctvReview;
 use App\Events\triggerEvent;
+use App\User;
 
 class ReviewRequestPriorityChanged extends Notification implements ShouldQueue
 {
     use Queueable;
 
-    protected $ticket_id;
-    protected $name;
-    protected $prio;
+    protected $request;
+    protected $user;
+    protected $url;
 
     /**
      * Create a new notification instance.
      *
      * @return void
      */
-    public function __construct($tid,$uname,$prio)
+    public function __construct(CctvReview $request,User $user)
     {
-        $this->ticket_id = $tid;
-        $this->name = $uname;
-        $this->prio = $prio;
+        $this->request = $request;
+        $this->user = $user;
+        $this->url = url('/cr/crv/'.$request->id);
     }
 
     /**
@@ -37,7 +38,7 @@ class ReviewRequestPriorityChanged extends Notification implements ShouldQueue
      */
     public function via($notifiable)
     {
-        return ['mail','database'];
+        return ['mail','database','broadcast'];
     }
 
     /**
@@ -48,12 +49,10 @@ class ReviewRequestPriorityChanged extends Notification implements ShouldQueue
      */
     public function toMail($notifiable)
     {
-        $url = url('/cr/crv/'.$this->ticket_id);
-        $t = CctvReview::where('id',$this->ticket_id)->first();
         return (new MailMessage)
-                ->greeting('Hello! ' .$this->name)
-                ->line('CCTV Review Request #'.$t->request_id.' Priority changed to '. $this->prio .'.')
-                ->action('View Request', $url)
+                ->greeting('Hello! ' .$this->user->name)
+                ->line('CCTV Review Request #'.$this->request->request_id.' Priority changed to '. $this->request->priority->name .'.')
+                ->action('View Request', $this->url)
                 ->line('Please wait for further updates.');
     }
 
@@ -65,13 +64,11 @@ class ReviewRequestPriorityChanged extends Notification implements ShouldQueue
      */
     public function toArray($notifiable)
     {
-        event(new triggerEvent('refresh'));
-        $t = CctvReview::where('id',$this->ticket_id)->first();
         return [
             'message' => 'CCTV Review Request priority changed.',
             'mod' => 'request',
-            'tid' => $this->ticket_id,
-            'series' => $t->request_id
+            'tid' => $this->request->id,
+            'series' => $this->request->request_id
         ];
     }
 }
