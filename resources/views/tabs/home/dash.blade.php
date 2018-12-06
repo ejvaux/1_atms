@@ -4,7 +4,7 @@
 
 @section('content')
 @include('inc.messages')
-<div class='container mt-4'>
+<div class='container'>
     <div class='row'>
         <div class='col-md text-center'>
             {{-- <h1>Dashboard</h1> --}}
