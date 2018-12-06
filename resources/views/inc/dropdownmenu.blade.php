@@ -1,10 +1,12 @@
 <a href="#" class="nav-link" data-toggle="dropdown">
-    @if(Auth::user()->unReadNotifications->count()>0)
-        <span class="badge badge-danger">{{Auth::user()->unReadnotifications->count()}}</span>
-    @else
-        <span class="badge badge-info"></span>
-    @endif
-    <i class="fa fa-bell"></i> <span class='hidewhensmall labelfontbold'> Notification</span>
+    <span> 
+        <i class="fa fa-bell nb-size"></i> {{-- <span class='hidewhensmall labelfontbold'> Notification</span> --}}
+        @if(Auth::user()->unReadNotifications->count()>0)
+            <span class="badge-pill badge-danger badge-top">{{Auth::user()->unReadnotifications->count()}}</span>
+        @else
+            <span class="badge badge-info"></span>
+        @endif
+    </span>
 </a>
 <div class="dropdown-menu scrollable-menu">                            
     @if(Auth::user()->Notifications->count())

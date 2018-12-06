@@ -1,10 +1,10 @@
 <div class="card m-0 p-0 labelfontbold" style="font-size:.8rem; height:100%">                              
     <nav class="card-body m-0 pl-1 mr-0 pr-0">
         <ul class="list-group list-group-flush">
-            <li class="list-group-item noborder"><i class="fas fa-chart-line mr-2"></i><a class='sidetab' href='{{url('/dashboard')}}'>DASHBOARD</a><span class="badge badge-info"></span>
+            <li class="list-group-item noborder"><i class="fas fa-chart-line mr-2"></i><a class='sidetab' href='{{url('/dashboard')}}'>DASHBOARD</a>
                 <ul class="list-group list-group-flush">
                     @if (Auth::user()->isadmin() || Auth::user()->tech == 1)
-                        <li class="list-group-item noborder d-flex justify-content-between align-items-center"><a class='sidetab' href='{{url('/it/rp/today')}}'>TICKETS</a><span class="badge badge-info"></span></li>
+                        <li class="list-group-item noborder d-flex justify-content-between align-items-center"><a class='sidetab' href='{{url('/it/rp/today')}}'>TICKETS</a><span class="badge-pill badge-info"></span></li>
                     @endif                    
                     {{-- <li class="list-group-item noborder d-flex justify-content-between align-items-center"><a id="hr2" class='sidetab' href='#'>OTHER REQUEST</a><span class="badge badge-info"></span></li>
                     <li class="list-group-item noborder d-flex justify-content-between align-items-center"><a id="hr3" class='sidetab' href='#'>OTHERS</a><span class="badge badge-info"></span></li> --}}
@@ -13,11 +13,11 @@
                 
             @if(Auth::check())
                 @if (Auth::user()->isAdmin())
-                    <li class="list-group-item noborder"><i class="fa fa-lock mr-2"></i><span class='sidetab'>ADMIN</span><span class="badge badge-info"></span>
+                    <li class="list-group-item noborder"><i class="fa fa-lock mr-2"></i><span class='sidetab'>ADMIN</span>
                         <ul class="list-group list-group-flush">
-                            <li class="list-group-item noborder d-flex justify-content-between align-items-center"><a class='sidetab' href='/1_atms/public/admin/role'>ROLES</a><span class="badge badge-info"></span></li>
+                            <li class="list-group-item noborder d-flex justify-content-between align-items-center"><a class='sidetab' href='/1_atms/public/admin/role'>ROLES</a><span class="badge-pill badge-info"></span></li>
                             <li class="list-group-item noborder d-flex justify-content-between align-items-center"><a class='sidetab' href='{{ url('/admin/export') }}'>EXPORT</a>
-                                <span class="badge badge-info">
+                                <span class="badge-pill badge-info">
                                     
                                 </span>
                             </li>
@@ -31,18 +31,18 @@
                     @if(Auth::check())
                         @if (Auth::user()->isAdmin())
                             <li class="list-group-item noborder d-flex justify-content-between align-items-center"><a class='sidetab' href='/1_atms/public/it/al'>TICKETS</a>
-                                <span class="badge badge-danger" style='font-size: .7rem'>{{ (App\Ticket::where('status_id',1)->count()? App\Ticket::where('status_id',1)->count() : '')}}</span>
+                                <span class="badge-pill badge-danger">{{ (App\Ticket::where('status_id',1)->count()? App\Ticket::where('status_id',1)->count() : '')}}</span>
                             </li>
                             {{-- <li class="list-group-item noborder d-flex justify-content-between align-items-center"><a class='sidetab' href='{{url('/it/rp/today')}}'>REPORTS</a><span class="badge badge-info"></span></li> --}}
                         @else
-                            <li class="list-group-item noborder d-flex justify-content-between align-items-center"><a class='sidetab' href='/1_atms/public/it/lt'>TICKETS</a><span class="badge badge-danger" style='font-size: .7rem'>{{ ( App\Ticket::where('status_id',2)->where('assigned_to',Auth::user()->id)->count() ? App\Ticket::where('status_id',2)->where('assigned_to',Auth::user()->id)->count() : '') }}</span></li>
+                            <li class="list-group-item noborder d-flex justify-content-between align-items-center"><a class='sidetab' href='/1_atms/public/it/lt'>TICKETS</a><span class="badge badge-danger">{{ ( App\Ticket::where('status_id',2)->where('assigned_to',Auth::user()->id)->count() ? App\Ticket::where('status_id',2)->where('assigned_to',Auth::user()->id)->count() : '') }}</span></li>
                         @endif
                     @endif                    
                     {{-- <li class="list-group-item noborder d-flex justify-content-between align-items-center"><a id="myticket" class='sidetab' href='#'>TICKETS</a><span class="badge badge-info"></span></li> --}}
                     {{-- <li class="list-group-item noborder d-flex justify-content-between align-items-center"><a class='sidetab' href='/1_atms/public/it/cu'>CCTV REVIEW</a><span class="badge badge-info"></span></li> --}}
                     <li class="list-group-item noborder d-flex justify-content-between align-items-center">
                         <a class='sidetab' href='/1_atms/public/cr/crl'>CCTV REVIEW</a>
-                        <span class="badge badge-danger">
+                        <span class="badge-pill badge-danger">
                             @if (Auth::user()->admin == 1)
                                 {{ ( App\CctvReview::where('status_id',1)->count() ? App\CctvReview::where('status_id',1)->count() : '' ) }}
                                 {{-- <li class="list-group-item noborder d-flex justify-content-between align-items-center"><a class='sidetab' href='{{url('/it/rp/today')}}'>REPORTS</a><span class="badge badge-info"></span></li> --}}
