@@ -4,31 +4,31 @@
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
                 <span class="navbar-toggler-icon"></span>
             </button>
-            <ul class="navbar-nav mr-auto ml-2">
+            <ul class="navbar-nav ml-2">
                     <li>
-                        <span class="navbar-text font-weight-bold" style='font-size: 1.11em'>
-                                <a class="" href="http://172.16.1.13:8000">
-                                    <img class='' src="{{ asset('images/primatech-logo.png') }}" style="width: 146px; height: 28px">
-    
-                                    {{-- <div class='showwhensmall hidewhenlarge'>
-                                        <img src="{{ asset('images/ptpi.png') }}" style="width: 28px; height: 28px;">
-                                    </div>  --}}                               
-                                </a>
-                        </span>
+                        <a class="" href="http://172.16.1.13:8000">
+                            {{-- <img class='' src="{{ asset('images/primatech-logo.png') }}" style="width: 146px; height: 28px"> --}}
+                            <img class='' src="{{ asset('images/primatech-logo.png') }}" style="width: auto; height: 2.7rem">                        
+                        </a>
                     </li>                
                 </ul>
-            {{-- <a class="" href="/1_mes/">
-                <img class='hidewhensmall' src="{{ asset('images/primatech-logo.png') }}" style="width: 146px; height: 28px">
-                <img class='showwhensmall' src="{{ asset('images/ptpi.png') }}" style="width: 28px; height: 28px">
-            </a>  --}}      
-            <div class="row" >
+            {{-- <div class="navbar-text" style='font-size:1.1rem'> 
+                @if (Auth::user()->id != 1)
+                    <span class="labelfontbold">{{ Auth::user()->name }}</span>
+                @else
+                    <span class='medev'><bdo dir="rtl">{{ Auth::user()->name }}</bdo></span>                                        
+                @endif                  
+            </div>  --}} 
+            
                 <!-- Left Side Of Navbar -->
-                {{-- <ul class="navbar-nav mr-auto">
+                <ul class="navbar-nav mr-auto ml-5">
+                    <li class="nav-item dropdown" id='notificon'> 
+                        @include('inc.dropdownmenu')                  
+                    </li>
+                </ul>
     
-                </ul> --}}
-    
-                <!-- Right Side Of Navbar -->
-                <div class="navbar-nav col-md">
+                <!-- Right Side Of Navbar -->            
+                <ul class="navbar-nav ml-auto">
                     <!-- Authentication Links -->
                     @guest
                         {{-- <li class="nav-item">
@@ -38,17 +38,21 @@
                             <a class="nav-link" href="{{ route('register') }}">{{ __('Register') }}</a>
                         </li> --}}
                     @else
-                        <div class="nav-item dropdown" id='notificon'> 
-                            @include('inc.dropdownmenu')                  
-                        </div> 
-                        <div class="nav-item dropdown">  
+                        <li class="navbar-text nb-size-2 mr-4"> 
+                            @if (Auth::user()->id != 1)
+                                <span class="labelfontbold">Hi! {{ Auth::user()->name }}</span>
+                            @else
+                                <span class='medev'><bdo dir="rtl">Hi! {{ Auth::user()->name }}</bdo></span>                                        
+                            @endif                  
+                        </li>                            
+                        <li class="nav-item dropdown nb-size-2">  
                             <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
                                 <i class="fa fa-user-circle"></i> <span class='hidewhensmall'>
-                                    @if (Auth::user()->id != 1)
+                                    {{-- @if (Auth::user()->id != 1)
                                         <span class="labelfontbold">{{ Auth::user()->name }}</span>
                                     @else
                                         <span class='medev'><bdo dir="rtl">{{ Auth::user()->name }}</bdo></span>                                        
-                                    @endif
+                                    @endif --}}
                                 </span> <span class="caret"></span>
                             </a>
     
@@ -69,10 +73,9 @@
                                     @csrf
                                 </form>
                             </div>
-                        </div>                    
+                        </li>                    
                     @endguest
-                </div>
-            </div>        
+                </ul>                   
         </div>
     </nav>
 </div>

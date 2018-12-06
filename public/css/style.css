@@ -233,3 +233,15 @@ textarea {
     max-width: 18rem;
     overflow-x: auto;
 }
+.badge-top{
+    position:relative;
+    top: -.5rem;
+    left: -.7rem;
+    font-size:.7rem;
+}
+.nb-size{
+    font-size:1.2rem;
+}
+.nb-size-2{
+    font-size:1.1rem;
+}
