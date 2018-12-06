@@ -35,7 +35,9 @@
                             </li>
                             {{-- <li class="list-group-item noborder d-flex justify-content-between align-items-center"><a class='sidetab' href='{{url('/it/rp/today')}}'>REPORTS</a><span class="badge badge-info"></span></li> --}}
                         @else
-                            <li class="list-group-item noborder d-flex justify-content-between align-items-center"><a class='sidetab' href='/1_atms/public/it/lt'>TICKETS</a><span class="badge badge-danger">{{ ( App\Ticket::where('status_id',2)->where('assigned_to',Auth::user()->id)->count() ? App\Ticket::where('status_id',2)->where('assigned_to',Auth::user()->id)->count() : '') }}</span></li>
+                            <li class="list-group-item noborder d-flex justify-content-between align-items-center"><a class='sidetab' href='/1_atms/public/it/lt'>TICKETS</a>
+                                <span class="badge-pill badge-danger">{{ ( App\Ticket::where('status_id',2)->where('assigned_to',Auth::user()->id)->count() ? App\Ticket::where('status_id',2)->where('assigned_to',Auth::user()->id)->count() : '') }}</span>
+                            </li>
                         @endif
                     @endif                    
                     {{-- <li class="list-group-item noborder d-flex justify-content-between align-items-center"><a id="myticket" class='sidetab' href='#'>TICKETS</a><span class="badge badge-info"></span></li> --}}
