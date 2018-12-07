@@ -6,8 +6,6 @@ use Illuminate\Bus\Queueable;
 use Illuminate\Notifications\Notification;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
-use NotificationChannels\PusherPushNotifications\PusherChannel;
-use NotificationChannels\PusherPushNotifications\PusherMessage;
 use App\Ticket;
 use App\User;
 use App\Events\triggerEvent;
@@ -41,7 +39,7 @@ class TicketCreated extends Notification implements ShouldQueue
      */
     public function via($notifiable)
     {
-        return ['mail','database','broadcast',PusherChannel::class];
+        return ['mail','database','broadcast'];
     }
 
     /**
@@ -102,18 +100,13 @@ class TicketCreated extends Notification implements ShouldQueue
     public function toArray($notifiable)
     {
         return [
+            'header' => 'New Ticket Created',
+            'msg' => 'Ticket #'.$this->ticket->ticket_id.'. Created by '.$this->ticket->user->name.'.',
+            'url' => $this->url,
             'message' => 'Ticket #'.$this->ticket->ticket_id.' Created.',
             'mod' => 'create',
             'tid' => $this->ticket->id,
             'series' => $this->ticket->ticket_id
         ];
-    }
-    public function toPushNotification($notifiable)
-    {
-        return PusherMessage::create()
-            ->android()
-            ->badge(1)
-            ->sound('success')
-            ->body("Your account was approved!");
     }
 }
