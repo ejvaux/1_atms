@@ -69,6 +69,9 @@ class ReviewRequestRejected extends Notification implements ShouldQueue
     public function toArray($notifiable)
     {
         return [
+            'header' => 'CCTV Review Request Rejected',
+            'msg' => 'CCTV Review Request #'.$this->request->request_id.' is rejected.',
+            'url' => $this->url,
             'message' => 'CCTV Review Request rejected.',
             'mod' => 'reject',
             'tid' => $this->request->id,

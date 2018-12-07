@@ -54,14 +54,14 @@ class ReviewRequestApproved extends Notification implements ShouldQueue
         if($this->type == 'user'){
             return (new MailMessage)
                 ->greeting('Hello! ' .$this->user->name)
-                ->line('Your CCTV Review Request #'.$this->request->request_id.' has been approved..')
+                ->line('Your CCTV Review Request #'.$this->request->request_id.' has been approved.')
                 ->action('View Request', $this->url)
                 ->line('Thank you for using our application!');
         }
         else{
             return (new MailMessage)
                 ->greeting('Hello! ' .$this->user->name)
-                ->line('CCTV Review Request #'.$this->request->request_id.' has been approved..')
+                ->line('CCTV Review Request #'.$this->request->request_id.' has been approved.')
                 ->line('Click the link below for more information.')
                 ->action('View Request', $this->url)
                 ->line('Thank you for using our application!');
@@ -77,6 +77,9 @@ class ReviewRequestApproved extends Notification implements ShouldQueue
     public function toArray($notifiable)
     {
         return [
+            'header' => 'CCTV Review Request Approved',
+            'msg' => 'CCTV Review Request #'.$this->request->request_id.' has been approved.',
+            'url' => $this->url,
             'message' => 'CCTV Review Request Approved.',
             'mod' => 'request',
             'tid' => $this->request->id,

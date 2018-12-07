@@ -65,6 +65,9 @@ class CctvAttachmentsUploaded extends Notification implements ShouldQueue
     public function toArray($notifiable)
     {
         return [
+            'header' => 'CCTV Request Attachment Uploaded.',
+            'msg' => 'Attachment/s has been uploaded/added on CCTV Review Request #'.$this->request->request_id.'.',
+            'url' => $this->url,
             'message' => 'CCTV Request Attachment Uploaded.',
             'mod' => 'request',
             'tid' => $this->request->id,

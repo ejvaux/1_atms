@@ -51,7 +51,7 @@ class TicketAccepted extends Notification implements ShouldQueue
     {
         return (new MailMessage)
                 ->greeting('Hello! ' .$this->user->name. ',')
-                ->line('Your ticket <b>#'.$this->ticket->ticket_id.'</b> is accepted by <b>'.$this->ticket->assign->name.'</b>.')
+                ->line('Your ticket <b>#'.$this->ticket->ticket_id.'</b> is now being processed by <b>'.$this->ticket->assign->name.'</b>.')
                 ->action('View Ticket', $this->url)
                 ->line('Please wait for the technician to process your ticket.');
     }
@@ -65,6 +65,9 @@ class TicketAccepted extends Notification implements ShouldQueue
     public function toArray($notifiable)
     {
         return [
+            'header' => 'Ticket Accepted',
+            'msg' => 'Your ticket #'.$this->ticket->ticket_id.' is now being processed by '.$this->ticket->assign->name.'.',
+            'url' => $this->url,
             'message' => 'Ticket #'.$this->ticket->ticket_id.' Accepted.',
             'mod' => 'user',
             'tid' => $this->ticket->id,

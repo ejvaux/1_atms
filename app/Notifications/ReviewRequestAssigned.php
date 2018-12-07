@@ -80,6 +80,9 @@ class ReviewRequestAssigned extends Notification implements ShouldQueue
     {
         if($this->type == 'user'){            
             return [
+                'header' => 'CCTV Review Request Assigned',
+                'msg' => 'CCTV Review Request #'.$this->request->request_id.' is now on queue.',
+                'url' => $this->url,
                 'message' => 'CCTV Review Request assigned.',
                 'mod' => 'request',
                 'tid' => $this->request->id,
@@ -88,6 +91,9 @@ class ReviewRequestAssigned extends Notification implements ShouldQueue
         }
         else{
             return [
+                'header' => 'CCTV Review Request Accepted',
+                'msg' => 'CCTV Review Request #'.$this->request->request_id.' is assigned to you by '.$this->assigner.'.',
+                'url' => $this->url,
                 'message' => 'CCTV Review Request assigned.',
                 'mod' => 'request',
                 'tid' => $this->request->id,

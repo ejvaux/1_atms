@@ -17,5 +17,6 @@ mix.js('resources/assets/js/app.js', 'public/js')
 mix.scripts([
    'public/js/admin.js',
    'public/js/dashboard.js',
-   'public/js/creview.js'
+   'public/js/creview.js',
+   'public/js/confirmnotification.js'
 ], 'public/js/all.js');

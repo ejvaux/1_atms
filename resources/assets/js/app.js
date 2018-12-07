@@ -30,7 +30,7 @@ const app = new Vue({
                 success: function (data) {
                     $('#notificon').html(data);
                 }
-              });                    
+            });
         });
         /* Echo.private('notification')
         .listen('NotificationTask', (e) => {
@@ -49,6 +49,16 @@ const app = new Vue({
                     $('#notificon').html(data);
                 }
             });
+            const options = {
+                body: notification.msg,
+                icon: 'http://localhost/1_atms/public/images/ptpi.png',
+                data: notification.url,
+            };
+            notify = new Notification(notification.header,options);
+            notify.onclick = function(event) {
+                event.preventDefault(); // prevent the browser from focusing the Notification's tab
+                window.open(notify.data, '_blank');
+            }            
         });        
     }
 });

@@ -68,6 +68,9 @@ class TicketUpdated extends Notification implements ShouldQueue
     public function toArray($notifiable)
     {
         return [
+            'header' => 'Ticket Updated',
+            'msg' => 'Ticket #'.$this->ticket->ticket_id.' has a new message from '.$this->aname.'.',
+            'url' => $this->url,
             'message' => 'New Update on Ticket #'.$this->ticket->ticket_id,
             'mod' => 'user',
             'tid' => $this->ticket->id,

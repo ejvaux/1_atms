@@ -64,6 +64,9 @@ class CctvAttachmentsAccessGranted extends Notification implements ShouldQueue
     public function toArray($notifiable)
     {
         return [
+            'header' => 'Request Attachment Access Granted.',
+            'msg' => 'You are granted access to view attachments on CCTV Review Request #'.$this->request->request_id.'.',
+            'url' => $this->url,
             'message' => 'Request Attachment Access Granted.',
             'mod' => 'request',
             'tid' => $this->request->id,

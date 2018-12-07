@@ -65,6 +65,9 @@ class ReviewRequestPriorityChanged extends Notification implements ShouldQueue
     public function toArray($notifiable)
     {
         return [
+            'header' => 'CCTV Review Request Priority Changed',
+            'msg' => 'CCTV Review Request #'.$this->request->request_id.' changed priority to '.$this->request->priority->name.'.',
+            'url' => $this->url,
             'message' => 'CCTV Review Request priority changed.',
             'mod' => 'request',
             'tid' => $this->request->id,

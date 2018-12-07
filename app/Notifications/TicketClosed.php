@@ -65,6 +65,9 @@ class TicketClosed extends Notification implements ShouldQueue
     public function toArray($notifiable)
     {
         return [
+            'header' => 'Ticket Closed',
+            'msg' => 'Ticket #'.$this->ticket->ticket_id.' is now closed.',
+            'url' => $this->url,
             'message' => 'Ticket #'.$this->ticket->ticket_id.' closed.',
             'mod' => 'close',
             'tid' => $this->ticket->id,

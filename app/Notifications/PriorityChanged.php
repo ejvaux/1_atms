@@ -68,6 +68,9 @@ class PriorityChanged extends Notification implements ShouldQueue
     {
         /* event(new triggerEvent('refresh')); */
         return [
+            'header' => 'Ticket Priority Changed',
+            'msg' => 'Ticket #'.$this->ticket->ticket_id.' changed priority to '.$this->prio.'.',
+            'url' => $this->url,
             'message' => 'Ticket #'.$this->ticket->ticket_id.' priority changed.',
             'mod' => 'user',
             'tid' => $this->ticket->id,

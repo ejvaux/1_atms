@@ -88,6 +88,9 @@ class ReviewRequestCreated extends Notification implements ShouldQueue
     public function toArray($notifiable)
     {
         return [
+            'header' => 'New CCTV Review Request Created',
+            'msg' => 'CCTV Review Request #'.$this->request->request_id.'. Created by '.$this->request->user->name.'.',
+            'url' => $this->url,
             'message' => 'New CCTV Review Request Created.',
             'mod' => 'request',
             'tid' => $this->request->id,

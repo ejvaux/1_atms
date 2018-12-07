@@ -16,6 +16,7 @@ class TicketDeclined extends Notification implements ShouldQueue
 
     protected $ticket;
     protected $user;
+    protected $url;
 
     /**
      * Create a new notification instance.
@@ -26,6 +27,7 @@ class TicketDeclined extends Notification implements ShouldQueue
     {
         $this->ticket = $ticket;
         $this->user = $user;
+        $this->url = url('/it/dtv/'.$ticket->id);
     }
 
     /**
@@ -47,13 +49,11 @@ class TicketDeclined extends Notification implements ShouldQueue
      */
     public function toMail($notifiable)
     {
-        /* $url = url('/it/ctlv/'.$this->ticket_id); */
-        /* $t = DeclinedTicket::where('id',$this->ticket_id)->first(); */
         return (new MailMessage)
                 ->greeting('Hello! ' .$this->user->name)
-                ->line('Ticket #'.$this->ticket->ticket_id.' is been declined by the admin.')
+                ->line('Ticket #'.$this->ticket->ticket_id.' is declined by the admin.')
                 ->line('Reason: '.$this->ticket->reason.'.')
-                /* ->action('View Ticket', $url) */
+                ->action('View Ticket', $this->url)
                 ->line('Thank you for using our application!');
     }
 
@@ -66,6 +66,9 @@ class TicketDeclined extends Notification implements ShouldQueue
     public function toArray($notifiable)
     {
         return [
+            'header' => 'Ticket Declined',
+            'msg' => 'Ticket #'.$this->ticket->ticket_id.' is declined by the admin.',
+            'url' => $this->url,
             'message' => 'Ticket #'.$this->ticket->ticket_id.' declined.',
             'mod' => 'decline',
             'tid' => $this->ticket->id,

@@ -64,6 +64,9 @@ class CctvAttachmentsAccessRemoved extends Notification implements ShouldQueue
     public function toArray($notifiable)
     {
         return [
+            'header' => 'Request Attachment Access Removed.',
+            'msg' => 'Your access to view attachments on CCTV Review Request #'.$this->request->request_id.' has been removed.',
+            'url' => $this->url,
             'message' => 'Request Attachment Access Removed.',
             'mod' => 'request',
             'tid' => $this->request->id,

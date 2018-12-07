@@ -66,7 +66,10 @@ class StatusChanged extends Notification implements ShouldQueue
      */
     public function toArray($notifiable)
     {
-        return [
+        return [            
+            'header' => 'Ticket Status Changed',
+            'msg' => 'Ticket #'.$this->ticket->ticket_id.' changed status to '.$this->stat.'.',
+            'url' => $this->url,
             'message' => 'Ticket #'.$this->ticket->ticket_id.' status changed.',
             'mod' => 'user',
             'tid' => $this->ticket->id,

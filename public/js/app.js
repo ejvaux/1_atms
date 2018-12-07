@@ -13935,6 +13935,16 @@ var app = new Vue({
                     $('#notificon').html(data);
                 }
             });
+            var options = {
+                body: notification.msg,
+                icon: 'http://localhost/1_atms/public/images/ptpi.png',
+                data: notification.url
+            };
+            notify = new Notification(notification.header, options);
+            notify.onclick = function (event) {
+                event.preventDefault(); // prevent the browser from focusing the Notification's tab
+                window.open(notify.data, '_blank');
+            };
         });
     }
 });

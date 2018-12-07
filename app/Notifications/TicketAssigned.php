@@ -81,6 +81,9 @@ class TicketAssigned extends Notification implements ShouldQueue
     {
         if($this->type == 'user'){
             return [
+                'header' => 'Ticket Assigned',
+                'msg' => 'Your ticket #'.$this->ticket->ticket_id.' is assigned to '.$this->ticket->assign->name.'.',
+                'url' => $this->url,
                 'message' => 'Ticket #'.$this->ticket->ticket_id.' Assigned.',
                 'mod' => 'user',
                 'tid' => $this->ticket->id,
@@ -89,6 +92,9 @@ class TicketAssigned extends Notification implements ShouldQueue
         }
         else{
             return [
+                'header' => 'New Ticket Assignment',
+                'msg' => 'Ticket #'.$this->ticket->ticket_id.' is assigned to you by '.$this->assigner.'.',
+                'url' => $this->url,
                 'message' => 'New Ticket Assignment.',
                 'mod' => 'assign_admin',
                 'tid' => $this->ticket->id,

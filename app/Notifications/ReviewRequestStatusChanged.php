@@ -73,6 +73,9 @@ class ReviewRequestStatusChanged extends Notification implements ShouldQueue
     public function toArray($notifiable)
     {
         return [
+            'header' => 'CCTV Review Request Status Changed',
+            'msg' => 'CCTV Review Request #'.$this->request->request_id.' changed status to '.$this->request->status->name.'.',
+            'url' => $this->url,
             'message' => 'CCTV Review Request status changed.',
             'mod' => 'request',
             'tid' => $this->request->id,

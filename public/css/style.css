@@ -228,9 +228,9 @@ textarea {
 }
 .scrollable-menu {
     height: auto;
-    max-height: 15rem;
+    /* max-height: 15rem; */
     width: auto;
-    max-width: 18rem;
+    /* max-width: 18rem; */
     overflow-x: auto;
 }
 .badge-top{

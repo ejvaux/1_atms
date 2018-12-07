@@ -187,3 +187,6 @@ Route::get('listen', function () {
     return view('listenBroadcast');
 });
 Route::get('tdb', 'DashboardController@testdb');
+Route::get('dnotif', function () {
+    return view('testnotif');
+});
