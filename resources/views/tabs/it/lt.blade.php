@@ -41,9 +41,10 @@
                 </select>
             </div>
         @else
-            <div class='col-md-3'>
+            <div class='col-md-4'>
                 <a class='btn btn-secondary' href='/1_atms/public/it/ct'><i class="fa fa-plus-square"></i> Create Ticket</a>
-                <a class="btn btn-secondary" href='/1_atms/public/it/ctl'>Closed</a>                
+                <a class="btn btn-secondary" href='/1_atms/public/it/ctl'>Closed</a>
+                <a class="btn btn-secondary" href='{{ url("/it/dtl") }}'>Declined</a>
             </div>
         @endif
         {{-- <div class='col-md-3 ml-auto input-group'>

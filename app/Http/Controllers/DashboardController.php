@@ -288,7 +288,13 @@ class DashboardController extends Controller
     }
     public function declinedticket()
     {
-        $tickets = DeclinedTicket::sortable()->orderBy('id','desc')->paginate(10);
+        if (Auth::user()->isadmin()) {
+            $tickets = DeclinedTicket::sortable()->orderBy('id','desc')->paginate(10);
+        } else {
+            $tickets = DeclinedTicket::sortable()->where('user_id',Auth::user()->id)->orderBy('id','desc')->paginate(10);
+        }
+        
+        /* $tickets = DeclinedTicket::sortable()->orderBy('id','desc')->paginate(10); */
         return view('tabs.it.dtl',compact('tickets'));
     }
     public function declinedticketview($id)
