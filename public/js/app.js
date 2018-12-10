@@ -14016,7 +14016,7 @@ window.Pusher = __webpack_require__(37);
 
 window.Echo = new __WEBPACK_IMPORTED_MODULE_0_laravel_echo___default.a({
     broadcaster: 'pusher',
-    key: '9ded4536db9de5bc49b7',
+    key: "aa383be3512da558a3f1",
     cluster: 'ap1',
     encrypted: false,
     authEndpoint: '/1_atms/public/broadcasting/auth'
