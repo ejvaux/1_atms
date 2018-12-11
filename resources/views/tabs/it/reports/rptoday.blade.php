@@ -1,6 +1,6 @@
 @extends('layouts.app2')
 
-@section('pageTitle','Ticket | ATMS - Primatech')
+@section('pageTitle','Dashboard | ATMS - Primatech')
 
 @section('content')
 @include('inc.messages')
@@ -193,18 +193,6 @@
             </div>
         </div>
     </div>
-    {{-- <div class='row mb-2'>
-        <div class='col-md'>
-            <div class="card">
-                <div class="card-header">
-                    Tickets per Day
-                </div>
-                <div class="card-body">                    
-                    {!! $totalticketchart->container() !!}                                           
-                </div>
-            </div>
-        </div>
-    </div> --}}
     <div class='row mb-2'>
         <div class='col-md'>
             <div class="card repcard">
@@ -218,7 +206,7 @@
         <div class='col-md'>
             <div class="card repcard">
                 <div class="card-body">
-                    <div id="ticketbycategorydiv"></div>
+                    <div id="ticketbystatusdiv"></div>
                 </div>
             </div>
         </div>
@@ -227,7 +215,7 @@
         <div class='col-md'>
             <div class="card repcard">
                 <div class="card-body">
-                    <div id="ticketbystatusdiv"></div>
+                    <div id="ticketbycategorydiv"></div>
                 </div>
             </div>
         </div>

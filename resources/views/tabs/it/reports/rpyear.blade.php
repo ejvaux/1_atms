@@ -1,6 +1,6 @@
 @extends('layouts.app2')
 
-@section('pageTitle','Ticket | ATMS - Primatech')
+@section('pageTitle','Dashboard | ATMS - Primatech')
 
 @section('content')
 @include('inc.messages')
@@ -215,7 +215,7 @@
         <div class='col-md'>
             <div class="card repcard">
                 <div class="card-body">
-                    <div id="ticketbycategorydiv"></div>
+                    <div id="ticketbystatusdiv"></div>
                 </div>
             </div>
         </div>
@@ -224,7 +224,7 @@
         <div class='col-md'>
             <div class="card repcard">
                 <div class="card-body">
-                    <div id="ticketbystatusdiv"></div>
+                    <div id="ticketbycategorydiv"></div>
                 </div>
             </div>
         </div>

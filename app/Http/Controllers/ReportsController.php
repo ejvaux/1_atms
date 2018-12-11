@@ -24,15 +24,9 @@ class ReportsController extends Controller
     {
         $this->middleware('auth');
     }
-
-    /* 
-    *
-    *      TICKET
-    *
-    */
    
     // TODAY ----------------------
-    public function ticketreportsToday()
+    public function ticketreportstoday()
     {
         // Tickets per day
         $newticket = Ticket::where('created_at','LIKE','%'.Date('Y-m-d').'%')->count() + ClosedTicket::where('created_at','LIKE','%'.Date('Y-m-d').'%')->count();
@@ -108,7 +102,7 @@ class ReportsController extends Controller
         
         \Lava::ColumnChart('ticketbytech',$ticketbytechchart,[
             'title'=>'Tickets by Tech',
-            'colors'=> array('#26C6DA'),
+            'colors'=> CustomFunctions::colorsets(),
             'fontName'=> 'Roboto Slab',
             /* 'backgroundColor'   => '#F8F9F9', */
             ]);
@@ -126,7 +120,7 @@ class ReportsController extends Controller
 
         \Lava::ColumnChart('ticketbypriority',$ticketbyprioritychart,[
             'title'=>'Tickets by Priority',
-            'colors'=> array('#26C6DA'),
+            'colors'=> CustomFunctions::colorsets(),
             'fontName'=> 'Roboto Slab',
             /* 'backgroundColor'   => '#F8F9F9', */
             ]);                
@@ -143,7 +137,7 @@ class ReportsController extends Controller
 
         \Lava::ColumnChart('ticketbydept',$ticketbydeptchart,[
             'title'=>'Tickets by Department',
-            'colors'=> array('#26C6DA'),
+            'colors'=> CustomFunctions::colorsets(),
             'fontName'=> 'Roboto Slab',
             /* 'backgroundColor'   => '#F8F9F9', */
             ]);
@@ -162,7 +156,7 @@ class ReportsController extends Controller
             'title'=>'Tickets by Category',
             'fontName'=> 'Roboto Slab',
             /* 'backgroundColor'   => '#F8F9F9', */
-            /* 'colors'=> array('#26C6DA'), */
+            /* 'colors'=> CustomFunctions::colorsets(), */
             ]);
 
         // Tickets by Status
@@ -179,7 +173,7 @@ class ReportsController extends Controller
 
         \Lava::ColumnChart('ticketbystatus',$ticketbystatuschart,[
             'title'=>'Tickets by Status',
-            'colors'=> array('#26C6DA'),
+            'colors'=> CustomFunctions::colorsets(),
             'fontName'=> 'Roboto Slab',
             /* 'backgroundColor'   => '#F8F9F9', */
             ]);
@@ -273,7 +267,7 @@ class ReportsController extends Controller
 
         \Lava::LineChart('ticketbyday',$ticketbydaychart,[
             'title'=>'Tickets by Day',
-            'colors'=> array('#26C6DA'),
+            'colors'=> CustomFunctions::colorsets(),
             'fontName'=> 'Roboto Slab',
             /* 'backgroundColor'   => '#F8F9F9', */
             ]);
@@ -291,7 +285,7 @@ class ReportsController extends Controller
         
         \Lava::ColumnChart('ticketbytech',$ticketbytechchart,[
             'title'=>'Tickets by Tech',
-            'colors'=> array('#26C6DA'),
+            'colors'=> CustomFunctions::colorsets(),
             'fontName'=> 'Roboto Slab',
             /* 'backgroundColor'   => '#F8F9F9', */
             ]);
@@ -309,7 +303,7 @@ class ReportsController extends Controller
 
         \Lava::ColumnChart('ticketbypriority',$ticketbyprioritychart,[
             'title'=>'Tickets by Priority',
-            'colors'=> array('#26C6DA'),
+            'colors'=> CustomFunctions::colorsets(),
             'fontName'=> 'Roboto Slab',
             /* 'backgroundColor'   => '#F8F9F9', */
             ]);                
@@ -326,7 +320,7 @@ class ReportsController extends Controller
 
         \Lava::ColumnChart('ticketbydept',$ticketbydeptchart,[
             'title'=>'Tickets by Department',
-            'colors'=> array('#26C6DA'),
+            'colors'=> CustomFunctions::colorsets(),
             'fontName'=> 'Roboto Slab',
             /* 'backgroundColor'   => '#F8F9F9', */
             ]);
@@ -345,7 +339,7 @@ class ReportsController extends Controller
             'title'=>'Tickets by Category',
             'fontName'=> 'Roboto Slab',
             /* 'backgroundColor'   => '#F8F9F9', */
-            /* 'colors'=> array('#26C6DA'), */
+            /* 'colors'=> CustomFunctions::colorsets(), */
             ]);
 
         // Tickets by Status
@@ -362,7 +356,7 @@ class ReportsController extends Controller
 
         \Lava::ColumnChart('ticketbystatus',$ticketbystatuschart,[
             'title'=>'Tickets by Status',
-            'colors'=> array('#26C6DA'),
+            'colors'=> CustomFunctions::colorsets(),
             'fontName'=> 'Roboto Slab',
             /* 'backgroundColor'   => '#F8F9F9', */
             ]);
@@ -456,7 +450,7 @@ class ReportsController extends Controller
 
         \Lava::LineChart('ticketbyday',$ticketbydaychart,[
             'title'=>'Tickets by Day',
-            'colors'=> array('#26C6DA'),
+            'colors'=> CustomFunctions::colorsets(),
             'fontName'=> 'Roboto Slab',
             /* 'backgroundColor'   => '#F8F9F9', */
             ]);
@@ -474,7 +468,7 @@ class ReportsController extends Controller
         
         \Lava::ColumnChart('ticketbytech',$ticketbytechchart,[
             'title'=>'Tickets by Tech',
-            'colors'=> array('#26C6DA'),
+            'colors'=> CustomFunctions::colorsets(),
             'fontName'=> 'Roboto Slab',
             /* 'backgroundColor'   => '#F8F9F9', */
             ]);
@@ -492,7 +486,7 @@ class ReportsController extends Controller
 
         \Lava::ColumnChart('ticketbypriority',$ticketbyprioritychart,[
             'title'=>'Tickets by Priority',
-            'colors'=> array('#26C6DA'),
+            'colors'=> CustomFunctions::colorsets(),
             'fontName'=> 'Roboto Slab',
             /* 'backgroundColor'   => '#F8F9F9', */
             ]);                
@@ -509,7 +503,7 @@ class ReportsController extends Controller
 
         \Lava::ColumnChart('ticketbydept',$ticketbydeptchart,[
             'title'=>'Tickets by Department',
-            'colors'=> array('#26C6DA'),
+            'colors'=> CustomFunctions::colorsets(),
             'fontName'=> 'Roboto Slab',
             /* 'backgroundColor'   => '#F8F9F9', */
             ]);
@@ -528,7 +522,7 @@ class ReportsController extends Controller
             'title'=>'Tickets by Category',
             'fontName'=> 'Roboto Slab',
             /* 'backgroundColor'   => '#F8F9F9', */
-            /* 'colors'=> array('#26C6DA'), */
+            /* 'colors'=> CustomFunctions::colorsets(), */
             ]);
 
         // Tickets by Status
@@ -545,7 +539,7 @@ class ReportsController extends Controller
 
         \Lava::ColumnChart('ticketbystatus',$ticketbystatuschart,[
             'title'=>'Tickets by Status',
-            'colors'=> array('#26C6DA'),
+            'colors'=> CustomFunctions::colorsets(),
             'fontName'=> 'Roboto Slab',
             /* 'backgroundColor'   => '#F8F9F9', */
             ]);
@@ -639,7 +633,7 @@ class ReportsController extends Controller
 
         \Lava::LineChart('ticketbyday',$ticketbydaychart,[
             'title'=>'Tickets by Day',
-            'colors'=> array('#26C6DA'),
+            'colors'=> CustomFunctions::colorsets(),
             'fontName'=> 'Roboto Slab',
             /* 'backgroundColor'   => '#F8F9F9', */
             ]);
@@ -657,7 +651,7 @@ class ReportsController extends Controller
         
         \Lava::ColumnChart('ticketbytech',$ticketbytechchart,[
             'title'=>'Tickets by Tech',
-            'colors'=> array('#26C6DA'),
+            'colors'=> CustomFunctions::colorsets(),
             'fontName'=> 'Roboto Slab',
             /* 'backgroundColor'   => '#F8F9F9', */
             ]);
@@ -675,7 +669,7 @@ class ReportsController extends Controller
 
         \Lava::ColumnChart('ticketbypriority',$ticketbyprioritychart,[
             'title'=>'Tickets by Priority',
-            'colors'=> array('#26C6DA'),
+            'colors'=> CustomFunctions::colorsets(),
             'fontName'=> 'Roboto Slab',
             /* 'backgroundColor'   => '#F8F9F9', */
             ]);                
@@ -692,7 +686,7 @@ class ReportsController extends Controller
 
         \Lava::ColumnChart('ticketbydept',$ticketbydeptchart,[
             'title'=>'Tickets by Department',
-            'colors'=> array('#26C6DA'),
+            'colors'=> CustomFunctions::colorsets(),
             'fontName'=> 'Roboto Slab',
             /* 'backgroundColor'   => '#F8F9F9', */
             ]);
@@ -711,7 +705,7 @@ class ReportsController extends Controller
             'title'=>'Tickets by Category',
             'fontName'=> 'Roboto Slab',
             /* 'backgroundColor'   => '#F8F9F9', */
-            /* 'colors'=> array('#26C6DA'), */
+            /* 'colors'=> CustomFunctions::colorsets(), */
             ]);
 
         // Tickets by Status
@@ -728,7 +722,7 @@ class ReportsController extends Controller
 
         \Lava::ColumnChart('ticketbystatus',$ticketbystatuschart,[
             'title'=>'Tickets by Status',
-            'colors'=> array('#26C6DA'),
+            'colors'=> CustomFunctions::colorsets(),
             'fontName'=> 'Roboto Slab',
             /* 'backgroundColor'   => '#F8F9F9', */
             ]);
@@ -813,7 +807,7 @@ class ReportsController extends Controller
 
         \Lava::LineChart('ticketbyday',$ticketbydaychart,[
             'title'=>'Tickets by Day',
-            'colors'=> array('#26C6DA'),
+            'colors'=> CustomFunctions::colorsets(),
             'fontName'=> 'Roboto Slab',
             /* 'backgroundColor'   => '#F8F9F9', */
             ]);
@@ -831,7 +825,7 @@ class ReportsController extends Controller
         
         \Lava::ColumnChart('ticketbytech',$ticketbytechchart,[
             'title'=>'Tickets by Tech',
-            'colors'=> array('#26C6DA'),
+            'colors'=> CustomFunctions::colorsets(),
             'fontName'=> 'Roboto Slab',
             /* 'backgroundColor'   => '#F8F9F9', */
             ]);
@@ -849,7 +843,7 @@ class ReportsController extends Controller
 
         \Lava::ColumnChart('ticketbypriority',$ticketbyprioritychart,[
             'title'=>'Tickets by Priority',
-            'colors'=> array('#26C6DA'),
+            'colors'=> CustomFunctions::colorsets(),
             'fontName'=> 'Roboto Slab',
             /* 'backgroundColor'   => '#F8F9F9', */
             ]);                
@@ -866,7 +860,7 @@ class ReportsController extends Controller
 
         \Lava::ColumnChart('ticketbydept',$ticketbydeptchart,[
             'title'=>'Tickets by Department',
-            'colors'=> array('#26C6DA'),
+            'colors'=> CustomFunctions::colorsets(),
             'fontName'=> 'Roboto Slab',
             /* 'backgroundColor'   => '#F8F9F9', */
             ]);
@@ -885,7 +879,7 @@ class ReportsController extends Controller
             'title'=>'Tickets by Category',
             'fontName'=> 'Roboto Slab',
             /* 'backgroundColor'   => '#F8F9F9', */
-            /* 'colors'=> array('#26C6DA'), */
+            /* 'colors'=> CustomFunctions::colorsets(), */
             ]);
 
         // Tickets by Status
@@ -902,7 +896,7 @@ class ReportsController extends Controller
 
         \Lava::ColumnChart('ticketbystatus',$ticketbystatuschart,[
             'title'=>'Tickets by Status',
-            'colors'=> array('#26C6DA'),
+            'colors'=> CustomFunctions::colorsets(),
             'fontName'=> 'Roboto Slab',
             /* 'backgroundColor'   => '#F8F9F9', */
             ]);
