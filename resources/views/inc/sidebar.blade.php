@@ -5,6 +5,7 @@
                 <ul class="list-group list-group-flush">
                     @if (Auth::user()->isadmin() || Auth::user()->tech == 1)
                         <li class="list-group-item noborder d-flex justify-content-between align-items-center"><a class='sidetab' href='{{url('/it/rp/today')}}'>TICKETS</a><span class="badge-pill badge-info"></span></li>
+                        <li class="list-group-item noborder d-flex justify-content-between align-items-center"><a class='sidetab' href='{{url('/it/rp/ctoday')}}'>CCTV REVIEWS</a><span class="badge-pill badge-info"></span></li>
                     @endif                    
                     {{-- <li class="list-group-item noborder d-flex justify-content-between align-items-center"><a id="hr2" class='sidetab' href='#'>OTHER REQUEST</a><span class="badge badge-info"></span></li>
                     <li class="list-group-item noborder d-flex justify-content-between align-items-center"><a id="hr3" class='sidetab' href='#'>OTHERS</a><span class="badge badge-info"></span></li> --}}
@@ -43,7 +44,7 @@
                     {{-- <li class="list-group-item noborder d-flex justify-content-between align-items-center"><a id="myticket" class='sidetab' href='#'>TICKETS</a><span class="badge badge-info"></span></li> --}}
                     {{-- <li class="list-group-item noborder d-flex justify-content-between align-items-center"><a class='sidetab' href='/1_atms/public/it/cu'>CCTV REVIEW</a><span class="badge badge-info"></span></li> --}}
                     <li class="list-group-item noborder d-flex justify-content-between align-items-center">
-                        <a class='sidetab' href='/1_atms/public/cr/crl'>CCTV REVIEW</a>
+                        <a class='sidetab' href='/1_atms/public/cr/crl'>CCTV REVIEWS</a>
                         <span class="badge-pill badge-danger">
                             @if (Auth::user()->admin == 1)
                                 {{ ( App\CctvReview::where('status_id',1)->count() ? App\CctvReview::where('status_id',1)->count() : '' ) }}

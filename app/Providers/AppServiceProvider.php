@@ -23,8 +23,12 @@ class AppServiceProvider extends ServiceProvider
             // $event->connectionName
             // $event->job
             // $event->exception
+            $con = $event->connectionName;
+            $job = $event->job;
+            $exc = $event->exception;
+
             $user = User::where('id',1)->first();
-            $user->notify( new QueueErrorReport() );    
+            $user->notify( new QueueErrorReport($con) );                      
         });
     }
 

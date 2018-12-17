@@ -70,16 +70,23 @@ Route::get('/home/dt', 'DashboardController@viewdashtab');
 Route::get('/admin/role','DashboardController@viewroles');
 Route::get('/admin/role/{id}','DashboardController@searchuserview');
 Route::get('/protected', function() {
-     return "this page requires that you be logged in and an Admin"; 
+     return "This page requires authentication"; 
 })->middleware('auth', 'admin');
 Route::get('/admin/export', 'DashboardController@viewexporttab');
 
-// Reports
-Route::get('/it/rp/today','ReportsController@ticketreportsToday');
+// Reports - Tickets
+Route::get('/it/rp/today','ReportsController@ticketreportstoday');
 Route::get('/it/rp/week','ReportsController@ticketreportsweek');
 Route::get('/it/rp/month','ReportsController@ticketreportsmonth');
 Route::get('/it/rp/year','ReportsController@ticketreportsyear');
 Route::post('/it/rp/range','ReportsController@ticketreportsrange');
+// Reports - CCTV Reviews
+Route::get('/it/rp/ctoday','Reports2Controller@reviewreportstoday');
+Route::get('/it/rp/cweek','Reports2Controller@reviewreportsweek');
+Route::get('/it/rp/cmonth','Reports2Controller@reviewreportsmonth');
+Route::get('/it/rp/cyear','Reports2Controller@reviewreportsyear');
+Route::post('/it/rp/crange','Reports2Controller@reviewreportsrange');
+
 
 // IT
 Route::get('/it/al', 'DashboardController@adminlistticket')->middleware('auth', 'admin');

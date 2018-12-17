@@ -46,14 +46,15 @@ class QueueErrorReport extends Notification
      */
     public function toMail($notifiable)
     {
-        /* return (new MailMessage)
+        return (new MailMessage)
                     ->line('An error occurred on ' . $this->connectionName . '.')
                     ->line('Job: ' . $this->job . '.')
                     ->line('Exception:')
-                    ->line($this->exception); */
-        return (new MailMessage)
+                    ->line($this->exception);
+        /* return (new MailMessage)
                     ->greeting('Greetings Master! ')
-                    ->line('An error occurred on the ATMS Production Server.');
+                    ->line('Exception:'. $this->event . '.')
+                    ->line('An error occurred on the ATMS Production Server.'); */
     }
 
     /**

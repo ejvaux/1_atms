@@ -8,7 +8,6 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
 use App\Ticket;
 use App\User;
-use App\Events\triggerEvent;
 
 class PriorityChanged extends Notification implements ShouldQueue
 {

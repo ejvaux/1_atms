@@ -8,7 +8,6 @@
 {{-- <link href="/1_atms/node_modules/quill/dist/quill.core.css" rel="stylesheet">
 <link href="/1_atms/node_modules/quill/dist/quill.snow.css" rel="stylesheet"> --}}
 
-
 <!-- ______________________ Scripts ______________________ -->
 <script src="{{ asset('js/app.js') }}" defer></script>
 <script src="{{ asset('js/all.js') }}" defer></script>
