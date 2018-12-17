@@ -66,7 +66,7 @@
                     @endforeach
                 @else
                     <div class="text-center text-muted m-3" style='font-size: 1rem;'>
-                        No new notification
+                        <span>No new notification</span>
                     </div> 
                 @endif               
             </ul>

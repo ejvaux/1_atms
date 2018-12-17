@@ -269,6 +269,7 @@ textarea {
 }
 .notif-box-2{
     width:  100%;
+    min-width: 20rem;
 }
 .notiflink{
     padding: 0;
