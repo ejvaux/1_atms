@@ -21,12 +21,35 @@
         </div>
     </div>
     <div class="row pt-1">
-        <div class="col-md-12">            
-            @foreach ($images as $image)
+        <div class="col-md-12 table-responsive">            
+            {{-- @foreach ($images as $image)
                 <a href="{{url('/storage/attachedfile/'.$image)}}" onclick="window.open(this.href,'_blank');return false;">
                     <img src="{{ url('/storage/attachedfile/'.$image) }}" style='width:auto;height:200px' class='border m-3' title='{{$image}}' />
                 </a>
-            @endforeach      
+            @endforeach  --}}
+            <table class='table table-bordered'>
+                <thead class="thead-light">
+                    <th>#</th>
+                    <th>Filename</th>
+                </thead>
+                <tbody>                            
+                    @foreach ($images as $image)
+                        <tr>
+                            <th>{{ $loop->iteration }}</th>
+                            <th>
+                                <div class='row'>
+                                    <div class="col-md">
+                                        {{$image}}
+                                    </div>
+                                    <div class="col-md">
+                                        <a class='btn btn-primary' href='{{url('/storage/attachedfile/'.$image)}}' download='{{$image}}' download><i class="fas fa-download"></i> Download</a>
+                                    </div>
+                                </div>                               
+                            </th>
+                        </tr>
+                    @endforeach                            
+                </tbody>
+            </table>   
         </div>
     </div>    
 </div>
