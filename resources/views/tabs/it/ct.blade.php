@@ -69,6 +69,7 @@
                     <div class="col-md-5 text-left">
                         <span class='labelfontbold text-muted'>Attach Images/ScreenShots: </span>
                         <input class='border' type='file' name='attachedfile[]' multiple>
+                        <br><span class='font-weight-bold' style='color:tomato'>NOTE: You can now attach any file.(Word, Pdf, Excel, etc..)</span>
                     </div>
                     <div class="col-md">
                         <button type='submit' class="btn btn-primary form_submit_button" id="saveTicketButton"><i class="fa fa-share-square"></i> Submit Ticket</button>
