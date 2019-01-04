@@ -55,26 +55,18 @@
                                     {{$user->email}}
                                 </th>
                                 <th>
-                                    <div class="custom-control custom-checkbox">
                                     @if ($user->admin == true)                                    
-                                        <input class="custom-control-input" id='admin_checkbox' value='{{$user->id}}' type='checkbox' checked>
-                                        <label class="custom-control-label" for="admin_checkbox">&nbsp;</label>                                    
+                                        <input id='admin_checkbox' value='{{$user->id}}' type='checkbox' checked>                                   
                                     @else
-                                        <input class="custom-control-input" id='admin_checkbox' value='{{$user->id}}' type='checkbox'>
-                                        <label class="custom-control-label" for="admin_checkbox">&nbsp;</label>
+                                        <input id='admin_checkbox' value='{{$user->id}}' type='checkbox'>
                                     @endif
-                                    </div>
                                 </th>
                                 <th>
-                                    <div class="custom-control custom-checkbox">
                                     @if ($user->tech == true)
-                                        <input class="custom-control-input" id='tech_checkbox' value='{{$user->id}}' type='checkbox' checked>
-                                        <label class="custom-control-label" for="tech_checkbox">&nbsp;</label>
+                                        <input class=" tech_checkbox" id='tech_checkbox' value='{{$user->id}}' type='checkbox' checked>
                                     @else
-                                        <input class="custom-control-input" id='tech_checkbox' value='{{$user->id}}' type='checkbox'>
-                                        <label class="custom-control-label" for="tech_checkbox">&nbsp;</label>
+                                        <input class=" tech_checkbox" id='tech_checkbox' value='{{$user->id}}' type='checkbox'>
                                     @endif
-                                    </div>
                                 </th>
                                 {{-- <th>
                                     @if ($user->req_approver == true)
@@ -85,7 +77,7 @@
                                 </th> --}}
                                 <th>                                    
                                     <input type='hidden' value='{{$user->level}}' id='oldselval{{$user->id}}'>
-                                    <select class='custom-select' id='levelselect' data-userid='{{$user->id}}' data-prevval='{{$user->level}}'>
+                                    <select id='levelselect' data-userid='{{$user->id}}' data-prevval='{{$user->level}}'>
                                         <option value='0'@if($user->level == 0) selected @endif>0</option>
                                         <option value='1'@if($user->level == 1) selected @endif>1</option>
                                         <option value='2'@if($user->level == 2) selected @endif>2</option>
