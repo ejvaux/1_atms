@@ -16,9 +16,22 @@ window.Vue = require('vue');
  */
 
 Vue.component('example-component', require('./components/ExampleComponent.vue'));
+Vue.component('notifbox', require('./components/Notification.vue'));
 
 const app = new Vue({
     el: '#app',
+    data:{
+        unreadNotifCount1: 0,
+        unreadnotifs1: [],
+        readnotifs1: []
+    },
+    methods:{
+        updatedata: function(urnc,urn/* ,rn */){
+            this.unreadNotifCount1 = urnc;
+            this.unreadnotifs1 = urn;
+            /* this.readnotifs1 = rn; */
+        }
+    },
     created(){
         Echo.channel('notification.refresh')
         .listen('triggerEvent', (e) => {
@@ -31,6 +44,7 @@ const app = new Vue({
                     $('#notificon').html(data);
                 }
             });
+
         });
         /* Echo.private('notification')
         .listen('NotificationTask', (e) => {
@@ -39,16 +53,28 @@ const app = new Vue({
         Echo.private(`App.User.` + document.head.querySelector('meta[name="userid"]').content)
         .notification((notification) => {
             console.log(notification.type);
-            /* $('#nvbr').load('/1_atms/public/nvbr'); */
-            /* $('#notificon').load('/1_atms/public/ddmenu'); */
-            $.ajax({
+            /* $.ajax({
                 type: 'get',
                 url: "/1_atms/public/ddmenu",
                 global: false,
                 success: function (data) {
                     $('#notificon').html(data);
                 }
-            });
+            }); */
+            
+            /* app.unreadNotifCount1 = app.unreadNotifCount1 + 1; */
+            
+            $.ajax({
+                type: 'get',
+                url: "/1_atms/public/getunreadnotif",
+                global: false,
+                success: function (data) {
+                    app.unreadNotifCount1++;
+                    app.unreadnotifs1 = data;
+                    /* alert(typeof data); */
+                }
+            });            
+
             const options = {
                 body: notification.msg,
                 icon: 'http://localhost/1_atms/public/images/ptpi.png',
@@ -65,6 +91,7 @@ const app = new Vue({
 
 var $ = require("jquery");
 
+window.moment = require('moment');
 require('select2');
 window.iziToast = require('izitoast');
 window.NProgress = require('nprogress');

@@ -59,7 +59,7 @@
                                 <div class="notice m-0">
                                     <strong>{!!$notification->data['header']!!}</strong><br>
                                     {!!$notification->data['msg']!!}<br>
-                                    <span class='text-muted' notif-lapsed-time>{{ CustomFunctions::datetimelapse($notification->created_at) }}</span>
+                                    <span class='text-muted notif-lapsed-time'>{{ CustomFunctions::datetimelapse($notification->created_at) }}</span>
                                 </div>
                             </a>
                         </li>

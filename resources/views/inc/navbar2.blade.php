@@ -22,9 +22,28 @@
             
                 <!-- Left Side Of Navbar -->
                 <ul class="navbar-nav mr-auto ml-5">
-                    <li class="nav-item dropdown" id='notificon'> 
+                    <notifbox
+                    :markallreadlink=`{{route("markallread")}}`
+                    :clear-notif-link=`{{route("clearnotif")}}`
+                    {{-- :unread-notif-count="{{Auth::user()->unReadNotifications->count()}}" --}}
+                    {{-- :unreadnotifs='{{json_encode(Auth::user()->unReadNotifications)}}' --}}
+                    :readnotifs='{{json_encode(Auth::user()->ReadNotifications)}}'
+                    :unread-notif-count="unreadNotifCount1"
+                    :unreadnotifs='unreadnotifs1'
+                    {{-- :readnotifs='readnotifs1' --}}
+                    :user-notif-count='{{Auth::user()->Notifications->count()}}'
+                    {{-- v-on:update="updatedata('{{Auth::user()->unReadNotifications->count()}}',{{json_encode(Auth::user()->unReadNotifications)}})" --}}
+                    v-on:update="updatedata({{Auth::user()->unReadNotifications->count()}},
+                    {{json_encode(Auth::user()->unReadNotifications)}}{{-- ,
+                    {{json_encode(Auth::user()->ReadNotifications)}} --}})"
+                    {{-- v-for="item in groceryList"
+                    v-bind:todo="item"
+                    v-bind:key="item.id" --}}
+                    
+                    ></notifbox>
+                    {{-- <li class="nav-item dropdown" id='notificon'> 
                         @include('inc.dropdownmenu')                  
-                    </li>
+                    </li> --}}
                 </ul>
     
                 <!-- Right Side Of Navbar -->            

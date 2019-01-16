@@ -175,6 +175,7 @@ Route::get('nvbr', function () {
 Route::get('ddmenu', function () {
     return view('inc.dropdownmenu');
 });
+Route::get('getunreadnotif', 'DashboardController@getunreadnotif');
 
 // TEST
 Route::get('testing', function () {

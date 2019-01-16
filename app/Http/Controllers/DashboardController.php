@@ -22,6 +22,7 @@ use App\Custom\NotificationFunctions;
 use App\Events\triggerEvent;
 use App\Location;
 use App\ReviewStatus;
+use Response;
 
 class DashboardController extends Controller
 {   
@@ -567,28 +568,20 @@ class DashboardController extends Controller
         $images = json_decode($img->attach);
         return view('tabs.it.dtda',compact('images'));
     }
+    public function getunreadnotif()
+    {        
+        /* return DB::table('notifications')->where('notifiable_id', Auth::user()->id)->where('read_at',null)->get(); */
+        /* return json_encode(Auth::user()->unReadNotifications); */
+        return Auth::user()->unReadNotifications;
+    }
 
     public function testdb(Request $request)
     {        
-        $ticket = Ticket::select('ticket_id','user_id','department_id','category_id','priority_id','status_id','subject',
-        'message','assigned_to','root','action','result','recommend','instruction','start_at','finish_at','created_at');
-
-        $query = ClosedTicket::select('ticket_id','user_id','department_id','category_id','priority_id','status_id','subject',
-        'message','assigned_to','root','action','result','recommend','instruction','start_at','finish_at','created_at');
-
-        /* if($this->user_id != ''){
-            $ticket = $ticket->where('user_id',$this->user_id);
-            $query = $query->where('user_id',$this->user_id);
-        }
-        if($this->department_id != ''){
-            $ticket = $ticket->where('department_id',$this->department_id);
-            $query = $query->where('department_id',$this->department_id);
-        } */
-        $ticket = $ticket->where('department_id',1)->count();
-        $query = $query->where('department_id',1)->count();
-
-        return $ticket + $query;
-
-        /* return $query->union($ticket)->orderBy('created_at')->count(); */
+        /* return Auth::user()->unReadNotifications; */
+        /* return DB::table('notifications')->where('notifiable_id', Auth::user()->id)->where('read_at',null)->get(); */
+        /* return Auth::user()->id; */
+        /* $dd = DB::table('notifications')->where('notifiable_id', Auth::user()->id)->orderBy('id','DESC')->first();
+        return Response::json($dd); */
+        return json_encode(Auth::user()->unReadNotifications);
     }
 }

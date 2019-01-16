@@ -27,7 +27,7 @@
                     </li>
                 @endif
             @endif            
-            <li class="list-group-item noborder"><i class="fa fa-desktop mr-2"></i><span class='sidetab'>IT</span>
+            <li class="list-group-item noborder"><i class="fa fa-desktop mr-2"></i><span class='sidetab'>MIS</span>
                 <ul class="list-group list-group-flush">
                     @if(Auth::check())
                         @if (Auth::user()->isAdmin())
