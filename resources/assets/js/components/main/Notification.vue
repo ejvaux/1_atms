@@ -28,7 +28,7 @@
                             <li v-bind:key="unreadnotif.id" v-for='unreadnotif in unreadnotifs' class='border-bottom border-top p-0'>
                                 <a class="dropdown-item notiflink" v-bind:href="'/1_atms/public/markread/' + unreadnotif.id + '/' + unreadnotif.data.mod + '/' + unreadnotif.data.tid">                                
                                     <div class="notice notice-success m-0">
-                                        <strong>{{ unreadnotif.data.header }}</strong><br>
+                                        <strong>{{ unreadnotif.data.message }}</strong><br>
                                         {{unreadnotif.data.msg}}<br>
                                         <span class='text-muted notif-lapsed-time'>{{datetimelapse(unreadnotif.created_at)}}</span>
                                     </div>                                                                                                    
@@ -37,7 +37,7 @@
                             <li v-bind:key="readnotif.id" v-for='readnotif in readnotifs' class='border-bottom border-top p-0'>
                                 <a class="dropdown-item notiflink" v-bind:href="'/1_atms/public/markread/' + readnotif.id + '/' + readnotif.data.mod + '/' + readnotif.data.tid">                                
                                     <div class="notice m-0">
-                                        <strong>{{ readnotif.data.header }}</strong><br>
+                                        <strong>{{ readnotif.data.message }}</strong><br>
                                         {{readnotif.data.msg}}<br>
                                         <span class='text-muted notif-lapsed-time'>{{datetimelapse(readnotif.created_at)}}</span>
                                     </div>                                                                                                    

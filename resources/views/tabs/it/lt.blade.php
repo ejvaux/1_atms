@@ -9,7 +9,7 @@
         <div class='col-md'>
             <nav>
                 <ol class="breadcrumb labelfontbold">
-                    <li class="breadcrumb-item text-muted">My Tickets</li>
+                    <li class="breadcrumb-item text-muted">Tickets</li>
                 </ol>
             </nav>
         </div>
@@ -66,6 +66,6 @@
             </form>
         </div>
     </div>
-    <div id='table_list'>@include('inc.ticketlist');</div>        
+    <div id='table_list'>@include('inc.ticketlist')</div>        
 </div>
 @endsection

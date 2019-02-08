@@ -110,7 +110,7 @@ class TicketsController extends Controller
             $tic_id = $s->number;
             $s->save();
 
-            // Getting ID of serial
+            // Get serial number
             $i = Serial::where('number',$tic_id)->first();
 
             // Insert New Ticket

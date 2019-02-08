@@ -87,8 +87,7 @@ Route::get('/it/rp/cmonth','Reports2Controller@reviewreportsmonth');
 Route::get('/it/rp/cyear','Reports2Controller@reviewreportsyear');
 Route::post('/it/rp/crange','Reports2Controller@reviewreportsrange');
 
-
-// IT
+// MIS
 Route::get('/it/al', 'DashboardController@adminlistticket')->middleware('auth', 'admin');
 Route::get('/it/aq','DashboardController@adminqueue')->middleware('auth', 'admin');
 Route::get('/it/actlv/{id}','DashboardController@adminclosedticketview')->middleware('auth', 'admin');
@@ -162,6 +161,7 @@ Route::resources([
     'cctvreview' => 'CctvReviewsController',
     'declined_ticket' => 'DeclinedTicketController',
     'rejectedrequest' => 'RejectedRequestController',
+    'vehiclerequest' => 'VehicleRequestController',
 ]);
 
 // Exporting
@@ -177,17 +177,28 @@ Route::get('ddmenu', function () {
 });
 Route::get('getunreadnotif', 'DashboardController@getunreadnotif');
 
-// TEST
+/*
+*
+*   HR
+*
+*/ 
+// Vehicle Request
+Route::get('/hr/vrl','hr\VehicleRequestController@vehiclelistview');
+Route::get('/hr/cvr','hr\VehicleRequestController@createvehiclerequest');
+Route::get('/hr/vrv/{id}','hr\VehicleRequestController@viewvehiclerequest');
+Route::get('/hr/vra','hr\VehicleRequestController@vehicleapprovedlistview');
+// Approval 
+Route::post('/hr/vra/{id}','hr\VehicleRequestController@approvevehiclerequest');
+
+/*
+*
+*   TEST
+*
+*/ 
 Route::get('testing', function () {
     event(new App\Events\TicketCreated('Someone'));
     return "Event has been sent!";
 });
-/* Route::get('event', function () {
-    event(new Event('Now it is working.'));
-}); */
-/* Route::get('event', function () {
-    event(new triggerEvent('This is a real time broadcast.'));
-}); */
 Route::get('event', function () {
     event(new NotificationTask(Auth::user(),'TEST'));
 });

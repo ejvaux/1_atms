@@ -12,7 +12,7 @@
                     @if(Auth::user()->admin == 1)
                         <li class="breadcrumb-item text-muted"><a href="{{ url('/it/al') }}">Tickets</a></li>
                     @else
-                        <li class="breadcrumb-item text-muted"><a href="{{ url('/it/lt') }}">My Tickets</a></li>
+                        <li class="breadcrumb-item text-muted"><a href="{{ url('/it/lt') }}">Tickets</a></li>
                     @endif                    
                     <li class="breadcrumb-item text-muted"><a href="{{ URL::previous() }}">Details</a></li>
                     <li class="breadcrumb-item text-muted">Ticket Attachments</li>

@@ -36,10 +36,11 @@
                         <th>#</th>
                         <th>NAME</th>
                         <th>EMAIL</th>
-                        <th>ADMIN</th>
+                        {{-- <th>ADMIN</th>
                         <th>TECH</th>
-                        {{-- <th>REQ_APPRVR</th> --}}
-                        <th>LEVEL</th>                        
+                        <th>REQ_APPRVR</th>
+                        <th>LEVEL</th> --}}
+                        <th>USER ROLES</th>
                         <th>DEL</th>
                     </tr>
                 </thead>
@@ -55,6 +56,9 @@
                                     {{$user->email}}
                                 </th>
                                 <th>
+                                    <button class="btn btn-primary" v-on:click='openrolemodal({{$user->id}})'>Edit Role</button>
+                                </th>
+                                {{-- <th>
                                     @if ($user->admin == true)                                    
                                         <input id='admin_checkbox' value='{{$user->id}}' type='checkbox' checked>                                   
                                     @else
@@ -67,7 +71,7 @@
                                     @else
                                         <input class=" tech_checkbox" id='tech_checkbox' value='{{$user->id}}' type='checkbox'>
                                     @endif
-                                </th>
+                                </th> --}}
                                 {{-- <th>
                                     @if ($user->req_approver == true)
                                         <input id='reqapp_checkbox' value='{{$user->id}}' type='checkbox' checked>
@@ -75,7 +79,7 @@
                                         <input id='reqapp_checkbox' value='{{$user->id}}' type='checkbox'>
                                     @endif
                                 </th> --}}
-                                <th>                                    
+                                {{-- <th>                                    
                                     <input type='hidden' value='{{$user->level}}' id='oldselval{{$user->id}}'>
                                     <select id='levelselect' data-userid='{{$user->id}}' data-prevval='{{$user->level}}'>
                                         <option value='0'@if($user->level == 0) selected @endif>0</option>
@@ -83,7 +87,7 @@
                                         <option value='2'@if($user->level == 2) selected @endif>2</option>
                                         <option value='3'@if($user->level == 3) selected @endif>3</option>
                                     </select>
-                                </th>                                
+                                </th> --}}                                
                                 <th>
                                     @if($user->id != Auth::user()->id)
                                         <form id='delete_user_form{{ $user->id }}' method='POST' action='/1_atms/public/users/{{ $user->id }}'>
@@ -110,5 +114,11 @@
             {{$users->links()}}
         </div>
     </div>
+    <usermodal 
+    :userd='userdata'
+    :approvaltypes='{{$hr_vr_approval_types}}'
+    :loggeduserid='{{Auth::user()->id}}'
+    :departments='{{$departments}}'
+    ></usermodal>
 </div>
 @endsection

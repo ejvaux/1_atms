@@ -13,8 +13,8 @@
                         <li class="breadcrumb-item text-muted"><a href="{{ url('/it/al') }}">Tickets</a></li>
                         <li class="breadcrumb-item text-muted"><a href="{{ url('/it/actl') }}">Closed Tickets</a></li>
                     @else
-                        <li class="breadcrumb-item text-muted"><a href="{{ url('/it/lt') }}">My Tickets</a></li>
-                        <li class="breadcrumb-item text-muted"><a href="{{ url('/it/ctl') }}">My Closed Tickets</a></li>
+                        <li class="breadcrumb-item text-muted"><a href="{{ url('/it/lt') }}">Tickets</a></li>
+                        <li class="breadcrumb-item text-muted"><a href="{{ url('/it/ctl') }}">Closed Tickets</a></li>
                     @endif                    
                     <li class="breadcrumb-item text-muted"><a href="{{ URL::previous() }}">Details</a></li>
                     <li class="breadcrumb-item text-muted">Ticket Attachments</li>

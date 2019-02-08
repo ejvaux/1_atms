@@ -12,7 +12,7 @@
                     @if (Auth::user()->isadmin())
                     <li class="breadcrumb-item text-muted"><a href='/1_atms/public/it/al'>Tickets</a></li>
                     @else
-                    <li class="breadcrumb-item text-muted"><a href='{{ url("/it/lt") }}'>My Tickets</a></li>
+                    <li class="breadcrumb-item text-muted"><a href='{{ url("/it/lt") }}'>Tickets</a></li>
                     @endif                    
                     <li class="breadcrumb-item text-muted">Declined Tickets</li>
                 </ol>

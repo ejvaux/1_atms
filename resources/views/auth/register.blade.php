@@ -68,6 +68,9 @@
                                 <button type="submit" class="btn btn-primary">
                                     {{ __('Register') }}
                                 </button>
+                                <a href='{{ URL::previous() }}' class='btn btn-primary text-left'>
+                                    Back
+                                </a>
                             </div>
                         </div>
                     </form>

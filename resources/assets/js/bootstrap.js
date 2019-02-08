@@ -51,7 +51,7 @@ window.Pusher = require('pusher-js');
 window.Echo = new Echo({
     broadcaster: 'pusher',
     key: process.env.MIX_PUSHER_APP_KEY,
-    cluster: 'ap1',
+    cluster: process.env.MIX_PUSHER_APP_CLUSTER,
     encrypted: false,
     authEndpoint: '/1_atms/public/broadcasting/auth'
 });

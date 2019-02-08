@@ -38,7 +38,9 @@ class NotificationController extends Controller
     }
     public function markread($id,$mod,$tid)
     {
-        Auth::user()->notifications->where('id',$id)->first()->markAsRead();
+        $ntif = Auth::user()->notifications->where('id',$id)->first();
+        /* Auth::user()->notifications->where('id',$id)->first()->markAsRead(); */
+        $ntif->markAsRead();
         if($mod == 'user'){
             return redirect(url('/it/vt/'.$tid));
         }
@@ -60,6 +62,9 @@ class NotificationController extends Controller
         }
         else if($mod == 'decline'){
             return redirect(url('/it/dtv/'.$tid));
+        }
+        else if($mod == 'vrequest'){
+            return redirect($ntif->data['url']);
         }
 
     }

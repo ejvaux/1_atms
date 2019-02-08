@@ -1,3 +1,23 @@
+.el_hide
+{
+    display: none;
+}
+.hr_admin_input
+{
+    display: none;
+}
+.hr_admin_input2
+{
+    display: none;
+}
+.user_edit_input
+{
+    display: none;
+}
+.user_edit_input1
+{
+    display: none;
+}
 .footerdev
 {
     font-family: 'Allura', cursive;  
@@ -276,4 +296,27 @@ textarea {
 }
 .notif-lapsed-time{
     font-size: .7rem;
+}
+
+/* Vehicle Request */
+.approveLabel{
+    font-size: 1.3rem;
+    font-weight: bold;
+}
+
+/* color label for rows - Vehicle requests */
+.input-color {
+    position: relative;
+}
+.input-color input {
+    padding-left: 30px;
+}
+.input-color .color-box {
+    width: 20px;
+    height: 20px;
+    display: inline-block;
+    background-color: #ccc;
+    position: absolute;
+    left: 5px;
+    top: 5px;
 }

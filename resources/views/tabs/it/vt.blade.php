@@ -12,10 +12,9 @@
                     @if(Auth::user()->admin == true)
                         <li class="breadcrumb-item text-muted"><a href="/1_atms/public/it/al">Tickets</a></li>
                     @else
-                        <li class="breadcrumb-item text-muted"><a href="/1_atms/public/it/lt">My Tickets</a></li>
+                        <li class="breadcrumb-item text-muted"><a href="/1_atms/public/it/lt">Tickets</a></li>
                     @endif
-                    <li class="breadcrumb-item">Details</li>                    
-                    {{-- <li class="breadcrumb-item">Data</li> --}}
+                    <li class="breadcrumb-item">Details</li>
                 </ol>
             </nav>
         </div>

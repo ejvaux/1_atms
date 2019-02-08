@@ -57,14 +57,14 @@
                     {{-- <li class="list-group-item noborder d-flex justify-content-between align-items-center"><a class='sidetab' href='/1_atms/public/it/cu'>CONTACT US</a><span class="badge badge-info"></span></li> --}}
                 </ul>
             </li>
-            {{-- <li class="list-group-item noborder"><a class='sidetab' href='#'>HR</a>
+            <li class="list-group-item noborder"><i class="fas fa-users mr-2"></i><span class='sidetab'>HR</span>
                 <ul class="list-group list-group-flush">
                     <li class="list-group-item noborder d-flex justify-content-between align-items-center"><a class='sidetab' href='/1_atms/public/comingsoon'>VEHICLE REQUEST</a><span class="badge badge-info"></span></li>
-                    <li class="list-group-item noborder d-flex justify-content-between align-items-center"><a class='sidetab' href='/1_atms/public/comingsoon'>OTHER REQUEST</a><span class="badge badge-info"></span></li>
-                    <li class="list-group-item noborder d-flex justify-content-between align-items-center"><a class='sidetab' href='/1_atms/public/comingsoon'>OTHERS</a><span class="badge badge-info"></span></li>
+                    {{-- <li class="list-group-item noborder d-flex justify-content-between align-items-center"><a class='sidetab' href='/1_atms/public/comingsoon'>OTHER REQUEST</a><span class="badge badge-info"></span></li>
+                    <li class="list-group-item noborder d-flex justify-content-between align-items-center"><a class='sidetab' href='/1_atms/public/comingsoon'>OTHERS</a><span class="badge badge-info"></span></li> --}}
                 </ul>
             </li>
-            <li class="list-group-item noborder"><a class='sidetab' href='#'>PURCHASING</a>
+            {{-- <li class="list-group-item noborder"><a class='sidetab' href='#'>PURCHASING</a>
                 <ul class="list-group list-group-flush">
                     <li class="list-group-item noborder d-flex justify-content-between align-items-center"><a class='sidetab' href='/1_atms/public/comingsoon'>PURCHASE REQUEST</a><span class="badge badge-info"></span></li>
                     <li class="list-group-item noborder d-flex justify-content-between align-items-center"><a class='sidetab' href='/1_atms/public/comingsoon'>OTHER REQUEST</a><span class="badge badge-info"></span></li>

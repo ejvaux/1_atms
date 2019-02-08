@@ -18,5 +18,6 @@ mix.scripts([
    'public/js/admin.js',
    'public/js/dashboard.js',
    'public/js/creview.js',
-   'public/js/confirmnotification.js'
+   'public/js/confirmnotification.js',
+   'public/js/hr_vr.js'
 ], 'public/js/all.js');

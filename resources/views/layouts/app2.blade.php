@@ -13,7 +13,6 @@
     @include('inc.header')     
 </head>
 <body>
-    {{-- @include('inc.dialog') --}}      
     <div id="app" class='app'>
         <div id='nvbr'>
             @include('inc.navbar2')
@@ -22,7 +21,15 @@
             <div class="container-fluid" style=''>
                 <div class="row">
                     <div class="col-lg-2 m-1 p-0 hidewhensmall" style='height:100vh;' id='sidebr'>
-                        @include('inc.sidebar')
+                        {{-- @include('inc.sidebar') --}}
+                        <sidebar 
+                        :isadmin=`{{Auth::user()->admin == 1}}`
+                        :istech=`{{Auth::user()->tech == 1}}`
+                        :openticket=`{{ (App\Ticket::where('status_id',1)->count()? App\Ticket::where('status_id',1)->count() : '')}}`
+                        :queuedticket=`{{(App\Ticket::where('status_id',2)->where('assigned_to',Auth::user()->id)->count() ? App\Ticket::where('status_id',2)->where('assigned_to',Auth::user()->id)->count() : '')}}`
+                        :approvedreviews=`{{(App\CctvReview::where('status_id',1)->count() ? App\CctvReview::where('status_id',1)->count() : '' )}}`
+                        :queuedreviews=`{{( App\CctvReview::where('status_id',2)->where('assigned_to',Auth::user()->id)->count() ? App\CctvReview::where('status_id',2)->where('assigned_to',Auth::user()->id)->count() : '' )}}`                        
+                        ></sidebar>
                     </div>  
                     <div class='col-lg m-1 pt-3 border rightpanel' id="main_panel" >            
                         @yield('content')
@@ -31,23 +38,9 @@
             </div>
         </main>        
         <!-- Footer -->
-        <footer class="page-footer font-small blue">
-
-            <!-- Copyright -->
-            <div class="footer-copyright text-center py-3 text-muted"><span style='font-size:1.1rem'>{{-- © --}}<i class="far fa-copyright"></i> 2018 Prima Tech Phils., Inc.</span>
-                <br>Designed and built by <span class='footerdev'>Edmund O. Mati Jr.</span> 
-            </div>
-            
-            <!-- Copyright -->
-        </footer>
+        <foot></foot>
         <!-- Footer -->
     </div>
     @yield('graphs')
-    <script>        
-        /* Echo.channel('notification')
-        .listen('NotificationTask', (e) => {
-            console.log(e);
-        }); */
-    </script>
 </body>
 </html>

@@ -9,7 +9,7 @@
         <div class='col-md'>
             <nav>
                 <ol class="breadcrumb labelfontbold">
-                    <li class="breadcrumb-item text-muted"><a href="/1_atms/public/it/lt">My Tickets</a></li>
+                    <li class="breadcrumb-item text-muted"><a href="/1_atms/public/it/lt">Tickets</a></li>
                     <li class="breadcrumb-item text-muted">Create Ticket</li>
                     {{-- <li class="breadcrumb-item">Data</li> --}}
                 </ol>

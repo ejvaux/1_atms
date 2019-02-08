@@ -35,5 +35,9 @@ class User extends Authenticatable
     public function tickets()
     {
         return $this->hasMany('App\Ticket','id');
-    }    
+    }
+    public function hr_vr_approval()
+    {
+        return $this->belongsTo('App\VehicleApprovalType','hr_vr_approval_type');
+    }
 }

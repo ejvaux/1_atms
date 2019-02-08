@@ -23,6 +23,8 @@ use App\Events\triggerEvent;
 use App\Location;
 use App\ReviewStatus;
 use Response;
+use App\VehicleApprovalType;
+use App\VehicleRequest;
 
 class DashboardController extends Controller
 {   
@@ -110,7 +112,9 @@ class DashboardController extends Controller
     public function viewroles()
     {   
         $users = User::paginate(20);
-        return view('tabs.admin.role',compact('users'));
+        $hr_vr_approval_types = VehicleApprovalType::orderBy('id')->get();
+        $departments = $this->departments;
+        return view('tabs.admin.role',compact('users','hr_vr_approval_types','departments'));
     }
     public function searchuserview($id)
     {   
@@ -574,14 +578,19 @@ class DashboardController extends Controller
         /* return json_encode(Auth::user()->unReadNotifications); */
         return Auth::user()->unReadNotifications;
     }
-
+    
     public function testdb(Request $request)
-    {        
-        /* return Auth::user()->unReadNotifications; */
-        /* return DB::table('notifications')->where('notifiable_id', Auth::user()->id)->where('read_at',null)->get(); */
-        /* return Auth::user()->id; */
-        /* $dd = DB::table('notifications')->where('notifiable_id', Auth::user()->id)->orderBy('id','DESC')->first();
-        return Response::json($dd); */
-        return json_encode(Auth::user()->unReadNotifications);
+    {
+        $vrequests1 = VehicleRequest::where(function($query)
+        {
+            if (Auth::user()->hrvr_approval_type == 1 || Auth::user()->hrvr_approval_type == 2) {
+                $query->where('approval_id',Auth::user()->hrvr_approval_type - 1)
+                ->where('department_id',Auth::user()->hrvr_approval_dept);
+            } elseif (Auth::user()->hrvr_approval_type == 3 || Auth::user()->hrvr_approval_type == 4) {
+                $query->where('approval_id',Auth::user()->hrvr_approval_type - 1);
+            }                                
+        })->where('created_by','!=',Auth::user()->id);
+        $vrequests2 = VehicleRequest::where('created_by',Auth::user()->id);
+        return  $vrequests1->union($vrequests2)->paginate('10');
     }
 }

@@ -8,6 +8,7 @@ use App\Ticket;
 use App\Serial;
 use App\ReviewSerial;
 use App\ReviewStatus;
+use App\VehicleSerials;
 
 class CustomFunctions
 {   
@@ -202,6 +203,31 @@ class CustomFunctions
             }
             else if($yr != $year || $mnth != $month){
                 return "MIS" . $year . $month . "001";
+            }
+        }
+        /* return $tnum; */
+    }
+    public static function generateVehicleRequestNumber(){
+        $tnum = "VR";
+        $month = date('m');
+        $year = date('y');
+        /* $month = '09';
+        $year = '18'; */
+        $tnum .= $year . $month;
+        $series = VehicleSerials::orderBy('id', 'desc')->first();
+        if(empty($series)){
+            return $tnum . "001";
+        }
+        else{
+            $tid = $series->number;
+            $yr = substr($tid,2,2);
+            $mnth = substr($tid,4,2);
+            $num = substr($tid,-3);
+            if($yr == $year && $mnth == $month){
+                return $tnum . str_pad($num+1, 3, '0', STR_PAD_LEFT);
+            }
+            else if($yr != $year || $mnth != $month){
+                return "VR" . $year . $month . "001";
             }
         }
         /* return $tnum; */

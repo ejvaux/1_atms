@@ -3,6 +3,16 @@
 namespace App\Custom;
 
 use Illuminate\Http\Request;
+use Auth;
+use App\User;
+use App\Ticket;
+use App\DeclinedTicket;
+use App\ClosedTicket;
+use App\CctvReview;
+use App\RejectedRequest;
+use App\VehicleRequest;
+use App\Events\triggerEvent;
+
 use App\Notifications\TicketAssigned;
 use App\Notifications\TicketAccepted;
 use App\Notifications\PriorityChanged;
@@ -22,14 +32,9 @@ use App\Notifications\QueueErrorReport;
 use App\Notifications\CctvAttachmentsUploaded;
 use App\Notifications\CctvAttachmentsAccessGranted;
 use App\Notifications\CctvAttachmentsAccessRemoved;
-use Auth;
-use App\User;
-use App\Ticket;
-use App\DeclinedTicket;
-use App\ClosedTicket;
-use App\CctvReview;
-use App\RejectedRequest;
-use App\Events\triggerEvent;
+use App\Notifications\hr\VehicleRequestApproval;
+use App\Notifications\hr\VehicleRequestApproved;
+
 
 class NotificationFunctions
 {   
@@ -189,5 +194,19 @@ class NotificationFunctions
         $user = User::where('id',$id)->first();
         $request = CctvReview::where('id',$rid)->first();
         $user->notify( (new CctvAttachmentsAccessRemoved($request,$user)) );               
+    }
+
+    // HR - Vehicle Request
+    public static function approvevehiclerequest($id,$rid){
+        $users = User::where('hrvr_approval_type',$id)->get();
+        $vrequest = VehicleRequest::where('id',$rid)->first();
+        foreach ($users as $user){
+            $user->notify( (new VehicleRequestApproval($vrequest,$user)) );
+        }                       
+    }
+    public static function vehiclerequestapproved($id,$rid){
+        $user = User::where('id',$id)->first();
+        $vrequest = VehicleRequest::where('id',$rid)->first();
+        $user->notify( (new VehicleRequestApproved($vrequest,$user)) );                    
     }
 }

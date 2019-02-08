@@ -16,20 +16,35 @@ window.Vue = require('vue');
  */
 
 Vue.component('example-component', require('./components/ExampleComponent.vue'));
-Vue.component('notifbox', require('./components/Notification.vue'));
+Vue.component('notifbox', require('./components/main/Notification.vue'));
+Vue.component('sidebar', require('./components/main/Sidebar.vue'));
+Vue.component('foot', require('./components/main/Footer.vue'));
+Vue.component('usermodal', require('./components/hr/vehicleRequest/RoleModal.vue'));
 
 const app = new Vue({
     el: '#app',
     data:{
         unreadNotifCount1: 0,
         unreadnotifs1: [],
-        readnotifs1: []
+        readnotifs1: [],
+        userdata: []
     },
     methods:{
         updatedata: function(urnc,urn/* ,rn */){
             this.unreadNotifCount1 = urnc;
             this.unreadnotifs1 = urn;
             /* this.readnotifs1 = rn; */
+        },
+        openrolemodal: function(id){
+            $.ajax({
+                type: 'get',
+                url: "/1_atms/public/users/"+id,
+                global: false,
+                success: function (data) {
+                    app.userdata = data                    
+                }
+            });
+            $('#rolemod').modal('show')
         }
     },
     created(){

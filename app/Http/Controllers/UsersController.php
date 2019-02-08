@@ -53,7 +53,7 @@ class UsersController extends Controller
      */
     public function show($id)
     {
-        //
+        return User::where('id',$id)->first();
     }
 
     /**
@@ -83,6 +83,8 @@ class UsersController extends Controller
         if($request->input('tech') != ""){ $user->tech = $request->input('tech');}
         if($request->input('level') != ""){ $user->level = $request->input('level');}
         if($request->input('req_approver') != ""){ $user->req_approver = $request->input('req_approver');}
+        if($request->input('hrvr_approval_type') != ""){ $user->hrvr_approval_type = $request->input('hrvr_approval_type');}
+        if($request->input('hrvr_approval_dept') != ""){ $user->hrvr_approval_dept = $request->input('hrvr_approval_dept');}
         $user->save();
         if($user->save()){
             if(empty($request->input('mod'))){
@@ -90,8 +92,7 @@ class UsersController extends Controller
             }
             else{
                 return redirect()->back()->with('success','User data updated successfully.');
-            }
-            
+            }            
         }
     }
 
