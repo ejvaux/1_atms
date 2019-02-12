@@ -17,7 +17,7 @@
                         @if (Auth::user()->isadmin() || Auth::user()->hrvr_approval_type == 0)
                             <tr>
                         @else
-                            @if (($vrequest->created_by != Auth::user()->id) || ((Auth::user()->hrvr_approval_type - 1) == $vrequest->approval_id))
+                            @if (($vrequest->created_by != Auth::user()->id) || ((Auth::user()->hrvr_approval_type) == $vrequest->approval_id))
                                 <tr style="background-color:#E8F8F5; border-left: 4px solid green">
                             @endif
                         @endif
@@ -25,7 +25,7 @@
                             <tr >
                         @elseif ($vrequest->created_by == Auth::user()->id)
                             <tr>
-                        @elseif (($vrequest->created_by != Auth::user()->id) || ((Auth::user()->hrvr_approval_type - 1) == $vrequest->approval_id))
+                        @elseif (($vrequest->created_by != Auth::user()->id) || ((Auth::user()->hrvr_approval_type) == $vrequest->approval_id))
                             <tr style="background-color:#E8F8F5; border-left: 4px solid green">                        
                         @endif --}}                        
                             <th>{{ $loop->iteration + (($vrequests->currentPage() - 1) * 10) }}</th>
@@ -77,7 +77,7 @@
                                     </span>
                                 @endif  --}}
                                 @if ($vrequest->approval_id < $vrequestapprovaltypes->count())
-                                    <span class='text-secondary'>For {{ $vrequestapprovaltypes->where('id',$vrequest->approval_id + 1)->first()->name }}</span>
+                                    <span class='text-secondary'>For {{ $vrequestapprovaltypes->where('id',$vrequest->approval_id)->first()->name }}</span>
                                 @else
                                     <span class='text-success'>Approved</span>
                                 @endif

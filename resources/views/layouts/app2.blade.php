@@ -28,7 +28,8 @@
                         :openticket=`{{ (App\Ticket::where('status_id',1)->count()? App\Ticket::where('status_id',1)->count() : '')}}`
                         :queuedticket=`{{(App\Ticket::where('status_id',2)->where('assigned_to',Auth::user()->id)->count() ? App\Ticket::where('status_id',2)->where('assigned_to',Auth::user()->id)->count() : '')}}`
                         :approvedreviews=`{{(App\CctvReview::where('status_id',1)->count() ? App\CctvReview::where('status_id',1)->count() : '' )}}`
-                        :queuedreviews=`{{( App\CctvReview::where('status_id',2)->where('assigned_to',Auth::user()->id)->count() ? App\CctvReview::where('status_id',2)->where('assigned_to',Auth::user()->id)->count() : '' )}}`                        
+                        :queuedreviews=`{{( App\CctvReview::where('status_id',2)->where('assigned_to',Auth::user()->id)->count() ? App\CctvReview::where('status_id',2)->where('assigned_to',Auth::user()->id)->count() : '' )}}`
+                        :vr_approval=`{{(App\VehicleRequest::where('approval_id',Auth::user()->hrvr_approval_type)->count()? App\VehicleRequest::where('approval_id',Auth::user()->hrvr_approval_type)->count() : '')}}`
                         ></sidebar>
                     </div>  
                     <div class='col-lg m-1 pt-3 border rightpanel' id="main_panel" >            

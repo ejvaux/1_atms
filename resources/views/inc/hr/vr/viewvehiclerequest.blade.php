@@ -13,7 +13,7 @@
             </div>
             <div class="col-md-6">
                 @if ($vrequest->approval_id < $vrequestapprovaltypes->count())
-                    <span class='approveLabel'>Waiting Approval: <span class='text-danger'>{{ $vrequestapprovaltypes->where('id',$vrequest->approval_id + 1)->first()->name }}</span></span>
+                    <span class='approveLabel'>Waiting Approval: <span class='text-danger'>{{ $vrequestapprovaltypes->where('id',$vrequest->approval_id)->first()->name }}</span></span>
                 @else
                     <span class='approveLabel text-success'>Approval Complete</span>
                 @endif                
@@ -27,7 +27,7 @@
                     <button id='vr_admincancel' type='button' class='btn btn-warning hr_admin_input2 p-1 px-5'>CANCEL</button>                        
                 </div>
             @endif
-            @if ( ((Auth::user()->hrvr_approval_type - 1) == $vrequest->approval_id  && Auth::user()->hrvr_approval_dept == $vrequest->department_id) || ((Auth::user()->hrvr_approval_type - 1) == $vrequest->approval_id))
+            @if ( ((Auth::user()->hrvr_approval_type) == $vrequest->approval_id  && Auth::user()->hrvr_approval_dept == $vrequest->department_id) || ((Auth::user()->hrvr_approval_type) == $vrequest->approval_id))
                 <div class="col-md-3">
                     <form id='vr_approveform' class='form_to_submit' method='POST' action='/1_atms/public/hr/vra/{{ $vrequest->id }}'>
                         @csrf

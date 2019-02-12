@@ -24,6 +24,7 @@ class VehicleRequestController extends Controller
     }
     public function vehiclelistview()
     {
+        $vrequestcount = 0;
         if (Auth::user()->isadmin()) {
             $vrequests = VehicleRequest::where('approval_id','!=',$this->vrequestapprovaltypes->count())->orderBy('approval_id')->paginate('10');
         } else {
@@ -32,18 +33,13 @@ class VehicleRequestController extends Controller
                 $vrequests = VehicleRequest::where(function($query)
                             {
                                 if (Auth::user()->hrvr_approval_type == 1 || Auth::user()->hrvr_approval_type == 2) {
-                                    $query->where('approval_id',Auth::user()->hrvr_approval_type - 1)
+                                    $query->where('approval_id',Auth::user()->hrvr_approval_type)
                                     ->where('department_id',Auth::user()->hrvr_approval_dept);
                                 } elseif (Auth::user()->hrvr_approval_type == 3 || Auth::user()->hrvr_approval_type == 4) {
-                                    $query->where('approval_id',Auth::user()->hrvr_approval_type - 1);
+                                    $query->where('approval_id',Auth::user()->hrvr_approval_type);
                                 }                                
                             })                            
                             ->orwhere('created_by',Auth::user()->id)
-                            /* ->orwhere(function($query)
-                            {
-                                $query->where('created_by',Auth::user()->id)
-                                    ->where('approval_id','!=',$this->vrequestapprovaltypes->count());                            
-                            }) */
                             ->orderByRaw(
                                 "CASE
                                 WHEN `approval_id` = ". Auth::user()->hrvr_approval_type ." THEN 1
@@ -71,13 +67,13 @@ class VehicleRequestController extends Controller
                 $vrequests = VehicleRequest::where(function($query)
                             {
                                 if (Auth::user()->hrvr_approval_type == 1 || Auth::user()->hrvr_approval_type == 2) {
-                                    $query->where('approval_id',Auth::user()->hrvr_approval_type - 1)
+                                    $query->where('approval_id','>=',Auth::user()->hrvr_approval_type)
                                     ->where('department_id',Auth::user()->hrvr_approval_dept);
                                 } elseif (Auth::user()->hrvr_approval_type == 3 || Auth::user()->hrvr_approval_type == 4) {
-                                    $query->where('approval_id',Auth::user()->hrvr_approval_type - 1);
+                                    $query->where('approval_id','>=',Auth::user()->hrvr_approval_type);
                                 }                                
                             })
-                            ->orwhere('created_by',Auth::user()->id)
+                            /* ->orwhere('created_by',Auth::user()->id) */
                             /* ->orderBy('id','DESC') */
                             ->orderByRaw(
                                 "CASE
@@ -85,9 +81,7 @@ class VehicleRequestController extends Controller
                                 ELSE 2 END DESC"
                             )
                             ->paginate('10');
-            } /* else {
-                $vrequests = VehicleRequest::where('created_by',Auth::user()->id)->orderBy('id','DESC')->paginate('10');
-            }   */          
+            }         
         }
         $vrequestapprovaltypes = $this->vrequestapprovaltypes;
         return view('tabs.hr.vra',compact('vrequests','vrequestapprovaltypes'));
@@ -114,7 +108,8 @@ class VehicleRequestController extends Controller
         $approver = $apprvltype + 1;
         $requestid = $vr->id;
         $creator = $vr->created_by;
-        $vr->approval_id = $apprvltype;
+        $adept = $vr->department_id;
+        $vr->approval_id = $apprvltype + 1;
         $vr->save();
 
         // Checking duplicate approval
@@ -133,7 +128,12 @@ class VehicleRequestController extends Controller
         if($approver > $this->vrequestapprovaltypes->count()){
             NotificationFunctions::vehiclerequestapproved($creator,$requestid);
         } else{
-            NotificationFunctions::approvevehiclerequest($approver,$requestid);
+            if($approver < 3){
+                NotificationFunctions::approvevehiclerequest($approver,$requestid,$adept);
+            }
+            else{
+                NotificationFunctions::approvevehiclerequest($approver,$requestid,0);
+            }            
         }        
 
         return redirect()->back()->with('success','Vehicle Request Approved Successfully.');

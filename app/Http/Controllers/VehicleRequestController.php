@@ -74,12 +74,12 @@ class VehicleRequestController extends Controller
         $t->arrival_time = $request->input('arrival_time');
         $t->department_id = $request->input('department_id');
         $t->created_by = $request->input('created_by');
-        $t->approval_id = 0;        
+        $t->approval_id = 1;        
         $t->save();
 
         // Sending Notifications
         /* $vrequest = VehicleRequest::where('vehicle_request_serial', $i->id)->first(); */
-        NotificationFunctions::approvevehiclerequest(1,$i->id);
+        NotificationFunctions::approvevehiclerequest(1,$i->id,$request->input('department_id'));
         return redirect()->back()->with('success','Vehicle Request Submitted Successfully.');
     }
 

@@ -74177,9 +74177,13 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-    props: ['isadmin', 'istech', 'openticket', 'queuedticket', 'approvedreviews', 'queuedreviews', 'forapprovalreviews'],
+    props: ['isadmin', 'istech', 'openticket', 'queuedticket', 'approvedreviews', 'queuedreviews', 'forapprovalreviews', 'vr_approval'],
     computed: {
         isadmintech: function isadmintech() {
             if (this.isadmin || this.istech) {
@@ -74333,7 +74337,42 @@ var render = function() {
             ])
           ]),
           _vm._v(" "),
-          _vm._m(3)
+          _c("li", { staticClass: "list-group-item noborder" }, [
+            _c("i", { staticClass: "fas fa-users mr-2" }),
+            _c("span", { staticClass: "sidetab" }, [_vm._v("HR")]),
+            _vm._v(" "),
+            _c("ul", { staticClass: "list-group list-group-flush" }, [
+              _c(
+                "li",
+                {
+                  staticClass:
+                    "list-group-item noborder d-flex justify-content-between align-items-center"
+                },
+                [
+                  _c(
+                    "a",
+                    {
+                      staticClass: "sidetab",
+                      attrs: { href: "/1_atms/public/hr/vrl" }
+                    },
+                    [_vm._v("VEHICLE REQUEST")]
+                  ),
+                  _vm._v(" "),
+                  _c("span", { staticClass: "badge-pill badge-danger" }, [
+                    _vm._v(
+                      "\n                        " +
+                        _vm._s(_vm.vr_approval) +
+                        "\n                    "
+                    )
+                  ]),
+                  _vm._v(" "),
+                  _c("span", { staticClass: "badge badge-info" }, [
+                    _vm._v("New")
+                  ])
+                ]
+              )
+            ])
+          ])
         ])
       ])
     ]
@@ -74429,36 +74468,6 @@ var staticRenderFns = [
           _c("span", { staticClass: "badge-pill badge-info" })
         ]
       )
-    ])
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("li", { staticClass: "list-group-item noborder" }, [
-      _c("i", { staticClass: "fas fa-users mr-2" }),
-      _c("span", { staticClass: "sidetab" }, [_vm._v("HR")]),
-      _vm._v(" "),
-      _c("ul", { staticClass: "list-group list-group-flush" }, [
-        _c(
-          "li",
-          {
-            staticClass:
-              "list-group-item noborder d-flex justify-content-between align-items-center"
-          },
-          [
-            _c(
-              "a",
-              {
-                staticClass: "sidetab",
-                attrs: { href: "/1_atms/public/hr/vrl" }
-              },
-              [_vm._v("VEHICLE REQUEST")]
-            ),
-            _c("span", { staticClass: "badge badge-info" }, [_vm._v("New")])
-          ]
-        )
-      ])
     ])
   }
 ]

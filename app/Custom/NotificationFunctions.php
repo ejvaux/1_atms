@@ -197,8 +197,13 @@ class NotificationFunctions
     }
 
     // HR - Vehicle Request
-    public static function approvevehiclerequest($id,$rid){
-        $users = User::where('hrvr_approval_type',$id)->get();
+    public static function approvevehiclerequest($id,$rid,$did){
+        if($did == 0){
+            $users = User::where('hrvr_approval_type',$id)->get();
+        } 
+        else{
+            $users = User::where('hrvr_approval_type',$id)->where('hrvr_approval_dept',$did)->get();
+        }        
         $vrequest = VehicleRequest::where('id',$rid)->first();
         foreach ($users as $user){
             $user->notify( (new VehicleRequestApproval($vrequest,$user)) );

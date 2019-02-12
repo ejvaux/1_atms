@@ -45,11 +45,15 @@
                         </li>                        
                     </ul>
                 </li>
-                <li class="list-group-item noborder"><i class="fas fa-users mr-2"></i><span class='sidetab'>HR</span>
+                <!-- <li class="list-group-item noborder"><i class="fas fa-users mr-2"></i><span class='sidetab'>HR</span>
                     <ul class="list-group list-group-flush">
-                        <li class="list-group-item noborder d-flex justify-content-between align-items-center"><a class='sidetab' href='/1_atms/public/hr/vrl'>VEHICLE REQUEST</a><span class="badge badge-info">New</span></li>                        
+                        <li class="list-group-item noborder d-flex justify-content-between align-items-center"><a class='sidetab' href='/1_atms/public/hr/vrl'>VEHICLE REQUEST</a>
+                        <span class="badge-pill badge-danger">
+                            {{vr_approval}}
+                        </span>
+                        <span class="badge badge-info">New</span></li>                        
                     </ul>
-                </li>
+                </li> -->
                 <!-- <li class="list-group-item noborder"><a class='sidetab' href='#'>PURCHASING</a>
                     <ul class="list-group list-group-flush">
                         <li class="list-group-item noborder d-flex justify-content-between align-items-center"><a class='sidetab' href='/1_atms/public/comingsoon'>PURCHASE REQUEST</a><span class="badge badge-info"></span></li>
@@ -71,7 +75,8 @@
             'queuedticket',
             'approvedreviews',
             'queuedreviews',
-            'forapprovalreviews'
+            'forapprovalreviews',
+            'vr_approval'
         ],
         computed:{
             isadmintech: function() {
