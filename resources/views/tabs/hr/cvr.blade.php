@@ -16,6 +16,14 @@
             </nav>
         </div>
     </div>
+    <div class="row">
+        <div class="col-md">
+            <div class="alert alert-warning" role="alert">
+                <span class='font-weight-bold'>IMPORTANT: </span>
+                Please see to it that the <b>Immediate Superior</b> and <b>Head/Manager</b> for your department is registered and assigned as an approver. Contact the <b>System Administrator</b> for assistance.
+            </div>
+        </div>
+    </div>
     <div class="row pt-1">
         <div class="col-md-12">
             <form class='form_to_submit' id='createvehiclerequestform' method='POST' action='/1_atms/public/vehiclerequest' enctype="multipart/form-data">                
