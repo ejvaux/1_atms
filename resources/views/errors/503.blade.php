@@ -4,4 +4,4 @@
 
 {{-- @section('message', 'Be right back.') --}}
 
-@section('message', 'The server is having a connection problem to the internet. Sorry for the inconvenience.')
+@section('message', 'The System is having an update. Be right back. ;)')
