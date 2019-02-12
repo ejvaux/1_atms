@@ -74335,43 +74335,6 @@ var render = function() {
                 ]
               )
             ])
-          ]),
-          _vm._v(" "),
-          _c("li", { staticClass: "list-group-item noborder" }, [
-            _c("i", { staticClass: "fas fa-users mr-2" }),
-            _c("span", { staticClass: "sidetab" }, [_vm._v("HR")]),
-            _vm._v(" "),
-            _c("ul", { staticClass: "list-group list-group-flush" }, [
-              _c(
-                "li",
-                {
-                  staticClass:
-                    "list-group-item noborder d-flex justify-content-between align-items-center"
-                },
-                [
-                  _c(
-                    "a",
-                    {
-                      staticClass: "sidetab",
-                      attrs: { href: "/1_atms/public/hr/vrl" }
-                    },
-                    [_vm._v("VEHICLE REQUEST")]
-                  ),
-                  _vm._v(" "),
-                  _c("span", { staticClass: "badge-pill badge-danger" }, [
-                    _vm._v(
-                      "\n                        " +
-                        _vm._s(_vm.vr_approval) +
-                        "\n                    "
-                    )
-                  ]),
-                  _vm._v(" "),
-                  _c("span", { staticClass: "badge badge-info" }, [
-                    _vm._v("New")
-                  ])
-                ]
-              )
-            ])
           ])
         ])
       ])
