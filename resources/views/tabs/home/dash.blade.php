@@ -5,6 +5,16 @@
 @section('content')
 @include('inc.messages')
 <div class='container'>
+    @if (strtotime(date('Y-m-d')) < strtotime(date('2019-2-20')))
+        <div class="row">
+            <div class="col-md">
+                <div class="alert alert-warning" role="alert">
+                    <span class='font-weight-bold mr-2'>SYSTEM UPDATED: </span>
+                    If the sidebar is missing, please hard refresh the page by pressing "CTRL + F5" to clear the cache. Thank you.
+                </div>
+            </div>
+        </div>
+    @endif
     <div class='row'>
         <div class='col-md text-center'>
             {{-- <h1>Dashboard</h1> --}}
@@ -16,17 +26,7 @@
         </div>
     </div>
 </div>
-<div class="container">
-    @if (strtotime(date('Y-m-d')) < strtotime(date('2019-2-20')))
-        <div class="row">
-            <div class="col-md">
-                <div class="alert alert-warning" role="alert">
-                    <span class='font-weight-bold mr-2'>SYSTEM UPDATED: </span>
-                    If the sidebar is missing, please hard refresh the page by pressing "CTRL + F5" to clear the cache. Thank you.
-                </div>
-            </div>
-        </div>
-    @endif    
+<div class="container">        
     {{-- Handled Ticket and Requests --}}
     @if(Auth::user()->tech == 1)
     <div class="row mb-5">
