@@ -37,8 +37,13 @@
                                 <div class='row' style="font-size:1rem">
                                     <div class='col-md' style='overflow:hidden;text-overflow:ellipsis; white-space: nowrap ;width:380px'>
                                         <a href=" {{ url('/hr/vrv/'.$vrequest->id) }} ">{{ $vrequest->purpose }}</a>
-                                    </div>                                                                                
-                                </div>                                
+                                    </div>                                                                                                                  
+                                </div>
+                                <div class="row">
+                                    <div class="col-md">
+                                        <span class='text-muted' style='font-size:.8rem'>{{ $vrequest->vehicle_request_serial }}</span>
+                                    </div>
+                                </div>                              
                             </th>
                             <th>
                                 <div class="row">

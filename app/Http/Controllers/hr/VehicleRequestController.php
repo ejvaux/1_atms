@@ -24,7 +24,6 @@ class VehicleRequestController extends Controller
     }
     public function vehiclelistview()
     {
-        $vrequestcount = 0;
         if (Auth::user()->isadmin()) {
             $vrequests = VehicleRequest::where('approval_id','!=',$this->vrequestapprovaltypes->count())->orderBy('approval_id')->paginate('10');
         } else {
@@ -137,5 +136,61 @@ class VehicleRequestController extends Controller
         }        
 
         return redirect()->back()->with('success','Vehicle Request Approved Successfully.');
+    }
+    public function searchvehiclelistview($id)
+    {
+        if(Auth::user()->isadmin()){
+            $vrequests = VehicleRequest::where('vehicle_request_serial','LIKE','%'.$id.'%')->paginate('10');
+        } elseif (Auth::user()->hrvr_approval_type != 0){
+            $vrequests = VehicleRequest::where('vehicle_request_serial','LIKE','%'.$id.'%')->where(function($query)
+                            {
+                                if (Auth::user()->hrvr_approval_type == 1 || Auth::user()->hrvr_approval_type == 2) {
+                                    $query->where('approval_id','>=',Auth::user()->hrvr_approval_type)
+                                    ->where('department_id',Auth::user()->hrvr_approval_dept);
+                                } elseif (Auth::user()->hrvr_approval_type == 3 || Auth::user()->hrvr_approval_type == 4) {
+                                    $query->where('approval_id','>=',Auth::user()->hrvr_approval_type);
+                                }                                
+                            })
+                            ->orderByRaw(
+                                "CASE
+                                WHEN `approval_id` = ". Auth::user()->hrvr_approval_type ." THEN 1
+                                ELSE 2 END DESC"
+                            )
+                            ->paginate('10');
+        } else {
+            $vrequests = VehicleRequest::where('vehicle_request_serial','LIKE','%'.$id.'%')->where('created_by',Auth::user()->id)
+                ->orderBy('approval_id')
+                ->paginate('10');
+        }
+        $vrequestapprovaltypes = $this->vrequestapprovaltypes;
+        return view('tabs.hr.vrl',compact('vrequests','vrequestapprovaltypes'));
+    }
+    public function searchvehicleapprovedlistview($id)
+    {
+        if(Auth::user()->isadmin()){
+            $vrequests = VehicleRequest::where('vehicle_request_serial','LIKE','%'.$id.'%')->paginate('10');
+        } elseif (Auth::user()->hrvr_approval_type != 0){
+            $vrequests = VehicleRequest::where('vehicle_request_serial','LIKE','%'.$id.'%')->where(function($query)
+                            {
+                                if (Auth::user()->hrvr_approval_type == 1 || Auth::user()->hrvr_approval_type == 2) {
+                                    $query->where('approval_id','>=',Auth::user()->hrvr_approval_type)
+                                    ->where('department_id',Auth::user()->hrvr_approval_dept);
+                                } elseif (Auth::user()->hrvr_approval_type == 3 || Auth::user()->hrvr_approval_type == 4) {
+                                    $query->where('approval_id','>=',Auth::user()->hrvr_approval_type);
+                                }                                
+                            })
+                            ->orderByRaw(
+                                "CASE
+                                WHEN `approval_id` = ". Auth::user()->hrvr_approval_type ." THEN 1
+                                ELSE 2 END DESC"
+                            )
+                            ->paginate('10');
+        } else {
+            $vrequests = VehicleRequest::where('vehicle_request_serial','LIKE','%'.$id.'%')->where('created_by',Auth::user()->id)
+                ->orderBy('approval_id')
+                ->paginate('10');
+        }
+        $vrequestapprovaltypes = $this->vrequestapprovaltypes;
+        return view('tabs.hr.vra',compact('vrequests','vrequestapprovaltypes'));
     }
 }

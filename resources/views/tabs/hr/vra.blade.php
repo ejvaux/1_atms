@@ -23,8 +23,8 @@
         <div class="col-md-4 ml-auto">
             <form>
                 <div class="input-group">
-                    <input type="text" class="form-control" id="searchtextbox" placeholder="Enter vehicle request number . . .">
-                    <button type="button" id="search"><i class="fa fa-search"></i></button>
+                    <input type="text" class="form-control" id="searchtextbox" placeholder="SEARCH: Enter request #. . .">
+                    <button type="button" id="search" value='/1_atms/public/hr/vra/'><i class="fa fa-search"></i></button>
                 </div>               
             </form>
         </div>

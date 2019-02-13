@@ -19,15 +19,15 @@
             <a class='btn btn-secondary' href='/1_atms/public/hr/cvr'><i class="fa fa-plus-square"></i> Create Vehicle Request</a>
             @if (Auth::user()->hrvr_approval_type == 0 && Auth::user()->admin == 0)
             @else
-                <a class="btn btn-secondary" href='../hr/vra'><i class="fas fa-thumbs-up"></i> Approved</a>
+            <a class="btn btn-secondary" href='{{ url('/hr/vra') }}'><i class="fas fa-thumbs-up"></i> Approved</a>
             @endif            
             {{-- <a class="btn btn-secondary" href='#'><i class="fas fa-ban"></i> Declined</a> --}}
         </div>        
         <div class="col-md-4 ml-auto">
             <form>
                 <div class="input-group">
-                    <input type="text" class="form-control" id="searchtextbox" placeholder="Enter vehicle request number . . .">
-                    <button type="button" id="search"><i class="fa fa-search"></i></button>
+                    <input type="text" class="form-control" id="searchtextbox" placeholder="SEARCH: Enter request #. . .">
+                    <button type="button" id="search" value='/1_atms/public/hr/vrl/'><i class="fa fa-search"></i></button>
                 </div>               
             </form>
         </div>
