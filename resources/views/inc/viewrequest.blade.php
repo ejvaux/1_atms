@@ -304,101 +304,7 @@
                                         <span class='font-weight-bold' style='font-size:1rem'>Assigned to {{ $request->assign->name }}</span>
                                     @endif                           
                                 @endif
-                            @endif
-    
-                            {{-- @if($request->status_id == 1)
-                                <button type='button' id='assign_request' class='btn btn-secondary'>Assign Request</button>
-                                @if($request->assigned_to == '')
-                                    <button type='button' id='assign_request' class='btn btn-secondary'>Assign Request</button>
-                                @else
-                                    @if($request->status_id == 2)
-                                        <button type='button' id='assign_request' class='btn btn-secondary'>Reassign Request </button>
-                                    @endif
-                                        <span class='font-weight-bold' style='font-size:1rem'>Assigned to {{ $request->assign->name }}</span> 
-                                @endif
-                                <span class='font-weight-bold' id='assign_label' style='font-size:1rem'></span> 
-                                <form class='form_to_submit' method='POST' action='/1_atms/public/cctvreview/{{ $request->id }}'>
-                                    @method('PUT')
-                                    @csrf
-                                    <input type='hidden' name='status_id' value='2'>
-                                    <input type='hidden' name='mod' value='assign'>
-                                    <input type='hidden' name='assigner' value='{{ Auth::user()->name }}'>
-                                    <input type='hidden' name='url' value='/it/htv/{{ $request->id }}'>
-                                    <input type='hidden' name='request_id' value='{{ $request->id }}'>
-                                    <div class='input-group' id='req_assigned_to' style='display:none'>
-                                        <select type="text" class="form-control" id="assigned_to" name="assigned_to" placeholder="" required>
-                                            <option value="">- Select Tech -</option>                            
-                                            @foreach($techs as $tech)                                            
-                                                <option value="{{$tech->id}}">{{$tech->name}}</option>
-                                            @endforeach
-                                        </select>
-                                        <button type='submit' class='btn btn-secondary form_submit_button'>Assign</button>
-                                        <button type='button' id='req_cancel_assign' class='btn btn-warning'>Cancel</button>
-                                    </div>                                                                          
-                                </form>
-                            @elseif($request->status_id == 2)                        
-                                @if($request->assigned_to == Auth::user()->id)
-                                    <form class='form_to_submit' method='POST' action='/1_atms/public/cctvreview/{{ $request->id }}'>
-                                        @method('PUT')
-                                        @csrf
-                                        <input type='hidden' name='status_id' value='3'>
-                                        <input type='hidden' name='mod' value='accept'>
-                                        <input id='datenow' type='hidden' name='start_at' value="{{ Date('Y-m-d H:i:s') }}">
-                                        <input type='hidden' name='url' value='/it/vt/{{ $request->id }}'>
-                                        <button type='submit' id='accept_ticket' class='btn btn-secondary form_submit_button'>Accept Ticket</button>
-                                    </form>
-                                @else
-                                    <span class='font-weight-bold' style='font-size:1rem'>Assigned to {{ $request->assign->name }}</span>
-                                @endif
-                            @elseif(!($request->status_id == 1 || $request->status_id == 2))
-                                @if($request->assigned_to != null)                         
-                                    @if($request->assigned_to == Auth::user()->id)
-                                        <form class='form_to_submit' method='POST' action='/1_atms/public/cctvreview/{{ $request->id }}'>
-                                                @method('PUT')
-                                                @csrf
-                                            <div class='input-group' id='req_change_priority' style='display:none'>
-                                                <select type="text" class="form-control" name="priority_id" placeholder="" required >
-                                                    <option value="">- Select Priority -</option>
-                                                    @foreach($priorities as $priority)
-                                                        @if($priority->id != $request->priority_id)
-                                                            <option value="{{$priority->id}}">{{$priority->name}}</option>
-                                                        @endif                                                    
-                                                    @endforeach
-                                                </select>
-                                                <input type='hidden' name='mod' value='priority'>
-                                                <input type='hidden' name='url' value='/it/vt/{{ $request->id }}'>
-                                                <button type='submit' class='btn btn-secondary form_submit_button'>Change</button>
-                                                <button type='button' id='req_cancel_change_priority' class='btn btn-warning'>Cancel</button>
-                                            </div>
-                                        </form>
-                                        <form class='form_to_submit' id='req_change_status_form' method='POST' action='/1_atms/public/cctvreview/{{ $request->id }}'>
-                                                @method('PUT')
-                                                @csrf
-                                            <div class='input-group' id='req_change_status' style='display:none'>
-                                                <select type="text" class="form-control" id='req_change_status_id' name="status_id" placeholder="" required>
-                                                    <option value="">- Select Status -</option>
-                                                    @foreach($statuses as $status)
-                                                        @if(!($status->id == $request->status_id || $status->id == 1 || $status->id == 2 || $status->id == 6))                                                        
-                                                            <option value="{{$status->id}}">{{$status->name}}</option>
-                                                        @endif                                                    
-                                                    @endforeach
-                                                </select>                                            
-                                                <input type='hidden' name='mod' value='escalate'>
-                                                <input type='hidden' name='url' value='/it/vt/{{ $request->id }}'>
-                                                <button type='submit' class='btn btn-secondary form_submit_button'>Change</button>
-                                                <button type='button' id='req_cancel_change_status' class='btn btn-warning'>Cancel</button>
-                                            </div>
-                                        </form>
-                                        <div id='req_change_buttons'>
-                                            <button type='button' id='req_change_priority_button' class='btn btn-secondary'>Change Priority</button>
-                                            <button type='button' id='req_change_status_button' class='btn btn-secondary'>Change Status</button>
-                                            <button type='button' id='add_review_details' class='btn btn-secondary'>Request Details</button>                                        
-                                        </div>
-                                    @else
-                                        <span class='font-weight-bold' style='font-size:1rem'>Assigned to {{ $request->assign->name }}</span>
-                                    @endif                           
-                                @endif
-                            @endif --}}                                                                                                         
+                            @endif                                                                                                        
                         </div>
                         <div class='col-md-7'>
                             @if($request->attach != null)
@@ -497,7 +403,7 @@
                     @method('PUT')
                     @csrf
                     <input type='hidden' name='mod' value='detail'>
-                    <div class="row mb-2">
+                    {{-- <div class="row mb-2">
                         <div class="col-md-2">
                             <label class='font-weight-bold'><span class='text-muted'>ROOT CAUSE:</span></label>      
                         </div>                    
@@ -514,14 +420,14 @@
                             <textarea name='action' class='review_details_edit' style='display:none; width:100%'>{{ $request->action }}</textarea>
                             <p class='review_details_display'>{{ $request->action }}</p>       
                         </div>  
-                    </div>
+                    </div> --}}
                     <div class="row mb-2">
                         <div class="col-md-2">
-                            <label class='font-weight-bold'><span class='text-muted'>RESULT:</span></label>      
+                            <label class='font-weight-bold'><span class='text-muted'>FINDINGS:</span></label>      
                         </div>                    
                         <div class="col-md" style='max-height: 15vh; overflow:hidden; overflow-y: scroll'>
-                            <textarea name='result' class='review_details_edit' style='display:none; width:100%'>{{ $request->result }}</textarea>
-                            <p class='review_details_display'>{{ $request->result }}</p>       
+                            <textarea name='result' class='review_details_edit' style='display:none; width:100%'>{{ $request->action }}. {{ $request->root }}. {{ $request->result }}</textarea>
+                            <p class='review_details_display'>{{ $request->action }}. {{ $request->root }}. {{ $request->result }}</p>       
                         </div>  
                     </div>
                     <div class="row mb-2">

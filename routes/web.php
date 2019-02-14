@@ -187,6 +187,7 @@ Route::get('/hr/vrl','hr\VehicleRequestController@vehiclelistview');
 Route::get('/hr/cvr','hr\VehicleRequestController@createvehiclerequest');
 Route::get('/hr/vrv/{id}','hr\VehicleRequestController@viewvehiclerequest');
 Route::get('/hr/vra','hr\VehicleRequestController@vehicleapprovedlistview');
+// Search
 Route::get('/hr/vrl/{id}','hr\VehicleRequestController@searchvehiclelistview');
 Route::get('/hr/vra/{id}','hr\VehicleRequestController@searchvehicleapprovedlistview');
 // Approval 

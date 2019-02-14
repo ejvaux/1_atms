@@ -29,9 +29,7 @@ class ReviewsExport implements FromQuery, WithHeadings, WithMapping, WithStrictN
             'SUBJECT',
             'DESCRIPTION',
             'TECH',
-            'ROOT CAUSE',
-            'ACTION',
-            'RESULT',
+            'FINDINGS',
             'RECOMMENDATION',
             'APPROVED',
             'APPROVER',
@@ -65,6 +63,7 @@ class ReviewsExport implements FromQuery, WithHeadings, WithMapping, WithStrictN
         else{
             $apprvr = '';
         }
+        $findings = $query->root .'. '. $query->action .'. '. $query->result;
 
         return [
             $query->request_id,
@@ -78,9 +77,7 @@ class ReviewsExport implements FromQuery, WithHeadings, WithMapping, WithStrictN
             $query->subject,
             $query->message,
             $tech,
-            $query->root,
-            $query->action,
-            $query->result,
+            $findings,
             $query->recommend,
             $apprvd,
             $apprvr,
