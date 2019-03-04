@@ -120,7 +120,9 @@ class DashboardController extends Controller
     {   
         /* $users = User::paginate(20); */
         $users = User::where('name','like','%'.$id.'%')->orWhere('email','like','%'.$id.'%')->paginate(20);
-        return view('tabs.admin.role',compact('users'));
+        $hr_vr_approval_types = VehicleApprovalType::orderBy('id')->get();
+        $departments = $this->departments;
+        return view('tabs.admin.role',compact('users','hr_vr_approval_types','departments'));
     }
     public function viewexporttab()
     {
