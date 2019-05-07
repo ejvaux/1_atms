@@ -52,7 +52,7 @@ class CctvReviewsController extends Controller
             'priority_id' => 'required',
             'department_id' => 'required',          
             'message' => 'required',     
-            'report' => 'max:20480|mimes:doc,pdf,docx,zip,ods,xlr,xls,xlsx',       
+            'report' => 'max:2048|mimes:doc,pdf,docx,zip,ods,xlr,xls,xlsx',       
         ]);
 
         // Handle File Upload
