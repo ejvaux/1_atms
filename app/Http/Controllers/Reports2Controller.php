@@ -611,7 +611,7 @@ class Reports2Controller extends Controller
             'fontName'=> 'Roboto Slab',
             ]);
         
-        return view('tabs.it.reports2.crpyear',compact('ticketdepartmentchart','data','totalticketchart','newticket','openticket','assignedticket','totalresolvedticket','trtime','trentime','rtime'));
+        return view('tabs.it.reports2.crpyear',compact(/* 'ticketdepartmentchart','data','totalticketchart', */'newticket','openticket','assignedticket','totalresolvedticket','trtime','trentime','rtime'));
     }
 
     // RANGE
@@ -764,6 +764,6 @@ class Reports2Controller extends Controller
             'fontName'=> 'Roboto Slab',
             ]);
         
-        return view('tabs.it.reports2.crpcustom',compact('totalticketchart','newticket','openticket','assignedticket','totalresolvedticket','trtime','trentime','rtime'));
+        return view('tabs.it.reports2.crpcustom',compact(/* 'totalticketchart', */'newticket','openticket','assignedticket','totalresolvedticket','trtime','trentime','rtime'));
     }
 }

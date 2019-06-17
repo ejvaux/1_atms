@@ -1,4 +1,4 @@
-@if(count($tickets)>0)
+@if($tickets)
 <div class="row mb-4">
     <div class='col-md'>
         <div class="card" style='width:100%'>

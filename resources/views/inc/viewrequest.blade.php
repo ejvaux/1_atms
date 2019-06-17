@@ -1,4 +1,4 @@
-@if(count($request)>0)
+@if($request)
     @if ($request->user_id == Auth::user()->id || Auth::user()->admin == 1 || Auth::user()->req_approver == 1 || Auth::user()->id == $request->assigned_to)
     <div class='row mb-4'>
         <div class='col-md'>

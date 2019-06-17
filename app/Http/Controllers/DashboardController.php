@@ -89,8 +89,8 @@ class DashboardController extends Controller
 
         return view('tabs.home.dash',compact('openticket','queuedticket','inprogressticket','pendingticket','resolvedticket','closedticket',
                                             'forapprovalrequest','approvedrequest','queuedrequest','inprogressrequest','pendingrequest','donerequest',
-                                            'openticketh','queuedticketh','inprogressticketh','pendingticketh','resolvedticketh','closedticketh',
-                                            'forapprovalrequesth','approvedrequesth','queuedrequesth','inprogressrequesth','pendingrequesth','donerequesth'));
+                                            /* 'openticketh', */'queuedticketh','inprogressticketh','pendingticketh','resolvedticketh','closedticketh',
+                                            /* 'forapprovalrequesth','approvedrequesth', */'queuedrequesth','inprogressrequesth','pendingrequesth','donerequesth'));
     }
 
     // USER

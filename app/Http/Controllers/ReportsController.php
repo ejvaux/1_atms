@@ -178,7 +178,7 @@ class ReportsController extends Controller
             /* 'backgroundColor'   => '#F8F9F9', */
             ]);
         
-        return view('tabs.it.reports.rptoday',compact('ticketdepartmentchart','data','totalticketchart','newticket','openticket','assignedticket','totalresolvedticket','trtime','trentime','rtime','ticketbytech'));
+        return view('tabs.it.reports.rptoday',compact(/* 'ticketdepartmentchart','data','totalticketchart', */'newticket','openticket','assignedticket','totalresolvedticket','trtime','trentime','rtime'/* ,'ticketbytech' */));
     }
 
     // WEEK
@@ -361,7 +361,7 @@ class ReportsController extends Controller
             /* 'backgroundColor'   => '#F8F9F9', */
             ]);
         
-        return view('tabs.it.reports.rpweek',compact('ticketdepartmentchart','data','totalticketchart','newticket','openticket','assignedticket','totalresolvedticket','trtime','trentime','rtime'));
+        return view('tabs.it.reports.rpweek',compact(/* 'ticketdepartmentchart','data','totalticketchart', */'newticket','openticket','assignedticket','totalresolvedticket','trtime','trentime','rtime'));
     }
 
     // MONTH 
@@ -544,7 +544,7 @@ class ReportsController extends Controller
             /* 'backgroundColor'   => '#F8F9F9', */
             ]);
         
-        return view('tabs.it.reports.rpmonth',compact('ticketdepartmentchart','data','totalticketchart','newticket','openticket','assignedticket','totalresolvedticket','trtime','trentime','rtime'));
+        return view('tabs.it.reports.rpmonth',compact(/* 'ticketdepartmentchart','data','totalticketchart', */'newticket','openticket','assignedticket','totalresolvedticket','trtime','trentime','rtime'));
     }
 
     // YEAR
@@ -727,7 +727,7 @@ class ReportsController extends Controller
             /* 'backgroundColor'   => '#F8F9F9', */
             ]);
         
-        return view('tabs.it.reports.rpyear',compact('ticketdepartmentchart','data','totalticketchart','newticket','openticket','assignedticket','totalresolvedticket','trtime','trentime','rtime'));
+        return view('tabs.it.reports.rpyear',compact(/* 'ticketdepartmentchart','data','totalticketchart', */'newticket','openticket','assignedticket','totalresolvedticket','trtime','trentime','rtime'));
     }
 
     // RANGE
@@ -901,6 +901,6 @@ class ReportsController extends Controller
             /* 'backgroundColor'   => '#F8F9F9', */
             ]);
         
-        return view('tabs.it.reports.rpcustom',compact('ticketdepartmentchart','data','totalticketchart','newticket','openticket','assignedticket','totalresolvedticket','trtime','trentime','rtime'));
+        return view('tabs.it.reports.rpcustom',compact(/* 'ticketdepartmentchart','data','totalticketchart', */'newticket','openticket','assignedticket','totalresolvedticket','trtime','trentime','rtime'));
     }
 }
