@@ -41,7 +41,7 @@
                         <th>REQ_APPRVR</th>
                         <th>LEVEL</th> --}}
                         <th>USER ROLES</th>
-                        <th>DEL</th>
+                        {{-- <th>DEL</th> --}}
                     </tr>
                 </thead>
                 <tbody>
@@ -88,7 +88,7 @@
                                         <option value='3'@if($user->level == 3) selected @endif>3</option>
                                     </select>
                                 </th> --}}                                
-                                <th>
+                                {{-- <th>
                                     @if($user->id != Auth::user()->id)
                                         <form id='delete_user_form{{ $user->id }}' method='POST' action='/1_atms/public/users/{{ $user->id }}'>
                                             @method('DELETE')
@@ -96,10 +96,7 @@
                                             <button type='button' id='delete_user' class='btn btn-danger p-0 px-2 m-0 delete_user' value="{{ $user->id }}">X</button>
                                         </form>
                                     @endif
-                                    {{-- <button type="button" class="btn btn-danger p-0 px-2 m-0" value="">
-                                        <span style="font-size:.8rem">X</span>
-                                    </button> --}}
-                                </th>
+                                </th> --}}
                             </tr>
                         @endforeach                
                     @else
