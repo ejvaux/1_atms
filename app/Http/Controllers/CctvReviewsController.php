@@ -153,7 +153,7 @@ class CctvReviewsController extends Controller
     public function update(Request $request, $id)
     {
         $request->validate([
-            'attach.*' => 'image|mimes:jpeg,png,jpg,gif,svg,bmp|nullable|max:10000',
+            'attach.*' => 'mimes:jpeg,png,jpg,gif,svg,bmp,doc,pdf,docx,zip,ods,xlr,xls,xlsx|nullable|max:10000',
         ]);
 
         // Handle File Upload
@@ -273,7 +273,7 @@ class CctvReviewsController extends Controller
     public function addimage(Request $request, $id)
     {
         $request->validate([
-            'attach.*' => 'image|mimes:jpeg,png,jpg,gif,svg|required|max:10000',
+            'attach.*' => 'mimes:jpeg,png,jpg,gif,svg,bmp,doc,pdf,docx,zip,ods,xlr,xls,xlsx|nullable|max:10000',
         ]);
         $req = CctvReview::where('id',$id)->first();
         // Handle File Upload

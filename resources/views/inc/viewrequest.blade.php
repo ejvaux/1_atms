@@ -312,7 +312,7 @@
                                     <a class='btn btn-secondary' id='c_attach' href="{{ url('/cr/crda/'.$request->id) }}" >See Attachments</a>
                                 @endif                                
                                 @if(Auth::user()->id == $request->assigned_to)
-                                <button id='addimagebtn' class='btn btn-secondary'>Add Images</button>
+                                <button id='addimagebtn' class='btn btn-secondary'>Add Attachments</button>
                                 <div id='addimageinput' style='display:none'>
                                     <form id='addimageform' class='form_to_submit' method='POST' action='{{ url('/cctvreview/addimage/'.$request->id) }}' enctype="multipart/form-data">
                                         @method('PUT')
